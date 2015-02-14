@@ -10,17 +10,25 @@ import javax.persistence.Id;
 public class FailureType {
 
     @Id
-    private int failureCode;
+    private Integer failureCode;
     private String description;
 
     public FailureType() {
     }
 
-    public FailureType(int failureCode, String descrption) {
+    public FailureType(Integer failureCode, String descrption) {
         super();
         this.failureCode = failureCode;
         this.description = descrption;
     }
+    
+    public boolean hasRequiredFields(){
+        if(failureCode != null){
+            return true;
+        }
+        return false;
+    }
+    
 
     public int getFailureCode() {
         return failureCode;

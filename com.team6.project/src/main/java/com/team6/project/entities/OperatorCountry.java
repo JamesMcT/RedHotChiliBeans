@@ -15,9 +15,9 @@ public class OperatorCountry implements Serializable{
 
     private static final long serialVersionUID = -8219455084678368540L;
     @Id
-    private int mcc;
+    private Integer mcc;
     @Id
-    private int mnc;
+    private Integer mnc;
     private String country;
     private String operator;
     
@@ -30,20 +30,27 @@ public class OperatorCountry implements Serializable{
         this.country = country;
         this.operator = operator;
     }
+    
+    public boolean hasRequiredFields(){
+        if(mcc != null & mnc != null){
+            return true;
+        }
+        return false;
+    }
 
-    public int getMcc() {
+    public Integer getMcc() {
         return mcc;
     }
 
-    public void setMcc(int mcc) {
+    public void setMcc(Integer mcc) {
         this.mcc = mcc;
     }
 
-    public int getMnc() {
+    public Integer getMnc() {
         return mnc;
     }
 
-    public void setMnc(int mnc) {
+    public void setMnc(Integer mnc) {
         this.mnc = mnc;
     }
 
@@ -63,5 +70,6 @@ public class OperatorCountry implements Serializable{
         this.operator = operator;
     }
 
+  
     
 }

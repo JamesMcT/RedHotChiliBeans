@@ -8,14 +8,14 @@ import java.io.Serializable;
 public class OperatorCountryPK implements Serializable {
 
     private static final long serialVersionUID = -8462976575139159548L;
-    private int mcc;
-    private int mnc;
+    private Integer mcc;
+    private Integer mnc;
 
     public OperatorCountryPK() {
         // TODO Auto-generated constructor stub
     }
 
-    public OperatorCountryPK(int mcc, int mnc) {
+    public OperatorCountryPK(Integer mcc, Integer mnc) {
         super();
         this.mcc = mcc;
         this.mnc = mnc;

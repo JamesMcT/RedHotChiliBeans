@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class UserEquipment {
 
     @Id
-    private int tac;
+    private Integer tac;
     private String marketingName;
     private String manufacturer;
     private String accessCapability;
@@ -19,12 +19,19 @@ public class UserEquipment {
     private String type;
     private String os;
     private String inputMode;
+    
+    public boolean hasRequiredFields(){
+        if(tac != null){
+            return true;
+        }
+        return false;
+    }
 
-    public int getTac() {
+    public Integer getTac() {
         return tac;
     }
 
-    public void setTac(int tac) {
+    public void setTac(Integer tac) {
         this.tac = tac;
     }
 

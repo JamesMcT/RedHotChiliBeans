@@ -16,34 +16,41 @@ public class EventCause implements Serializable {
 
     private static final long serialVersionUID = -7885704687060461631L;
     @Id
-    private int causeCode;
+    private Integer causeCode;
     @Id
-    private int eventId;
+    private Integer eventId;
     private String description;
 
     public EventCause() {
     }
 
-    public EventCause(int causeCode, int eventId, String description) {
+    public EventCause(Integer eventId, Integer causeCode, String description) {
         super();
         this.causeCode = causeCode;
         this.eventId = eventId;
         this.description = description;
     }
+    
+    public boolean hasRequiredFields(){
+        if(causeCode != null && eventId != null){
+            return true;
+        }
+        return false;
+    }
 
-    public int getCauseCode() {
+    public Integer getCauseCode() {
         return causeCode;
     }
 
-    public void setCauseCode(int causeCode) {
+    public void setCauseCode(Integer causeCode) {
         this.causeCode = causeCode;
     }
 
-    public int getEventId() {
+    public Integer getEventId() {
         return eventId;
     }
 
-    public void setEventId(int eventId) {
+    public void setEventId(Integer eventId) {
         this.eventId = eventId;
     }
 
