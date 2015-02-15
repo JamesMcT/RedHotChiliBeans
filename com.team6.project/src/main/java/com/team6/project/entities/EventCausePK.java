@@ -20,8 +20,6 @@ public class EventCausePK implements Serializable {
         this.eventId = eventId;
     }
     
-    
-
     @Override
     public int hashCode() {
         final int prime = 31;
