@@ -9,7 +9,9 @@ import java.nio.file.Paths;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -17,11 +19,22 @@ import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Stateless;
-import javax.print.DocFlavor.READER;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import com.team6.project.entities.EventCause;
+import com.team6.project.entities.FailureType;
+import com.team6.project.entities.OperatorCountry;
+import com.team6.project.entities.UserEquipment;
+import com.team6.project.readers.BaseDataReader;
+import com.team6.project.readers.EventCauseReader;
+import com.team6.project.readers.FailureTypeReader;
+import com.team6.project.readers.OperatorCountryReader;
+import com.team6.project.readers.Reader;
+import com.team6.project.readers.UserEquipmentReader;
 
 
 /**
@@ -37,17 +50,20 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 @Startup
 @Stateless
 @Singleton
-public class DataImportService implements DataImportServiceLocal{
+public class DataImportService implements DataImportServiceLocal, MapExcelInterface{
 
 	//Responsible for interacting with DAO objects and persisting business entities through same.
 	@EJB
 	private PersistenceService persistenceService;
 	
-	private List<READER> readers;
+	private List<Reader> readers;
 	private HSSFWorkbook workBook;
 	private WatchService directoryWatcher;
 	
 	private final static String WATCH_PATH = "c:/watching/";//TODO: watch a real directory & What will this look like in Linux?
+	
+	//A map of maps, one map for each cached entity type, using entity name as key.
+	private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
 	
 	public DataImportService()
 	{}
@@ -62,6 +78,11 @@ public class DataImportService implements DataImportServiceLocal{
 		addReader(new UserEquipmentReader());
 		addReader(new BaseDataReader());
 		
+		entityMap.put(EventCause.class.getName(), new HashMap<String, EventCause>());
+		entityMap.put(FailureType.class.getName(), new HashMap<String, FailureType>());
+		entityMap.put(OperatorCountry.class.getName(), new HashMap<String, OperatorCountry>());
+		entityMap.put(UserEquipment.class.getName(), new HashMap<String, UserEquipment>());
+		
 		//Start directory atching service
 		startDirectoryWatcher();
 	}
@@ -71,8 +92,8 @@ public class DataImportService implements DataImportServiceLocal{
 	   from attempting to upload data simultaneously. Upload/input is not thought 
 	   be a very frequent activity, so this restriction should not affect throughput.*/
 	public synchronized void processExcelFile(File file){
-		for(Reader r:readers{
-			r.processExcelFile(file, persistenceService);
+		for(Reader r:readers){
+			r.processExcelFile(this);
 		}
 	}
 	
@@ -82,12 +103,16 @@ public class DataImportService implements DataImportServiceLocal{
 	
 	private void startDirectoryWatcher(){
 		
-		directoryWatcher = FileSystems.getDefault().newWatchService();
+		try 
+		{directoryWatcher = FileSystems.getDefault().newWatchService();} 
+		catch (IOException e) 
+		{e.printStackTrace();}
+		
 		new Thread(){
 			public void run(){
 				watchDirectory();
 			}
-		}.start();;
+		}.start();
 	}
 	
 	private void watchDirectory(){
@@ -159,6 +184,19 @@ public class DataImportService implements DataImportServiceLocal{
 		    }
 		}
 		
+	}
+
+	@Override
+	public HSSFSheet getSheet(String sheetName) {
+		return workBook.getSheet(sheetName);
+	}
+
+	@Override
+	public Map getMap(String key) {
+		if(entityMap.containsKey(key)){
+			return entityMap.get(key);
+		}
+		return null;
 	}
 	
 }
