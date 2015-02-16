@@ -17,9 +17,15 @@ import com.team6.project.entities.EventCausePK;
 @Local
 public class FakeEventCauseDAO implements EventCauseDAO{
 
-	private static  Map<Integer, EventCause> events = new HashMap<Integer, EventCause>();
+	//private static  Map<Integer, EventCause> events = new HashMap<Integer, EventCause>();
+	
+	private static Map<EventCausePK, EventCause> events = new HashMap<EventCausePK, EventCause>();
+	
     static {
-    	events.put(961, new EventCause(0, 0, "RCC CONN SETUP - SUCCESS"));
+    	
+    	events.put(new EventCausePK(0,0), new EventCause(0, 0, "RCC CONN SETUP - SUCCESS"));
+    	
+    	//TODO: Fix like line above
     	events.put(962, new EventCause(0, 1, "RCC CONN SETUP - REJECT DUE TO OVERLOAD"));
     	events.put(992, new EventCause(1, 0, "INITIAL CTXT SETUP - SUCCESS"));
     	events.put(993, new EventCause(1, 1, "INITIAL CTXT SETUP - ONGOING HANDOVER"));
