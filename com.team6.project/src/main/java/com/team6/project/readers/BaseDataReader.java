@@ -122,7 +122,7 @@ public class BaseDataReader extends Reader {
         return bigInt;
     }
 
-    private IValidator createValidator() {
+    public static IValidator createValidator() {
         AllTrueCompositeValidator validator = new AllTrueCompositeValidator();
         validator.add(new DateValidator());
         validator.add(new EventCauseValidator());

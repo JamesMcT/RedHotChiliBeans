@@ -9,17 +9,23 @@ import com.team6.project.services.MapExcelInterface;
 
 /**
  * Validates the MCC and the MNC to guarantee the FK satisfied
- * @author Cristiana 
+ * 
+ * @author Cristiana
  */
 public class OperatorCountryValidator implements IValidator {
 
     @Override
-    public boolean isValid(Record record, BaseData baseData, MapExcelInterface service) {
-        OperatorCountryPK pk = new OperatorCountryPK(record.getMcc(), record.getMnc());
-        OperatorCountry oc = (OperatorCountry)service.getMap(OperatorCountryReader.getName()).get(pk);
-        if (oc != null) {
-            baseData.setOperatorCountry(oc);
-            return true;
+    public boolean isValid(Record record, BaseData baseData,
+            MapExcelInterface service) {
+        if (record.getMcc() != null && record.getMnc() != null) {
+            OperatorCountryPK pk = new OperatorCountryPK(record.getMcc(),
+                                                         record.getMnc());
+            OperatorCountry oc = (OperatorCountry) service
+                    .getMap(OperatorCountryReader.getName()).get(pk);
+            if (oc != null) {
+                baseData.setOperatorCountry(oc);
+                return true;
+            }
         }
         record.setDescription("Not valid MCC / MNC");
         return false;

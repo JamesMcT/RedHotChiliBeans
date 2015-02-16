@@ -29,8 +29,8 @@ public class FailureTypeReader extends Reader {
             FailureType failure = new FailureType();
             failure.setFailureCode(getIntegerFromCell(row.getCell(0)));
             failure.setDescrption(getStringFromCell(row.getCell(1)));
-            if (!failure.hasRequiredFields()) {
-                if (service.getMap(NAME).containsKey(failure.getFailureCode())) {
+            if (failure.hasRequiredFields()) {
+                if (!service.getMap(NAME).containsKey(failure.getFailureCode())) {
                     service.getMap(NAME).put(failure.getFailureCode(), failure);
                     // persistence.persist(failure);
                 }
