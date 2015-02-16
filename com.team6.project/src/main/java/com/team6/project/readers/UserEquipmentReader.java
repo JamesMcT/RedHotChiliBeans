@@ -41,9 +41,9 @@ public class UserEquipmentReader extends Reader {
                     service.getMap(NAME).put(userEquip.getTac(), userEquip);
                     // persistence.persist(failure);
                 }
-                // It is already in the map
+                else{
+                }
             } else {
-                // Data corrupted write Log file
             }
             currentRow++;
         }

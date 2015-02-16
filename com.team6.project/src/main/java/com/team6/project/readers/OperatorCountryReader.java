@@ -42,9 +42,9 @@ public class OperatorCountryReader extends Reader {
                     service.getMap(NAME).put(pk, operatorCountry);
                     // persistence.persist(failure);
                 }
-                // It is already in the map
+                else{
+                }
             } else {
-                // Data corrupted write Log file
             }
             currentRow++;
         }

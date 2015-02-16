@@ -28,15 +28,15 @@ public class FailureTypeReader extends Reader {
             HSSFRow row = sheet.getRow(currentRow);
             FailureType failure = new FailureType();
             failure.setFailureCode(getIntegerFromCell(row.getCell(0)));
-            failure.setDescrption(getStringFromCell(row.getCell(1)));
+            failure.setDescription(getStringFromCell(row.getCell(1)));
             if (failure.hasRequiredFields()) {
                 if (!service.getMap(NAME).containsKey(failure.getFailureCode())) {
                     service.getMap(NAME).put(failure.getFailureCode(), failure);
                     // persistence.persist(failure);
                 }
-                // It is already in the map
+                else{
+                }
             } else {
-                // Data corrupted write Log file
             }
             currentRow++;
         }

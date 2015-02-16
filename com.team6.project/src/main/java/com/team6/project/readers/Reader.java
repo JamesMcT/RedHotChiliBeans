@@ -2,6 +2,9 @@ package com.team6.project.readers;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.logging.Logger;
+
+import javassist.Loader;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Cell;
@@ -19,6 +22,8 @@ import com.team6.project.services.MapExcelInterface;
  */
 public abstract class Reader {
 
+    //protected static org.apache.log4j.Logger readerLogger =org.apache.log4j.Logger.getLogger(Reader.class);
+    protected final static Logger readerLogger = Logger.getLogger(Loader.class.getName());
     protected int currentRow;
     protected static int FIRSTROW = 1;
 
