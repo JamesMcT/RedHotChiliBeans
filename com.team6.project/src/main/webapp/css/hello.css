@@ -1,0 +1,38 @@
+@CHARSET "UTF-8";
+
+body {
+    padding: 10px !important;   
+}
+
+.ng-table {
+    border: 1px solid #000;
+}
+
+table {
+    width:100%;
+    font-style: italic;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table th, td {
+    padding: 5px;
+    text-align: left;
+}
+#t01 tr:nth-child(even) {
+    background-color: #eee;
+}
+#t01 tr:nth-child(odd) {
+   background-color:#fff;
+}
+#t01 th	{
+    background-color: black;
+    color: white;
+}
+
+
+.scrollit {
+    overflow:scroll;
+    height:300px;
+}
