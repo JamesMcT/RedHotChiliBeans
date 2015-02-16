@@ -8,23 +8,28 @@ import com.team6.project.readers.EventCauseReader;
 import com.team6.project.services.MapExcelInterface;
 
 /**
- * Validates the EventId and the CauseCode to guarantee the FK satisfied 
+ * Validates the EventId and the CauseCode to guarantee the FK satisfied
+ * 
  * @author Cristiana
  */
 public class EventCauseValidator implements IValidator {
 
     @Override
-    public boolean isValid(Record record, BaseData baseData, MapExcelInterface service) {
-        EventCausePK pk = new EventCausePK(record.getEventId(), record.getCauseCode());
-        //If we have service.getEventCauseMap it is not necessary to cast
-        EventCause ec = (EventCause)service.getMap(EventCauseReader.getName()).get(pk);
-        if(ec != null){
-            baseData.setEventCause(ec);
-            return true;
+    public boolean isValid(Record record, BaseData baseData,
+            MapExcelInterface service) {
+        if (record.getEventId() != null && record.getCauseCode() != null) {
+            EventCausePK pk = new EventCausePK(record.getEventId(),
+                                               record.getCauseCode());
+            // If we have service.getEventCauseMap it is not necessary to cast
+            EventCause ec = (EventCause) service.getMap(EventCauseReader
+                                                                .getName())
+                    .get(pk);
+            if (ec != null) {
+                baseData.setEventCause(ec);
+                return true;
+            }
         }
-  
         record.setDescription("Not valid Event Id / Cause Code");
         return false;
     }
-
 }
