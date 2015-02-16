@@ -21,12 +21,12 @@ import com.team6.project.entities.OperatorCountryPK;
 public class FakeOperatorCountryDAO implements OperatorCountryDAO{
 
 	
-	private static  Map<Integer, OperatorCountry> operators = new HashMap<Integer, OperatorCountry>();
+	private static  Map<OperatorCountryPK, OperatorCountry> operators = new HashMap<OperatorCountryPK, OperatorCountry>();
     static {
-    	operators.put(961, new OperatorCountry(0, 0, "Ireland", "Vodafone"));
-    	operators.put(962, new OperatorCountry(0, 1, "Ireland", "Meteor"));
-    	operators.put(992, new OperatorCountry(1, 0, "UK", "Vodafone"));
-    	operators.put(993, new OperatorCountry(1, 1, "UK", "Orange"));
+    	operators.put(new OperatorCountryPK(0, 0), new OperatorCountry(0, 0, "Ireland", "Vodafone"));
+    	operators.put(new OperatorCountryPK(0, 1), new OperatorCountry(0, 1, "Ireland", "Meteor"));
+    	operators.put(new OperatorCountryPK(1, 0), new OperatorCountry(1, 0, "UK", "Vodafone"));
+    	operators.put(new OperatorCountryPK(1, 1), new OperatorCountry(1, 1, "UK", "Orange"));
     }
 	
 	
@@ -36,32 +36,27 @@ public class FakeOperatorCountryDAO implements OperatorCountryDAO{
 	}
 
 	@Override
-	public void addNewOperatorCountryDataSet(OperatorCountry operatorCountry) {
-		
-		OperatorCountryPK ocPK = new OperatorCountryPK(operatorCountry.getMcc(), operatorCountry.getMnc());
-				
-		operators.put(ocPK.hashCode(), operatorCountry);		
+	public void addNewOperatorCountryDataSet(OperatorCountry operatorCountry) {		
+		OperatorCountryPK ocPK = new OperatorCountryPK(operatorCountry.getMcc(), operatorCountry.getMnc());				
+		operators.put(ocPK, operatorCountry);		
 	}
 
 	@Override
 	public void updateOperatorCountry(OperatorCountry operatorCountry) {
-		OperatorCountryPK ocPK = new OperatorCountryPK(operatorCountry.getMcc(), operatorCountry.getMnc());
-		
-		operators.put(ocPK.hashCode(), operatorCountry);	
+		OperatorCountryPK ocPK = new OperatorCountryPK(operatorCountry.getMcc(), operatorCountry.getMnc());		
+		operators.put(ocPK, operatorCountry);	
 	}
 
 	@Override
 	public OperatorCountry findByOperatorCountry(Integer mcc, Integer mnc) {
-		OperatorCountryPK ocPK = new OperatorCountryPK(mcc, mnc);
-		
-		return operators.get(ocPK.hashCode());
+		OperatorCountryPK ocPK = new OperatorCountryPK(mcc, mnc);						
+		return operators.get(ocPK);
 	}
 
 	@Override
 	public void deleteByMccAndMnc(Integer mcc, Integer mnc) {
-		OperatorCountryPK ocPK = new OperatorCountryPK(mcc, mnc);
-		
-		operators.remove(ocPK.hashCode());		
+		OperatorCountryPK ocPK = new OperatorCountryPK(mcc, mnc);		
+		operators.remove(ocPK);		
 	}
 
 	@Override
@@ -69,8 +64,4 @@ public class FakeOperatorCountryDAO implements OperatorCountryDAO{
 		operators.clear();		
 	}
 
-	
-
-	
-	
 }
