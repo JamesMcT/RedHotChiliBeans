@@ -1,0 +1,14 @@
+main INFO  readers.Reader - In sheet UE Table row number 2 already in memory
+main WARN  readers.Reader - In sheet UE Table row number 3 primary key not valued properly
+main WARN  readers.Reader - In sheet UE Table row number 4 primary key not valued properly
+main INFO  readers.Reader - In sheet Failure Class Table row number 6 already in memory
+main WARN  readers.Reader - In sheet Failure Class Table row number 7 primary key not valued properly
+main WARN  readers.Reader - In sheet Failure Class Table row number 8 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 4 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 5 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 6 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 7 primary key not valued properly
+main INFO  readers.Reader - In sheet MCC - MNC Table row number 8 already in memory
+main INFO  readers.Reader - In sheet Event-Cause Table row number 5 already in memory
+main WARN  readers.Reader - In sheet Event-Cause Table row number 6 primary key not valued properly
+main WARN  readers.Reader - In sheet Event-Cause Table row number 7 primary key not valued properly

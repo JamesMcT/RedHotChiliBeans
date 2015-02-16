@@ -53,7 +53,7 @@ public class BaseDataReaderTest {
         record.setHier32Id(new BigInteger("8226896360947470000"));
         record.setHier321Id(new BigInteger("1150444940909480000"));
         Record other = new BaseDataReader().read(sheet);
-        assertTrue(record.asserSameFields(other));
+        assertTrue(record.assertSameFields(other));
                 
     }
 

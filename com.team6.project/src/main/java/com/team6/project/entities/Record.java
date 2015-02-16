@@ -46,7 +46,7 @@ public class Record implements IDescription {
     
     
     
-   public boolean asserSameFields(Record other) {
+   public boolean assertSameFields(Record other) {
         if (causeCode == null) {
             if (other.causeCode != null)
                 return false;
