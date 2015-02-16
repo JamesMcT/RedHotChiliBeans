@@ -8,7 +8,6 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import com.team6.project.dao.UserEquipmentDAO;
-import com.team6.project.entities.FailureType;
 import com.team6.project.entities.UserEquipment;
 
 /**
@@ -21,11 +20,11 @@ import com.team6.project.entities.UserEquipment;
 public class FakeUserEquipmentDAO implements UserEquipmentDAO{
 
 	private static Map<Integer, UserEquipment> uEquipments = new HashMap<Integer, UserEquipment>();
-    static {
-    	uEquipments.put(0, new UserEquipment(00000000,"MN00","SonyEricsson", "GSM 900", "M00", "SonyEricsson", "HANDHELD", "OS00", "BASIC"));
-        uEquipments.put(1, new UserEquipment(11111111,"MN11", "Nokia", "GSM 1800", "M11", "Nokia", "HANDHELD", null, null));
-        uEquipments.put(2, new UserEquipment(22222222,"MN22", "Siemens", "GSM 1900", "M22", "Siemens", null, null, null));       
-    }
+//    static {
+//    	uEquipments.put(0, new UserEquipment(00000000,"MN00","SonyEricsson", "GSM 900", "M00", "SonyEricsson", "HANDHELD", "OS00", "BASIC"));
+//        uEquipments.put(1, new UserEquipment(11111111,"MN11", "Nokia", "GSM 1800", "M11", "Nokia", "HANDHELD", null, null));
+//        uEquipments.put(2, new UserEquipment(22222222,"MN22", "Siemens", "GSM 1900", "M22", "Siemens", null, null, null));       
+//    }
 
     
     public FakeUserEquipmentDAO() {
@@ -54,6 +53,18 @@ public class FakeUserEquipmentDAO implements UserEquipmentDAO{
     	ue.setOs(null);
     	ue.setInputMode(null);
     	uEquipments.put(1, ue);
+    	
+    	ue = new UserEquipment();    	
+    	ue.setTac(22222222);
+    	ue.setMarketingName("MN22");
+    	ue.setManufacturer("Siemens");
+    	ue.setAccessCapability("GSM 1900");
+    	ue.setModel("M22");
+    	ue.setVendorName("Siemens");
+    	ue.setType(null);
+    	ue.setOs(null);
+    	ue.setInputMode(null);
+    	uEquipments.put(2, ue);
     	
 	}
     
