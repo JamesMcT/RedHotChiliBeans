@@ -51,12 +51,12 @@ public class FakeBaseDataDAO implements BaseDataDAO{
 	
 	@Override
 	public Collection<BaseData> getBaseDataRecords() {
-		return baseDataSet.subList(0, baseDataSet.size());		
+		return baseDataSet;
 	}
 
 	@Override
 	public void addNewBaseDataSet(BaseData baseData) {
-		baseDataSet.add(baseData);		
+		baseDataSet.add(baseData);
 	}
 
 	@Override

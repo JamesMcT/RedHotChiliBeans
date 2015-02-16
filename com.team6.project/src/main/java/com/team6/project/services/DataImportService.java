@@ -71,6 +71,10 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 	@PostConstruct
 	private void atStartup(){
 		
+		//TODO
+		//preload into maps
+		
+		
 		//create a reader for each sheet in the excel workbook
 		addReader(new EventCauseReader());
 		addReader(new FailureTypeReader());
@@ -92,9 +96,16 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 	   from attempting to upload data simultaneously. Upload/input is not thought 
 	   be a very frequent activity, so this restriction should not affect throughput.*/
 	public synchronized void processExcelFile(File file){
+		
+		
+		
 		for(Reader r:readers){
 			r.processExcelFile(this);
 		}
+	}
+	
+	PersistenceService getPersistenceService(){
+		return persistenceService;
 	}
 	
 	private void addReader(Reader r){
