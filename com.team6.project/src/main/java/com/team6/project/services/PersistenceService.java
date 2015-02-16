@@ -41,7 +41,7 @@ public class PersistenceService {
 	public PersistenceService(){}
 
 	public void persisiEventCause(EventCause e){
-		eventCause.getAllEventCauses();
+		//eventCause.getAllEventCauses();
 	}
 	
 }

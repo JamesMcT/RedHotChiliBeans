@@ -41,7 +41,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.11</version>
