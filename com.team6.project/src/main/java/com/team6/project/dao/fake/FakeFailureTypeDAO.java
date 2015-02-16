@@ -19,6 +19,8 @@ import com.team6.project.entities.FailureType;
 @Local
 public class FakeFailureTypeDAO implements FailureTypeDAO{
 	
+	//test git working fine
+	
 	
 	private static Map<Integer, FailureType> failures = new HashMap<Integer, FailureType>();
     static {
