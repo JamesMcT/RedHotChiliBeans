@@ -7,10 +7,9 @@ import com.team6.project.entities.FailureType;
 import com.team6.project.services.MapExcelInterface;
 
 /**
- * Reads rows in sheet called Failure Class Table.
- * Create the FailureType object.
- * If the object is not already in the appropriated map
- * it is added and written to the DB
+ * Reads rows in sheet called Failure Class Table. Create the FailureType
+ * object. If the object is not already in the appropriated map it is added and
+ * written to the DB
  * 
  * @author Cristiana
  */
@@ -33,10 +32,13 @@ public class FailureTypeReader extends Reader {
                 if (!service.getMap(NAME).containsKey(failure.getFailureCode())) {
                     service.getMap(NAME).put(failure.getFailureCode(), failure);
                     // persistence.persist(failure);
-                }
-                else{
+                } else {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() + " already in memory");
                 }
             } else {
+                readerLogger.warn("In sheet " + NAME + " row number "
+                        + row.getRowNum() + " primary key not valued properly");
             }
             currentRow++;
         }

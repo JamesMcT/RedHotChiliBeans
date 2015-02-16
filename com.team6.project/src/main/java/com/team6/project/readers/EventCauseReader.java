@@ -1,7 +1,6 @@
 package com.team6.project.readers;
 
-import java.util.logging.Level;
-
+import org.apache.log4j.BasicConfigurator;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
@@ -45,12 +44,10 @@ public class EventCauseReader extends Reader {
                     // persistence.persist(eventCause);
                 }
                 else{
-                    readerLogger.log(Level.INFO,
-                                      "In sheet "+NAME+" row number "+row.getRowNum()+" already in memory");
-                    //readerLogger.info("In sheet "+NAME+" row number "+row.getRowNum()+" already in memory");
+                    readerLogger.info("In sheet "+NAME+" row number "+row.getRowNum()+" already in memory");
                 }
             } else {
-              //  readerLogger.warn("In sheet "+NAME+" row number "+row.getRowNum()+" primary key not valued properly");
+               readerLogger.warn("In sheet "+NAME+" row number "+row.getRowNum()+" primary key not valued properly");
             }
             currentRow++;
         }

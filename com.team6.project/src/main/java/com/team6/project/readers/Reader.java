@@ -22,8 +22,8 @@ import com.team6.project.services.MapExcelInterface;
  */
 public abstract class Reader {
 
-    //protected static org.apache.log4j.Logger readerLogger =org.apache.log4j.Logger.getLogger(Reader.class);
-    protected final static Logger readerLogger = Logger.getLogger(Loader.class.getName());
+    protected static org.apache.log4j.Logger readerLogger =org.apache.log4j.Logger.getLogger(Reader.class);
+    //protected final static Logger readerLogger = Logger.getLogger(Loader.class.getName());
     protected int currentRow;
     protected static int FIRSTROW = 1;
 
