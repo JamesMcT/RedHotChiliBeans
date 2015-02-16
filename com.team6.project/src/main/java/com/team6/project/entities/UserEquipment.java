@@ -39,6 +39,21 @@ public class UserEquipment {
         this.inputMode = inputMode;
     }
 
+   public String toString() {
+        return "Tac : " + tac + " Marketing Name : " + marketingName
+                + " Manufacturer : " + manufacturer + " Access Capability : "
+                + accessCapability + " Model : " + model + " Vendor Name : "
+                + vendorName + " Type : " + type + " Operating System : " + os
+                + " Input Mode : " + inputMode;
+    }
+
+    public boolean hasRequiredFields() {
+        if (tac != null) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -62,21 +77,6 @@ public class UserEquipment {
         } else if (!tac.equals(other.tac))
             return false;
         return true;
-    }
-
-    public String toString() {
-        return "Tac : " + tac + " Marketing Name : " + marketingName
-                + " Manufacturer : " + manufacturer + " Access Capability : "
-                + accessCapability + " Model : " + model + " Vendor Name : "
-                + vendorName + " Type : " + type + " Operating System : " + os
-                + " Input Mode : " + inputMode;
-    }
-
-    public boolean hasRequiredFields() {
-        if (tac != null) {
-            return true;
-        }
-        return false;
     }
 
     public Integer getTac() {
@@ -150,5 +150,7 @@ public class UserEquipment {
     public void setInputMode(String inputMode) {
         this.inputMode = inputMode;
     }
+
+   
 
 }

@@ -6,11 +6,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.services.MapExcelInterface;
+
 /**
- * Reads rows in sheet called MCC - MNC Table.
- * Create the OperatorCountry object.
- * If the object is not already in the appropriated map
- * it is added and written to the DB
+ * Reads rows in sheet called MCC - MNC Table. Create the OperatorCountry
+ * object. If the object is not already in the appropriated map it is added and
+ * written to the DB
  * 
  * @author Cristiana
  */
@@ -41,10 +41,13 @@ public class OperatorCountryReader extends Reader {
                 if (!service.getMap(NAME).containsKey(pk)) {
                     service.getMap(NAME).put(pk, operatorCountry);
                     // persistence.persist(failure);
+                } else {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() + " already in memory");
                 }
-                // It is already in the map
             } else {
-                // Data corrupted write Log file
+                readerLogger.warn("In sheet " + NAME + " row number "
+                        + row.getRowNum() + " primary key not valued properly");
             }
             currentRow++;
         }

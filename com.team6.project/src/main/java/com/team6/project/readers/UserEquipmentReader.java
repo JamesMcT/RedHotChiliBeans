@@ -5,11 +5,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 import com.team6.project.entities.UserEquipment;
 import com.team6.project.services.MapExcelInterface;
+
 /**
- * Reads rows in sheet called UE Table.
- * Create the UserEquipment object.
- * If the object is not already in the appropriated map
- * it is added and written to the DB
+ * Reads rows in sheet called UE Table. Create the UserEquipment object. If the
+ * object is not already in the appropriated map it is added and written to the
+ * DB
  * 
  * @author Cristiana
  */
@@ -40,10 +40,13 @@ public class UserEquipmentReader extends Reader {
                 if (!service.getMap(NAME).containsKey(userEquip.getTac())) {
                     service.getMap(NAME).put(userEquip.getTac(), userEquip);
                     // persistence.persist(failure);
+                } else {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() + " already in memory");
                 }
-                // It is already in the map
             } else {
-                // Data corrupted write Log file
+                readerLogger.warn("In sheet " + NAME + " row number "
+                        + row.getRowNum() + " primary key not valued properly");
             }
             currentRow++;
         }

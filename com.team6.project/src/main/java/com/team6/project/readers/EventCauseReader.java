@@ -1,5 +1,6 @@
 package com.team6.project.readers;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
@@ -27,6 +28,7 @@ public class EventCauseReader extends Reader {
     // DataImportService.
     @Override
     public void processExcelFile(MapExcelInterface service) {
+       
         HSSFSheet sheet = service.getSheet(NAME);
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);
@@ -41,9 +43,11 @@ public class EventCauseReader extends Reader {
                     service.getMap(NAME).put(pk, eventCause);
                     // persistence.persist(eventCause);
                 }
-                // It is already in the map
+                else{
+                    readerLogger.info("In sheet "+NAME+" row number "+row.getRowNum()+" already in memory");
+                }
             } else {
-                // Data corrupted write Log file
+               readerLogger.warn("In sheet "+NAME+" row number "+row.getRowNum()+" primary key not valued properly");
             }
             currentRow++;
         }
