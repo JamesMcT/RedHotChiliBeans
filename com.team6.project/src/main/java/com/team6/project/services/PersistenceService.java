@@ -27,7 +27,7 @@ import com.team6.project.entities.UserEquipment;
  */
 @Local
 @Stateless
-public class PersistenceService {
+public class PersistenceService implements PersistenceServiceLocal{
 
 	@Inject
 	private BaseDataDAO baseData;

@@ -51,7 +51,7 @@ import com.team6.project.readers.UserEquipmentReader;
 @Local
 @Startup
 @Stateless
-@Singleton
+//@Singleton
 public class DataImportService implements DataImportServiceLocal, MapExcelInterface{
 
 	//Responsible for interacting with DAO objects and persisting business entities through same.
