@@ -86,7 +86,7 @@ public class DataImportService implements DataImportServiceLocal{
 		entityMap.put(UserEquipmentReader.getName(), new HashMap<Integer, UserEquipment>());
 		entityMap.put(OperatorCountryReader.getName(), new HashMap<OperatorCountryPK, OperatorCountry>());
 		
-		
+		//TODO: Causing error if tables do not exist (running for first time in empty CallFaiureDB database)
 		for(EventCause e:persistenceService.getAllEventCauses()){
 			entityMap.get(EventCause.class.getName()).put(new EventCausePK(e.getEventId(), e.getCauseCode()), e);
 		}
