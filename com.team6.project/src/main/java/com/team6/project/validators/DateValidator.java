@@ -2,6 +2,7 @@ package com.team6.project.validators;
 
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.Record;
+import com.team6.project.services.DataImportService;
 import com.team6.project.services.MapExcelInterface;
 
 /**
@@ -12,7 +13,7 @@ public class DateValidator implements IValidator {
 
     @Override
     public boolean isValid(Record record, BaseData baseData,
-            MapExcelInterface service) {
+    		DataImportService service) {
         if (record.getDate() != null) {
             baseData.setDate(record.getDate());
             return true;

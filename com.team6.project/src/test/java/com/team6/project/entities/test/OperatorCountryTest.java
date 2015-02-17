@@ -1,11 +1,13 @@
 package com.team6.project.entities.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 
 public class OperatorCountryTest {
@@ -25,6 +27,27 @@ public class OperatorCountryTest {
         oc5 = new OperatorCountry(1, 1, null, null);
     }
 
+    @Test
+    public void toStringTest() {
+        assertEquals(oc4.toString(), "MCC : 1 MNC : 1 Operator : operator Country : country");
+    }
+    
+    @Test
+    public void equalsTrueTest() {
+        OperatorCountry other = new OperatorCountry(1, 1, "country", "operator");
+        assertTrue(oc4.equals(other));
+    }
+    @Test
+    public void equalsFalseTest_NoMCC() {
+        OperatorCountry other = new OperatorCountry(null, 1, "country", "operator");
+        assertFalse(oc4.equals(other));
+    }
+    @Test
+    public void equalsFalseTest_NoMNC() {
+        OperatorCountry other = new OperatorCountry(1, null, "country", "operator");
+        assertFalse(oc4.equals(other));
+    }
+    
     @Test
     public void hasRequiredFieldsTest_NoBoth() {
         assertFalse(oc1.hasRequiredFields());

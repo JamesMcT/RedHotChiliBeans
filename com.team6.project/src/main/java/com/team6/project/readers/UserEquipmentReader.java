@@ -4,6 +4,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 import com.team6.project.entities.UserEquipment;
+import com.team6.project.services.DataImportService;
 import com.team6.project.services.MapExcelInterface;
 
 /**
@@ -22,7 +23,7 @@ public class UserEquipmentReader extends Reader {
     }
 
     @Override
-    public void processExcelFile(MapExcelInterface service) {
+    public void processExcelFile(DataImportService service) {
         HSSFSheet sheet = service.getSheet(NAME);
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);

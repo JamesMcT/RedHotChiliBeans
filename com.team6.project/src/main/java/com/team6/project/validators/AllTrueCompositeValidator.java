@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.Record;
+import com.team6.project.services.DataImportService;
 import com.team6.project.services.MapExcelInterface;
 
 /**
@@ -25,7 +26,7 @@ public class AllTrueCompositeValidator implements IValidator{
 	 * using the Record object
 	 */
 	@Override
-	public boolean isValid(Record record, BaseData baseData, MapExcelInterface service) {
+	public boolean isValid(Record record, BaseData baseData, DataImportService service) {
 		for(IValidator validator : validators){
 			if(!validator.isValid(record, baseData,service)){
 				return false;

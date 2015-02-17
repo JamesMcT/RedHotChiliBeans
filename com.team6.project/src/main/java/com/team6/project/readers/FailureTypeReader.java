@@ -4,6 +4,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 import com.team6.project.entities.FailureType;
+import com.team6.project.services.DataImportService;
 import com.team6.project.services.MapExcelInterface;
 
 /**
@@ -21,7 +22,7 @@ public class FailureTypeReader extends Reader {
         super();
     }
 
-    public void processExcelFile(MapExcelInterface service) {
+    public void processExcelFile(DataImportService service) {
         HSSFSheet sheet = service.getSheet(NAME);
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);

@@ -18,11 +18,14 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+<<<<<<< HEAD
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
+=======
+>>>>>>> origin/services_branch_eoin
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>

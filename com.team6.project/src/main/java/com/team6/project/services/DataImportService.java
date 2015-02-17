@@ -19,6 +19,7 @@ import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 
@@ -26,8 +27,10 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.team6.project.entities.EventCause;
+import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
+import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.entities.UserEquipment;
 import com.team6.project.readers.BaseDataReader;
 import com.team6.project.readers.EventCauseReader;
@@ -49,12 +52,13 @@ import com.team6.project.readers.UserEquipmentReader;
 @Local
 @Startup
 @Stateless
-@Singleton
-public class DataImportService implements DataImportServiceLocal, MapExcelInterface{
+@Default
+//@Singleton
+public class DataImportService implements DataImportServiceLocal{
 
 	//Responsible for interacting with DAO objects and persisting business entities through same.
 	@EJB
-	private PersistenceService persistenceService;
+	private PersistenceServiceLocal persistenceService;
 	
 	private List<Reader> readers;
 	private HSSFWorkbook workBook;
@@ -71,9 +75,21 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 	@PostConstruct
 	private void atStartup(){
 		
-		//TODO
-		//preload into maps
+		for(EventCause e:persistenceService.getAllEventCauses()){
+			entityMap.get(EventCause.class.getName()).put(new EventCausePK(e.getEventId(), e.getCauseCode()), e);
+		}
 		
+		for(FailureType f:persistenceService.getAllFailureTypes()){
+			entityMap.get(FailureType.class.getName()).put(f.getFailureCode(), f);
+		}
+		
+		for(OperatorCountry o: persistenceService.getAllOperatorCountries()){
+			entityMap.get(OperatorCountry.class.getName()).put(new OperatorCountryPK(o.getMcc(), o.getMnc()), o);
+		}
+		
+		for(UserEquipment u:persistenceService.getAllUserEquipment()){
+			entityMap.get(UserEquipment.class.getName()).put(u.getTac(), u);
+		}
 		
 		//create a reader for each sheet in the excel workbook
 		addReader(new EventCauseReader());
@@ -104,7 +120,7 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 		}
 	}
 	
-	PersistenceService getPersistenceService(){
+	PersistenceServiceLocal getPersistenceService(){
 		return persistenceService;
 	}
 	
@@ -197,12 +213,10 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 		
 	}
 
-	@Override
 	public HSSFSheet getSheet(String sheetName) {
 		return workBook.getSheet(sheetName);
 	}
 
-	@Override
 	public Map getMap(String key) {
 		if(entityMap.containsKey(key)){
 			return entityMap.get(key);

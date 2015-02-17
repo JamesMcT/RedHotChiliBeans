@@ -1,8 +1,6 @@
 package com.team6.project.entities.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,6 +24,27 @@ public class EventCauseTest {
         ec5 = new EventCause(1, null, "description");
     }
 
+    @Test
+    public void toStringTest() {
+        assertEquals(ec3.toString(), "Event Id : 1 Cause code: 2 Description: description");
+    }
+    
+    @Test
+    public void equalsTrueTest() {
+        EventCause ecOther = new EventCause(1, 2, "description");
+        assertTrue(ec3.equals(ecOther));
+    }
+    @Test
+    public void equalsFalseTest_EventId() {
+        EventCause ecOther = new EventCause(null, 2, "description");
+        assertFalse(ec3.equals(ecOther));
+    }
+    @Test
+    public void equalsFalseTest_CauseCode() {
+        EventCause ecOther = new EventCause(1, null, "description");
+        assertFalse(ec3.equals(ecOther));
+    }
+    
     @Test
     public void hasRequiredFieldsTest_NoCauseCode() {
         assertFalse(ec1.hasRequiredFields());
