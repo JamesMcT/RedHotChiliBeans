@@ -1,12 +1,11 @@
 package com.team6.project.readers;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
-import com.team6.project.services.MapExcelInterface;
+import com.team6.project.services.DataImportService;
 
 /**
  * Reads rows in sheet called Event-Cause Table. Create the EventCause object.
@@ -18,7 +17,6 @@ import com.team6.project.services.MapExcelInterface;
 public class EventCauseReader extends Reader {
 
     private static final String NAME = "Event-Cause Table";
-
     // The name is not correct because the service is provided and not the excel
     // we could call that import or similar. We should have an interface
     // implemented by DataImportService
@@ -26,7 +24,7 @@ public class EventCauseReader extends Reader {
     // without messing with the
     // DataImportService.
     @Override
-    public void processExcelFile(MapExcelInterface service) {
+    public void processExcelFile(DataImportService service) {
 
         HSSFSheet sheet = service.getSheet(NAME);
         while (currentRow <= sheet.getLastRowNum()) {
@@ -38,9 +36,11 @@ public class EventCauseReader extends Reader {
             EventCausePK pk = new EventCausePK(eventCause.getEventId(),
                                                eventCause.getCauseCode());
             if (eventCause.hasRequiredFields()) {
+            	readerLogger.info("In sheet " + NAME + " row number "
+                        + row.getRowNum() +"primary key "+pk + " map "+service.getMap(NAME));
                 if (!service.getMap(NAME).containsKey(pk)) {
                     service.getMap(NAME).put(pk, eventCause);
-                    // persistence.persist(eventCause);
+                    service.getPersistenceService().persistEventCause(eventCause);
                 } else {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() + " already in memory");

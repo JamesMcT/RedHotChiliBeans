@@ -34,29 +34,12 @@ public class JPAEventCauseDAOTest {
     
     @Before
     public void preparePersistenceTest() throws Exception {
-        insertData();
     }
 
     @Test
     public void test() {
     }
 
-    private void clearData() throws Exception {
-        utx.begin();
-        em.joinTransaction();
-        System.out.println("Dumping old records...");
-        em.createQuery("delete from EventCause").executeUpdate();
-        utx.commit();
-    }
-
-    private void insertData() throws Exception {
-        utx.begin();
-        em.joinTransaction();
-        System.out.println("Inserting records...");
-        em.persist(eventCause);
-        utx.commit();
-        // clear the persistence context (first-level cache)
-        em.clear();
-    }
+  
 
 }

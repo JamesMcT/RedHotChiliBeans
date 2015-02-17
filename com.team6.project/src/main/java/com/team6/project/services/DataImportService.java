@@ -1,6 +1,8 @@
 package com.team6.project.services;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -9,6 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +22,7 @@ import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 
@@ -50,28 +54,38 @@ import com.team6.project.readers.UserEquipmentReader;
  */
 @Local
 @Startup
-@Stateless
+//@Stateless
+@Default
 //@Singleton
-public class DataImportService implements DataImportServiceLocal, MapExcelInterface{
+public class DataImportService implements DataImportServiceLocal{
 
 	//Responsible for interacting with DAO objects and persisting business entities through same.
 	@EJB
-	private PersistenceService persistenceService;
+	private PersistenceServiceLocal persistenceService;
 	
-	private List<Reader> readers;
+	private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(DataImportService.class);
+	
+	private List<Reader> readers = new ArrayList<Reader>();
 	private HSSFWorkbook workBook;
 	private WatchService directoryWatcher;
 	
-	private final static String WATCH_PATH = "/home/cristiana/Test/";//"c:/watching/";//TODO: watch a real directory & What will this look like in Linux?
+	private final static String WATCH_PATH = "c:/watching/";//TODO: watch a real directory & What will this look like in Linux?
 	
 	//A map of maps, one map for each cached entity type, using entity name as key.
 	private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
 	
 	public DataImportService()
 	{}
-
+	
 	@PostConstruct
 	private void atStartup(){
+		
+		logger.info("DataImportService.atStartUp()...");
+		entityMap.put(EventCauseReader.getName(), new HashMap<EventCausePK, EventCause>());
+		entityMap.put(FailureTypeReader.getName(), new HashMap<Integer, FailureType>());
+		entityMap.put(UserEquipmentReader.getName(), new HashMap<Integer, UserEquipment>());
+		entityMap.put(OperatorCountryReader.getName(), new HashMap<OperatorCountryPK, OperatorCountry>());
+		
 		
 		for(EventCause e:persistenceService.getAllEventCauses()){
 			entityMap.get(EventCause.class.getName()).put(new EventCausePK(e.getEventId(), e.getCauseCode()), e);
@@ -96,11 +110,7 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 		addReader(new UserEquipmentReader());
 		addReader(new BaseDataReader());
 		
-		entityMap.put(EventCause.class.getName(), new HashMap<String, EventCause>());
-		entityMap.put(FailureType.class.getName(), new HashMap<String, FailureType>());
-		entityMap.put(OperatorCountry.class.getName(), new HashMap<String, OperatorCountry>());
-		entityMap.put(UserEquipment.class.getName(), new HashMap<String, UserEquipment>());
-		
+			
 		//Start directory atching service
 		startDirectoryWatcher();
 	}
@@ -109,16 +119,16 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 	   one file can be processed at any given time. This will stop multiple clients
 	   from attempting to upload data simultaneously. Upload/input is not thought 
 	   be a very frequent activity, so this restriction should not affect throughput.*/
-	public synchronized void processExcelFile(File file){
+	public synchronized void processExcelFile(){
 		
-		
+		logger.info("DataImportService.processExcelFile()...");
 		
 		for(Reader r:readers){
 			r.processExcelFile(this);
 		}
 	}
 	
-	PersistenceService getPersistenceService(){
+	public PersistenceServiceLocal getPersistenceService(){
 		return persistenceService;
 	}
 	
@@ -127,6 +137,8 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 	}
 	
 	private void startDirectoryWatcher(){
+		
+		logger.info("DataImportService.startDirectoryWatcher()...");
 		
 		try 
 		{directoryWatcher = FileSystems.getDefault().newWatchService();} 
@@ -162,7 +174,7 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 
 		    for (WatchEvent<?> event: key.pollEvents()) {
 		        WatchEvent.Kind<?> kind = event.kind();
-
+		        
 		        // This key is registered only
 		        // for ENTRY_CREATE events,
 		        // but an OVERFLOW event can
@@ -177,6 +189,9 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 		        WatchEvent<Path> ev = (WatchEvent<Path>)event;
 		        Path filename = ev.context();
 
+		        System.out.println("Received file: "+filename);
+		        String realURI = WATCH_PATH + filename;
+		        
 		        // Verify that the new
 		        //  file is an Excel file.
 		        try {
@@ -194,7 +209,14 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 		            continue;
 		        }
 
-		        processExcelFile(new File(filename.toUri()));
+		        try {
+					workBook = new HSSFWorkbook(new FileInputStream(realURI));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        
+		        processExcelFile();
 		        
 		        //TODO
 		        //Maybe rename the processed file here? Or move to a sub-directory 'processed' or something.
@@ -211,14 +233,14 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 		
 	}
 
-	@Override
 	public HSSFSheet getSheet(String sheetName) {
 		return workBook.getSheet(sheetName);
 	}
 
-	@Override
 	public Map getMap(String key) {
+		logger.info("Key for retrievin map "+key);
 		if(entityMap.containsKey(key)){
+			logger.info("map contains key "+key);
 			return entityMap.get(key);
 		}
 		return null;

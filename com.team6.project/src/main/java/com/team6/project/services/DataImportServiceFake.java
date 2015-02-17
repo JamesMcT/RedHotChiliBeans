@@ -5,7 +5,7 @@ import java.util.Map;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-public class DataImportServiceFake implements MapExcelInterface{
+public class DataImportServiceFake implements DataImportServiceLocal{
 
     private HSSFWorkbook workBook;
     private Map<String, Map> map;
@@ -38,6 +38,12 @@ public class DataImportServiceFake implements MapExcelInterface{
 
     public void setMap(Map<String, Map> map) {
         this.map = map;
+    }
+
+    @Override
+    public void processExcelFile() {
+        // TODO Auto-generated method stub
+        
     }
 
     

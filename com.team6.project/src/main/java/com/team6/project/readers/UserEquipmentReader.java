@@ -4,7 +4,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 import com.team6.project.entities.UserEquipment;
-import com.team6.project.services.MapExcelInterface;
+import com.team6.project.services.DataImportService;
 
 /**
  * Reads rows in sheet called UE Table. Create the UserEquipment object. If the
@@ -22,7 +22,7 @@ public class UserEquipmentReader extends Reader {
     }
 
     @Override
-    public void processExcelFile(MapExcelInterface service) {
+    public void processExcelFile(DataImportService service) {
         HSSFSheet sheet = service.getSheet(NAME);
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);
@@ -39,7 +39,7 @@ public class UserEquipmentReader extends Reader {
             if (userEquip.hasRequiredFields()) {
                 if (!service.getMap(NAME).containsKey(userEquip.getTac())) {
                     service.getMap(NAME).put(userEquip.getTac(), userEquip);
-                    // persistence.persist(failure);
+                    service.getPersistenceService().persistUserEquipment(userEquip);
                 } else {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() + " already in memory");
