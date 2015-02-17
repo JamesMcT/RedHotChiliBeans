@@ -72,7 +72,7 @@ public class FailureType {
         return failureCode;
     }
 
-    public void setFailureCode(int failureCode) {
+    public void setFailureCode(Integer failureCode) {
         this.failureCode = failureCode;
     }
 
