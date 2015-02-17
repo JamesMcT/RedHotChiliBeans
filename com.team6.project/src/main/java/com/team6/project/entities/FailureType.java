@@ -21,19 +21,7 @@ public class FailureType {
         this.failureCode = failureCode;
         this.description = descrption;
     }
-
-    public String toString() {
-        return "Failure Code : " + failureCode + " Description : "
-                + description;
-    }
-
-    public boolean hasRequiredFields() {
-        if (failureCode != null) {
-            return true;
-        }
-        return false;
-    }
-
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -60,37 +48,33 @@ public class FailureType {
         return true;
     }
 
-<<<<<<< HEAD
-    public String toString(){
-        return "Failure Code : "+failureCode+" Description : "+description;
+    public String toString() {
+        return "Failure Code : " + failureCode + " Description : "
+                + description;
     }
     
-    public boolean hasRequiredFields(){
-        if(failureCode != null){
+	public boolean hasRequiredFields() {
+        if (failureCode != null) {
             return true;
         }
         return false;
     }
     
 
-=======
->>>>>>> refs/remotes/origin/readers_branch_cris
     public Integer getFailureCode() {
         return failureCode;
     }
 
-    public void setFailureCode(Integer failureCode) {
+    public void setFailureCode(int failureCode) {
         this.failureCode = failureCode;
     }
 
-    public String getDescription() {
+    public String getDescrption() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String descrption) {
+        this.description = descrption;
     }
-
- 
 
 }

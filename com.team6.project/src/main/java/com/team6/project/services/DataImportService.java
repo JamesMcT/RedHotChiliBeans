@@ -73,8 +73,6 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 	@PostConstruct
 	private void atStartup(){
 		
-		//TODO
-		//preload into maps
 		for(EventCause e:persistenceService.getAllEventCauses()){
 			entityMap.get(EventCause.class.getName()).put(new EventCausePK(e.getEventId(), e.getCauseCode()), e);
 		}

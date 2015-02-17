@@ -67,7 +67,7 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	
 	public void updateFailureType(FailureType failureType){
 		FailureType ft = getFailureType(2);
-		ft.setDescrption(failureType.getDescrption());
+		ft.setDescription(failureType.getDescrption());
 		ft.setFailureCode(failureType.getFailureCode());
 		em.merge(ft);
 		
