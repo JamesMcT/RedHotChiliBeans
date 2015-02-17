@@ -34,7 +34,8 @@ public class FileImportRestService {
 	@Path("/upload")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	public void uploadFile(File file){
-		importService.processExcelFile(file);
+		//TODO: revisit
+		importService.processExcelFile();
 	}
 	
 }

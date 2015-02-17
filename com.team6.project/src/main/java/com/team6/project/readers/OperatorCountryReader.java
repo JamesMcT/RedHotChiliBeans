@@ -41,7 +41,7 @@ public class OperatorCountryReader extends Reader {
             if (operatorCountry.hasRequiredFields()) {
                 if (!service.getMap(NAME).containsKey(pk)) {
                     service.getMap(NAME).put(pk, operatorCountry);
-                    // persistence.persist(failure);
+                    service.getPersistenceService().persistOperatorCountry(operatorCountry);
                 } else {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() + " already in memory");

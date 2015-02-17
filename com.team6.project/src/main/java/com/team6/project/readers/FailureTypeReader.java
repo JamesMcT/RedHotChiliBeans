@@ -32,7 +32,7 @@ public class FailureTypeReader extends Reader {
             if (failure.hasRequiredFields()) {
                 if (!service.getMap(NAME).containsKey(failure.getFailureCode())) {
                     service.getMap(NAME).put(failure.getFailureCode(), failure);
-                    // persistence.persist(failure);
+                    service.getPersistenceService().persistFailureType(failure);;
                 } else {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() + " already in memory");

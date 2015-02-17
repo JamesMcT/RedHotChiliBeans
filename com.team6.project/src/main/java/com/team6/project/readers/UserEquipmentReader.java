@@ -40,7 +40,7 @@ public class UserEquipmentReader extends Reader {
             if (userEquip.hasRequiredFields()) {
                 if (!service.getMap(NAME).containsKey(userEquip.getTac())) {
                     service.getMap(NAME).put(userEquip.getTac(), userEquip);
-                    // persistence.persist(failure);
+                    service.getPersistenceService().persistUserEquipment(userEquip);
                 } else {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() + " already in memory");

@@ -41,9 +41,9 @@ public class BaseDataReader extends Reader {
             BaseData baseData = new BaseData();
             boolean isValid = validator.isValid(record, baseData, service);
             if (isValid) {
-                // em.persist(baseData);
+                service.getPersistenceService().persistBaseData(baseData);
             } else {
-                // em.persist(record);
+            	service.getPersistenceService().persistErroneusRecord(record);
             }
         }
 

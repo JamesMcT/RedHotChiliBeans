@@ -11,11 +11,13 @@ import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.dao.EventCauseDAO;
 import com.team6.project.dao.FailureTypeDAO;
 import com.team6.project.dao.OperatorCountryDAO;
+import com.team6.project.dao.RecordDAO;
 import com.team6.project.dao.UserEquipmentDAO;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
+import com.team6.project.entities.Record;
 import com.team6.project.entities.UserEquipment;
 
 /**
@@ -45,6 +47,9 @@ public class PersistenceService implements PersistenceServiceLocal{
 	
 	@Inject
 	private UserEquipmentDAO userEquipment;
+	
+	@Inject
+	private RecordDAO record;
 	
 	public PersistenceService(){}
 
@@ -86,6 +91,12 @@ public class PersistenceService implements PersistenceServiceLocal{
 	
 	public void persistUserEquipment(UserEquipment u){
 		userEquipment.addNewUserEquipmentDataSet(u);
+	}
+
+	@Override
+	public void persistErroneusRecord(Record r) {
+		record.persist(r);
+		
 	}
 	
 }
