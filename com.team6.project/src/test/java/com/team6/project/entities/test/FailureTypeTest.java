@@ -2,12 +2,12 @@ package com.team6.project.entities.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
 
 public class FailureTypeTest {
@@ -21,6 +21,16 @@ public class FailureTypeTest {
         ft1 = new FailureType(null, "description");
         ft2 = new FailureType(1, "description");
         ft3 = new FailureType(2, null);
+    }
+    
+    @Test
+    public void getKeyTest_True() {
+        assertEquals(ft2.getKey(), new Integer(1));
+    }
+    
+    @Test
+    public void getKeyTest_False() {
+        assertNotEquals(ft2.getKey(), new Integer(2));
     }
 
     @Test

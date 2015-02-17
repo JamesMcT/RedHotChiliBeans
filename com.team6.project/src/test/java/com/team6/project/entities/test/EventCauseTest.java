@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.team6.project.entities.EventCause;
+import com.team6.project.entities.EventCausePK;
 
 public class EventCauseTest {
 
@@ -22,6 +23,16 @@ public class EventCauseTest {
         ec3 = new EventCause(1, 2, "description");
         ec4 = new EventCause(1, 2, null);
         ec5 = new EventCause(1, null, "description");
+    }
+    
+    @Test
+    public void getKeyTest_True() {
+        assertEquals(ec3.getKey(), new EventCausePK(1,2));
+    }
+    
+    @Test
+    public void getKeyTest_False() {
+        assertNotEquals(ec3.getKey(), new EventCausePK(2,1));
     }
 
     @Test

@@ -33,6 +33,10 @@ public class FailureType {
         }
         return false;
     }
+    
+    public Integer getKey(){
+        return failureCode;
+    }
 
     @Override
     public int hashCode() {
