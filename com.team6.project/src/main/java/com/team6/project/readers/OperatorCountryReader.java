@@ -5,7 +5,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
-import com.team6.project.services.DataImportService;
+import com.team6.project.services.DataImportServiceLocal;
 
 /**
  * Reads rows in sheet called MCC - MNC Table. Create the OperatorCountry
@@ -23,7 +23,7 @@ public class OperatorCountryReader extends Reader {
     }
 
     @Override
-    public void processExcelFile(DataImportService service) {
+    public void processExcelFile(DataImportServiceLocal service) {
         HSSFSheet sheet = service.getSheet("MCC - MNC Table");
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);

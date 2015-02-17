@@ -2,6 +2,8 @@ package com.team6.project.services;
 
 import java.util.Map;
 
+import javax.ejb.EJB;
+
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
@@ -9,6 +11,8 @@ public class DataImportServiceFake implements DataImportServiceLocal{
 
     private HSSFWorkbook workBook;
     private Map<String, Map> map;
+    
+     PersistenceServiceFake persistenceServiceFake;
     
     public DataImportServiceFake() {
         super();
@@ -44,6 +48,11 @@ public class DataImportServiceFake implements DataImportServiceLocal{
     public void processExcelFile() {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public PersistenceServiceLocal getPersistenceService() {
+        return new PersistenceServiceFake();
     }
 
     

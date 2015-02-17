@@ -41,7 +41,7 @@ public class eventCauseReaderTest {
         list.add(new EventCause(4125, 1, "UE CTXT RELEASE-NORMAL RELEASE"));
         list.add(new EventCause(4097, 1, "RRC CONN SETUP-UNSPECIFIED"));
         EventCauseReader reader = new EventCauseReader();
-        //reader.processExcelFile(service);
+        reader.processExcelFile(service);
         assertTrue(CollectionUtils.isEqualCollection(service.getMap(EventCauseReader.getName()).values(), list));
         
     }

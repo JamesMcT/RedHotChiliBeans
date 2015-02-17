@@ -4,7 +4,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 import com.team6.project.entities.UserEquipment;
-import com.team6.project.services.DataImportService;
+import com.team6.project.services.DataImportServiceLocal;
 
 /**
  * Reads rows in sheet called UE Table. Create the UserEquipment object. If the
@@ -22,7 +22,7 @@ public class UserEquipmentReader extends Reader {
     }
 
     @Override
-    public void processExcelFile(DataImportService service) {
+    public void processExcelFile(DataImportServiceLocal service) {
         HSSFSheet sheet = service.getSheet(NAME);
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);

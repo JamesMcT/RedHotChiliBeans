@@ -13,5 +13,7 @@ public interface DataImportServiceLocal {
 	public HSSFSheet getSheet(String string);
     
     public Map getMap(String string);
+    
+    public PersistenceServiceLocal getPersistenceService();
 	
 }
