@@ -5,6 +5,7 @@ import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.entities.Record;
 import com.team6.project.readers.OperatorCountryReader;
+import com.team6.project.services.DataImportService;
 import com.team6.project.services.MapExcelInterface;
 
 /**
@@ -16,7 +17,7 @@ public class OperatorCountryValidator implements IValidator {
 
     @Override
     public boolean isValid(Record record, BaseData baseData,
-            MapExcelInterface service) {
+    		DataImportService service) {
         if (record.getMcc() != null && record.getMnc() != null) {
             OperatorCountryPK pk = new OperatorCountryPK(record.getMcc(),
                                                          record.getMnc());

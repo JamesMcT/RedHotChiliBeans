@@ -19,6 +19,7 @@ import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 
@@ -51,12 +52,13 @@ import com.team6.project.readers.UserEquipmentReader;
 @Local
 @Startup
 @Stateless
+@Default
 //@Singleton
-public class DataImportService implements DataImportServiceLocal, MapExcelInterface{
+public class DataImportService implements DataImportServiceLocal{
 
 	//Responsible for interacting with DAO objects and persisting business entities through same.
 	@EJB
-	private PersistenceService persistenceService;
+	private PersistenceServiceLocal persistenceService;
 	
 	private List<Reader> readers;
 	private HSSFWorkbook workBook;
@@ -118,7 +120,7 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 		}
 	}
 	
-	PersistenceService getPersistenceService(){
+	PersistenceServiceLocal getPersistenceService(){
 		return persistenceService;
 	}
 	
@@ -211,12 +213,10 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 		
 	}
 
-	@Override
 	public HSSFSheet getSheet(String sheetName) {
 		return workBook.getSheet(sheetName);
 	}
 
-	@Override
 	public Map getMap(String key) {
 		if(entityMap.containsKey(key)){
 			return entityMap.get(key);

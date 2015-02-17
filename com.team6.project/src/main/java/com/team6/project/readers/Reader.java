@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.util.NumberToTextConverter;
 
+import com.team6.project.services.DataImportService;
 import com.team6.project.services.MapExcelInterface;
 
 /**
@@ -28,7 +29,7 @@ public abstract class Reader {
         currentRow = FIRSTROW;
     }
 
-    public abstract void processExcelFile(MapExcelInterface service);
+    public abstract void processExcelFile(DataImportService service);
 
     public Integer getIntegerFromCell(HSSFCell cell) {
         if (!(cell == null) && !(cell.getCellType() == Cell.CELL_TYPE_BLANK)) {

@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.IDescription;
 import com.team6.project.entities.Record;
+import com.team6.project.services.DataImportService;
 import com.team6.project.services.MapExcelInterface;
 import com.team6.project.validators.AllTrueCompositeValidator;
 import com.team6.project.validators.DateValidator;
@@ -32,7 +33,7 @@ public class BaseDataReader extends Reader {
     private static final String NAME = "Base Data";
 
     @Override
-    public void processExcelFile(MapExcelInterface service) {
+    public void processExcelFile(DataImportService service) {
         HSSFSheet sheet = service.getSheet(NAME);
         IValidator validator = createValidator();
         while (currentRow <= sheet.getLastRowNum()) {

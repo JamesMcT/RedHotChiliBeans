@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 
 import com.team6.project.dao.BaseDataDAO;
@@ -27,6 +28,7 @@ import com.team6.project.entities.UserEquipment;
  */
 @Local
 @Stateless
+@Default
 public class PersistenceService implements PersistenceServiceLocal{
 
 	@Inject
