@@ -66,8 +66,24 @@ public class PersistenceService {
 		return userEquipment.getAllUserEquipment();
 	}
 	
-	public void persisiEventCause(EventCause e){
-		//eventCause.getAllEventCauses();
+	public void persistBaseData(BaseData b){
+		baseData.addNewBaseDataSet(b);
+	}
+	
+	public void persistEventCause(EventCause e){
+		eventCause.addNewEventCauseDataSet(e);
+	}
+	
+	public void persistFailureType(FailureType f){
+		failureType.addFailureType(f);
+	}
+	
+	public void persistOperatorCountry(OperatorCountry o){
+		operatorCountry.addNewOperatorCountryDataSet(o);
+	}
+	
+	public void persistUserEquipment(UserEquipment u){
+		userEquipment.addNewUserEquipmentDataSet(u);
 	}
 	
 }
