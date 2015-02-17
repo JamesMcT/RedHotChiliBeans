@@ -1,11 +1,13 @@
 package com.team6.project.entities.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
 
 public class FailureTypeTest {
@@ -16,11 +18,32 @@ public class FailureTypeTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        ft1 = new FailureType(null, "descrption");
-        ft2 = new FailureType(1, "descrption");
+        ft1 = new FailureType(null, "description");
+        ft2 = new FailureType(1, "description");
         ft3 = new FailureType(2, null);
     }
 
+    @Test
+    public void toStringTest() {
+        assertEquals(ft2.toString(), "Failure Code : 1 Description : description");
+    }
+    
+    @Test
+    public void equalsTrueTest() {
+        FailureType ftOther = new FailureType(1, "description");
+        assertTrue(ft2.equals(ftOther));
+    }
+    @Test
+    public void equalsFalseTest_DifType() {
+        FailureType ftOther = new FailureType(2, null);
+        assertFalse(ft2.equals(ftOther));
+    }
+    @Test
+    public void equalsFalseTest_NullType() {
+        FailureType ftOther = new FailureType(null, null);
+        assertFalse(ft2.equals(ftOther));
+    }
+    
     @Test
     public void hasRequiredFieldsTest_NoFailureType()  {
         assertFalse(ft1.hasRequiredFields());

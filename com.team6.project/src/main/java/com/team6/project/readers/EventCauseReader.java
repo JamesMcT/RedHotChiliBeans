@@ -1,5 +1,6 @@
 package com.team6.project.readers;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
@@ -8,10 +9,9 @@ import com.team6.project.entities.EventCausePK;
 import com.team6.project.services.MapExcelInterface;
 
 /**
- * Reads rows in sheet called Event-Cause Table.
- * Create the EventCause object.
- * If the object is not already in the appropriated map
- * it is added and written to the DB
+ * Reads rows in sheet called Event-Cause Table. Create the EventCause object.
+ * If the object is not already in the appropriated map it is added and written
+ * to the DB
  * 
  * @author Cristiana
  */
@@ -27,6 +27,7 @@ public class EventCauseReader extends Reader {
     // DataImportService.
     @Override
     public void processExcelFile(MapExcelInterface service) {
+
         HSSFSheet sheet = service.getSheet(NAME);
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);
@@ -40,10 +41,13 @@ public class EventCauseReader extends Reader {
                 if (!service.getMap(NAME).containsKey(pk)) {
                     service.getMap(NAME).put(pk, eventCause);
                     // persistence.persist(eventCause);
+                } else {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() + " already in memory");
                 }
-                // It is already in the map
             } else {
-                // Data corrupted write Log file
+                readerLogger.warn("In sheet " + NAME + " row number "
+                        + row.getRowNum() + " primary key not valued properly");
             }
             currentRow++;
         }

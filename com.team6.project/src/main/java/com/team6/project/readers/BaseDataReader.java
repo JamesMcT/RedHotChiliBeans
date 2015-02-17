@@ -33,7 +33,6 @@ public class BaseDataReader extends Reader {
 
     @Override
     public void processExcelFile(MapExcelInterface service) {
-        // List<Map> maps = service.getMaps();
         HSSFSheet sheet = service.getSheet(NAME);
         IValidator validator = createValidator();
         while (currentRow <= sheet.getLastRowNum()) {
@@ -131,5 +130,11 @@ public class BaseDataReader extends Reader {
         validator.add(new UserEquipmentValidator());
         return validator;
     }
+
+    public static String getName() {
+        return NAME;
+    }
+    
+    
 
 }
