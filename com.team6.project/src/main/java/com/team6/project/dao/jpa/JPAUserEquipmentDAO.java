@@ -1,14 +1,17 @@
 package com.team6.project.dao.jpa;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.team6.project.dao.UserEquipmentDAO;
+import com.team6.project.entities.BaseData;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.UserEquipment;
 
@@ -20,11 +23,17 @@ import com.team6.project.entities.UserEquipment;
 
 @Local
 @Stateless
+@Default
 public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 
 	@PersistenceContext
 	private EntityManager em;
 	
+	public Collection<UserEquipment> getAllUserEquipment(){
+    	Query query = em.createQuery("from BaseData");
+		List<UserEquipment> results = query.getResultList();
+		return results;
+    }
 	
 	/**
 	 * 
