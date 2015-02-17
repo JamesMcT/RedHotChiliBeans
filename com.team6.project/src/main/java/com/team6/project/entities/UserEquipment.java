@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class UserEquipment {
 
     @Id
-    private int tac;
+    private Integer tac;
     private String marketingName;
     private String manufacturer;
     private String accessCapability;
@@ -20,11 +20,70 @@ public class UserEquipment {
     private String os;
     private String inputMode;
 
-    public int getTac() {
+    public UserEquipment() {
+        super();
+    }
+
+    public UserEquipment(Integer tac, String marketingName,
+            String manufacturer, String accessCapability, String model,
+            String vendorName, String type, String os, String inputMode) {
+        super();
+        this.tac = tac;
+        this.marketingName = marketingName;
+        this.manufacturer = manufacturer;
+        this.accessCapability = accessCapability;
+        this.model = model;
+        this.vendorName = vendorName;
+        this.type = type;
+        this.os = os;
+        this.inputMode = inputMode;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((tac == null) ? 0 : tac.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserEquipment other = (UserEquipment) obj;
+        if (tac == null) {
+            if (other.tac != null)
+                return false;
+        } else if (!tac.equals(other.tac))
+            return false;
+        return true;
+    }
+
+    public String toString() {
+        return "Tac : " + tac + " Marketing Name : " + marketingName
+                + " Manufacturer : " + manufacturer + " Access Capability : "
+                + accessCapability + " Model : " + model + " Vendor Name : "
+                + vendorName + " Type : " + type + " Operating System : " + os
+                + " Input Mode : " + inputMode;
+    }
+
+    public boolean hasRequiredFields() {
+        if (tac != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public Integer getTac() {
         return tac;
     }
 
-    public void setTac(int tac) {
+    public void setTac(Integer tac) {
         this.tac = tac;
     }
 

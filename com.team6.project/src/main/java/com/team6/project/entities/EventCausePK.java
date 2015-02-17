@@ -8,20 +8,18 @@ import java.io.Serializable;
 public class EventCausePK implements Serializable {
 
     private static final long serialVersionUID = 679883259119743614L;
-    private int causeCode;
-    private int eventId;
+    private Integer causeCode;
+    private Integer eventId;
 
     public EventCausePK() {
     }
 
-    public EventCausePK(int causeCode, int eventId) {
+    public EventCausePK(Integer eventId , Integer causeCode) {
         super();
         this.causeCode = causeCode;
         this.eventId = eventId;
     }
     
-    
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -47,20 +45,22 @@ public class EventCausePK implements Serializable {
         return true;
     }
 
-    public int getCauseCode() {
+    public Integer getCauseCode() {
         return causeCode;
     }
 
-    public void setCauseCode(int causeCode) {
+    public void setCauseCode(Integer causeCode) {
         this.causeCode = causeCode;
     }
 
-    public int getEventId() {
+    public Integer getEventId() {
         return eventId;
     }
 
-    public void setEventId(int eventId) {
+    public void setEventId(Integer eventId) {
         this.eventId = eventId;
     }
+
+    
 
 }

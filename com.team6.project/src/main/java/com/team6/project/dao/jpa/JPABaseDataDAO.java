@@ -1,5 +1,6 @@
 package com.team6.project.dao.jpa;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,8 +12,13 @@ import javax.persistence.Query;
 
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.entities.BaseData;
+import com.team6.project.entities.EventCause;
+import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
+import com.team6.project.entities.OperatorCountry;
+import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.entities.UserEquipment;
+
 /**
  * 
  * @author James
@@ -22,74 +28,80 @@ import com.team6.project.entities.UserEquipment;
 @Local
 public class JPABaseDataDAO implements BaseDataDAO {
 
-    @PersistenceContext
-    EntityManager em;
-   
-    
-    /**
-     * Delete base data record via record id
-     */
+	@PersistenceContext
+	EntityManager em;
+
+	/**
+	 * 
+	 */
 	@Override
-	public BaseData getBaseDataRecord(Integer id) {
+	public Collection<BaseData> getAllBaseDataRecords() {
+		Query q = em.createQuery("from BaseData");
+		List<BaseData> result = q.getResultList();
+		return result;
+	}
+
+	/**
+	 * Return base data record via record id.
+	 */
+	@Override
+	public BaseData getBaseDataRecordById(Integer id) {
 		Query q = em.createQuery("from BaseData where id = :code");
-		q.setParameter("code", id );	
+		q.setParameter("code", id);
 		List<BaseData> result = q.getResultList();
 		return result.get(0);
 	}
-	
-	
+
 	/**
-	 * 
+	 * Add new base data record to database.
 	 */
 	@Override
 	public void addNewBaseDataSet(BaseData baseData) {
 		em.persist(baseData);
 	}
 
-	
-	/**
-	 * 
-	 */
 	@Override
-	public void updateBaseData(BaseData baseData) {
-		BaseData bd = getBaseDataRecord(baseData.getId());
-		bd.setCellId(baseData.getCellId());
-		bd.setDate(baseData.getDate());
-		bd.setDuration(baseData.getDuration());
-		bd.setEventCause(baseData.getEventCause());
-		bd.setFailure(baseData.getFailure());
-		bd.setHier321Id(baseData.getHier321Id());
-		bd.setHier32Id(baseData.getHier32Id());
-		bd.setHier3Id(baseData.getHier3Id());
-		bd.setId(baseData.getId());
-		bd.setImsi(baseData.getImsi());
-		bd.setNeVersion(baseData.getNeVersion());
-		bd.setOperatorCountry(baseData.getOperatorCountry());
-		bd.setUserEquipment(baseData.getUserEquipment());
-		
-		em.merge(bd);
+	public void deleteBaseDataRecord(BaseData baseData) {
+		em.remove(baseData);
 	}
 
 	@Override
-	public void deleteBaseDataRecord(Integer id) {
-		BaseData bd = getBaseDataRecord(id);
-		em.remove(bd);
-		
-		/* Alternative solution
-		
-		*		Query q = em.createQuery("from BaseData where id = :code");
-		q.setParameter("code", id );	
+	public Collection<BaseData> findByImsi(BigInteger imsi) {
+		Query q = em.createQuery("from BaseData where imsi = :code");
+		q.setParameter("code", imsi);
 		List<BaseData> result = q.getResultList();
-		em.remove(result.get(0));
-		*/
-		
-		
+		return result;
 	}
 
+	@Override
+	public Collection<BaseData> findByFailureType(FailureType failureType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    
-    
-    
-    
+	@Override
+	public Collection<BaseData> findByUserEquipment(UserEquipment userEquipment) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<BaseData> findByOperatorByMCC(Integer mcc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<BaseData> findByEventCause(EventCausePK eventCausePK) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<BaseData> findByOperatorCountryPK(
+			OperatorCountryPK operatorCountryPK) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

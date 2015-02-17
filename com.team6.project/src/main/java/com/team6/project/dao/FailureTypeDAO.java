@@ -9,12 +9,24 @@ import com.team6.project.entities.FailureType;
 @Local
 public interface FailureTypeDAO {
 
-	public FailureType getFailureType(Integer failureCode);
-	
+	public Collection<FailureType> getAllFailureTypes();
+
+	public FailureType getFailureTypeByFailureCode(Integer failureCode);
+
 	public void addFailureType(FailureType failureType);
-	
+
 	public void updateFailureType(FailureType failureType);
-	
-	public void deleteFailureType(Integer failureCode);
-	
+
+	public void deleteFailureTypeByFailureCode(Integer failureCode);
+
+	public void deleteFailureType(FailureType failureType);
+
+	// public void addNewFailureTypeDataSet(FailureType failureType);
+
+	// public FailureType findByFailureCode(Integer failureCode);
+
+	// public void deleteByFailureCode(Integer failureCode);
+
+	// public void deleteAll();
+
 }

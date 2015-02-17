@@ -59,67 +59,67 @@ public class Record implements IDescription {
         this.date = date;
     }
 
-    public int getCauseCode() {
+    public Integer getCauseCode() {
         return causeCode;
     }
 
-    public void setCauseCode(int causeCode) {
+    public void setCauseCode(Integer causeCode) {
         this.causeCode = causeCode;
     }
 
-    public int getEventId() {
+    public Integer getEventId() {
         return eventId;
     }
 
-    public void setEventId(int eventId) {
+    public void setEventId(Integer eventId) {
         this.eventId = eventId;
     }
 
-    public int getFailureType() {
+    public Integer getFailureType() {
         return failureType;
     }
 
-    public void setFailureType(int failureType) {
+    public void setFailureType(Integer failureType) {
         this.failureType = failureType;
     }
 
-    public int getUserEquipment() {
+    public Integer getUserEquipment() {
         return userEquipment;
     }
 
-    public void setUserEquipment(int userEquipment) {
+    public void setUserEquipment(Integer userEquipment) {
         this.userEquipment = userEquipment;
     }
 
-    public int getMcc() {
+    public Integer getMcc() {
         return mcc;
     }
 
-    public void setMcc(int mcc) {
+    public void setMcc(Integer mcc) {
         this.mcc = mcc;
     }
 
-    public int getMnc() {
+    public Integer getMnc() {
         return mnc;
     }
 
-    public void setMnc(int mnc) {
+    public void setMnc(Integer mnc) {
         this.mnc = mnc;
     }
 
-    public int getCellId() {
+    public Integer getCellId() {
         return cellId;
     }
 
-    public void setCellId(int cellId) {
+    public void setCellId(Integer cellId) {
         this.cellId = cellId;
     }
 
-    public int getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
@@ -170,5 +170,8 @@ public class Record implements IDescription {
     public void setDescription(String description) {
         this.description = description;
     }
+
+   
+
 
 }
