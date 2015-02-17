@@ -40,7 +40,8 @@ public class FakeEventCauseDAO implements EventCauseDAO{
 
 	@Override
 	public void updateEventCause(EventCause eventCause) {
-		events.put(new EventCausePK(eventCause.getCauseCode(), eventCause.getEventId()), eventCause);
+		//it does the same on FakeDAO
+		addNewEventCauseDataSet(eventCause);
 	}
 
 	@Override
