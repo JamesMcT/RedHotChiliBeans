@@ -9,6 +9,8 @@ import com.team6.project.entities.OperatorCountryPK;
 @Local
 public interface OperatorCountryDAO {
 	
+	public Collection<OperatorCountry> getAllOperatorCountries();
+	
 	public OperatorCountry getOperatorCountry(OperatorCountryPK operatorCountryPK);
 
 	public void addNewOperatorCountryDataSet(OperatorCountry operatorCountry);

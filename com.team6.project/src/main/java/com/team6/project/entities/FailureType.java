@@ -22,6 +22,7 @@ public class FailureType {
         this.description = descrption;
     }
 
+
     public String toString() {
         return "Failure Code : " + failureCode + " Description : "
                 + description;
@@ -37,6 +38,7 @@ public class FailureType {
     public Integer getKey(){
         return failureCode;
     }
+
 
     @Override
     public int hashCode() {
@@ -64,22 +66,22 @@ public class FailureType {
         return true;
     }
 
+    
+
     public Integer getFailureCode() {
         return failureCode;
     }
 
-    public void setFailureCode(Integer failureCode) {
+    public void setFailureCode(int failureCode) {
         this.failureCode = failureCode;
     }
 
-    public String getDescription() {
+    public String getDescrption() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String descrption) {
+        this.description = descrption;
     }
-
- 
 
 }

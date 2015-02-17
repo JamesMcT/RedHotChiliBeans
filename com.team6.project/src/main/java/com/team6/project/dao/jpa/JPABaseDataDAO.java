@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.entities.BaseData;
+import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.UserEquipment;
 /**
@@ -20,11 +22,17 @@ import com.team6.project.entities.UserEquipment;
  */
 @Stateless
 @Local
+@Default
 public class JPABaseDataDAO implements BaseDataDAO {
 
     @PersistenceContext
     EntityManager em;
    
+    public Collection<BaseData> getAllBaseData(){
+    	Query query = em.createQuery("from BaseData");
+		List<BaseData> results = query.getResultList();
+		return results;
+    }
     
     /**
      * Delete base data record via record id

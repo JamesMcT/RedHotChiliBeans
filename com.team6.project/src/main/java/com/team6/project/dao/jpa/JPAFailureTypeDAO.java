@@ -5,11 +5,13 @@ import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.team6.project.dao.FailureTypeDAO;
+import com.team6.project.entities.BaseData;
 import com.team6.project.entities.FailureType;
 
 /**
@@ -20,10 +22,17 @@ import com.team6.project.entities.FailureType;
 
 @Stateless
 @Local
+@Default
 public class JPAFailureTypeDAO implements FailureTypeDAO {
 
 	@PersistenceContext
 	private EntityManager em;
+	
+	public Collection<FailureType> getAllFailureTypes(){
+    	Query query = em.createQuery("from BaseData");
+		List<FailureType> results = query.getResultList();
+		return results;
+    }
 	
 	/**
 	 * Get failure Type by failure code.
@@ -58,7 +67,7 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	
 	public void updateFailureType(FailureType failureType){
 		FailureType ft = getFailureType(2);
-		ft.setDescrption(failureType.getDescrption());
+		ft.setDescription(failureType.getDescrption());
 		ft.setFailureCode(failureType.getFailureCode());
 		em.merge(ft);
 		

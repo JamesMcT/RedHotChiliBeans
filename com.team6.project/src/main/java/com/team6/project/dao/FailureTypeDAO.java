@@ -9,6 +9,8 @@ import com.team6.project.entities.FailureType;
 @Local
 public interface FailureTypeDAO {
 
+	public Collection<FailureType> getAllFailureTypes();
+	
 	public FailureType getFailureType(Integer failureCode);
 	
 	public void addFailureType(FailureType failureType);

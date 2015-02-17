@@ -5,21 +5,30 @@ import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.team6.project.dao.OperatorCountryDAO;
+import com.team6.project.entities.BaseData;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
 
 @Stateless
 @Local
+@Default
 public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 
 	@PersistenceContext
 	private EntityManager em;
 
+	public Collection<OperatorCountry> getAllOperatorCountries(){
+    	Query query = em.createQuery("from BaseData");
+		List<OperatorCountry> results = query.getResultList();
+		return results;
+    }
+	
 	/**
 	 * 
 	 * @param operatorCountryPK

@@ -1,9 +1,11 @@
 package com.team6.project.dao.jpa;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -20,16 +22,24 @@ import com.team6.project.entities.OperatorCountry;
  */
 @Stateless
 @Local
+@Default
 public class JPAEventCauseDAO implements EventCauseDAO {
 
     @PersistenceContext
     EntityManager em;
 	
+    @Override
+	public Collection<EventCause> getAllCauses() {
+    	Query query = em.createQuery("from EventCause");
+		List<EventCause> results = query.getResultList();
+		return results;
+	}
+    
     /**
      * 
      */
 	@Override
-	public EventCause getEventCause(EventCausePK eventCausePK) {
+	public EventCause getEventCauseByKey(EventCausePK eventCausePK) {
 //		Query q = em
 //				.createQuery("from EventCausePK where eventCausePK = :code"); 
 //		q.setParameter("code", 2);
@@ -74,4 +84,6 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 		em.remove(result);
 	}
 
+
+	
 }
