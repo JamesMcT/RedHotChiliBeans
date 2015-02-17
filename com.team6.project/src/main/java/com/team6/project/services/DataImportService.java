@@ -69,7 +69,9 @@ public class DataImportService implements DataImportServiceLocal{
 	private HSSFWorkbook workBook;
 	private WatchService directoryWatcher;
 	
-	private final static String WATCH_PATH = "c:/watching/";//TODO: watch a real directory & What will this look like in Linux?
+	//choose which path to folder to watch, based on underlying OS. If not Windows, then Linux is assumed.
+	private final static String WATCH_PATH =
+	System.getProperty("os.name").startsWith("Windows")? "c:/watching/":"/watching/";
 	
 	//A map of maps, one map for each cached entity type, using entity name as key.
 	private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
