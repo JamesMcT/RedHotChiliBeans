@@ -60,7 +60,7 @@ public class FailureType {
     }
     
 
-    public int getFailureCode() {
+    public Integer getFailureCode() {
         return failureCode;
     }
 

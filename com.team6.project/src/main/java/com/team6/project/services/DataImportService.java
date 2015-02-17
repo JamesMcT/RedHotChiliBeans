@@ -26,8 +26,10 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.team6.project.entities.EventCause;
+import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
+import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.entities.UserEquipment;
 import com.team6.project.readers.BaseDataReader;
 import com.team6.project.readers.EventCauseReader;
@@ -73,7 +75,21 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 		
 		//TODO
 		//preload into maps
+		for(EventCause e:persistenceService.getAllEventCauses()){
+			entityMap.get(EventCause.class.getName()).put(new EventCausePK(e.getEventId(), e.getCauseCode()), e);
+		}
 		
+		for(FailureType f:persistenceService.getAllFailureTypes()){
+			entityMap.get(FailureType.class.getName()).put(f.getFailureCode(), f);
+		}
+		
+		for(OperatorCountry o: persistenceService.getAllOperatorCountries()){
+			entityMap.get(OperatorCountry.class.getName()).put(new OperatorCountryPK(o.getMcc(), o.getMnc()), o);
+		}
+		
+		for(UserEquipment u:persistenceService.getAllUserEquipment()){
+			entityMap.get(UserEquipment.class.getName()).put(u.getTac(), u);
+		}
 		
 		//create a reader for each sheet in the excel workbook
 		addReader(new EventCauseReader());
