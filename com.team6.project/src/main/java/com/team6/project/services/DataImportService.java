@@ -51,7 +51,7 @@ import com.team6.project.readers.UserEquipmentReader;
 @Local
 @Startup
 @Stateless
-@Singleton
+//@Singleton
 public class DataImportService implements DataImportServiceLocal, MapExcelInterface{
 
 	//Responsible for interacting with DAO objects and persisting business entities through same.
@@ -62,7 +62,7 @@ public class DataImportService implements DataImportServiceLocal, MapExcelInterf
 	private HSSFWorkbook workBook;
 	private WatchService directoryWatcher;
 	
-	private final static String WATCH_PATH = "c:/watching/";//TODO: watch a real directory & What will this look like in Linux?
+	private final static String WATCH_PATH = "/home/cristiana/Test/";//"c:/watching/";//TODO: watch a real directory & What will this look like in Linux?
 	
 	//A map of maps, one map for each cached entity type, using entity name as key.
 	private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
