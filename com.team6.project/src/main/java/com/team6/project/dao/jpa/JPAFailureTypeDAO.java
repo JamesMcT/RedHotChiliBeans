@@ -45,8 +45,7 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	public FailureType getFailureTypeByFailureCode(Integer failureCode) {
 		Query q = em.createQuery("from FailureType where failureCode = :code");
 		q.setParameter("code", failureCode);
-		List<FailureType> result = q.getResultList();
-		return result.get(0);
+		return (FailureType) q.getSingleResult();
 	}
 
 	/**
@@ -72,8 +71,7 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	public void deleteFailureTypeByFailureCode(Integer failureCode) {
 		Query q = em.createQuery("from FailureType where failureCode = :code");
 		q.setParameter("code", failureCode);
-		List<FailureType> result = q.getResultList();
-		em.remove(result.get(0));
+		em.remove(q.getSingleResult());
 	}
 
 	/**

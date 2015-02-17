@@ -12,10 +12,8 @@ import javax.persistence.Query;
 
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.entities.BaseData;
-import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
-import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.entities.UserEquipment;
 
@@ -48,8 +46,7 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	public BaseData getBaseDataRecordById(Integer id) {
 		Query q = em.createQuery("from BaseData where id = :code");
 		q.setParameter("code", id);
-		List<BaseData> result = q.getResultList();
-		return result.get(0);
+		return (BaseData) q.getSingleResult();
 	}
 
 	/**
@@ -104,4 +101,5 @@ public class JPABaseDataDAO implements BaseDataDAO {
 		return null;
 	}
 
+	
 }

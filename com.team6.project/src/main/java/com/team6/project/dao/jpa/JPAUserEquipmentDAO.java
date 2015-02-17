@@ -41,8 +41,7 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 	public UserEquipment getUserEquipmentByTac(Integer tac) {
 		Query q = em.createQuery("from UserEquipment where tac = :code");
 		q.setParameter("code", tac);
-		List<UserEquipment> result = q.getResultList();
-		return result.get(0);
+		return (UserEquipment) q.getSingleResult();
 	}
 
 	/**
