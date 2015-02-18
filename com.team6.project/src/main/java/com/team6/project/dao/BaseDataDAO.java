@@ -28,13 +28,13 @@ public interface BaseDataDAO {
 	
 	public Collection<BaseData> findByEventCause(EventCausePK eventCausePK);
 	
-	public Collection<BaseData> getAllBaseDataRecords();
+	public Collection<BaseData> getAllBaseData();
 
-	public BaseData getBaseDataRecordById(Integer id);
+	public BaseData getBaseDataByKey(Integer id);
 
-	public void addNewBaseDataSet(BaseData baseData);
+	public void addBaseData(BaseData baseData);
 
-	public void deleteBaseDataRecord(BaseData baseData);
+	public void deleteBaseData(BaseData baseData);
 	
 //	public void updateBaseData(BaseData baseData);
 

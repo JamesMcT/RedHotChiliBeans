@@ -54,7 +54,7 @@ public class PersistenceService implements PersistenceServiceLocal{
 	public PersistenceService(){}
 
 	public Collection<BaseData> getAllBaseData(){
-		return baseData.getAllBaseDataRecords();
+		return baseData.getAllBaseData();
 	}
 	
 	public Collection<EventCause> getAllEventCauses(){
@@ -66,7 +66,7 @@ public class PersistenceService implements PersistenceServiceLocal{
 	}
 	
 	public Collection<OperatorCountry> getAllOperatorCountries(){
-		return operatorCountry.getAllOperatorCountryRecords();
+		return operatorCountry.getAllOperatorCountries();
 	}
 	
 	public Collection<UserEquipment> getAllUserEquipment(){
@@ -74,11 +74,11 @@ public class PersistenceService implements PersistenceServiceLocal{
 	}
 	
 	public void persistBaseData(BaseData b){
-		baseData.addNewBaseDataSet(b);
+		baseData.addBaseData(b);
 	}
 	
 	public void persistEventCause(EventCause e){
-		eventCause.addNewEventCauseDataSet(e);
+		eventCause.addEventCauseData(e);
 	}
 	
 	public void persistFailureType(FailureType f){
@@ -86,16 +86,16 @@ public class PersistenceService implements PersistenceServiceLocal{
 	}
 	
 	public void persistOperatorCountry(OperatorCountry o){
-		operatorCountry.addNewOperatorCountryDataSet(o);
+		operatorCountry.addOperatorCountry(o);
 	}
 	
 	public void persistUserEquipment(UserEquipment u){
-		userEquipment.addNewUserEquipmentDataSet(u);
+		userEquipment.addUserEquipment(u);
 	}
 
 	@Override
 	public void persistErroneusRecord(Record r) {
-		record.persist(r);
+		record.addRecord(r);
 		
 	}
 	

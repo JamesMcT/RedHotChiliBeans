@@ -38,7 +38,7 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 	 * 
 	 */
 	@Override
-	public UserEquipment getUserEquipmentByTac(Integer tac) {
+	public UserEquipment getUserEquipmentByKey(Integer tac) {
 		Query q = em.createQuery("from UserEquipment where tac = :code");
 		q.setParameter("code", tac);
 		return (UserEquipment) q.getSingleResult();
@@ -48,7 +48,7 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 	 * 
 	 */
 	@Override
-	public void addNewUserEquipmentDataSet(UserEquipment userEquipment) {
+	public void addUserEquipment(UserEquipment userEquipment) {
 		em.persist(userEquipment);
 
 	}
@@ -70,18 +70,19 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 		em.remove(userEquipment);
 
 	}
-
-	/**
-	 * 
-	 */
-	@Override
-	public void deleteByTac(Integer tac) {
-		Query q = em.createQuery("from UserEquipment where tac = :code");
-		q.setParameter("code", tac);
-		List<UserEquipment> result = q.getResultList();
-		em.remove(result.get(0));
-
-	}
+	
+// Unused May be required at a later stage
+//	/**
+//	 * 
+//	 */
+//	@Override
+//	public void deleteByTac(Integer tac) {
+//		Query q = em.createQuery("from UserEquipment where tac = :code");
+//		q.setParameter("code", tac);
+//		List<UserEquipment> result = q.getResultList();
+//		em.remove(result.get(0));
+//
+//	}
 
 	// @Override
 	// public void deleteAll() {

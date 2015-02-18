@@ -36,7 +36,7 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	 * 
 	 */
 	@Override
-	public Collection<BaseData> getAllBaseDataRecords() {
+	public Collection<BaseData> getAllBaseData() {
 		Query q = em.createQuery("from BaseData");
 		List<BaseData> result = q.getResultList();
 		return result;
@@ -46,7 +46,7 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	 * Return base data record via record id.
 	 */
 	@Override
-	public BaseData getBaseDataRecordById(Integer id) {
+	public BaseData getBaseDataByKey(Integer id) {
 		Query q = em.createQuery("from BaseData where id = :code");
 		q.setParameter("code", id);
 		return (BaseData) q.getSingleResult();
@@ -56,12 +56,12 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	 * Add new base data record to database.
 	 */
 	@Override
-	public void addNewBaseDataSet(BaseData baseData) {
+	public void addBaseData(BaseData baseData) {
 		em.persist(baseData);
 	}
 
 	@Override
-	public void deleteBaseDataRecord(BaseData baseData) {
+	public void deleteBaseData(BaseData baseData) {
 		em.remove(baseData);
 	}
 

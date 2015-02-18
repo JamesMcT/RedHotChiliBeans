@@ -29,8 +29,6 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	@PersistenceContext
 	private EntityManager em;
 
-
-
 	/**
 	 * Returns collection of FailureType
 	 */
@@ -41,14 +39,13 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 		return result;
 	}
 
-	
 	/**
 	 * Get failure Type by failure code.
 	 * 
 	 * @param failureCode
 	 * @return FailureType
 	 */
-	public FailureType getFailureTypeByFailureCode(Integer failureCode) {
+	public FailureType getFailureTypeByKey(Integer failureCode) {
 		Query q = em.createQuery("from FailureType where failureCode = :code");
 		q.setParameter("code", failureCode);
 		return (FailureType) q.getSingleResult();
@@ -58,7 +55,7 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	 * 
 	 * @param failureType
 	 */
-	public void addFailureType(FailureType failureType){
+	public void addFailureType(FailureType failureType) {
 		em.persist(failureType);
 	}
 
@@ -72,20 +69,21 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	}
 
 	/**
-	 * Delete FailureType by failure code.
-	 */
-	public void deleteFailureTypeByFailureCode(Integer failureCode) {
-		Query q = em.createQuery("from FailureType where failureCode = :code");
-		q.setParameter("code", failureCode);
-		em.remove(q.getSingleResult());
-	}
-
-	/**
 	 * Delete passed FailureType
 	 */
 	@Override
 	public void deleteFailureType(FailureType failureType) {
 		em.remove(failureType);
 	}
+
+// Currently unused - May be added in at a later stage.
+//	/**
+//	 * Delete FailureType by failure code.
+//	 */
+//	public void deleteFailureTypeByFailureCode(Integer failureCode) {
+//		Query q = em.createQuery("from FailureType where failureCode = :code");
+//		q.setParameter("code", failureCode);
+//		em.remove(q.getSingleResult());
+//	}
 
 }

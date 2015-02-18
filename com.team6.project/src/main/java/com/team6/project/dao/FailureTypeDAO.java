@@ -11,13 +11,13 @@ public interface FailureTypeDAO {
 
 	public Collection<FailureType> getAllFailureTypes();
 
-	public FailureType getFailureTypeByFailureCode(Integer failureCode);
+	public FailureType getFailureTypeByKey(Integer failureCode);
 
 	public void addFailureType(FailureType failureType);
 
 	public void updateFailureType(FailureType failureType);
 
-	public void deleteFailureTypeByFailureCode(Integer failureCode);
+//	public void deleteFailureType(Integer failureCode);
 
 	public void deleteFailureType(FailureType failureType);
 

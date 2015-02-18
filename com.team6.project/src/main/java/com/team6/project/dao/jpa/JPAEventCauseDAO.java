@@ -41,7 +41,7 @@ public class JPAEventCauseDAO implements EventCauseDAO {
      * 
      */
 	@Override
-	public EventCause getEventCauseByPK(EventCausePK eventCausePK) {
+	public EventCause getEventCauseByKey(EventCausePK eventCausePK) {
 		return em.find(EventCause.class, eventCausePK);
 	}
 
@@ -49,7 +49,7 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 	 * 
 	 */
 	@Override
-	public void addNewEventCauseDataSet(EventCause eventCause) {
+	public void addEventCauseData(EventCause eventCause) {
 		em.persist(eventCause);
 	}
 

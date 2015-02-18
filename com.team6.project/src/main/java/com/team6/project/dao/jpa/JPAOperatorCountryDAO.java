@@ -30,7 +30,7 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 	 * Returns collection of OperatorCountry
 	 */
 	@Override
-	public Collection<OperatorCountry> getAllOperatorCountryRecords() {
+	public Collection<OperatorCountry> getAllOperatorCountries() {
 		Query q = em.createQuery("from Operator");
 		List<OperatorCountry> result = q.getResultList();
 		return result;
@@ -42,7 +42,7 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 	 * 
 	 */
 	@Override
-	public OperatorCountry getOperatorCountry(
+	public OperatorCountry getOperatorCountryByKey(
 			OperatorCountryPK operatorCountryPK) {
 		return em.find(OperatorCountry.class, operatorCountryPK);
 	}
@@ -52,7 +52,7 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 	 * @param operatorCountry
 	 */
 	@Override
-	public void addNewOperatorCountryDataSet(OperatorCountry operatorCountry) {
+	public void addOperatorCountry(OperatorCountry operatorCountry) {
 		em.persist(operatorCountry);
 	}
 

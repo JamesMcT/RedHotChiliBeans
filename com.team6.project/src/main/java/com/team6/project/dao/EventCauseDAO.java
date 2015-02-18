@@ -14,9 +14,9 @@ public interface EventCauseDAO {
 
 	public Collection<EventCause> getAllEventCauses();
 
-	public EventCause getEventCauseByPK(EventCausePK eventCausePK);
+	public EventCause getEventCauseByKey(EventCausePK eventCausePK);
 
-	public void addNewEventCauseDataSet(EventCause eventCause);
+	public void addEventCauseData(EventCause eventCause);
 
 	public void updateEventCause(EventCause eventCause);
 

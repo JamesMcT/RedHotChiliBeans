@@ -6,6 +6,6 @@ import com.team6.project.entities.Record;
 @Local
 public interface RecordDAO {
 
-	public void persist(Record record);
+	public void addRecord(Record record);
 
 }
