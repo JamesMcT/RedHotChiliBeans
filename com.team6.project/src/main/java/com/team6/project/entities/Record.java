@@ -10,12 +10,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.team6.project.readers.Reader;
+
 /**
  * @author Cristiana Record mapping ErroneousBaseData table
  */
 @Entity
 @Table(name = "ErroneousBaseData")
 public class Record implements IDescription {
+
+    protected static org.apache.log4j.Logger recordEntityLogger = org.apache.log4j.Logger
+            .getLogger(Record.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,93 +48,147 @@ public class Record implements IDescription {
     public Record() {
     }
 
-    
-    public Integer getKey(){
+    public Integer getKey() {
         return id;
     }
-    
-    
-   public boolean assertSameFields(Record other) {
+
+    public String toString() {
+        return "Id : " + id + " Date : " + date.getTime() + " Cause Code : "
+                + causeCode + " Event Id : " + eventId + " Failure Type : "
+                + failureType + " User Equipment : " + userEquipment
+                + " MCC : " + mcc + " MNC : " + mnc + " Cell Id : " + cellId
+                + " Duration : " + duration + " NetworkElement Version : "
+                + neVersion + " Imsi : " + imsi + " Hier3Id : " + hier3Id
+                + " Hier32Id : " + hier32Id + " Hier321Id : " + hier321Id
+                + " Description : " + description;
+
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((causeCode == null) ? 0 : causeCode.hashCode());
+        result = prime * result + ((cellId == null) ? 0 : cellId.hashCode());
+        result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result
+                + ((duration == null) ? 0 : duration.hashCode());
+        result = prime * result + ((eventId == null) ? 0 : eventId.hashCode());
+        result = prime * result
+                + ((failureType == null) ? 0 : failureType.hashCode());
+        result = prime * result
+                + ((hier321Id == null) ? 0 : hier321Id.hashCode());
+        result = prime * result
+                + ((hier32Id == null) ? 0 : hier32Id.hashCode());
+        result = prime * result + ((hier3Id == null) ? 0 : hier3Id.hashCode());
+        result = prime * result + ((imsi == null) ? 0 : imsi.hashCode());
+        result = prime * result + ((mcc == null) ? 0 : mcc.hashCode());
+        result = prime * result + ((mnc == null) ? 0 : mnc.hashCode());
+        result = prime * result
+                + ((neVersion == null) ? 0 : neVersion.hashCode());
+        result = prime * result
+                + ((userEquipment == null) ? 0 : userEquipment.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass()) {
+            recordEntityLogger.warn("Class");
+            return false;
+        }
+        Record other = (Record) obj;
         if (causeCode == null) {
             if (other.causeCode != null)
                 return false;
-        } else if (!causeCode.equals(other.causeCode))
+        } else if (!causeCode.equals(other.causeCode)){
             return false;
+        }
         if (cellId == null) {
             if (other.cellId != null)
                 return false;
-        } else if (!cellId.equals(other.cellId))
+        } else if (!cellId.equals(other.cellId)){
             return false;
+        }
         if (date == null) {
             if (other.date != null)
                 return false;
-        } else if (!date.equals(other.date))
+        } else if (date.getTime() != other.date.getTime()){
             return false;
-        if (description == null) {
-            if (other.description != null)
-                return false;
-        } else if (!description.equals(other.description))
-            return false;
+        }
         if (duration == null) {
             if (other.duration != null)
                 return false;
-        } else if (!duration.equals(other.duration))
+        } else if (!duration.equals(other.duration)){
             return false;
+        }
         if (eventId == null) {
             if (other.eventId != null)
                 return false;
-        } else if (!eventId.equals(other.eventId))
+        } else if (!eventId.equals(other.eventId)){
             return false;
+        }
         if (failureType == null) {
             if (other.failureType != null)
                 return false;
-        } else if (!failureType.equals(other.failureType))
+        } else if (!failureType.equals(other.failureType)){
             return false;
+        }
         if (hier321Id == null) {
             if (other.hier321Id != null)
                 return false;
-        } else if (!hier321Id.equals(other.hier321Id))
+        } else if (!hier321Id.equals(other.hier321Id)){
             return false;
+        }
         if (hier32Id == null) {
             if (other.hier32Id != null)
                 return false;
-        } else if (!hier32Id.equals(other.hier32Id))
+        } else if (!hier32Id.equals(other.hier32Id)){
             return false;
+        }
         if (hier3Id == null) {
             if (other.hier3Id != null)
                 return false;
-        } else if (!hier3Id.equals(other.hier3Id))
+        } else if (!hier3Id.equals(other.hier3Id)){
             return false;
+        }
         if (imsi == null) {
             if (other.imsi != null)
                 return false;
-        } else if (!imsi.equals(other.imsi))
+        } else if (!imsi.equals(other.imsi)){
             return false;
+        }
         if (mcc == null) {
             if (other.mcc != null)
                 return false;
-        } else if (!mcc.equals(other.mcc))
+        } else if (!mcc.equals(other.mcc)){
             return false;
+        }
         if (mnc == null) {
             if (other.mnc != null)
                 return false;
-        } else if (!mnc.equals(other.mnc))
+        } else if (!mnc.equals(other.mnc)){
             return false;
+        }
         if (neVersion == null) {
             if (other.neVersion != null)
                 return false;
-        } else if (!neVersion.equals(other.neVersion))
+        } else if (!neVersion.equals(other.neVersion)){
             return false;
+        }
         if (userEquipment == null) {
             if (other.userEquipment != null)
                 return false;
-        } else if (!userEquipment.equals(other.userEquipment))
+        } else if (!userEquipment.equals(other.userEquipment)){
             return false;
+        }
         return true;
     }
-
-
-
 
     public int getId() {
         return id;
@@ -258,8 +317,5 @@ public class Record implements IDescription {
     public void setDescription(String description) {
         this.description = description;
     }
-
-   
-
 
 }

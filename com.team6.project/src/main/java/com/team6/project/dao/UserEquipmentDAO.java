@@ -11,12 +11,19 @@ public interface UserEquipmentDAO {
 
 	public Collection<UserEquipment> getAllUserEquipment();
 	
-	public UserEquipment getRecord(Integer tac);
+	public UserEquipment getUserEquipmentByKey(Integer tac);
 	
-	public void addNewUserEquipmentDataSet(UserEquipment userEquipment);
+	public void addUserEquipment(UserEquipment userEquipment);
 
 	public void updateUserEquipment(UserEquipment userEquipment);
 
-	public void deleteRecord(Integer tac);
+	public void deleteUserEquipment(UserEquipment userEquipment);
+
+//	public void deleteByTac(Integer tac);
+	
+//	public UserEquipment findByTac(Integer tac);
+
+//	public void deleteAll();
+	
 	
 }

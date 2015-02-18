@@ -5,15 +5,14 @@ import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.team6.project.dao.UserEquipmentDAO;
-import com.team6.project.entities.BaseData;
-import com.team6.project.entities.FailureType;
 import com.team6.project.entities.UserEquipment;
+
+
 
 /**
  * 
@@ -23,69 +22,72 @@ import com.team6.project.entities.UserEquipment;
 
 @Local
 @Stateless
-@Default
 public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 
 	@PersistenceContext
 	private EntityManager em;
-	
-	public Collection<UserEquipment> getAllUserEquipment(){
-    	Query query = em.createQuery("from UserEquipment");
-		List<UserEquipment> results = query.getResultList();
-		return results;
-    }
-	
-	/**
-	 * 
-	 */
+
 	@Override
-	public UserEquipment getRecord(Integer tac) {
-		Query q = em.createQuery("from UserEquiptment where tac = :code");
-		q.setParameter("code", 2);	
+	public Collection<UserEquipment> getAllUserEquipment() {
+		Query q = em.createQuery("from UserEquipment ");
 		List<UserEquipment> result = q.getResultList();
-		return result.get(0);
+		return result;
 	}
 
-	
 	/**
 	 * 
 	 */
 	@Override
-	public void addNewUserEquipmentDataSet(UserEquipment userEquipment) {
-		em.persist(userEquipment);
-		
+	public UserEquipment getUserEquipmentByKey(Integer tac) {
+		Query q = em.createQuery("from UserEquipment where tac = :code");
+		q.setParameter("code", tac);
+		return (UserEquipment) q.getSingleResult();
 	}
 
-	
+	/**
+	 * 
+	 */
+	@Override
+	public void addUserEquipment(UserEquipment userEquipment) {
+		em.persist(userEquipment);
+
+	}
+
 	/**
 	 * 
 	 */
 	@Override
 	public void updateUserEquipment(UserEquipment userEquipment) {
-		UserEquipment ue = getRecord(userEquipment.getTac());
-		ue.setAccessCapability(userEquipment.getAccessCapability());
-		ue.setInputMode(userEquipment.getInputMode());
-		ue.setManufacturer(ue.getManufacturer());
-		ue.setMarketingName(userEquipment.getMarketingName());
-		ue.setModel(userEquipment.getMarketingName());
-		ue.setOs(userEquipment.getOs());
-		ue.setTac(userEquipment.getTac());
-		ue.setType(userEquipment.getType());
-		ue.setVendorName(userEquipment.getVendorName());
-		
-		em.merge(ue);
+		em.merge(userEquipment);
 
 	}
 
-	
 	/**
 	 * 
 	 */
 	@Override
-	public void deleteRecord(Integer tac) {
-		UserEquipment ue = getRecord(tac);
-		em.remove(ue);
+	public void deleteUserEquipment(UserEquipment userEquipment) {
+		em.remove(userEquipment);
 
 	}
+	
+// Unused May be required at a later stage
+//	/**
+//	 * 
+//	 */
+//	@Override
+//	public void deleteByTac(Integer tac) {
+//		Query q = em.createQuery("from UserEquipment where tac = :code");
+//		q.setParameter("code", tac);
+//		List<UserEquipment> result = q.getResultList();
+//		em.remove(result.get(0));
+//
+//	}
+
+	// @Override
+	// public void deleteAll() {
+	// // TODO Auto-generated method stub
+	//
+	// }
 
 }

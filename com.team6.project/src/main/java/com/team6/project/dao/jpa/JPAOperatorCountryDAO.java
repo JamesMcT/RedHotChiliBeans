@@ -5,51 +5,46 @@ import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.team6.project.dao.OperatorCountryDAO;
-import com.team6.project.entities.BaseData;
+import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
 
+/**
+ * 
+ * @author James
+ *
+ */
 @Stateless
 @Local
-@Default
 public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 
 	@PersistenceContext
 	private EntityManager em;
 
-	public Collection<OperatorCountry> getAllOperatorCountries(){
-    	Query query = em.createQuery("from OperatorCountry");
-		List<OperatorCountry> results = query.getResultList();
-		return results;
-    }
-	
+	/**
+	 * Returns collection of OperatorCountry
+	 */
+	@Override
+	public Collection<OperatorCountry> getAllOperatorCountries() {
+		Query q = em.createQuery("from Operator");
+		List<OperatorCountry> result = q.getResultList();
+		return result;
+	}
+
 	/**
 	 * 
 	 * @param operatorCountryPK
-	 * @return
+	 * 
 	 */
 	@Override
-	public OperatorCountry getOperatorCountry(
+	public OperatorCountry getOperatorCountryByKey(
 			OperatorCountryPK operatorCountryPK) {
-		//Query q = em.createQuery("from OperatorCountryPK where operatorCountryPK = :code"); 
-		// Car car = em.find(Car.class, carPK);
 		return em.find(OperatorCountry.class, operatorCountryPK);
-		//q.setParameter("code", 2);
-		//List<OperatorCountry> result = q.getResultList(); // I have returned a
-															// single result? IS
-															// THIS CORRECT.
-															// INTERFACE
-															// SUGGESTS TO
-															// RETURN A
-															// LIST/COLLECTION
-		// return result.get(0);
-
 	}
 
 	/**
@@ -57,9 +52,8 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 	 * @param operatorCountry
 	 */
 	@Override
-	public void addNewOperatorCountryDataSet(OperatorCountry operatorCountry) {
+	public void addOperatorCountry(OperatorCountry operatorCountry) {
 		em.persist(operatorCountry);
-
 	}
 
 	/**
@@ -70,14 +64,8 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 	 * @param operatorCountry
 	 */
 	@Override
-	public void updateOperatorCountry(OperatorCountryPK operatorCountryPK,
-			OperatorCountry operatorCountry) {
-		OperatorCountry oc = getOperatorCountry(operatorCountryPK);
-		oc = new OperatorCountry(operatorCountry.getMcc(),
-				operatorCountry.getMnc(), operatorCountry.getCountry(),
-				operatorCountry.getOperator());
-		em.merge(oc);
-
+	public void updateOperatorCountry(OperatorCountry operatorCountry) {
+		em.merge(operatorCountry);
 	}
 
 	/**
@@ -86,14 +74,22 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 	 * @param operatorCountryPK
 	 */
 	@Override
-	public void deleteOperatorCountry(OperatorCountryPK operatorCountryPK) {
-//		Query q = em
-//				.createQuery("from OperatorCountryPK where operatorCountryPK = :code");
-//		q.setParameter("code", 3);
-//		List<OperatorCountry> result = q.getResultList();
-		OperatorCountry result = em.find(OperatorCountry.class, operatorCountryPK);
-		em.remove(result);
-
+	public void deleteOperatorCountry(OperatorCountry operatorCountry) {
+		em.remove(operatorCountry);
 	}
 
+	// @Override
+	// public OperatorCountry findByOperatorCountry(Integer mcc, Integer mnc) {
+	// // TODO Auto-generated method stub
+	// return null;
+	// }
+
+	// @Override
+	// public void deleteByMccAndMnc(Integer mcc) {
+	// // TODO Auto-generated method stub
+	//
+	// }
+
 }
+
+

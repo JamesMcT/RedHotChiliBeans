@@ -27,11 +27,12 @@ import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.UserEquipment;
 
 @RunWith(Arquillian.class)
-public class JPAEventCauseDAOTest {
+public class JPAFailureTypeDAOTest {
 
     @EJB
-    EventCauseDAO eventCauseDao;
-    private EventCause eventCause;
+    FailureTypeDAO failureTypeDao;
+
+    private FailureType failureType;
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -48,24 +49,25 @@ public class JPAEventCauseDAOTest {
 
     @Before
     public void preparePersistenceTest() throws Exception {
-        
-        eventCause = new EventCause(1, 2, "desc Event Cause");
+
+        failureType = new FailureType(1, "desc Failure Type");
         clear();
         insertData();
     }
 
     private void insertData() throws Exception {
-        eventCauseDao.addEventCauseData(eventCause);
+        failureTypeDao.addFailureType(failureType);
     }
-    
+
     private void clear() throws Exception {
-        eventCauseDao.deleteEventCause(eventCause);
+        failureTypeDao.deleteFailureType(failureType);
     }
 
     @Test
-    public void testEventCause() {
-        EventCause ec = eventCauseDao.getEventCauseByKey(eventCause.getKey());
-        assertEquals(ec, eventCause);
+    public void testFailureType() {
+        FailureType ft = failureTypeDao.getFailureTypeByKey(failureType
+                .getKey());
+        assertEquals(ft, failureType);
     }
-  
+
 }

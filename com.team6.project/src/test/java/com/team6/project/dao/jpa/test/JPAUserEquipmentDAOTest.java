@@ -15,23 +15,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.team6.project.dao.EventCauseDAO;
-import com.team6.project.dao.FailureTypeDAO;
-import com.team6.project.dao.OperatorCountryDAO;
 import com.team6.project.dao.UserEquipmentDAO;
-import com.team6.project.dao.jpa.JPAEventCauseDAO;
-import com.team6.project.entities.EventCause;
-import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
-import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.UserEquipment;
 
 @RunWith(Arquillian.class)
-public class JPAEventCauseDAOTest {
+public class JPAUserEquipmentDAOTest {
 
-    @EJB
-    EventCauseDAO eventCauseDao;
-    private EventCause eventCause;
+    
+   @EJB
+    UserEquipmentDAO userEquipmentDao;
+
+    private UserEquipment userEquipment;
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -48,24 +43,26 @@ public class JPAEventCauseDAOTest {
 
     @Before
     public void preparePersistenceTest() throws Exception {
-        
-        eventCause = new EventCause(1, 2, "desc Event Cause");
+        userEquipment = new UserEquipment(123, "", "", "", "", "", "", "", "");
         clear();
         insertData();
     }
 
     private void insertData() throws Exception {
-        eventCauseDao.addEventCauseData(eventCause);
+        userEquipmentDao.addUserEquipment(userEquipment);
     }
     
     private void clear() throws Exception {
-        eventCauseDao.deleteEventCause(eventCause);
+        userEquipmentDao.deleteUserEquipment(userEquipment);
     }
 
+   
     @Test
-    public void testEventCause() {
-        EventCause ec = eventCauseDao.getEventCauseByKey(eventCause.getKey());
-        assertEquals(ec, eventCause);
+    public void testUserEquipment() {
+        UserEquipment ue = userEquipmentDao.getUserEquipmentByKey(userEquipment
+                .getKey());
+        assertEquals(ue, userEquipment);
     }
+
   
 }
