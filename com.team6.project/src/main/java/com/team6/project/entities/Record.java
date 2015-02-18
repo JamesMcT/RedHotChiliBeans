@@ -107,98 +107,84 @@ public class Record implements IDescription {
             if (other.causeCode != null)
                 return false;
         } else if (!causeCode.equals(other.causeCode)){
-            recordEntityLogger.warn("causeCode");
             return false;
         }
         if (cellId == null) {
             if (other.cellId != null)
                 return false;
         } else if (!cellId.equals(other.cellId)){
-            recordEntityLogger.warn("cell id");
             return false;
         }
         if (date == null) {
             if (other.date != null)
                 return false;
         } else if (date.getTime() != other.date.getTime()){
-            recordEntityLogger.warn("date");
             return false;
         }
         if (duration == null) {
             if (other.duration != null)
                 return false;
         } else if (!duration.equals(other.duration)){
-            recordEntityLogger.warn("duration");
             return false;
         }
         if (eventId == null) {
             if (other.eventId != null)
                 return false;
         } else if (!eventId.equals(other.eventId)){
-            recordEntityLogger.warn("event id");
             return false;
         }
         if (failureType == null) {
             if (other.failureType != null)
                 return false;
         } else if (!failureType.equals(other.failureType)){
-            recordEntityLogger.warn("failure type");
             return false;
         }
         if (hier321Id == null) {
             if (other.hier321Id != null)
                 return false;
         } else if (!hier321Id.equals(other.hier321Id)){
-            recordEntityLogger.warn("hier321");
             return false;
         }
         if (hier32Id == null) {
             if (other.hier32Id != null)
                 return false;
         } else if (!hier32Id.equals(other.hier32Id)){
-            recordEntityLogger.warn("hier32");
             return false;
         }
         if (hier3Id == null) {
             if (other.hier3Id != null)
                 return false;
         } else if (!hier3Id.equals(other.hier3Id)){
-            recordEntityLogger.warn("hier1");
             return false;
         }
         if (imsi == null) {
             if (other.imsi != null)
                 return false;
         } else if (!imsi.equals(other.imsi)){
-            recordEntityLogger.warn("imsi");
             return false;
         }
         if (mcc == null) {
             if (other.mcc != null)
                 return false;
         } else if (!mcc.equals(other.mcc)){
-            recordEntityLogger.warn("mcc");
             return false;
         }
         if (mnc == null) {
             if (other.mnc != null)
                 return false;
         } else if (!mnc.equals(other.mnc)){
-            recordEntityLogger.warn("mnc");
             return false;
         }
         if (neVersion == null) {
             if (other.neVersion != null)
                 return false;
         } else if (!neVersion.equals(other.neVersion)){
-            recordEntityLogger.warn("ne Version");
             return false;
         }
         if (userEquipment == null) {
             if (other.userEquipment != null)
                 return false;
         } else if (!userEquipment.equals(other.userEquipment)){
-            recordEntityLogger.warn("userEquipment");
             return false;
         }
         return true;
