@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,6 +73,8 @@ public class DataImportService implements DataImportServiceLocal{
 	//choose which path to folder to watch, based on underlying OS. If not Windows, then Linux is assumed.
 	private final static String WATCH_PATH =
 	System.getProperty("os.name").startsWith("Windows")? "c:/watching/":"/watching/";
+	
+	private final static String PROCESSED_FILE_SUFFIX = ".processed";
 	
 	//A map of maps, one map for each cached entity type, using entity name as key.
 	private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
@@ -173,7 +176,7 @@ public class DataImportService implements DataImportServiceLocal{
 		
 		for (;;) {
 
-			logger.info("DataImportService beginning folder watch loop...");
+			logger.info("DataImportService beginning watchDirectory()...");
 
 		    // wait for key to be signaled
 		    WatchKey key;
@@ -200,11 +203,14 @@ public class DataImportService implements DataImportServiceLocal{
 		        WatchEvent<Path> ev = (WatchEvent<Path>)event;
 		        Path filename = ev.context();
 
-		        System.out.println("Received file: "+filename);
 		        String realURI = WATCH_PATH + filename;
 		        
-		        // Verify that the new
-		        //  file is an Excel file.
+		        // Do not process files that have been marked as processed.
+		        if(realURI.contains(PROCESSED_FILE_SUFFIX)){
+		        	continue;
+		        }
+		        
+		        // Verify that the new file is an Excel file.
 		        try {
 		            // Resolve the filename against the directory.
 		            // If the filename is "test" and the directory is "foo",
@@ -212,7 +218,7 @@ public class DataImportService implements DataImportServiceLocal{
 		            Path child = dir.resolve(filename);
 		            if (!Files.probeContentType(child).equals("application/vnd.ms-excel") 
 		            		&& !Files.probeContentType(child).equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
-		                System.err.format("New file '%s'" + " is not a plain text file.%n", filename);
+		                System.err.format("New file '%s'" + " is not a spreadsheet file.%n", filename);
 		                continue;
 		            }
 		        } catch (IOException x) {
@@ -222,14 +228,26 @@ public class DataImportService implements DataImportServiceLocal{
 
 		        try {
 					workBook = new HSSFWorkbook(new FileInputStream(realURI));
+					
+					// Process the input file, time  the activity.
+					long beginTime = System.currentTimeMillis();
 					processExcelFile();
+					long endTime = System.currentTimeMillis();
+					
+					//write input processing time to log file
+					double timeTaken = ((double)(endTime - beginTime))/1000;
+					logger.info("DataImportService: Input processing complete in "+new DecimalFormat("0.00").format(timeTaken)+"s");
+					
+					//re-name file
+					workBook.close();
+					renameFileAfterProcessing(realURI);
+					
 				} catch (IOException e) {
 					//File exception...maybe file is locked. Watcher will continue watching the folder
 					e.printStackTrace();
+					logger.info("DataImportService watchDirectory() exception: "+e.getMessage());
 				}
-		        
-		        //TODO
-		        //Maybe rename the processed file here? Or move to a sub-directory 'processed' or something.
+
 		    }
 
 		    // Reset the key -- this step is critical if you want to
@@ -240,11 +258,34 @@ public class DataImportService implements DataImportServiceLocal{
 		        break;
 		    }
 		    
-		    logger.info("DataImportService ending watch loop...");
+		    logger.info("DataImportService ending watchDirectory()...");
 		}
 		
 	}
 
+	private void renameFileAfterProcessing(String fullName){
+		
+		String proposedName = fullName + PROCESSED_FILE_SUFFIX;
+		String finalName = proposedName;
+		
+		File file = new File(fullName);
+		File file2 = new File(proposedName);
+		
+		//If new name exists, keep appending an (int) until you reach one that doesn't exist yet.
+		int failCount = 1;
+		while(file2.exists()){
+			finalName = proposedName + "("+ (failCount++) +")";
+			file2 = new File(finalName);
+		}
+		
+		if(file.renameTo(file2)){
+			logger.info(String.format("DataImportService: Successfully renamed file '%s' to '%s'",fullName, finalName));
+		}
+		else{
+			logger.info(String.format("DataImportService: Error renaming '%s' to '%s'",fullName, finalName));
+		}
+	}
+	
 	public HSSFSheet getSheet(String sheetName) {
 		return workBook.getSheet(sheetName);
 	}
