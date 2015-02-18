@@ -25,5 +25,11 @@ public class JPARecordDAO implements RecordDAO {
         
     }
 
+    @Override
+    public Record getRecordByKey(int id) {
+        return em.find(Record.class, id);
+        
+    }
+
 }
 

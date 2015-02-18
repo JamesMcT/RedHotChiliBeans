@@ -1,5 +1,7 @@
 package com.team6.project.dao.jpa.test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -18,14 +20,15 @@ import org.junit.runner.RunWith;
 
 import com.team6.project.dao.RecordDAO;
 import com.team6.project.entities.Record;
+
 @RunWith(Arquillian.class)
 public class JPARecordDAOTest {
-    
+
     @EJB
     RecordDAO recordDao;
 
     private Record record;
-    
+
     @Deployment
     public static Archive<?> createDeployment() {
         return ShrinkWrap
@@ -41,25 +44,28 @@ public class JPARecordDAOTest {
 
     @Before
     public void preparePersistenceTest() throws Exception {
-        System.out.println(recordDao);
         setRecord();
         clear();
         insertData();
     }
-   
+
     @Test
     public void test() {
+        Record rec = recordDao.getRecordByKey(record.getKey());
+        System.err.println(rec.toString());
+        assertEquals(rec, record);
+
     }
-    
+
     private void insertData() throws Exception {
         recordDao.addRecord(record);
     }
-    
+
     private void clear() throws Exception {
         recordDao.deleteRecord(record);
     }
-    
-    private void setRecord(){
+
+    private void setRecord() {
         record = new Record();
         record.setDate(new Date());
         record.setCauseCode(1);

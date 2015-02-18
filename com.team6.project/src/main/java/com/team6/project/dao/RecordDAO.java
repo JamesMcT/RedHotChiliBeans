@@ -9,5 +9,7 @@ public interface RecordDAO {
 	public void addRecord(Record record);
 	
 	public void deleteRecord(Record record);
+	
+	public Record getRecordByKey(int id);
 
 }
