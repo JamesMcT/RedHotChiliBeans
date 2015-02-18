@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 
@@ -20,11 +21,10 @@ import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.Record;
 import com.team6.project.entities.UserEquipment;
 
-
+@Local
+@Alternative
 public class PersistenceServiceFake implements PersistenceServiceLocal{
     
-   
-
     @Override
     public Collection<EventCause> getAllEventCauses() {
         // TODO Auto-generated method stub

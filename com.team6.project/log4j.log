@@ -1,18 +1,34 @@
+main INFO  readers.Reader - {}
+main INFO  readers.Reader - In sheet MCC - MNC Table row number 1 not in map. Writing on DB as well....
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main INFO  readers.Reader - In sheet MCC - MNC Table row number 2 not in map. Writing on DB as well....
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2d87=MCC : 344 MNC : 30 Operator : APUA PCS AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main INFO  readers.Reader - In sheet MCC - MNC Table row number 3 not in map. Writing on DB as well....
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2d87=MCC : 344 MNC : 30 Operator : APUA PCS AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@310b=MCC : 344 MNC : 930 Operator : AT&T Wireless-Antigua AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 4 primary key not valued properly
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2d87=MCC : 344 MNC : 30 Operator : APUA PCS AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@310b=MCC : 344 MNC : 930 Operator : AT&T Wireless-Antigua AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 5 primary key not valued properly
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2d87=MCC : 344 MNC : 30 Operator : APUA PCS AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@310b=MCC : 344 MNC : 930 Operator : AT&T Wireless-Antigua AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 6 primary key not valued properly
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2d87=MCC : 344 MNC : 30 Operator : APUA PCS AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@310b=MCC : 344 MNC : 930 Operator : AT&T Wireless-Antigua AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 7 primary key not valued properly
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2d87=MCC : 344 MNC : 30 Operator : APUA PCS AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@310b=MCC : 344 MNC : 930 Operator : AT&T Wireless-Antigua AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main INFO  readers.Reader - In sheet MCC - MNC Table row number 8 already in memory
+main INFO  readers.Reader - In sheet UE Table row number 1 not in map. Writing on DB as well....
 main INFO  readers.Reader - In sheet UE Table row number 2 already in memory
 main WARN  readers.Reader - In sheet UE Table row number 3 primary key not valued properly
 main WARN  readers.Reader - In sheet UE Table row number 4 primary key not valued properly
+main INFO  readers.Reader - In sheet Failure Class Table row number 1 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Failure Class Table row number 2 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Failure Class Table row number 3 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Failure Class Table row number 4 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Failure Class Table row number 5 not in map. Writing on DB as well....
 main INFO  readers.Reader - In sheet Failure Class Table row number 6 already in memory
 main WARN  readers.Reader - In sheet Failure Class Table row number 7 primary key not valued properly
-main WARN  readers.Reader - In sheet MCC - MNC Table row number 4 primary key not valued properly
-main WARN  readers.Reader - In sheet MCC - MNC Table row number 5 primary key not valued properly
-main WARN  readers.Reader - In sheet MCC - MNC Table row number 6 primary key not valued properly
-main WARN  readers.Reader - In sheet MCC - MNC Table row number 7 primary key not valued properly
-main INFO  readers.Reader - In sheet MCC - MNC Table row number 8 already in memory
-main INFO  readers.Reader - In sheet Event-Cause Table row number 1primary key Event Id : 4097 Cause code: 1 map {}
-main INFO  readers.Reader - In sheet Event-Cause Table row number 2primary key Event Id : 4125 Cause code: 1 map {Event Id : 4097 Cause code: 1=Event Id : 4097 Cause code: 1 Description: RRC CONN SETUP-UNSPECIFIED}
-main INFO  readers.Reader - In sheet Event-Cause Table row number 3primary key Event Id : 4125 Cause code: 2 map {Event Id : 4125 Cause code: 1=Event Id : 4125 Cause code: 1 Description: UE CTXT RELEASE-NORMAL RELEASE, Event Id : 4097 Cause code: 1=Event Id : 4097 Cause code: 1 Description: RRC CONN SETUP-UNSPECIFIED}
-main INFO  readers.Reader - In sheet Event-Cause Table row number 4primary key Event Id : 4106 Cause code: 1 map {Event Id : 4125 Cause code: 2=Event Id : 4125 Cause code: 2 Description: UE CTXT RELEASE-AUTHENTICATION FAILURE, Event Id : 4125 Cause code: 1=Event Id : 4125 Cause code: 1 Description: UE CTXT RELEASE-NORMAL RELEASE, Event Id : 4097 Cause code: 1=Event Id : 4097 Cause code: 1 Description: RRC CONN SETUP-UNSPECIFIED}
-main INFO  readers.Reader - In sheet Event-Cause Table row number 5primary key Event Id : 4106 Cause code: 1 map {Event Id : 4106 Cause code: 1=Event Id : 4106 Cause code: 1 Description: INITIAL CTXT SETUP-UNSPECIFIED, Event Id : 4125 Cause code: 2=Event Id : 4125 Cause code: 2 Description: UE CTXT RELEASE-AUTHENTICATION FAILURE, Event Id : 4125 Cause code: 1=Event Id : 4125 Cause code: 1 Description: UE CTXT RELEASE-NORMAL RELEASE, Event Id : 4097 Cause code: 1=Event Id : 4097 Cause code: 1 Description: RRC CONN SETUP-UNSPECIFIED}
+main INFO  readers.Reader - In sheet Event-Cause Table row number 1 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Event-Cause Table row number 2 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Event-Cause Table row number 3 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Event-Cause Table row number 4 not in map. Writing on DB as well....
 main INFO  readers.Reader - In sheet Event-Cause Table row number 5 already in memory
 main WARN  readers.Reader - In sheet Event-Cause Table row number 6 primary key not valued properly
 main WARN  readers.Reader - In sheet Event-Cause Table row number 7 primary key not valued properly

@@ -24,7 +24,7 @@ public class OperatorCountryReader extends Reader {
 
     @Override
     public void processExcelFile(DataImportServiceLocal service) {
-        HSSFSheet sheet = service.getSheet("MCC - MNC Table");
+        HSSFSheet sheet = service.getSheet(NAME);
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);
             OperatorCountry operatorCountry = new OperatorCountry();
@@ -32,13 +32,13 @@ public class OperatorCountryReader extends Reader {
             operatorCountry.setMnc(getIntegerFromCell(row.getCell(1)));
             operatorCountry.setCountry(getStringFromCell(row.getCell(2)));
             operatorCountry.setOperator(getStringFromCell(row.getCell(3)));
-            OperatorCountryPK pk = new OperatorCountryPK(
-                                                         operatorCountry
-                                                                 .getMcc(),
-                                                         operatorCountry
-                                                                 .getMnc());
+            OperatorCountryPK pk = operatorCountry.getKey();
+            readerLogger.info(service.getMap(NAME));
+
             if (operatorCountry.hasRequiredFields()) {
                 if (!service.getMap(NAME).containsKey(pk)) {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() +" not in map. Writing on DB as well....");
                     service.getMap(NAME).put(pk, operatorCountry);
                     service.getPersistenceService().persistOperatorCountry(operatorCountry);
                 } else {

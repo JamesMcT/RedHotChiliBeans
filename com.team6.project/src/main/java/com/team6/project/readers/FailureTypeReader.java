@@ -30,6 +30,8 @@ public class FailureTypeReader extends Reader {
             failure.setDescription(getStringFromCell(row.getCell(1)));
             if (failure.hasRequiredFields()) {
                 if (!service.getMap(NAME).containsKey(failure.getFailureCode())) {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() +" not in map. Writing on DB as well....");
                     service.getMap(NAME).put(failure.getFailureCode(), failure);
                     service.getPersistenceService().persistFailureType(failure);;
                 } else {

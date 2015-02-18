@@ -22,6 +22,7 @@ public class OperatorCountryPK implements Serializable {
         this.mnc = mnc;
     }
 
+
     @Override
     public int hashCode() {
         final int prime = 31;

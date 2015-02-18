@@ -30,6 +30,7 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	private EntityManager em;
 
 
+
 	/**
 	 * Returns collection of FailureType
 	 */
@@ -40,7 +41,7 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 		return result;
 	}
 
-
+	
 	/**
 	 * Get failure Type by failure code.
 	 * 
@@ -57,8 +58,7 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	 * 
 	 * @param failureType
 	 */
-
-	public void addFailureType(FailureType failureType) {
+	public void addFailureType(FailureType failureType){
 		em.persist(failureType);
 	}
 

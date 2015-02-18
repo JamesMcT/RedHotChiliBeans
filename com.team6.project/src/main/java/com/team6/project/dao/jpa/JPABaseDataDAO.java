@@ -11,11 +11,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountryPK;
+import com.team6.project.entities.Record;
 import com.team6.project.entities.UserEquipment;
 
 /**
@@ -103,5 +105,14 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	}
 
 	
+	public static void fillData(Record record, BaseData baseData){
+        baseData.setCellId(record.getCellId());
+        baseData.setDuration(record.getDuration());
+        baseData.setImsi(record.getImsi());
+        baseData.setNeVersion(record.getNeVersion());
+        baseData.setHier3Id(record.getHier3Id());
+        baseData.setHier32Id(record.getHier32Id());
+        baseData.setHier321Id(record.getHier321Id());
+    }
+    
 }
-

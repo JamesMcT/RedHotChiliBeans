@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.team6.project.dao.jpa;
 
 import java.util.Collection;

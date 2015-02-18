@@ -14,11 +14,11 @@ import com.team6.project.entities.UserEquipment;
 @Local
 public interface PersistenceServiceLocal {
 
-	Collection<EventCause> getAllEventCauses();
-	Collection<FailureType> getAllFailureTypes();
-	Collection<OperatorCountry> getAllOperatorCountries();
-	Collection<UserEquipment> getAllUserEquipment();
-	Collection<BaseData> getAllBaseData();
+    public Collection<EventCause> getAllEventCauses();
+    public Collection<FailureType> getAllFailureTypes();
+    public Collection<OperatorCountry> getAllOperatorCountries();
+    public Collection<UserEquipment> getAllUserEquipment();
+    public Collection<BaseData> getAllBaseData();
 	
 	public void persistBaseData(BaseData b);
 	

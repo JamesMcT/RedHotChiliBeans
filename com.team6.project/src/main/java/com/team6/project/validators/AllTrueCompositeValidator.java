@@ -3,6 +3,7 @@ package com.team6.project.validators;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.team6.project.dao.jpa.JPABaseDataDAO;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.Record;
 import com.team6.project.services.DataImportServiceLocal;
@@ -31,8 +32,7 @@ public class AllTrueCompositeValidator implements IValidator{
 				return false;
 			}
 		}
-		//BaseDataDao basedataDao = new BaseDataDao(baseData);
-		//basedataDao.fillData(record);
+		JPABaseDataDAO.fillData(record, baseData);
 		return true;
 	}
 	
