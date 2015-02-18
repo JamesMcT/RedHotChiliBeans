@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.team6.project.dao.jpa;
 
 import java.util.Collection;
@@ -11,9 +10,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.team6.project.dao.UserEquipmentDAO;
-import com.team6.project.entities.FailureType;
-import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.UserEquipment;
+
+
 
 /**
  * 
