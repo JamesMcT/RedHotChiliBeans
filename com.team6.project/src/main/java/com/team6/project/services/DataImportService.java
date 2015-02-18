@@ -1,8 +1,9 @@
 package com.team6.project.services;
 
-import java.io.File;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
+
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -21,10 +22,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
-
-import static java.nio.file.StandardWatchEventKinds.*;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -56,7 +54,7 @@ import com.team6.project.readers.UserEquipmentReader;
 @Startup
 //@Stateless
 @Default
-//@Singleton
+@Singleton
 public class DataImportService implements DataImportServiceLocal{
 
 	//Responsible for interacting with DAO objects and persisting business entities through same.
@@ -69,13 +67,15 @@ public class DataImportService implements DataImportServiceLocal{
 	private HSSFWorkbook workBook;
 	private WatchService directoryWatcher;
 	
-	private final static String WATCH_PATH = "/home/cristiana/test";//"c:/watching/";//TODO: watch a real directory & What will this look like in Linux?
+	private final static String WATCH_PATH = "/home/cristiana/Test/";//"c:/watching/";//TODO: watch a real directory & What will this look like in Linux?
 	
 	//A map of maps, one map for each cached entity type, using entity name as key.
 	private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
 	
 	public DataImportService()
-	{}
+	{
+	    logger.info("DataImportService.Constructor...");
+	}
 	
 	@PostConstruct
 	private void atStartup(){
@@ -86,21 +86,21 @@ public class DataImportService implements DataImportServiceLocal{
 		entityMap.put(UserEquipmentReader.getName(), new HashMap<Integer, UserEquipment>());
 		entityMap.put(OperatorCountryReader.getName(), new HashMap<OperatorCountryPK, OperatorCountry>());
 		
-		
-		for(EventCause e:persistenceService.getAllEventCauses()){
-			entityMap.get(EventCause.class.getName()).put(new EventCausePK(e.getEventId(), e.getCauseCode()), e);
+		logger.info("Filling map for EventCause...");
+		for(EventCause e : persistenceService.getAllEventCauses()){
+			entityMap.get(EventCauseReader.getName()).put(e.getKey(), e);
 		}
-		
-		for(FailureType f:persistenceService.getAllFailureTypes()){
-			entityMap.get(FailureType.class.getName()).put(f.getFailureCode(), f);
+		logger.info("Filling map for FailureType...");
+		for(FailureType f : persistenceService.getAllFailureTypes()){
+			entityMap.get(FailureTypeReader.getName()).put(f.getKey(), f);
 		}
-		
+		logger.info("Filling map for OperatorCountry...");
 		for(OperatorCountry o: persistenceService.getAllOperatorCountries()){
-			entityMap.get(OperatorCountry.class.getName()).put(new OperatorCountryPK(o.getMcc(), o.getMnc()), o);
+			entityMap.get(OperatorCountryReader.getName()).put(o.getKey(), o);
 		}
-		
+		logger.info("Filling map for UserEquipment...");
 		for(UserEquipment u:persistenceService.getAllUserEquipment()){
-			entityMap.get(UserEquipment.class.getName()).put(u.getTac(), u);
+			entityMap.get(UserEquipmentReader.getName()).put(u.getKey(), u);
 		}
 		
 		//create a reader for each sheet in the excel workbook
@@ -110,7 +110,7 @@ public class DataImportService implements DataImportServiceLocal{
 		addReader(new UserEquipmentReader());
 		addReader(new BaseDataReader());
 		
-			
+		logger.info("Readers Intialized...");
 		//Start directory atching service
 		startDirectoryWatcher();
 	}
@@ -238,9 +238,7 @@ public class DataImportService implements DataImportServiceLocal{
 	}
 
 	public Map getMap(String key) {
-		logger.info("Key for retrievin map "+key);
 		if(entityMap.containsKey(key)){
-			logger.info("map contains key "+key);
 			return entityMap.get(key);
 		}
 		return null;

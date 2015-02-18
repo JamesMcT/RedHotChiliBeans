@@ -38,6 +38,8 @@ public class UserEquipmentReader extends Reader {
             userEquip.setInputMode(getStringFromCell(row.getCell(8)));
             if (userEquip.hasRequiredFields()) {
                 if (!service.getMap(NAME).containsKey(userEquip.getTac())) {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() +" not in map. Writing on DB as well....");
                     service.getMap(NAME).put(userEquip.getTac(), userEquip);
                     service.getPersistenceService().persistUserEquipment(userEquip);
                 } else {

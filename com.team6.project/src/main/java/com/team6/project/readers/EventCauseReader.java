@@ -36,9 +36,9 @@ public class EventCauseReader extends Reader {
             EventCausePK pk = new EventCausePK(eventCause.getEventId(),
                                                eventCause.getCauseCode());
             if (eventCause.hasRequiredFields()) {
-            	readerLogger.info("In sheet " + NAME + " row number "
-                        + row.getRowNum() +"primary key "+pk + " map "+service.getMap(NAME));
                 if (!service.getMap(NAME).containsKey(pk)) {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() +" not in map. Writing on DB as well....");
                     service.getMap(NAME).put(pk, eventCause);
                     service.getPersistenceService().persistEventCause(eventCause);
                 } else {

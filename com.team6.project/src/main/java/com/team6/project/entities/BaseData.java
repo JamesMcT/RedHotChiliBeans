@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 public class BaseData {
 
    @Id
-   @GeneratedValue(strategy=GenerationType.AUTO)
+   @GeneratedValue(strategy=GenerationType.IDENTITY)
    private int id;
    private Date date;
    @ManyToOne
@@ -146,6 +146,8 @@ public class BaseData {
    public void setHier321Id(BigInteger hier321Id) {
        this.hier321Id = hier321Id;
    }
+
+
 
    
    

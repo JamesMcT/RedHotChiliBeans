@@ -2,17 +2,18 @@ package com.team6.project.services;
 
 import java.util.Map;
 
-import javax.ejb.EJB;
+import javax.enterprise.inject.Alternative;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+@Alternative
 public class DataImportServiceFake implements DataImportServiceLocal{
 
     private HSSFWorkbook workBook;
     private Map<String, Map> map;
     
-     PersistenceServiceFake persistenceServiceFake;
+    PersistenceServiceFake persistenceServiceFake;
     
     public DataImportServiceFake() {
         super();
