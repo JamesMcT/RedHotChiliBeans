@@ -25,6 +25,7 @@ public class JPAEventCauseDAOTest {
 
     @EJB
     EventCauseDAO eventCauseDao;
+    private  EventCause eventCause;
     
     @Deployment
     public static Archive<?> createDeployment() {
@@ -35,13 +36,8 @@ public class JPAEventCauseDAOTest {
     }
 
     
-    
-    private  EventCause eventCause;
-   
-    
     @Before
     public void preparePersistenceTest() throws Exception {
-        //eventCause = new EventCause(4097, 0, "desc");
         eventCause = new EventCause(1, 2, "desc");
         insertData();
     }

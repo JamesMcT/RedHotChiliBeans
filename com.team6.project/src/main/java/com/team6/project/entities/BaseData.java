@@ -43,6 +43,10 @@ public class BaseData {
    
    public BaseData() { }
 
+   public Integer getKey(){
+       return id;
+   }
+   
    public int getId() {
        return id;
    }

@@ -44,6 +44,9 @@ public class Record implements IDescription {
     }
 
     
+    public Integer getKey(){
+        return id;
+    }
     
     
    public boolean assertSameFields(Record other) {
