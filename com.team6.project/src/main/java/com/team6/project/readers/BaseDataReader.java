@@ -1,6 +1,7 @@
 package com.team6.project.readers;
 
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -35,6 +36,10 @@ public class BaseDataReader extends Reader {
     public void processExcelFile(DataImportServiceLocal service) {
         HSSFSheet sheet = service.getSheet(NAME);
         IValidator validator = createValidator();
+        
+        long beginTime = System.currentTimeMillis();
+        readerLogger.info("BaseDataReader: Begin reading BaseData");
+        
         while (currentRow <= sheet.getLastRowNum()) {
             Record record = read(sheet);
             BaseData baseData = new BaseData();
@@ -46,6 +51,9 @@ public class BaseDataReader extends Reader {
             }
         }
 
+        long endTime = System.currentTimeMillis();
+        double timeTaken = ((double)(endTime - beginTime))/1000;
+        readerLogger.info(String.format("BaseDataReader: End reading BaseData (%s seconds)", new DecimalFormat("0.00").format(timeTaken) ));
     }
 
     public Record read(HSSFSheet sheet) {
