@@ -1,3 +1,4 @@
+
 package com.team6.project.dao.jpa;
 
 import java.math.BigInteger;
@@ -103,3 +104,4 @@ public class JPABaseDataDAO implements BaseDataDAO {
 
 	
 }
+

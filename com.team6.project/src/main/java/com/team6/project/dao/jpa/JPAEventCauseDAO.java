@@ -70,3 +70,4 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 	}
 
 }
+	

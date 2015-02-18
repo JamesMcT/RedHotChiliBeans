@@ -11,7 +11,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.IDescription;
 import com.team6.project.entities.Record;
-import com.team6.project.services.MapExcelInterface;
+import com.team6.project.services.DataImportServiceLocal;
 import com.team6.project.validators.AllTrueCompositeValidator;
 import com.team6.project.validators.DateValidator;
 import com.team6.project.validators.EventCauseValidator;
@@ -32,8 +32,7 @@ public class BaseDataReader extends Reader {
     private static final String NAME = "Base Data";
 
     @Override
-    public void processExcelFile(MapExcelInterface service) {
-        // List<Map> maps = service.getMaps();
+    public void processExcelFile(DataImportServiceLocal service) {
         HSSFSheet sheet = service.getSheet(NAME);
         IValidator validator = createValidator();
         while (currentRow <= sheet.getLastRowNum()) {
@@ -41,9 +40,9 @@ public class BaseDataReader extends Reader {
             BaseData baseData = new BaseData();
             boolean isValid = validator.isValid(record, baseData, service);
             if (isValid) {
-                // em.persist(baseData);
+                service.getPersistenceService().persistBaseData(baseData);
             } else {
-                // em.persist(record);
+            	service.getPersistenceService().persistErroneusRecord(record);
             }
         }
 
@@ -131,5 +130,11 @@ public class BaseDataReader extends Reader {
         validator.add(new UserEquipmentValidator());
         return validator;
     }
+
+    public static String getName() {
+        return NAME;
+    }
+    
+    
 
 }

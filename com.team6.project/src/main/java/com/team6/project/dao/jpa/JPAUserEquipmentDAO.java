@@ -28,7 +28,7 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 	private EntityManager em;
 
 	@Override
-	public Collection<UserEquipment> getAllRecords() {
+	public Collection<UserEquipment> getAllUserEquipment() {
 		Query q = em.createQuery("from UserEquipment ");
 		List<UserEquipment> result = q.getResultList();
 		return result;

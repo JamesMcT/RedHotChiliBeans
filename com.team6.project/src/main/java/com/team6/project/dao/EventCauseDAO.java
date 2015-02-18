@@ -11,6 +11,7 @@ import com.team6.project.entities.EventCausePK;
 @Local
 public interface EventCauseDAO {
 
+
 	public Collection<EventCause> getAllEventCauses();
 
 	public EventCause getEventCauseByPK(EventCausePK eventCausePK);

@@ -9,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
 import com.team6.project.services.DataImportService;
+import com.team6.project.services.DataImportServiceLocal;
 
 /**
  * A RESTful interface for the data import service. The POST method expects
@@ -24,7 +25,7 @@ import com.team6.project.services.DataImportService;
 public class FileImportRestService {
 
 	@Inject
-	DataImportService importService;
+	DataImportServiceLocal importService;
 	
 	public FileImportRestService()
 	{}
@@ -33,7 +34,8 @@ public class FileImportRestService {
 	@Path("/upload")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	public void uploadFile(File file){
-		importService.processExcelFile(file);
+		//TODO: revisit
+		importService.processExcelFile();
 	}
 	
 }

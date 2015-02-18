@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 default.configuration=com.team6.project
 eclipse.preferences.version=1
 hibernate3.enabled=true
+=======
+default.configuration=com.team6.project
+eclipse.preferences.version=1
+hibernate3.enabled=true
+>>>>>>> refs/heads/readers_branch_cris

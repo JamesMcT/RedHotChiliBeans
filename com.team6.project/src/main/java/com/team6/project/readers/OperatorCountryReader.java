@@ -5,12 +5,12 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
-import com.team6.project.services.MapExcelInterface;
+import com.team6.project.services.DataImportServiceLocal;
+
 /**
- * Reads rows in sheet called MCC - MNC Table.
- * Create the OperatorCountry object.
- * If the object is not already in the appropriated map
- * it is added and written to the DB
+ * Reads rows in sheet called MCC - MNC Table. Create the OperatorCountry
+ * object. If the object is not already in the appropriated map it is added and
+ * written to the DB
  * 
  * @author Cristiana
  */
@@ -23,7 +23,7 @@ public class OperatorCountryReader extends Reader {
     }
 
     @Override
-    public void processExcelFile(MapExcelInterface service) {
+    public void processExcelFile(DataImportServiceLocal service) {
         HSSFSheet sheet = service.getSheet("MCC - MNC Table");
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);
@@ -40,11 +40,14 @@ public class OperatorCountryReader extends Reader {
             if (operatorCountry.hasRequiredFields()) {
                 if (!service.getMap(NAME).containsKey(pk)) {
                     service.getMap(NAME).put(pk, operatorCountry);
-                    // persistence.persist(failure);
+                    service.getPersistenceService().persistOperatorCountry(operatorCountry);
+                } else {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() + " already in memory");
                 }
-                // It is already in the map
             } else {
-                // Data corrupted write Log file
+                readerLogger.warn("In sheet " + NAME + " row number "
+                        + row.getRowNum() + " primary key not valued properly");
             }
             currentRow++;
         }
@@ -54,5 +57,4 @@ public class OperatorCountryReader extends Reader {
     public static String getName() {
         return NAME;
     }
-
 }

@@ -1,6 +1,5 @@
 package com.team6.project.dao;
 
-
 import java.math.BigInteger;
 import java.util.Collection;
 
@@ -16,7 +15,7 @@ import com.team6.project.entities.UserEquipment;
 
 @Local
 public interface BaseDataDAO {
-	
+
 	public Collection<BaseData> findByImsi(BigInteger imsi);
 	
 	public Collection<BaseData> findByFailureType(FailureType failureType);

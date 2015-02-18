@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
+import com.team6.project.entities.EventCausePK;
+
+
 /**
  * @author Cristiana EventCause table
  */
@@ -30,7 +33,23 @@ public class EventCause implements Serializable {
         this.eventId = eventId;
         this.description = description;
     }
+
+    public boolean hasRequiredFields() {
+        if (causeCode != null && eventId != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public String toString() {
+        return "Event Id : " + eventId + " Cause code: " + causeCode
+                + " Description: " + description;
+    }
     
+    public EventCausePK getKey(){
+        return new EventCausePK(eventId, causeCode);
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -63,17 +82,6 @@ public class EventCause implements Serializable {
         return true;
     }
 
-    public boolean hasRequiredFields(){
-        if(causeCode != null && eventId != null){
-            return true;
-        }
-        return false;
-    }
-    
-    public String toString(){
-        return "Event Id : "+eventId+" Cause code: "+causeCode+" Description: "+description;
-    }
-
     public Integer getCauseCode() {
         return causeCode;
     }
@@ -97,5 +105,7 @@ public class EventCause implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    
 
 }
