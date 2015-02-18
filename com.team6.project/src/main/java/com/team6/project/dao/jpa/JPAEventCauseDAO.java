@@ -27,63 +27,47 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 
     @PersistenceContext
     EntityManager em;
-	
+
     @Override
-	public Collection<EventCause> getAllCauses() {
-    	Query query = em.createQuery("from EventCause");
-		List<EventCause> results = query.getResultList();
-		return results;
-	}
+    public Collection<EventCause> getAllCauses() {
+        Query query = em.createQuery("from EventCause");
+        List<EventCause> results = query.getResultList();
+        return results;
+    }
+
     
-    /**
-     * 
-     */
-	@Override
-	public EventCause getEventCauseByKey(EventCausePK eventCausePK) {
-//		Query q = em
-//				.createQuery("from EventCausePK where eventCausePK = :code"); 
-//		q.setParameter("code", 2);
-//		List<EventCause> result = q.getResultList(); 
-		return em.find(EventCause.class, eventCausePK);
-		
-	}
-	
-	
-	/**
-	 * 
-	 */
-	@Override
-	public void addNewEventCauseDataSet(EventCause eventCause) {
-		em.persist(eventCause);
+    @Override
+    public EventCause getEventCauseByKey(EventCausePK eventCausePK) {
+        // Query q = em
+        // .createQuery("from EventCausePK where eventCausePK = :code");
+        // q.setParameter("code", 2);
+        // List<EventCause> result = q.getResultList();
+        return em.find(EventCause.class, eventCausePK);
 
-	}
-	
-	
-	/**
-	 * 
-	 */
-	@Override
-	public void updateEventCause(
-			EventCause eventCause) {
-		EventCause ec = em.find(EventCause.class, eventCause);
-		// Are these geters and setters required or does "Merge" take care of this in the background?
-		ec = new EventCause(eventCause.getCauseCode(),eventCause.getEventId(),eventCause.getDescription());
-		em.merge(ec);
-	}
-	
-	
-	/**
-	 * 
-	 */
-	@Override
-	public void deleteEventCause(EventCausePK eventCausePK) {
-//		Query q = em.createQuery("from EventCausePK where eventCausePK = :code");
-//		q.setParameter("code", 3);
-//		List<EventCause> result = q.getResultList();
-		EventCause result = em.find(EventCause.class, eventCausePK);
-		em.remove(result);
-	}
+    }
 
+    
+    @Override
+    public void addNewEventCauseDataSet(EventCause eventCause) {
+        em.persist(eventCause);
 
-	
+    }
+
+   
+    @Override
+    public void updateEventCause(EventCause eventCause) {
+        em.merge(eventCause);
+    }
+
+    
+    @Override
+    public void deleteEventCause(EventCausePK eventCausePK) {
+        // Query q =
+        // em.createQuery("from EventCausePK where eventCausePK = :code");
+        // q.setParameter("code", 3);
+        // List<EventCause> result = q.getResultList();
+        EventCause result = em.find(EventCause.class, eventCausePK);
+        em.remove(result);
+    }
+
 }
