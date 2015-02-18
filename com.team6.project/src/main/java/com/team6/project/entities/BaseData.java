@@ -43,8 +43,31 @@ public class BaseData {
    private BigInteger hier321Id;
    
    public BaseData() { }
+   
+   
 
-   public int getId() {
+   public BaseData( Date date, EventCause eventCause, FailureType failure,
+		UserEquipment userEquipment, OperatorCountry operatorCountry,
+		Integer cellId, Integer duration, String neVersion, BigInteger imsi,
+		BigInteger hier3Id, BigInteger hier32Id, BigInteger hier321Id) {
+	super();
+	this.date = date;
+	this.eventCause = eventCause;
+	this.failure = failure;
+	this.userEquipment = userEquipment;
+	this.operatorCountry = operatorCountry;
+	this.cellId = cellId;
+	this.duration = duration;
+	this.neVersion = neVersion;
+	this.imsi = imsi;
+	this.hier3Id = hier3Id;
+	this.hier32Id = hier32Id;
+	this.hier321Id = hier321Id;
+}
+
+
+
+public int getId() {
        return id;
    }
 

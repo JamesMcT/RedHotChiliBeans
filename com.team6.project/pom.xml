@@ -7,21 +7,16 @@
 	<packaging>war</packaging>
 	<profiles>
 		<profile>
-			<id>arquillian-jbossas-remote</id>
+			<id>arquillian-jbossas-embedded</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>org.jboss.spec</groupId>
 					<artifactId>jboss-javaee-6.0</artifactId>
 					<version>3.0.1.Final</version>
 					<type>pom</type>
-					<!-- xalan is messed up in the JBoss spec apparently with a cyclic dependency 
-						so has to be removed -->
-					<exclusions>
-						<exclusion>
-							<groupId>org.apache.xalan</groupId>
-							<artifactId>xalan</artifactId>
-						</exclusion>
-					</exclusions>
 				</dependency>
 				<dependency>
 					<groupId>org.jboss.as</groupId>
@@ -93,11 +88,32 @@
 			<version>1.2.17</version>
 		</dependency>
 		<dependency>
+			<groupId>org.jboss.as</groupId>
+			<artifactId>jboss-as-arquillian-container-managed</artifactId>
+			<version>7.1.1.Final</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.jboss.arquillian.junit</groupId>
 			<artifactId>arquillian-junit-container</artifactId>
 			<version>1.0.3.Final</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian.extension</groupId>
+			<artifactId>arquillian-jacoco</artifactId>
+			<version>1.0.0.Alpha6</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>org.jacoco.core</artifactId>
+			<version>0.6.4.201312101107</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -110,6 +126,25 @@
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.0.201403182114</version>
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<goals> -->
+<!-- 							<goal>prepare-agent</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 					<execution> -->
+<!-- 						<id>report</id> -->
+<!-- 						<phase>prepare-package</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>report</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
 			</plugin>
 		</plugins>
 	</build>
