@@ -37,7 +37,7 @@ public class UserEquipmentReaderTest {
         Collection<UserEquipment> list = new ArrayList<>();
         list.add(new UserEquipment(21060800,"VEA3","S.A.R.L. B  & B International", "GSM 1800, GSM 900","VEA3","S.A.R.L. B  & B International",null ,null,null));
         UserEquipmentReader reader = new UserEquipmentReader();
-        //reader.processExcelFile(service);
+        reader.processExcelFile(service);
         assertTrue(CollectionUtils.isEqualCollection(service.getMap(UserEquipmentReader.getName()).values(), list));
     }
 

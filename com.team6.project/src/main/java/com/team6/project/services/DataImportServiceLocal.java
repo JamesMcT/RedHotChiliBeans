@@ -1,6 +1,5 @@
 package com.team6.project.services;
 
-import java.io.File;
 import java.util.Map;
 
 import javax.ejb.Local;
@@ -14,5 +13,7 @@ public interface DataImportServiceLocal {
 	public HSSFSheet getSheet(String string);
     
     public Map getMap(String string);
+    
+    public PersistenceServiceLocal getPersistenceService();
 	
 }

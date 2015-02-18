@@ -21,7 +21,25 @@ public class FailureType {
         this.failureCode = failureCode;
         this.description = descrption;
     }
+
+
+    public String toString() {
+        return "Failure Code : " + failureCode + " Description : "
+                + description;
+    }
+
+    public boolean hasRequiredFields() {
+        if (failureCode != null) {
+            return true;
+        }
+        return false;
+    }
     
+    public Integer getKey(){
+        return failureCode;
+    }
+
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -48,24 +66,13 @@ public class FailureType {
         return true;
     }
 
-    public String toString() {
-        return "Failure Code : " + failureCode + " Description : "
-                + description;
-    }
-    
-	public boolean hasRequiredFields() {
-        if (failureCode != null) {
-            return true;
-        }
-        return false;
-    }
     
 
     public Integer getFailureCode() {
         return failureCode;
     }
 
-    public void setFailureCode(int failureCode) {
+    public void setFailureCode(Integer failureCode) {
         this.failureCode = failureCode;
     }
 

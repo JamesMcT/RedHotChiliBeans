@@ -24,7 +24,7 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 	private EntityManager em;
 
 	public Collection<OperatorCountry> getAllOperatorCountries(){
-    	Query query = em.createQuery("from BaseData");
+    	Query query = em.createQuery("from OperatorCountry");
 		List<OperatorCountry> results = query.getResultList();
 		return results;
     }

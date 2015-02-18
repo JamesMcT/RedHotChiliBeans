@@ -42,6 +42,10 @@ public class EventCause implements Serializable {
         return "Event Id : " + eventId + " Cause code: " + causeCode
                 + " Description: " + description;
     }
+    
+    public EventCausePK getKey(){
+        return new EventCausePK(eventId, causeCode);
+    }
 
     @Override
     public int hashCode() {

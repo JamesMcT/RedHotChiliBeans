@@ -4,8 +4,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 import com.team6.project.entities.FailureType;
-import com.team6.project.services.DataImportService;
-import com.team6.project.services.MapExcelInterface;
+import com.team6.project.services.DataImportServiceLocal;
 
 /**
  * Reads rows in sheet called Failure Class Table. Create the FailureType
@@ -22,7 +21,7 @@ public class FailureTypeReader extends Reader {
         super();
     }
 
-    public void processExcelFile(DataImportService service) {
+    public void processExcelFile(DataImportServiceLocal service) {
         HSSFSheet sheet = service.getSheet(NAME);
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);
@@ -31,6 +30,8 @@ public class FailureTypeReader extends Reader {
             failure.setDescription(getStringFromCell(row.getCell(1)));
             if (failure.hasRequiredFields()) {
                 if (!service.getMap(NAME).containsKey(failure.getFailureCode())) {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() +" not in map. Writing on DB as well....");
                     service.getMap(NAME).put(failure.getFailureCode(), failure);
                     service.getPersistenceService().persistFailureType(failure);;
                 } else {

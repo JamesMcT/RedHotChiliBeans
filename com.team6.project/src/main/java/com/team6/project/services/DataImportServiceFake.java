@@ -2,13 +2,18 @@ package com.team6.project.services;
 
 import java.util.Map;
 
+import javax.enterprise.inject.Alternative;
+
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-public class DataImportServiceFake implements MapExcelInterface{
+@Alternative
+public class DataImportServiceFake implements DataImportServiceLocal{
 
     private HSSFWorkbook workBook;
     private Map<String, Map> map;
+    
+    PersistenceServiceFake persistenceServiceFake;
     
     public DataImportServiceFake() {
         super();
@@ -38,6 +43,17 @@ public class DataImportServiceFake implements MapExcelInterface{
 
     public void setMap(Map<String, Map> map) {
         this.map = map;
+    }
+
+    @Override
+    public void processExcelFile() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public PersistenceServiceLocal getPersistenceService() {
+        return new PersistenceServiceFake();
     }
 
     

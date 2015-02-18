@@ -30,7 +30,7 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 	private EntityManager em;
 	
 	public Collection<UserEquipment> getAllUserEquipment(){
-    	Query query = em.createQuery("from BaseData");
+    	Query query = em.createQuery("from UserEquipment");
 		List<UserEquipment> results = query.getResultList();
 		return results;
     }

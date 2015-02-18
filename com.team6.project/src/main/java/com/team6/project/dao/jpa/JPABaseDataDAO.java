@@ -12,9 +12,7 @@ import javax.persistence.Query;
 
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.entities.BaseData;
-import com.team6.project.entities.EventCause;
-import com.team6.project.entities.FailureType;
-import com.team6.project.entities.UserEquipment;
+import com.team6.project.entities.Record;
 /**
  * 
  * @author James
@@ -60,22 +58,7 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	 */
 	@Override
 	public void updateBaseData(BaseData baseData) {
-		BaseData bd = getBaseDataRecord(baseData.getId());
-		bd.setCellId(baseData.getCellId());
-		bd.setDate(baseData.getDate());
-		bd.setDuration(baseData.getDuration());
-		bd.setEventCause(baseData.getEventCause());
-		bd.setFailure(baseData.getFailure());
-		bd.setHier321Id(baseData.getHier321Id());
-		bd.setHier32Id(baseData.getHier32Id());
-		bd.setHier3Id(baseData.getHier3Id());
-		bd.setId(baseData.getId());
-		bd.setImsi(baseData.getImsi());
-		bd.setNeVersion(baseData.getNeVersion());
-		bd.setOperatorCountry(baseData.getOperatorCountry());
-		bd.setUserEquipment(baseData.getUserEquipment());
-		
-		em.merge(bd);
+		em.merge(baseData);
 	}
 
 	@Override
@@ -94,7 +77,15 @@ public class JPABaseDataDAO implements BaseDataDAO {
 		
 	}
 
-
+	public static void fillData(Record record, BaseData baseData){
+        baseData.setCellId(record.getCellId());
+        baseData.setDuration(record.getDuration());
+        baseData.setImsi(record.getImsi());
+        baseData.setNeVersion(record.getNeVersion());
+        baseData.setHier3Id(record.getHier3Id());
+        baseData.setHier32Id(record.getHier32Id());
+        baseData.setHier321Id(record.getHier321Id());
+    }
     
     
     

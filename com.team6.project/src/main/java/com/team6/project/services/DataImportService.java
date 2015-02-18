@@ -83,28 +83,37 @@ public class DataImportService implements DataImportServiceLocal{
 	private void atStartup(){
 		
 		logger.info("DataImportService.atStartUp()...");
+		
+		initialiseHashMaps();
+		initialiseReaders();
+		startDirectoryWatcher();
+	}
+	
+	private void initialiseHashMaps(){
 		entityMap.put(EventCauseReader.getName(), new HashMap<EventCausePK, EventCause>());
 		entityMap.put(FailureTypeReader.getName(), new HashMap<Integer, FailureType>());
 		entityMap.put(UserEquipmentReader.getName(), new HashMap<Integer, UserEquipment>());
 		entityMap.put(OperatorCountryReader.getName(), new HashMap<OperatorCountryPK, OperatorCountry>());
 		
-		//TODO: Causing error if tables do not exist (running for first time in empty CallFaiureDB database)
-		for(EventCause e:persistenceService.getAllEventCauses()){
-			entityMap.get(EventCause.class.getName()).put(new EventCausePK(e.getEventId(), e.getCauseCode()), e);
+		logger.info("Filling map for EventCause...");
+		for(EventCause e : persistenceService.getAllEventCauses()){
+			entityMap.get(EventCauseReader.getName()).put(e.getKey(), e);
 		}
-		
-		for(FailureType f:persistenceService.getAllFailureTypes()){
-			entityMap.get(FailureType.class.getName()).put(f.getFailureCode(), f);
+		logger.info("Filling map for FailureType...");
+		for(FailureType f : persistenceService.getAllFailureTypes()){
+			entityMap.get(FailureTypeReader.getName()).put(f.getKey(), f);
 		}
-		
+		logger.info("Filling map for OperatorCountry...");
 		for(OperatorCountry o: persistenceService.getAllOperatorCountries()){
-			entityMap.get(OperatorCountry.class.getName()).put(new OperatorCountryPK(o.getMcc(), o.getMnc()), o);
+			entityMap.get(OperatorCountryReader.getName()).put(o.getKey(), o);
 		}
-		
+		logger.info("Filling map for UserEquipment...");
 		for(UserEquipment u:persistenceService.getAllUserEquipment()){
-			entityMap.get(UserEquipment.class.getName()).put(u.getTac(), u);
+			entityMap.get(UserEquipmentReader.getName()).put(u.getKey(), u);
 		}
-		
+	}
+	
+	private void initialiseReaders(){
 		//create a reader for each sheet in the excel workbook
 		addReader(new EventCauseReader());
 		addReader(new FailureTypeReader());
@@ -112,9 +121,7 @@ public class DataImportService implements DataImportServiceLocal{
 		addReader(new UserEquipmentReader());
 		addReader(new BaseDataReader());
 		
-			
-		//Start directory atching service
-		startDirectoryWatcher();
+		logger.info("Readers Intialized...");
 	}
 	
 	/* Given that this class is a singleton, and this method is synchronized, only
@@ -166,6 +173,8 @@ public class DataImportService implements DataImportServiceLocal{
 		
 		for (;;) {
 
+			logger.info("DataImportService beginning folder watch loop...");
+
 		    // wait for key to be signaled
 		    WatchKey key;
 		    try {
@@ -213,12 +222,11 @@ public class DataImportService implements DataImportServiceLocal{
 
 		        try {
 					workBook = new HSSFWorkbook(new FileInputStream(realURI));
+					processExcelFile();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					//File exception...maybe file is locked. Watcher will continue watching the folder
 					e.printStackTrace();
 				}
-		        
-		        processExcelFile();
 		        
 		        //TODO
 		        //Maybe rename the processed file here? Or move to a sub-directory 'processed' or something.
@@ -231,6 +239,8 @@ public class DataImportService implements DataImportServiceLocal{
 		    if (!valid) {
 		        break;
 		    }
+		    
+		    logger.info("DataImportService ending watch loop...");
 		}
 		
 	}
@@ -240,9 +250,7 @@ public class DataImportService implements DataImportServiceLocal{
 	}
 
 	public Map getMap(String key) {
-		logger.info("Key for retrievin map "+key);
 		if(entityMap.containsKey(key)){
-			logger.info("map contains key "+key);
 			return entityMap.get(key);
 		}
 		return null;

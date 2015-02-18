@@ -2,6 +2,7 @@ package com.team6.project.entities.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
@@ -27,6 +28,16 @@ public class UserEquipmentTest {
         ue3 = new UserEquipment(1, null, null, null, null, null, null, null,
                                 null);
 
+    }
+    
+    @Test
+    public void getKeyTest_True() {
+        assertEquals(ue2.getKey(), new Integer(2));
+    }
+    
+    @Test
+    public void getKeyTest_False() {
+        assertNotEquals(ue2.getKey(), new Integer(1));
     }
 
     @Test

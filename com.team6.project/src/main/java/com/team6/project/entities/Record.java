@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class Record implements IDescription {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Date date;
     private Integer causeCode;
@@ -46,7 +46,7 @@ public class Record implements IDescription {
     
     
     
-   public boolean asserSameFields(Record other) {
+   public boolean assertSameFields(Record other) {
         if (causeCode == null) {
             if (other.causeCode != null)
                 return false;

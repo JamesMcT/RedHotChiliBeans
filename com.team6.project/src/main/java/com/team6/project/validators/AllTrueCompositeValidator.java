@@ -3,10 +3,10 @@ package com.team6.project.validators;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.team6.project.dao.jpa.JPABaseDataDAO;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.Record;
-import com.team6.project.services.DataImportService;
-import com.team6.project.services.MapExcelInterface;
+import com.team6.project.services.DataImportServiceLocal;
 
 /**
  * Composed by a collection of IValidator object  
@@ -26,14 +26,13 @@ public class AllTrueCompositeValidator implements IValidator{
 	 * using the Record object
 	 */
 	@Override
-	public boolean isValid(Record record, BaseData baseData, DataImportService service) {
+	public boolean isValid(Record record, BaseData baseData, DataImportServiceLocal service) {
 		for(IValidator validator : validators){
 			if(!validator.isValid(record, baseData,service)){
 				return false;
 			}
 		}
-		//BaseDataDao basedataDao = new BaseDataDao(baseData);
-		//basedataDao.fillData(record);
+		JPABaseDataDAO.fillData(record, baseData);
 		return true;
 	}
 	

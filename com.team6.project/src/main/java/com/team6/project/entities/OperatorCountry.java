@@ -41,6 +41,10 @@ public class OperatorCountry implements Serializable{
         }
         return false;
     }
+    
+    public OperatorCountryPK getKey(){
+        return new OperatorCountryPK(mcc, mnc);
+    }
 
     @Override
     public int hashCode() {

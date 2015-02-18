@@ -5,8 +5,7 @@ import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.Record;
 import com.team6.project.readers.EventCauseReader;
-import com.team6.project.services.DataImportService;
-import com.team6.project.services.MapExcelInterface;
+import com.team6.project.services.DataImportServiceLocal;
 
 /**
  * Validates the EventId and the CauseCode to guarantee the FK satisfied
@@ -17,7 +16,7 @@ public class EventCauseValidator implements IValidator {
 
     @Override
     public boolean isValid(Record record, BaseData baseData,
-    		DataImportService service) {
+            DataImportServiceLocal service) {
         if (record.getEventId() != null && record.getCauseCode() != null) {
             EventCausePK pk = new EventCausePK(record.getEventId(),
                                                record.getCauseCode());

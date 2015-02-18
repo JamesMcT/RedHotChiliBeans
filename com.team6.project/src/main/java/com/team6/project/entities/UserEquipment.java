@@ -53,6 +53,10 @@ public class UserEquipment {
         }
         return false;
     }
+    
+    public Integer getKey(){
+        return tac;
+    }
 
     @Override
     public int hashCode() {

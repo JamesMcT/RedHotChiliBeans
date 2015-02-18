@@ -4,8 +4,7 @@ import com.team6.project.entities.BaseData;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.Record;
 import com.team6.project.readers.FailureTypeReader;
-import com.team6.project.services.DataImportService;
-import com.team6.project.services.MapExcelInterface;
+import com.team6.project.services.DataImportServiceLocal;
 
 /**
  * Validates the FailureType to guarantee the FK satisfied
@@ -16,7 +15,7 @@ public class FailureTypeValidator implements IValidator {
 
     @Override
     public boolean isValid(Record record, BaseData baseData,
-    		DataImportService service) {
+            DataImportServiceLocal service) {
         FailureType failure = (FailureType) service.getMap(FailureTypeReader
                                                                    .getName())
                 .get(record.getFailureType());

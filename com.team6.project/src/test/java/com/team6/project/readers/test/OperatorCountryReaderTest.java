@@ -44,7 +44,7 @@ public class OperatorCountryReaderTest {
         list.add(new OperatorCountry(344, 930, "Antigua and Barbuda","AT&T Wireless-Antigua AG"));
 
         OperatorCountryReader reader = new OperatorCountryReader();
-        //reader.processExcelFile(service);
+        reader.processExcelFile(service);
         assertTrue(CollectionUtils.isEqualCollection(service.getMap(OperatorCountryReader.getName()).values(), list));
     }
 

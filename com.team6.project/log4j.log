@@ -1,12 +1,34 @@
-main INFO  readers.Reader - In sheet UE Table row number 2 already in memory
-main WARN  readers.Reader - In sheet UE Table row number 3 primary key not valued properly
-main WARN  readers.Reader - In sheet UE Table row number 4 primary key not valued properly
-main INFO  readers.Reader - In sheet Failure Class Table row number 6 already in memory
-main WARN  readers.Reader - In sheet MCC - MNC Table row number 4 primary key not valued properly
-main WARN  readers.Reader - In sheet MCC - MNC Table row number 5 primary key not valued properly
-main WARN  readers.Reader - In sheet MCC - MNC Table row number 6 primary key not valued properly
-main WARN  readers.Reader - In sheet MCC - MNC Table row number 7 primary key not valued properly
-main INFO  readers.Reader - In sheet MCC - MNC Table row number 8 already in memory
+main INFO  readers.Reader - In sheet Event-Cause Table row number 1 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Event-Cause Table row number 2 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Event-Cause Table row number 3 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Event-Cause Table row number 4 not in map. Writing on DB as well....
 main INFO  readers.Reader - In sheet Event-Cause Table row number 5 already in memory
 main WARN  readers.Reader - In sheet Event-Cause Table row number 6 primary key not valued properly
 main WARN  readers.Reader - In sheet Event-Cause Table row number 7 primary key not valued properly
+main INFO  readers.Reader - In sheet Failure Class Table row number 1 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Failure Class Table row number 2 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Failure Class Table row number 3 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Failure Class Table row number 4 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Failure Class Table row number 5 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet Failure Class Table row number 6 already in memory
+main WARN  readers.Reader - In sheet Failure Class Table row number 7 primary key not valued properly
+main INFO  readers.Reader - {}
+main INFO  readers.Reader - In sheet MCC - MNC Table row number 1 not in map. Writing on DB as well....
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main INFO  readers.Reader - In sheet MCC - MNC Table row number 2 not in map. Writing on DB as well....
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2d87=MCC : 344 MNC : 30 Operator : APUA PCS AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main INFO  readers.Reader - In sheet MCC - MNC Table row number 3 not in map. Writing on DB as well....
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2d87=MCC : 344 MNC : 30 Operator : APUA PCS AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@310b=MCC : 344 MNC : 930 Operator : AT&T Wireless-Antigua AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 4 primary key not valued properly
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2d87=MCC : 344 MNC : 30 Operator : APUA PCS AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@310b=MCC : 344 MNC : 930 Operator : AT&T Wireless-Antigua AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 5 primary key not valued properly
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2d87=MCC : 344 MNC : 30 Operator : APUA PCS AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@310b=MCC : 344 MNC : 930 Operator : AT&T Wireless-Antigua AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 6 primary key not valued properly
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2d87=MCC : 344 MNC : 30 Operator : APUA PCS AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@310b=MCC : 344 MNC : 930 Operator : AT&T Wireless-Antigua AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 7 primary key not valued properly
+main INFO  readers.Reader - {com.team6.project.entities.OperatorCountryPK@2d87=MCC : 344 MNC : 30 Operator : APUA PCS AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@310b=MCC : 344 MNC : 930 Operator : AT&T Wireless-Antigua AG  Country : Antigua and Barbuda, com.team6.project.entities.OperatorCountryPK@2cef=MCC : 340 MNC : 2 Operator : Outremer Telecom GP  Country : Guadeloupe-France}
+main INFO  readers.Reader - In sheet MCC - MNC Table row number 8 already in memory
+main INFO  readers.Reader - In sheet UE Table row number 1 not in map. Writing on DB as well....
+main INFO  readers.Reader - In sheet UE Table row number 2 already in memory
+main WARN  readers.Reader - In sheet UE Table row number 3 primary key not valued properly
+main WARN  readers.Reader - In sheet UE Table row number 4 primary key not valued properly

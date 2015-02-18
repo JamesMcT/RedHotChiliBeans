@@ -5,7 +5,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
-import com.team6.project.services.DataImportService;
+import com.team6.project.services.DataImportServiceLocal;
 
 /**
  * Reads rows in sheet called Event-Cause Table. Create the EventCause object.
@@ -24,7 +24,7 @@ public class EventCauseReader extends Reader {
     // without messing with the
     // DataImportService.
     @Override
-    public void processExcelFile(DataImportService service) {
+    public void processExcelFile(DataImportServiceLocal service) {
 
         HSSFSheet sheet = service.getSheet(NAME);
         while (currentRow <= sheet.getLastRowNum()) {
@@ -36,9 +36,9 @@ public class EventCauseReader extends Reader {
             EventCausePK pk = new EventCausePK(eventCause.getEventId(),
                                                eventCause.getCauseCode());
             if (eventCause.hasRequiredFields()) {
-            	readerLogger.info("In sheet " + NAME + " row number "
-                        + row.getRowNum() +"primary key "+pk + " map "+service.getMap(NAME));
                 if (!service.getMap(NAME).containsKey(pk)) {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() +" not in map. Writing on DB as well....");
                     service.getMap(NAME).put(pk, eventCause);
                     service.getPersistenceService().persistEventCause(eventCause);
                 } else {

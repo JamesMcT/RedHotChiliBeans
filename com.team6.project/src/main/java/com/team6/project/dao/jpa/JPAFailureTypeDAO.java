@@ -29,7 +29,7 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	private EntityManager em;
 	
 	public Collection<FailureType> getAllFailureTypes(){
-    	Query query = em.createQuery("from BaseData");
+    	Query query = em.createQuery("from FailureType");
 		List<FailureType> results = query.getResultList();
 		return results;
     }
@@ -54,9 +54,7 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	 */
 	
 	public void addFailureType(FailureType failureType){
-		//FailureType ft = new FailureType(7,"Test Failure Code");
 		em.persist(failureType);
-		
 	}
 	
 	
