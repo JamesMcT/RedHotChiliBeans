@@ -1,5 +1,0 @@
-main INFO  org.xnio - XNIO Version 3.0.0.GA
-main INFO  xnio.nio - XNIO NIO Implementation Version 3.0.0.GA
-main INFO  jboss.remoting - JBoss Remoting version 3.2.3.GA
-main INFO  jmx.ArquillianServiceDeployer - Deploy arquillian service: arquillian-service: 994 assets
-main INFO  jmx.ArquillianServiceDeployer - Undeploy arquillian service: arquillian-service: 995 assets
