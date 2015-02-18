@@ -1,6 +1,7 @@
 package com.team6.project.dao.jpa.test;
 
-import static org.junit.Assert.assertEquals;
+import java.math.BigInteger;
+import java.util.Date;
 
 import javax.ejb.EJB;
 
@@ -15,24 +16,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.team6.project.dao.EventCauseDAO;
-import com.team6.project.dao.FailureTypeDAO;
-import com.team6.project.dao.OperatorCountryDAO;
-import com.team6.project.dao.UserEquipmentDAO;
-import com.team6.project.dao.jpa.JPAEventCauseDAO;
-import com.team6.project.entities.EventCause;
-import com.team6.project.entities.EventCausePK;
-import com.team6.project.entities.FailureType;
-import com.team6.project.entities.OperatorCountry;
-import com.team6.project.entities.UserEquipment;
-
+import com.team6.project.dao.RecordDAO;
+import com.team6.project.entities.Record;
 @RunWith(Arquillian.class)
-public class JPAEventCauseDAOTest {
-
+public class JPARecordDAOTest {
+    
     @EJB
-    EventCauseDAO eventCauseDao;
-    private EventCause eventCause;
+    RecordDAO recordDao;
 
+    private Record record;
+    
     @Deployment
     public static Archive<?> createDeployment() {
         return ShrinkWrap
@@ -48,24 +41,41 @@ public class JPAEventCauseDAOTest {
 
     @Before
     public void preparePersistenceTest() throws Exception {
-        
-        eventCause = new EventCause(1, 2, "desc Event Cause");
+        System.out.println(recordDao);
+        setRecord();
         clear();
         insertData();
     }
-
+   
+    @Test
+    public void test() {
+    }
+    
     private void insertData() throws Exception {
-        eventCauseDao.addEventCauseData(eventCause);
+        recordDao.addRecord(record);
     }
     
     private void clear() throws Exception {
-        eventCauseDao.deleteEventCause(eventCause);
+        recordDao.deleteRecord(record);
+    }
+    
+    private void setRecord(){
+        record = new Record();
+        record.setDate(new Date());
+        record.setCauseCode(1);
+        record.setCellId(4);
+        record.setDescription("");
+        record.setDuration(1000);
+        record.setEventId(200);
+        record.setFailureType(10);
+        record.setHier321Id(new BigInteger("1234567890"));
+        record.setHier32Id(new BigInteger("1234567890"));
+        record.setHier3Id(new BigInteger("1234567890"));
+        record.setImsi(new BigInteger("1234567890"));
+        record.setMcc(123);
+        record.setMnc(321);
+        record.setNeVersion("12g");
+        record.setUserEquipment(12345678);
     }
 
-    @Test
-    public void testEventCause() {
-        EventCause ec = eventCauseDao.getEventCauseByKey(eventCause.getKey());
-        assertEquals(ec, eventCause);
-    }
-  
 }

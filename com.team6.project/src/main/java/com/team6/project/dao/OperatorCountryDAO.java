@@ -6,17 +6,21 @@ import javax.ejb.Local;
 
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
+
 @Local
 public interface OperatorCountryDAO {
-	
+
 	public Collection<OperatorCountry> getAllOperatorCountries();
-	
-	public OperatorCountry getOperatorCountry(OperatorCountryPK operatorCountryPK);
 
-	public void addNewOperatorCountryDataSet(OperatorCountry operatorCountry);
+	public OperatorCountry getOperatorCountryByKey(
+			OperatorCountryPK operatorCountryPK);
 
-	public void updateOperatorCountry(OperatorCountryPK operatorCountryPK, OperatorCountry operatorCountry);
+	public void addOperatorCountry(OperatorCountry operatorCountry);
 
-	public void deleteOperatorCountry(OperatorCountryPK operatorCountryPK);
+	public void updateOperatorCountry(OperatorCountry operatorCountry);
+
+	public void deleteOperatorCountry(OperatorCountry operatorCountry);
+
+	// public OperatorCountry getByOperatorCountry(Integer mcc, Integer mnc);
 
 }

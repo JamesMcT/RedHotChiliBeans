@@ -15,8 +15,15 @@ public class JPARecordDAO implements RecordDAO {
     @PersistenceContext
     private EntityManager em;
     
-    public void persist(Record record){
+    public void addRecord(Record record){
         em.persist(record);
     }
 
+    @Override
+    public void deleteRecord(Record record) {
+        em.remove(record);
+        
+    }
+
 }
+

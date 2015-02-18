@@ -48,8 +48,46 @@ public class Record implements IDescription {
         return id;
     }
     
-    
-   public boolean assertSameFields(Record other) {
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((causeCode == null) ? 0 : causeCode.hashCode());
+        result = prime * result + ((cellId == null) ? 0 : cellId.hashCode());
+        result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result
+                + ((description == null) ? 0 : description.hashCode());
+        result = prime * result
+                + ((duration == null) ? 0 : duration.hashCode());
+        result = prime * result + ((eventId == null) ? 0 : eventId.hashCode());
+        result = prime * result
+                + ((failureType == null) ? 0 : failureType.hashCode());
+        result = prime * result
+                + ((hier321Id == null) ? 0 : hier321Id.hashCode());
+        result = prime * result
+                + ((hier32Id == null) ? 0 : hier32Id.hashCode());
+        result = prime * result + ((hier3Id == null) ? 0 : hier3Id.hashCode());
+        result = prime * result + ((imsi == null) ? 0 : imsi.hashCode());
+        result = prime * result + ((mcc == null) ? 0 : mcc.hashCode());
+        result = prime * result + ((mnc == null) ? 0 : mnc.hashCode());
+        result = prime * result
+                + ((neVersion == null) ? 0 : neVersion.hashCode());
+        result = prime * result
+                + ((userEquipment == null) ? 0 : userEquipment.hashCode());
+        return result;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Record other = (Record) obj;
         if (causeCode == null) {
             if (other.causeCode != null)
                 return false;
@@ -127,8 +165,6 @@ public class Record implements IDescription {
             return false;
         return true;
     }
-
-
 
 
     public int getId() {

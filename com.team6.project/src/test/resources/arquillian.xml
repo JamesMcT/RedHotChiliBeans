@@ -9,7 +9,5 @@
 		</configuration>
 	</container>
 	<extension qualifier="jacoco">
-		<property name="excludes">my.package.some.*</property>
-		<property name="includes">my.package.some.include.*,my.package.some.other.*</property>
 	</extension>
 </arquillian>

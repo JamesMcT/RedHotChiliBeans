@@ -1,18 +1,25 @@
+
 package com.team6.project.dao.jpa;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.entities.BaseData;
+import com.team6.project.entities.EventCausePK;
+import com.team6.project.entities.FailureType;
+import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.entities.Record;
+import com.team6.project.entities.UserEquipment;
+
 /**
  * 
  * @author James
@@ -20,63 +27,84 @@ import com.team6.project.entities.Record;
  */
 @Stateless
 @Local
-@Default
 public class JPABaseDataDAO implements BaseDataDAO {
 
-    @PersistenceContext
-    EntityManager em;
-   
-    public Collection<BaseData> getAllBaseData(){
-    	Query query = em.createQuery("from BaseData");
-		List<BaseData> results = query.getResultList();
-		return results;
-    }
-    
-    /**
-     * Delete base data record via record id
-     */
-	@Override
-	public BaseData getBaseDataRecord(Integer id) {
-		Query q = em.createQuery("from BaseData where id = :code");
-		q.setParameter("code", id );	
-		List<BaseData> result = q.getResultList();
-		return result.get(0);
-	}
-	
-	
+	@PersistenceContext
+	EntityManager em;
+
 	/**
 	 * 
 	 */
 	@Override
-	public void addNewBaseDataSet(BaseData baseData) {
+	public Collection<BaseData> getAllBaseData() {
+		Query q = em.createQuery("from BaseData");
+		List<BaseData> result = q.getResultList();
+		return result;
+	}
+
+	/**
+	 * Return base data record via record id.
+	 */
+	@Override
+	public BaseData getBaseDataByKey(Integer id) {
+		Query q = em.createQuery("from BaseData where id = :code");
+		q.setParameter("code", id);
+		return (BaseData) q.getSingleResult();
+	}
+
+	/**
+	 * Add new base data record to database.
+	 */
+	@Override
+	public void addBaseData(BaseData baseData) {
 		em.persist(baseData);
 	}
 
-	
-	/**
-	 * 
-	 */
 	@Override
-	public void updateBaseData(BaseData baseData) {
-		em.merge(baseData);
+	public void deleteBaseData(BaseData baseData) {
+		em.remove(baseData);
 	}
 
 	@Override
-	public void deleteBaseDataRecord(Integer id) {
-		BaseData bd = getBaseDataRecord(id);
-		em.remove(bd);
-		
-		/* Alternative solution
-		
-		*		Query q = em.createQuery("from BaseData where id = :code");
-		q.setParameter("code", id );	
+	public Collection<BaseData> findByImsi(BigInteger imsi) {
+		Query q = em.createQuery("from BaseData where imsi = :code");
+		q.setParameter("code", imsi);
 		List<BaseData> result = q.getResultList();
-		em.remove(result.get(0));
-		*/
-		
-		
+		return result;
 	}
 
+	@Override
+	public Collection<BaseData> findByFailureType(FailureType failureType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<BaseData> findByUserEquipment(UserEquipment userEquipment) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<BaseData> findByOperatorByMCC(Integer mcc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<BaseData> findByEventCause(EventCausePK eventCausePK) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<BaseData> findByOperatorCountryPK(
+			OperatorCountryPK operatorCountryPK) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	public static void fillData(Record record, BaseData baseData){
         baseData.setCellId(record.getCellId());
         baseData.setDuration(record.getDuration());
@@ -87,8 +115,4 @@ public class JPABaseDataDAO implements BaseDataDAO {
         baseData.setHier321Id(record.getHier321Id());
     }
     
-    
-    
-    
-
 }
