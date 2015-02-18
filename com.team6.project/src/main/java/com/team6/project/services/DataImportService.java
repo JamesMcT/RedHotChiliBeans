@@ -4,6 +4,7 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -26,6 +27,7 @@ import javax.enterprise.inject.Default;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.hibernate.exception.SQLGrammarException;
 
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
@@ -67,7 +69,7 @@ public class DataImportService implements DataImportServiceLocal{
 	private HSSFWorkbook workBook;
 	private WatchService directoryWatcher;
 	
-	private final static String WATCH_PATH = "/home/cristiana/Test/";//"c:/watching/";//TODO: watch a real directory & What will this look like in Linux?
+	private final static String WATCH_PATH = "c:/watching/";//"c:/watching/";//TODO: watch a real directory & What will this look like in Linux?
 	
 	//A map of maps, one map for each cached entity type, using entity name as key.
 	private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
@@ -81,6 +83,13 @@ public class DataImportService implements DataImportServiceLocal{
 	private void atStartup(){
 		
 		logger.info("DataImportService.atStartUp()...");
+		
+		initialiseHashMaps();
+		initialiseReaders();
+		startDirectoryWatcher();
+	}
+	
+	private void initialiseHashMaps(){
 		entityMap.put(EventCauseReader.getName(), new HashMap<EventCausePK, EventCause>());
 		entityMap.put(FailureTypeReader.getName(), new HashMap<Integer, FailureType>());
 		entityMap.put(UserEquipmentReader.getName(), new HashMap<Integer, UserEquipment>());
@@ -102,7 +111,9 @@ public class DataImportService implements DataImportServiceLocal{
 		for(UserEquipment u:persistenceService.getAllUserEquipment()){
 			entityMap.get(UserEquipmentReader.getName()).put(u.getKey(), u);
 		}
-		
+	}
+	
+	private void initialiseReaders(){
 		//create a reader for each sheet in the excel workbook
 		addReader(new EventCauseReader());
 		addReader(new FailureTypeReader());
@@ -111,8 +122,6 @@ public class DataImportService implements DataImportServiceLocal{
 		addReader(new BaseDataReader());
 		
 		logger.info("Readers Intialized...");
-		//Start directory atching service
-		startDirectoryWatcher();
 	}
 	
 	/* Given that this class is a singleton, and this method is synchronized, only
@@ -164,6 +173,8 @@ public class DataImportService implements DataImportServiceLocal{
 		
 		for (;;) {
 
+			logger.info("DataImportService beginning folder watch loop...");
+			
 		    // wait for key to be signaled
 		    WatchKey key;
 		    try {
@@ -210,14 +221,15 @@ public class DataImportService implements DataImportServiceLocal{
 		        }
 
 		        try {
+		        	
 					workBook = new HSSFWorkbook(new FileInputStream(realURI));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					processExcelFile();
+				} 
+		        catch (IOException e) {
+					//File exception...maybe file is locked. Watcher will continue watching the folder
 					e.printStackTrace();
 				}
-		        
-		        processExcelFile();
-		        
+
 		        //TODO
 		        //Maybe rename the processed file here? Or move to a sub-directory 'processed' or something.
 		    }
@@ -229,6 +241,8 @@ public class DataImportService implements DataImportServiceLocal{
 		    if (!valid) {
 		        break;
 		    }
+		    
+		    logger.info("DataImportService ending watch loop...");
 		}
 		
 	}
