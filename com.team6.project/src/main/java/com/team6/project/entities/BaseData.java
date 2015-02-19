@@ -46,114 +46,110 @@ public class BaseData {
    public Integer getKey(){
        return id;
    }
+
+public int getId() {
+    return id;
+}
+
+public void setId(int id) {
+    this.id = id;
+}
+
+public Date getDate() {
+    return date;
+}
+
+public void setDate(Date date) {
+    this.date = date;
+}
+
+public EventCause getEventCause() {
+    return eventCause;
+}
+
+public void setEventCause(EventCause eventCause) {
+    this.eventCause = eventCause;
+}
+
+public FailureType getFailure() {
+    return failure;
+}
+
+public void setFailure(FailureType failure) {
+    this.failure = failure;
+}
+
+public UserEquipment getUserEquipment() {
+    return userEquipment;
+}
+
+public void setUserEquipment(UserEquipment userEquipment) {
+    this.userEquipment = userEquipment;
+}
+
+public OperatorCountry getOperatorCountry() {
+    return operatorCountry;
+}
+
+public void setOperatorCountry(OperatorCountry operatorCountry) {
+    this.operatorCountry = operatorCountry;
+}
+
+public Integer getCellId() {
+    return cellId;
+}
+
+public void setCellId(Integer cellId) {
+    this.cellId = cellId;
+}
+
+public Integer getDuration() {
+    return duration;
+}
+
+public void setDuration(Integer duration) {
+    this.duration = duration;
+}
+
+public String getNeVersion() {
+    return neVersion;
+}
+
+public void setNeVersion(String neVersion) {
+    this.neVersion = neVersion;
+}
+
+public BigInteger getImsi() {
+    return imsi;
+}
+
+public void setImsi(BigInteger imsi) {
+    this.imsi = imsi;
+}
+
+public BigInteger getHier3Id() {
+    return hier3Id;
+}
+
+public void setHier3Id(BigInteger hier3Id) {
+    this.hier3Id = hier3Id;
+}
+
+public BigInteger getHier32Id() {
+    return hier32Id;
+}
+
+public void setHier32Id(BigInteger hier32Id) {
+    this.hier32Id = hier32Id;
+}
+
+public BigInteger getHier321Id() {
+    return hier321Id;
+}
+
+public void setHier321Id(BigInteger hier321Id) {
+    this.hier321Id = hier321Id;
+}
    
-   public int getId() {
-       return id;
-   }
-
-   public void setId(int id) {
-       this.id = id;
-   }
-
-   public Date getDate() {
-       return date;
-   }
-
-   public void setDate(Date date) {
-       this.date = date;
-   }
-
-   public EventCause getEventCause() {
-       return eventCause;
-   }
-
-   public void setEventCause(EventCause eventCause) {
-       this.eventCause = eventCause;
-   }
-
-   public FailureType getFailure() {
-       return failure;
-   }
-
-   public void setFailure(FailureType failure) {
-       this.failure = failure;
-   }
-
-   public UserEquipment getUserEquipment() {
-       return userEquipment;
-   }
-
-   public void setUserEquipment(UserEquipment userEquipment) {
-       this.userEquipment = userEquipment;
-   }
-
-   public OperatorCountry getOperatorCountry() {
-       return operatorCountry;
-   }
-
-   public void setOperatorCountry(OperatorCountry operatorCountry) {
-       this.operatorCountry = operatorCountry;
-   }
-
-   public int getCellId() {
-       return cellId;
-   }
-
-   public void setCellId(int cellId) {
-       this.cellId = cellId;
-   }
-
-   public int getDuration() {
-       return duration;
-   }
-
-   public void setDuration(int duration) {
-       this.duration = duration;
-   }
-
-   public String getNeVersion() {
-       return neVersion;
-   }
-
-   public void setNeVersion(String neVersion) {
-       this.neVersion = neVersion;
-   }
-
-   public BigInteger getImsi() {
-       return imsi;
-   }
-
-   public void setImsi(BigInteger imsi) {
-       this.imsi = imsi;
-   }
-
-   public BigInteger getHier3Id() {
-       return hier3Id;
-   }
-
-   public void setHier3Id(BigInteger hier3Id) {
-       this.hier3Id = hier3Id;
-   }
-
-   public BigInteger getHier32Id() {
-       return hier32Id;
-   }
-
-   public void setHier32Id(BigInteger hier32Id) {
-       this.hier32Id = hier32Id;
-   }
-
-   public BigInteger getHier321Id() {
-       return hier321Id;
-   }
-
-   public void setHier321Id(BigInteger hier321Id) {
-       this.hier321Id = hier321Id;
-   }
-
-
-
-   
-   
-
+  
 }

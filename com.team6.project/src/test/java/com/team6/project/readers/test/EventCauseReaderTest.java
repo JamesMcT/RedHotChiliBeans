@@ -18,7 +18,7 @@ import com.team6.project.entities.EventCausePK;
 import com.team6.project.readers.EventCauseReader;
 import com.team6.project.services.DataImportServiceFake;
 
-public class eventCauseReaderTest {
+public class EventCauseReaderTest {
     
     private static DataImportServiceFake service;
 
@@ -27,7 +27,8 @@ public class eventCauseReaderTest {
         service = new DataImportServiceFake();
         HSSFWorkbook workBook = new HSSFWorkbook(new FileInputStream("src/test/resources/DITSampleDataset_SHORT.xls"));
         service.setWorkBook(workBook);
-        Map<String, Map> map = new HashMap();
+        @SuppressWarnings("rawtypes")
+        Map<String, Map> map = new HashMap<>();
         Map<EventCausePK, EventCause> eventCauseMap = new HashMap<>();
         map.put(EventCauseReader.getName(), eventCauseMap);
         service.setMap(map);

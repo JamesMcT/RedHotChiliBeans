@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import javax.ejb.Local;
 
-import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
 

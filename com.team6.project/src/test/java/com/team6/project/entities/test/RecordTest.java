@@ -11,8 +11,6 @@ import java.util.Date;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.team6.project.entities.EventCause;
-import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.Record;
 
 public class RecordTest {
@@ -37,13 +35,11 @@ public class RecordTest {
 
     @Test
     public void equalsTrueTest() {
-        EventCause ecOther = new EventCause(1, 2, "description");
         assertTrue(rec2.equals(rec3));
     }
     
     @Test
     public void equalsTrueTest2() {
-        EventCause ecOther = new EventCause(1, 2, "description");
         assertTrue(rec2.equals(rec2));
     }
     @Test

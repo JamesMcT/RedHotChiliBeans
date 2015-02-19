@@ -37,7 +37,8 @@ public class AllTrueCompositeValidatorTest {
         validator = BaseDataReader.createValidator();
         rec1 = new Record();
         service = new DataImportServiceFake();
-        Map<String, Map> map = new HashMap();
+        @SuppressWarnings("rawtypes")
+        Map<String, Map> map = new HashMap<String, Map>();
         Map<EventCausePK, EventCause> eventCauseMap = new HashMap<>();
         eventCauseMap.put((new EventCausePK(1, 2)), (new EventCause(1,2,"desc")));
         map.put(EventCauseReader.getName(), eventCauseMap);
@@ -63,7 +64,7 @@ public class AllTrueCompositeValidatorTest {
         rec1.setMcc(3);
         rec1.setMnc(4);
         rec1.setUserEquipment(5);
-        //assertTrue(validator.isValid(rec1, baseData, service));
+        assertTrue(validator.isValid(rec1, baseData, service));
     }
 
     @Test
@@ -76,7 +77,7 @@ public class AllTrueCompositeValidatorTest {
         rec1.setMcc(3);
         rec1.setMnc(4);
         rec1.setUserEquipment(5);
-        //assertFalse(validator.isValid(rec1, baseData, service));
+        assertFalse(validator.isValid(rec1, baseData, service));
     }
     
     @Test
@@ -89,7 +90,7 @@ public class AllTrueCompositeValidatorTest {
         rec1.setMcc(3);
         rec1.setMnc(4);
         rec1.setUserEquipment(5);
-        //assertFalse(validator.isValid(rec1, baseData, service));
+        assertFalse(validator.isValid(rec1, baseData, service));
     }
     
     @Test
@@ -102,7 +103,7 @@ public class AllTrueCompositeValidatorTest {
         rec1.setMcc(3);
         rec1.setMnc(4);
         rec1.setUserEquipment(null);
-        //assertFalse(validator.isValid(rec1, baseData, service));
+        assertFalse(validator.isValid(rec1, baseData, service));
     }
     
     @Test
@@ -115,7 +116,7 @@ public class AllTrueCompositeValidatorTest {
         rec1.setMcc(null);
         rec1.setMnc(4);
         rec1.setUserEquipment(5);
-        //assertFalse(validator.isValid(rec1, baseData, service));
+        assertFalse(validator.isValid(rec1, baseData, service));
     }
     
     @Test
@@ -128,7 +129,7 @@ public class AllTrueCompositeValidatorTest {
         rec1.setMcc(3);
         rec1.setMnc(null);
         rec1.setUserEquipment(5);
-        //assertFalse(validator.isValid(rec1, baseData, service));
+        assertFalse(validator.isValid(rec1, baseData, service));
     }
     
     @Test
@@ -141,7 +142,7 @@ public class AllTrueCompositeValidatorTest {
         rec1.setMcc(3);
         rec1.setMnc(4);
         rec1.setUserEquipment(5);
-       // assertFalse(validator.isValid(rec1, baseData, service));
+        assertFalse(validator.isValid(rec1, baseData, service));
     }
     
     @Test
@@ -154,7 +155,7 @@ public class AllTrueCompositeValidatorTest {
         rec1.setMcc(3);
         rec1.setMnc(4);
         rec1.setUserEquipment(5);
-        //assertFalse(validator.isValid(rec1, baseData, service));
+        assertFalse(validator.isValid(rec1, baseData, service));
     }
 
 }

@@ -11,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.team6.project.dao.FailureTypeDAO;
-import com.team6.project.entities.BaseData;
 import com.team6.project.entities.FailureType;
 
 /**

@@ -1,8 +1,6 @@
 package com.team6.project.readers.test;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,10 +12,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
-import com.team6.project.readers.FailureTypeReader;
 import com.team6.project.readers.OperatorCountryReader;
 import com.team6.project.services.DataImportServiceFake;
 

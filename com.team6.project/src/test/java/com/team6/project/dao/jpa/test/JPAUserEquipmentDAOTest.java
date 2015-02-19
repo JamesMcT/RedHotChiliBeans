@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.team6.project.dao.UserEquipmentDAO;
-import com.team6.project.entities.FailureType;
 import com.team6.project.entities.UserEquipment;
 
 @RunWith(Arquillian.class)

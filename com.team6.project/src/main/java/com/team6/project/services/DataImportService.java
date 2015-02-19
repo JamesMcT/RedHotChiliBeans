@@ -2,7 +2,6 @@ package com.team6.project.services;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -22,7 +21,6 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 
 import static java.nio.file.StandardWatchEventKinds.*;
@@ -77,7 +75,8 @@ public class DataImportService implements DataImportServiceLocal{
 	private final static String PROCESSED_FILE_SUFFIX = ".processed";
 	
 	//A map of maps, one map for each cached entity type, using entity name as key.
-	private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
+	@SuppressWarnings("rawtypes")
+    private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
 	
 	public DataImportService()
 	{}
@@ -290,7 +289,8 @@ public class DataImportService implements DataImportServiceLocal{
 		return workBook.getSheet(sheetName);
 	}
 
-	public Map getMap(String key) {
+	@SuppressWarnings("rawtypes")
+    public Map getMap(String key) {
 		if(entityMap.containsKey(key)){
 			return entityMap.get(key);
 		}
