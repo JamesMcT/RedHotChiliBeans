@@ -12,6 +12,7 @@ public interface DataImportServiceLocal {
 	
 	public HSSFSheet getSheet(String string);
     
+    @SuppressWarnings("rawtypes")
     public Map getMap(String string);
     
     public PersistenceServiceLocal getPersistenceService();

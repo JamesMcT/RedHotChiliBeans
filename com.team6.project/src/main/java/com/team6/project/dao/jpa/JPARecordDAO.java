@@ -19,5 +19,20 @@ public class JPARecordDAO implements RecordDAO {
         em.persist(record);
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public void deleteRecord(Record record) {
+        em.remove(record);
+        
+    }
+
+    @Override
+    public Record getRecordByKey(int id) {
+        return em.find(Record.class, id);
+        
+    }
+
+>>>>>>> refs/heads/readers_branch_cris
 }
 

@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import com.team6.project.dao.EventCauseDAO;
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
+<<<<<<< HEAD
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 
@@ -31,6 +32,26 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 	 * 
 	 */
 	@Override
+=======
+
+/**
+ * 
+ * @author James
+ *
+ */
+@Stateless
+@Local
+public class JPAEventCauseDAO implements EventCauseDAO {
+
+	@PersistenceContext
+	EntityManager em;
+
+	/**
+	 * 
+	 */
+	@SuppressWarnings("unchecked")
+    @Override
+>>>>>>> refs/heads/readers_branch_cris
 	public Collection<EventCause> getAllEventCauses() {
 		Query q = em.createQuery("from EventCause");
 		List<EventCause> result = q.getResultList();

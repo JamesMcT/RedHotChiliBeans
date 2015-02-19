@@ -2,6 +2,9 @@ package com.team6.project.dao.jpa.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigInteger;
+import java.util.Date;
+
 import javax.ejb.EJB;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -15,16 +18,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.team6.project.dao.OperatorCountryDAO;
-import com.team6.project.entities.OperatorCountry;
+import com.team6.project.dao.RecordDAO;
+import com.team6.project.entities.Record;
 
 @RunWith(Arquillian.class)
-public class JPAOperatorCountryDAOTest {
+public class JPARecordDAOTest {
 
     @EJB
-    OperatorCountryDAO operatorCountryDao;
+    RecordDAO recordDao;
 
-    private OperatorCountry operatorCountry;
+    private Record record;
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -41,24 +44,44 @@ public class JPAOperatorCountryDAOTest {
 
     @Before
     public void preparePersistenceTest() throws Exception {
-        operatorCountry = new OperatorCountry(1, 2, "Country", "Operator");
+        setRecord();
         clear();
         insertData();
     }
 
+    @Test
+    public void test() {
+        Record rec = recordDao.getRecordByKey(record.getKey());
+        System.err.println(rec.toString());
+        assertEquals(rec, record);
+
+    }
+
     private void insertData() throws Exception {
-        operatorCountryDao.addOperatorCountry(operatorCountry);
+        recordDao.addRecord(record);
     }
 
     private void clear() throws Exception {
-        operatorCountryDao.deleteOperatorCountry(operatorCountry);
+        recordDao.deleteRecord(record);
     }
 
-    @Test
-    public void testOperatorCountry() {
-        OperatorCountry oc = operatorCountryDao
-                .getOperatorCountryByKey(operatorCountry.getKey());
-        assertEquals(oc, operatorCountry);
+    private void setRecord() {
+        record = new Record();
+        record.setDate(new Date());
+        record.setCauseCode(1);
+        record.setCellId(4);
+        record.setDescription("");
+        record.setDuration(1000);
+        record.setEventId(200);
+        record.setFailureType(10);
+        record.setHier321Id(new BigInteger("1234567890"));
+        record.setHier32Id(new BigInteger("1234567890"));
+        record.setHier3Id(new BigInteger("1234567890"));
+        record.setImsi(new BigInteger("1234567890"));
+        record.setMcc(123);
+        record.setMnc(321);
+        record.setNeVersion("12g");
+        record.setUserEquipment(12345678);
     }
 
 }

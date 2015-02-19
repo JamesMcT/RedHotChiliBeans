@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.team6.project.dao.OperatorCountryDAO;
+<<<<<<< HEAD
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
@@ -32,6 +33,30 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 	@Override
 	public Collection<OperatorCountry> getAllOperatorCountries() {
 		Query q = em.createQuery("from Operator");
+=======
+import com.team6.project.entities.OperatorCountry;
+import com.team6.project.entities.OperatorCountryPK;
+
+/**
+ * 
+ * @author James
+ *
+ */
+@Stateless
+@Local
+public class JPAOperatorCountryDAO implements OperatorCountryDAO {
+
+	@PersistenceContext
+	private EntityManager em;
+
+	/**
+	 * Returns collection of OperatorCountry
+	 */
+	@SuppressWarnings("unchecked")
+    @Override
+	public Collection<OperatorCountry> getAllOperatorCountries() {
+		Query q = em.createQuery("from OperatorCountry");
+>>>>>>> refs/heads/readers_branch_cris
 		List<OperatorCountry> result = q.getResultList();
 		return result;
 	}

@@ -15,6 +15,10 @@ public class OperatorCountryPK implements Serializable {
     public OperatorCountryPK() {
         // TODO Auto-generated constructor stub
     }
+    
+    public String toString() {
+        return "MCC : " + mcc + " MNC : " + mnc;
+    }
 
     public OperatorCountryPK(Integer mcc, Integer mnc) {
         super();

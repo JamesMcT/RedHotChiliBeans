@@ -17,6 +17,7 @@ public class UserEquipmentValidator implements IValidator {
             DataImportServiceLocal service) {
         UserEquipment ue = (UserEquipment) service.getMap(UserEquipmentReader.getName())
                 .get(record.getUserEquipment());
+        
         if (ue != null) {
             baseData.setUserEquipment(ue);
             return true;

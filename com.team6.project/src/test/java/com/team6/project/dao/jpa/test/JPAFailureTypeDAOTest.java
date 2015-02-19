@@ -15,16 +15,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.team6.project.dao.OperatorCountryDAO;
-import com.team6.project.entities.OperatorCountry;
+import com.team6.project.dao.FailureTypeDAO;
+import com.team6.project.entities.FailureType;
 
 @RunWith(Arquillian.class)
-public class JPAOperatorCountryDAOTest {
+public class JPAFailureTypeDAOTest {
 
     @EJB
-    OperatorCountryDAO operatorCountryDao;
+    FailureTypeDAO failureTypeDao;
 
-    private OperatorCountry operatorCountry;
+    private FailureType failureType;
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -41,24 +41,25 @@ public class JPAOperatorCountryDAOTest {
 
     @Before
     public void preparePersistenceTest() throws Exception {
-        operatorCountry = new OperatorCountry(1, 2, "Country", "Operator");
+
+        failureType = new FailureType(1, "desc Failure Type");
         clear();
         insertData();
     }
 
     private void insertData() throws Exception {
-        operatorCountryDao.addOperatorCountry(operatorCountry);
+        failureTypeDao.addFailureType(failureType);
     }
 
     private void clear() throws Exception {
-        operatorCountryDao.deleteOperatorCountry(operatorCountry);
+        failureTypeDao.deleteFailureType(failureType);
     }
 
     @Test
-    public void testOperatorCountry() {
-        OperatorCountry oc = operatorCountryDao
-                .getOperatorCountryByKey(operatorCountry.getKey());
-        assertEquals(oc, operatorCountry);
+    public void testFailureType() {
+        FailureType ft = failureTypeDao.getFailureTypeByKey(failureType
+                .getKey());
+        assertEquals(ft, failureType);
     }
 
 }

@@ -1,7 +1,7 @@
+
 package com.team6.project.readers.test;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -14,10 +14,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
-import com.team6.project.readers.FailureTypeReader;
 import com.team6.project.readers.OperatorCountryReader;
 import com.team6.project.services.DataImportServiceFake;
 
@@ -30,7 +28,8 @@ public class OperatorCountryReaderTest {
         service = new DataImportServiceFake();
         HSSFWorkbook workBook = new HSSFWorkbook(new FileInputStream("src/test/resources/DITSampleDataset_SHORT.xls"));
         service.setWorkBook(workBook);
-        Map<String, Map> map = new HashMap();
+        @SuppressWarnings("rawtypes")
+        Map<String, Map> map = new HashMap<>();
         Map<OperatorCountryPK,OperatorCountry> operatorCountryMap = new HashMap<>();
         map.put(OperatorCountryReader.getName(), operatorCountryMap);
         service.setMap(map);

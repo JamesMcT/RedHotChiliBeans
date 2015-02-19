@@ -45,110 +45,124 @@ public class BaseData {
    private BigInteger hier321Id;
    
    public BaseData() { }
+<<<<<<< HEAD
    
 public int getId() {
+=======
+
+   public Integer getKey(){
+>>>>>>> refs/heads/readers_branch_cris
        return id;
    }
 
-   public void setId(int id) {
-       this.id = id;
-   }
+public int getId() {
+    return id;
+}
 
-   public Date getDate() {
-       return date;
-   }
+public void setId(int id) {
+    this.id = id;
+}
 
-   public void setDate(Date date) {
-       this.date = date;
-   }
+public Date getDate() {
+    return date;
+}
 
-   public EventCause getEventCause() {
-       return eventCause;
-   }
+public void setDate(Date date) {
+    this.date = date;
+}
 
-   public void setEventCause(EventCause eventCause) {
-       this.eventCause = eventCause;
-   }
+public EventCause getEventCause() {
+    return eventCause;
+}
 
-   public FailureType getFailure() {
-       return failure;
-   }
+public void setEventCause(EventCause eventCause) {
+    this.eventCause = eventCause;
+}
 
-   public void setFailure(FailureType failure) {
-       this.failure = failure;
-   }
+public FailureType getFailure() {
+    return failure;
+}
 
-   public UserEquipment getUserEquipment() {
-       return userEquipment;
-   }
+public void setFailure(FailureType failure) {
+    this.failure = failure;
+}
 
-   public void setUserEquipment(UserEquipment userEquipment) {
-       this.userEquipment = userEquipment;
-   }
+public UserEquipment getUserEquipment() {
+    return userEquipment;
+}
 
-   public OperatorCountry getOperatorCountry() {
-       return operatorCountry;
-   }
+public void setUserEquipment(UserEquipment userEquipment) {
+    this.userEquipment = userEquipment;
+}
 
-   public void setOperatorCountry(OperatorCountry operatorCountry) {
-       this.operatorCountry = operatorCountry;
-   }
+public OperatorCountry getOperatorCountry() {
+    return operatorCountry;
+}
 
-   public int getCellId() {
-       return cellId;
-   }
+public void setOperatorCountry(OperatorCountry operatorCountry) {
+    this.operatorCountry = operatorCountry;
+}
 
-   public void setCellId(int cellId) {
-       this.cellId = cellId;
-   }
+public Integer getCellId() {
+    return cellId;
+}
 
-   public int getDuration() {
-       return duration;
-   }
+public void setCellId(Integer cellId) {
+    this.cellId = cellId;
+}
 
-   public void setDuration(int duration) {
-       this.duration = duration;
-   }
+public Integer getDuration() {
+    return duration;
+}
 
-   public String getNeVersion() {
-       return neVersion;
-   }
+public void setDuration(Integer duration) {
+    this.duration = duration;
+}
 
-   public void setNeVersion(String neVersion) {
-       this.neVersion = neVersion;
-   }
+public String getNeVersion() {
+    return neVersion;
+}
 
-   public BigInteger getImsi() {
-       return imsi;
-   }
+public void setNeVersion(String neVersion) {
+    this.neVersion = neVersion;
+}
 
-   public void setImsi(BigInteger imsi) {
-       this.imsi = imsi;
-   }
+public BigInteger getImsi() {
+    return imsi;
+}
 
-   public BigInteger getHier3Id() {
-       return hier3Id;
-   }
+public void setImsi(BigInteger imsi) {
+    this.imsi = imsi;
+}
 
-   public void setHier3Id(BigInteger hier3Id) {
-       this.hier3Id = hier3Id;
-   }
+public BigInteger getHier3Id() {
+    return hier3Id;
+}
 
-   public BigInteger getHier32Id() {
-       return hier32Id;
-   }
+public void setHier3Id(BigInteger hier3Id) {
+    this.hier3Id = hier3Id;
+}
 
-   public void setHier32Id(BigInteger hier32Id) {
-       this.hier32Id = hier32Id;
-   }
+public BigInteger getHier32Id() {
+    return hier32Id;
+}
 
-   public BigInteger getHier321Id() {
-       return hier321Id;
-   }
+public void setHier32Id(BigInteger hier32Id) {
+    this.hier32Id = hier32Id;
+}
 
-   public void setHier321Id(BigInteger hier321Id) {
-       this.hier321Id = hier321Id;
-   }
+public BigInteger getHier321Id() {
+    return hier321Id;
+}
 
+<<<<<<< HEAD
 
 }
+=======
+public void setHier321Id(BigInteger hier321Id) {
+    this.hier321Id = hier321Id;
+}
+   
+  
+}
+>>>>>>> refs/heads/readers_branch_cris

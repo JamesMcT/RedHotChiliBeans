@@ -10,7 +10,18 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+package com.team6.project.dao.jpa;
 
+import java.math.BigInteger;
+import java.util.Collection;
+import java.util.List;
+
+
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.entities.BaseData;
@@ -70,6 +81,94 @@ public class JPABaseDataDAO implements BaseDataDAO {
 		Query q = em.createQuery("from BaseData where imsi = :code");
 		q.setParameter("code", imsi);
 		List<BaseData> result = q.getResultList();
+		return result;
+	}
+
+	@Override
+	public Collection<BaseData> findByFailureType(FailureType failureType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<BaseData> findByUserEquipment(UserEquipment userEquipment) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<BaseData> findByOperatorByMCC(Integer mcc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<BaseData> findByEventCause(EventCausePK eventCausePK) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<BaseData> findByOperatorCountryPK(
+			OperatorCountryPK operatorCountryPK) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+import com.team6.project.entities.UserEquipment;
+
+/**
+ * 
+ * @author James
+ *
+ */
+@Stateless
+@Local
+public class JPABaseDataDAO implements BaseDataDAO {
+
+	@PersistenceContext
+	EntityManager em;
+
+	/**
+	 * 
+	 */
+	@SuppressWarnings("unchecked")
+    @Override
+	public Collection<BaseData> getAllBaseData() {
+		Query q = em.createQuery("from BaseData");
+		List<BaseData> result = q.getResultList();
+		return result;
+	}
+
+	/**
+	 * Return base data record via record id.
+	 */
+	@Override
+	public BaseData getBaseDataByKey(Integer id) {
+		Query q = em.createQuery("from BaseData where id = :code");
+		q.setParameter("code", id);
+		return (BaseData) q.getSingleResult();
+	}
+
+	/**
+	 * Add new base data record to database.
+	 */
+	@Override
+	public void addBaseData(BaseData baseData) {
+		em.persist(baseData);
+	}
+
+	@Override
+	public void deleteBaseData(BaseData baseData) {
+		em.remove(baseData);
+	}
+
+	@Override
+	public Collection<BaseData> findByImsi(BigInteger imsi) {
+		Query q = em.createQuery("from BaseData where imsi = :code");
+		q.setParameter("code", imsi);
+		@SuppressWarnings("unchecked")
+        List<BaseData> result = q.getResultList();
 		return result;
 	}
 

@@ -8,6 +8,7 @@
       <jta-data-source>java:/mySQL</jta-data-source>     
       <properties>
          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+         <property name="hibernate.hbm2ddl.auto" value="update"/> 
       </properties>
    </persistence-unit>
 </persistence>

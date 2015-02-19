@@ -21,6 +21,7 @@ public class FailureTypeReader extends Reader {
         super();
     }
 
+    @SuppressWarnings("unchecked")
     public void processExcelFile(DataImportServiceLocal service) {
         HSSFSheet sheet = service.getSheet(NAME);
         while (currentRow <= sheet.getLastRowNum()) {

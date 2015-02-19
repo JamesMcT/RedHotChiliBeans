@@ -6,10 +6,15 @@ import java.util.Collection;
 import javax.ejb.Local;
 
 import com.team6.project.entities.BaseData;
+<<<<<<< HEAD
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
+=======
+import com.team6.project.entities.EventCausePK;
+import com.team6.project.entities.FailureType;
+>>>>>>> refs/heads/readers_branch_cris
 import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.entities.UserEquipment;
 

@@ -1,9 +1,8 @@
 package com.team6.project.services;
 
-import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
-import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
-
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -12,6 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +22,12 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 
+import static java.nio.file.StandardWatchEventKinds.*;
+
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
@@ -52,7 +56,6 @@ import com.team6.project.readers.UserEquipmentReader;
  */
 @Local
 @Startup
-//@Stateless
 @Default
 @Singleton
 public class DataImportService implements DataImportServiceLocal{
@@ -61,47 +64,54 @@ public class DataImportService implements DataImportServiceLocal{
 	@EJB
 	private PersistenceServiceLocal persistenceService;
 	
-	private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(DataImportService.class);
+	private Logger logger = org.apache.log4j.Logger.getLogger(DataImportService.class);
 	
 	private List<Reader> readers = new ArrayList<Reader>();
 	private HSSFWorkbook workBook;
-	private WatchService directoryWatcher;
 	
-	private final static String WATCH_PATH = "/home/cristiana/Test/";//"c:/watching/";//TODO: watch a real directory & What will this look like in Linux?
+	//choose which folder path to watch, based on underlying OS. If not Windows, then Linux is assumed.
+	private final static String WATCH_PATH =
+	System.getProperty("os.name").startsWith("Windows")? "c:/watching/":"/watching/";
+	
+	private final static String PROCESSED_FILE_SUFFIX = ".processed";
 	
 	//A map of maps, one map for each cached entity type, using entity name as key.
 	private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
 	
 	public DataImportService()
-	{
-	    logger.info("DataImportService.Constructor...");
-	}
+	{}
 	
 	@PostConstruct
 	private void atStartup(){
 		
-		logger.info("DataImportService.atStartUp()...");
+		logger.info("atStartUp() running...");
+		
+		initialiseHashMaps();
+		initialiseReaders();
+		startDirectoryWatcher(WATCH_PATH);
+	}
+	
+	private void initialiseHashMaps(){
+		
 		entityMap.put(EventCauseReader.getName(), new HashMap<EventCausePK, EventCause>());
 		entityMap.put(FailureTypeReader.getName(), new HashMap<Integer, FailureType>());
 		entityMap.put(UserEquipmentReader.getName(), new HashMap<Integer, UserEquipment>());
 		entityMap.put(OperatorCountryReader.getName(), new HashMap<OperatorCountryPK, OperatorCountry>());
 		
-		logger.info("Filling map for EventCause...");
-		for(EventCause e : persistenceService.getAllEventCauses()){
-			entityMap.get(EventCauseReader.getName()).put(e.getKey(), e);
-		}
-		logger.info("Filling map for FailureType...");
-		for(FailureType f : persistenceService.getAllFailureTypes()){
-			entityMap.get(FailureTypeReader.getName()).put(f.getKey(), f);
-		}
-		logger.info("Filling map for OperatorCountry...");
-		for(OperatorCountry o: persistenceService.getAllOperatorCountries()){
-			entityMap.get(OperatorCountryReader.getName()).put(o.getKey(), o);
-		}
-		logger.info("Filling map for UserEquipment...");
-		for(UserEquipment u:persistenceService.getAllUserEquipment()){
-			entityMap.get(UserEquipmentReader.getName()).put(u.getKey(), u);
-		}
+		for(EventCause e : persistenceService.getAllEventCauses())
+		{entityMap.get(EventCauseReader.getName()).put(e.getKey(), e);}
+		
+		for(FailureType f : persistenceService.getAllFailureTypes())
+		{entityMap.get(FailureTypeReader.getName()).put(f.getKey(), f);}
+		
+		for(OperatorCountry o: persistenceService.getAllOperatorCountries())
+		{entityMap.get(OperatorCountryReader.getName()).put(o.getKey(), o);}
+		
+		for(UserEquipment u:persistenceService.getAllUserEquipment())
+		{entityMap.get(UserEquipmentReader.getName()).put(u.getKey(), u);}
+	}
+	
+	private void initialiseReaders(){
 		
 		//create a reader for each sheet in the excel workbook
 		addReader(new EventCauseReader());
@@ -111,17 +121,15 @@ public class DataImportService implements DataImportServiceLocal{
 		addReader(new BaseDataReader());
 		
 		logger.info("Readers Intialized...");
-		//Start directory atching service
-		startDirectoryWatcher();
 	}
 	
 	/* Given that this class is a singleton, and this method is synchronized, only
 	   one file can be processed at any given time. This will stop multiple clients
-	   from attempting to upload data simultaneously. Upload/input is not thought 
+	   from attempting to upload data simultaneously. Upload/input is not thought to
 	   be a very frequent activity, so this restriction should not affect throughput.*/
 	public synchronized void processExcelFile(){
 		
-		logger.info("DataImportService.processExcelFile()...");
+		logger.info("processExcelFile() running...");
 		
 		for(Reader r:readers){
 			r.processExcelFile(this);
@@ -136,33 +144,48 @@ public class DataImportService implements DataImportServiceLocal{
 		readers.add(r);
 	}
 	
-	private void startDirectoryWatcher(){
+	/**
+	 * This method will spin off a thread to watch the folder that is supplied in the
+	 * folderPath String.
+	 * 
+	 * @param folderPath
+	 */
+	public void startDirectoryWatcher(final String folderPath){
 		
-		logger.info("DataImportService.startDirectoryWatcher()...");
+		logger.info(String.format("startDirectoryWatcher() watching...", folderPath));
 		
 		try 
-		{directoryWatcher = FileSystems.getDefault().newWatchService();} 
+		{
+			final WatchService directoryWatcher = FileSystems.getDefault().newWatchService();
+			
+			//watchDirectory() contains "directoryWatcher.take()", which is a blocking method
+			//=> We run in a background thread.
+			new Thread(){
+				public void run(){
+					watchDirectory(directoryWatcher, folderPath);
+				}
+			}.start();
+		} 
 		catch (IOException e) 
 		{e.printStackTrace();}
-		
-		new Thread(){
-			public void run(){
-				watchDirectory();
-			}
-		}.start();
 	}
 	
-	private void watchDirectory(){
+	private void watchDirectory(WatchService directoryWatcher, String folderPath){
 		
-		//Code pretty much lifted straight from "http://docs.oracle.com/javase/tutorial/essential/io/notification.html"
+		//Code based on "http://docs.oracle.com/javase/tutorial/essential/io/notification.html"
 		
-		Path dir = Paths.get(WATCH_PATH);
+		Path dir = Paths.get(folderPath);
 		try
-		{WatchKey key = dir.register(directoryWatcher,ENTRY_CREATE);}//watch for new files only
-		catch(IOException x) 
-		{System.err.println(x);}
+		{
+			//watch for new files only
+			WatchKey watchKey = dir.register(directoryWatcher, ENTRY_CREATE);
+		}
+		catch(IOException ioe) 
+		{logger.error(ioe);}
 		
 		for (;;) {
+
+			logger.info("Beginning watchDirectory()...");
 
 		    // wait for key to be signaled
 		    WatchKey key;
@@ -175,6 +198,7 @@ public class DataImportService implements DataImportServiceLocal{
 		    for (WatchEvent<?> event: key.pollEvents()) {
 		        WatchEvent.Kind<?> kind = event.kind();
 		        
+		        // TODO: WTF does this shit mean?
 		        // This key is registered only
 		        // for ENTRY_CREATE events,
 		        // but an OVERFLOW event can
@@ -184,44 +208,34 @@ public class DataImportService implements DataImportServiceLocal{
 		            continue;
 		        }
 
-		        // The filename is the
-		        // context of the event.
+		        // The filename is the context of the event.
 		        WatchEvent<Path> ev = (WatchEvent<Path>)event;
 		        Path filename = ev.context();
 
-		        System.out.println("Received file: "+filename);
-		        String realURI = WATCH_PATH + filename;
+		        String fullUri = WATCH_PATH + filename;
 		        
-		        // Verify that the new
-		        //  file is an Excel file.
+		        // Do not process files that have been marked as ".processed"
+		        if(fullUri.contains(PROCESSED_FILE_SUFFIX)){
+		        	continue;
+		        }
+		        
+		        // Verify that the new file is an Excel file, restart the watcher loop if not
 		        try {
-		            // Resolve the filename against the directory.
-		            // If the filename is "test" and the directory is "foo",
-		            // the resolved name is "test/foo".
 		            Path child = dir.resolve(filename);
-		            if (!Files.probeContentType(child).equals("application/vnd.ms-excel") 
-		            		&& !Files.probeContentType(child).equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
-		                System.err.format("New file '%s'" + " is not a plain text file.%n", filename);
+		            if (!Files.probeContentType(child).equals("application/vnd.ms-excel") && !Files.probeContentType(child).equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
+		            	logger.error(String.format("New file '%s' is not a spreadsheet file.", filename));
 		                continue;
 		            }
-		        } catch (IOException x) {
-		            System.err.println(x);
+		        } catch (IOException ioe) {
+		            logger.error(ioe);
 		            continue;
 		        }
-
-		        try {
-					workBook = new HSSFWorkbook(new FileInputStream(realURI));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		        
-		        processExcelFile();
-		        
-		        //TODO
-		        //Maybe rename the processed file here? Or move to a sub-directory 'processed' or something.
+		        	initialiseWorkBook(fullUri);
+		        	processWorkBook();
+					renameFileAfterProcessing(fullUri);
 		    }
 
+		    // TODO: WTF does this shit mean?
 		    // Reset the key -- this step is critical if you want to
 		    // receive further watch events.  If the key is no longer valid,
 		    // the directory is inaccessible so exit the loop.
@@ -229,10 +243,73 @@ public class DataImportService implements DataImportServiceLocal{
 		    if (!valid) {
 		        break;
 		    }
+		    
+		    logger.info("Ending watchDirectory()...");
 		}
 		
 	}
 
+	/**
+	 * This method will initialise the workBook object using the supplied URI.
+	 * 
+	 * @param URI A URI pointing to the file to be used to initialise the workBook,
+	 */
+	public void initialiseWorkBook(String URI){
+		try {
+			workBook = new HSSFWorkbook(new FileInputStream(URI));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * This method will process the pre-initialised workBook
+	 * 
+	 */
+	public void processWorkBook(){
+		try {
+			// Process the workBook, time  the activity.
+			long beginTime = System.currentTimeMillis();
+			processExcelFile();
+			long endTime = System.currentTimeMillis();
+			
+			//write input processing time to log file
+			double timeTaken = ((double)(endTime - beginTime))/1000;
+			logger.info("Input processing complete in "+new DecimalFormat("0.00").format(timeTaken)+"s");
+			
+			//Close workBook when finished
+			workBook.close();
+			
+		} catch (IOException e) {
+			//File exception...maybe file is locked. Watcher will continue watching the folder
+			e.printStackTrace();
+			logger.info("watchDirectory() exception: "+e.getMessage());
+		}
+	}
+	
+	private void renameFileAfterProcessing(String fullName){
+		
+		String proposedName = fullName + PROCESSED_FILE_SUFFIX;
+		String finalName = proposedName;
+		
+		File file = new File(fullName);
+		File file2 = new File(proposedName);
+		
+		//If new name exists, keep appending an (int) until you reach one that doesn't exist yet.
+		int failCount = 1;
+		while(file2.exists()){
+			finalName = proposedName + "("+ (failCount++) +")";
+			file2 = new File(finalName);
+		}
+		
+		if(file.renameTo(file2)){
+			logger.info(String.format("Successfully renamed file '%s' to '%s'",fullName, finalName));
+		}
+		else{
+			logger.info(String.format("Error renaming '%s' to '%s'",fullName, finalName));
+		}
+	}
+	
 	public HSSFSheet getSheet(String sheetName) {
 		return workBook.getSheet(sheetName);
 	}

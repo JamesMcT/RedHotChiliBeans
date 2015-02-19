@@ -15,16 +15,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.team6.project.dao.OperatorCountryDAO;
-import com.team6.project.entities.OperatorCountry;
+import com.team6.project.dao.UserEquipmentDAO;
+import com.team6.project.entities.UserEquipment;
 
 @RunWith(Arquillian.class)
-public class JPAOperatorCountryDAOTest {
+public class JPAUserEquipmentDAOTest {
 
-    @EJB
-    OperatorCountryDAO operatorCountryDao;
+    
+   @EJB
+    UserEquipmentDAO userEquipmentDao;
 
-    private OperatorCountry operatorCountry;
+    private UserEquipment userEquipment;
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -41,24 +42,26 @@ public class JPAOperatorCountryDAOTest {
 
     @Before
     public void preparePersistenceTest() throws Exception {
-        operatorCountry = new OperatorCountry(1, 2, "Country", "Operator");
+        userEquipment = new UserEquipment(123, "", "", "", "", "", "", "", "");
         clear();
         insertData();
     }
 
     private void insertData() throws Exception {
-        operatorCountryDao.addOperatorCountry(operatorCountry);
+        userEquipmentDao.addUserEquipment(userEquipment);
     }
-
+    
     private void clear() throws Exception {
-        operatorCountryDao.deleteOperatorCountry(operatorCountry);
+        userEquipmentDao.deleteUserEquipment(userEquipment);
     }
 
+   
     @Test
-    public void testOperatorCountry() {
-        OperatorCountry oc = operatorCountryDao
-                .getOperatorCountryByKey(operatorCountry.getKey());
-        assertEquals(oc, operatorCountry);
+    public void testUserEquipment() {
+        UserEquipment ue = userEquipmentDao.getUserEquipmentByKey(userEquipment
+                .getKey());
+        assertEquals(ue, userEquipment);
     }
 
+  
 }
