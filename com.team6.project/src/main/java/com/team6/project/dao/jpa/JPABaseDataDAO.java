@@ -47,8 +47,8 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	 */
 	@Override
 	public BaseData getBaseDataByKey(Integer id) {
-		Query q = em.createQuery("from BaseData where id = :code");
-		q.setParameter("code", id);
+		Query q = em.createQuery("from BaseData where id = :id");
+		q.setParameter("id", id);
 		return (BaseData) q.getSingleResult();
 	}
 
