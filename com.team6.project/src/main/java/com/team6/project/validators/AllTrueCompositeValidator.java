@@ -40,13 +40,6 @@ public class AllTrueCompositeValidator implements IValidator{
 		validators.add(validator);
 	}
 
-	public Collection<IValidator> getValidators() {
-		return validators;
-	}
-
-	public void setValidators(Collection<IValidator> validators) {
-		this.validators = validators;
-	}
 
 	
 }

@@ -15,16 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.team6.project.dao.EventCauseDAO;
 import com.team6.project.dao.FailureTypeDAO;
-import com.team6.project.dao.OperatorCountryDAO;
-import com.team6.project.dao.UserEquipmentDAO;
-import com.team6.project.dao.jpa.JPAEventCauseDAO;
-import com.team6.project.entities.EventCause;
-import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
-import com.team6.project.entities.OperatorCountry;
-import com.team6.project.entities.UserEquipment;
 
 @RunWith(Arquillian.class)
 public class JPAFailureTypeDAOTest {

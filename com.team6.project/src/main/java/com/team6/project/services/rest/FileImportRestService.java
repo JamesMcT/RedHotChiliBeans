@@ -8,7 +8,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
-import com.team6.project.services.DataImportService;
 import com.team6.project.services.DataImportServiceLocal;
 
 /**

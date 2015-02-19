@@ -27,7 +27,8 @@ public class EventCauseReaderTest {
         service = new DataImportServiceFake();
         HSSFWorkbook workBook = new HSSFWorkbook(new FileInputStream("src/test/resources/DITSampleDataset_SHORT.xls"));
         service.setWorkBook(workBook);
-        Map<String, Map> map = new HashMap();
+        @SuppressWarnings("rawtypes")
+        Map<String, Map> map = new HashMap<>();
         Map<EventCausePK, EventCause> eventCauseMap = new HashMap<>();
         map.put(EventCauseReader.getName(), eventCauseMap);
         service.setMap(map);

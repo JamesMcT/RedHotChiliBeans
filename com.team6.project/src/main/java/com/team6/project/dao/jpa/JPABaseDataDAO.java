@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCausePK;
@@ -35,7 +34,8 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	/**
 	 * 
 	 */
-	@Override
+	@SuppressWarnings("unchecked")
+    @Override
 	public Collection<BaseData> getAllBaseData() {
 		Query q = em.createQuery("from BaseData");
 		List<BaseData> result = q.getResultList();
@@ -69,7 +69,8 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	public Collection<BaseData> findByImsi(BigInteger imsi) {
 		Query q = em.createQuery("from BaseData where imsi = :code");
 		q.setParameter("code", imsi);
-		List<BaseData> result = q.getResultList();
+		@SuppressWarnings("unchecked")
+        List<BaseData> result = q.getResultList();
 		return result;
 	}
 

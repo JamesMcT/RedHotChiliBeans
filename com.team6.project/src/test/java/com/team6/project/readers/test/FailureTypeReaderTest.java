@@ -13,9 +13,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
-import com.team6.project.readers.EventCauseReader;
 import com.team6.project.readers.FailureTypeReader;
 import com.team6.project.services.DataImportServiceFake;
 
@@ -28,6 +26,7 @@ public class FailureTypeReaderTest {
         service = new DataImportServiceFake();
         HSSFWorkbook workBook = new HSSFWorkbook(new FileInputStream("src/test/resources/DITSampleDataset_SHORT.xls"));
         service.setWorkBook(workBook);
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         Map<String, Map> map = new HashMap();
         Map<Integer, FailureType> failureTypeMap = new HashMap<>();
         map.put(FailureTypeReader.getName(), failureTypeMap);
