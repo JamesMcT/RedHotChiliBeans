@@ -56,6 +56,18 @@ public class DataImportServiceFake implements DataImportServiceLocal{
         return new PersistenceServiceFake();
     }
 
+	@Override
+	public void startDirectoryWatcher(String folderPath) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getFileCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
     
 
 }

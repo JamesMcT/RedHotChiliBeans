@@ -38,6 +38,13 @@
 		</profile>
 	</profiles>
 	<dependencies>
+	    
+	    <dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+			<version>2.2.0-beta-1</version>
+		</dependency>
+	    
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

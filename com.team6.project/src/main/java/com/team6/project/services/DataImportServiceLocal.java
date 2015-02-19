@@ -15,5 +15,9 @@ public interface DataImportServiceLocal {
     public Map getMap(String string);
     
     public PersistenceServiceLocal getPersistenceService();
+    
+    public void startDirectoryWatcher(final String folderPath);
+    
+    public int getFileCount();
 	
 }

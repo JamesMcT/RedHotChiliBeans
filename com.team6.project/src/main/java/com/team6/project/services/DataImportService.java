@@ -78,6 +78,9 @@ public class DataImportService implements DataImportServiceLocal{
 	//A map of maps, one map for each cached entity type, using entity name as key.
 	private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
 	
+	//an int to keep record of how many files have been processed
+	private static int fileCount;
+	
 	public DataImportService()
 	{}
 	
@@ -212,7 +215,7 @@ public class DataImportService implements DataImportServiceLocal{
 		        WatchEvent<Path> ev = (WatchEvent<Path>)event;
 		        Path filename = ev.context();
 
-		        String fullUri = WATCH_PATH + filename;
+		        String fullUri = folderPath + filename;
 		        
 		        // Do not process files that have been marked as ".processed"
 		        if(fullUri.contains(PROCESSED_FILE_SUFFIX)){
@@ -308,6 +311,10 @@ public class DataImportService implements DataImportServiceLocal{
 		else{
 			logger.info(String.format("Error renaming '%s' to '%s'",fullName, finalName));
 		}
+	}
+	
+	public int getFileCount(){
+		return fileCount;
 	}
 	
 	public HSSFSheet getSheet(String sheetName) {

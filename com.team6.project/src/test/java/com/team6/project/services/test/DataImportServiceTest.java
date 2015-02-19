@@ -1,0 +1,146 @@
+package com.team6.project.services.test;
+
+import static org.junit.Assert.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.HashMap;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.container.ResourceContainer;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.jboss.shrinkwrap.resolver.api.maven.MavenResolverSystem;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import com.team6.project.entities.EventCause;
+import com.team6.project.entities.EventCausePK;
+import com.team6.project.entities.FailureType;
+import com.team6.project.entities.OperatorCountry;
+import com.team6.project.entities.OperatorCountryPK;
+import com.team6.project.entities.UserEquipment;
+import com.team6.project.readers.EventCauseReader;
+import com.team6.project.readers.FailureTypeReader;
+import com.team6.project.readers.OperatorCountryReader;
+import com.team6.project.readers.UserEquipmentReader;
+import com.team6.project.services.DataImportServiceLocal;
+
+import org.apache.poi.hssf.usermodel.*;
+
+import javax.ejb.EJB;
+
+@RunWith(Arquillian.class)
+public class DataImportServiceTest {
+
+	private final static String TEST_WATCH_PATH = 
+	System.getProperty("os.name").startsWith("Windows")? "c:/watching/test/":"/watching/test/";
+	
+	private static String INPUT_FILE_NAME = "DITSampleDataset_SHORT.xls";
+	private static String PATH_TO_TEST_INPUT = "src/test/resources/";
+	
+	@EJB
+	DataImportServiceLocal service;
+	
+	@Deployment
+    public static Archive<?> createDeployment() {
+		Archive<?> a = ShrinkWrap
+                .create(WebArchive.class, "test.war")
+                .addPackages(true, 	"com.team6.project.services",
+                					"com.team6.project.entities", 
+                					"com.team6.project.readers", 
+                					"com.team6.project.dao",
+                					"com.team6.project.dao.jpa",
+                					"com.team6.project.validators",
+                					"org.apache.poi")
+                .addAsResource("test-persistence.xml","META-INF/persistence.xml")
+                .addAsWebInfResource(EmptyAsset.INSTANCE,ArchivePaths.create("beans.xml"));
+		
+		File[] files = Maven.resolver().resolve("org.apache.poi:poi:3.11").withTransitivity().asFile();
+		
+		for(File f: files){
+			System.out.println("Adding file resource: "+f.getName());
+			((ResourceContainer<WebArchive>) a).addAsResource(f);
+		}
+		
+		return a;
+    }
+	
+	@Before
+    public void prepareDataImportTest(){
+		startWatchingFolder();
+		copyTestSheetIntoWatchDirectory();
+	}
+	
+	/**
+	 * This test aims to assert that a file has been picked up by the directory
+	 * watching thread, and processed into the temporary test database.
+	 * 
+	 */
+	@Test
+    public void testDirectoryWatcher(){
+		assertTrue(service.getFileCount()>0);
+	}
+	
+	/**
+	 * This test aims to assert that the ImportServices internal HashMaps are being populated
+	 * during data import. 
+	 * 
+	 */
+	@Test
+	public void testHashMapPopulation(){
+		
+		HashMap<EventCausePK, EventCause> eventCauseMap = (HashMap<EventCausePK, EventCause>) service.getMap(EventCauseReader.getName());
+		assertTrue(eventCauseMap.size()>0);
+		
+		HashMap<Integer, FailureType> failureTypeMap = (HashMap<Integer, FailureType>) service.getMap(FailureTypeReader.getName());
+		assertTrue(failureTypeMap.size()>0);
+		
+		HashMap<Integer, UserEquipment> userEquipmentMap = (HashMap<Integer, UserEquipment>) service.getMap(UserEquipmentReader.getName());
+		assertTrue(userEquipmentMap.size()>0);
+		
+		HashMap<OperatorCountryPK, OperatorCountry> operatorCountryMap = (HashMap<OperatorCountryPK, OperatorCountry>) service.getMap(OperatorCountryReader.getName());
+		assertTrue(operatorCountryMap.size()>0);
+	}
+	
+	private void startWatchingFolder(){
+		service.startDirectoryWatcher(TEST_WATCH_PATH);
+	}
+	
+	private void copyTestSheetIntoWatchDirectory(){
+		File sourceFile = new File(PATH_TO_TEST_INPUT + INPUT_FILE_NAME);
+		File destinationFile = new File(TEST_WATCH_PATH + INPUT_FILE_NAME);
+		try {
+			Files.copy(sourceFile.toPath(), destinationFile.toPath());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
