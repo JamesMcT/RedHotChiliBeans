@@ -51,7 +51,7 @@ public class DataImportServiceTest {
 	private static String INPUT_FILE_NAME = "DITSampleDataset_SHORT.xls";
 	private static String PATH_TO_TEST_INPUT = "src/test/resources/";
 	
-	private static final long DELAY_IN_MS = 50;
+	private static final long DELAY_IN_MS = 500;
 	
 	@EJB
 	DataImportServiceLocal service;
