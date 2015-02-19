@@ -18,7 +18,7 @@ import com.team6.project.entities.EventCausePK;
 import com.team6.project.readers.EventCauseReader;
 import com.team6.project.services.DataImportServiceFake;
 
-public class eventCauseReaderTest {
+public class EventCauseReaderTest {
     
     private static DataImportServiceFake service;
 
