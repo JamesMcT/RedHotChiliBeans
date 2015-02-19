@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
+import com.team6.project.entities.EventCausePK;
+
+
 /**
  * @author Cristiana EventCause table
  */

@@ -96,6 +96,8 @@ public class PersistenceService implements PersistenceServiceLocal{
 	@Override
 	public void persistErroneusRecord(Record r) {
 		record.addRecord(r);
+
 	}
 	
 }
+

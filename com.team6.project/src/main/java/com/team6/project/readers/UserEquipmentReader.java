@@ -21,6 +21,7 @@ public class UserEquipmentReader extends Reader {
         super();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void processExcelFile(DataImportServiceLocal service) {
         HSSFSheet sheet = service.getSheet(NAME);
@@ -60,3 +61,4 @@ public class UserEquipmentReader extends Reader {
     }
 
 }
+

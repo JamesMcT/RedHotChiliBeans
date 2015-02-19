@@ -11,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.team6.project.dao.FailureTypeDAO;
-import com.team6.project.entities.BaseData;
 import com.team6.project.entities.FailureType;
 
 /**
@@ -32,7 +31,9 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	/**
 	 * Returns collection of FailureType
 	 */
-	@Override
+
+	@SuppressWarnings("unchecked")
+    @Override
 	public Collection<FailureType> getAllFailureTypes() {
 		Query q = em.createQuery("from FailureType");
 		List<FailureType> result = q.getResultList();

@@ -32,3 +32,4 @@ public interface PersistenceServiceLocal {
 	
 	public void persistErroneusRecord(Record r);
 }
+

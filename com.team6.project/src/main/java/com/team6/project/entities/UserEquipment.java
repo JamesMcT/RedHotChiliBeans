@@ -1,3 +1,4 @@
+
 package com.team6.project.entities;
 
 import javax.persistence.Entity;

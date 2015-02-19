@@ -11,6 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 public class DataImportServiceFake implements DataImportServiceLocal{
 
     private HSSFWorkbook workBook;
+    @SuppressWarnings("rawtypes")
     private Map<String, Map> map;
     
     PersistenceServiceFake persistenceServiceFake;
@@ -24,6 +25,7 @@ public class DataImportServiceFake implements DataImportServiceLocal{
         return workBook.getSheet(string);
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public Map getMap(String string) {
         return map.get(string);
@@ -37,11 +39,12 @@ public class DataImportServiceFake implements DataImportServiceLocal{
         this.workBook = workBook;
     }
 
+    @SuppressWarnings("rawtypes")
     public Map<String, Map> getMap() {
         return map;
     }
 
-    public void setMap(Map<String, Map> map) {
+    public void setMap(@SuppressWarnings("rawtypes") Map<String, Map> map) {
         this.map = map;
     }
 
@@ -67,7 +70,5 @@ public class DataImportServiceFake implements DataImportServiceLocal{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-    
 
 }

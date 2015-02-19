@@ -1,3 +1,4 @@
+
 package com.team6.project.entities;
 
 import java.io.Serializable;
@@ -75,3 +76,4 @@ public class EventCausePK implements Serializable {
     
 
 }
+

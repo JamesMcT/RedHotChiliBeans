@@ -1,3 +1,4 @@
+
 package com.team6.project.readers;
 
 import java.math.BigInteger;
@@ -86,6 +87,4 @@ public abstract class Reader {
         FIRSTROW = fIRSTROW;
     }
     
-    
-
 }

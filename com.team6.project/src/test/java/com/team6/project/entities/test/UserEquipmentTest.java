@@ -8,14 +8,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.UserEquipment;
 
 public class UserEquipmentTest {
 
     private static UserEquipment ue1;
     private static UserEquipment ue2;
-    private static UserEquipment ue3;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -25,8 +23,6 @@ public class UserEquipmentTest {
         ue2 = new UserEquipment(2, "marketingName", "manufacturer",
                                 "accessCapability", "model", "vendorName",
                                 "type", "os", "inputMode");
-        ue3 = new UserEquipment(1, null, null, null, null, null, null, null,
-                                null);
 
     }
     

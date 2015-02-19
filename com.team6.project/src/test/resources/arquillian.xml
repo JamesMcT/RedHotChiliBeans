@@ -1,3 +1,4 @@
+
 <arquillian xmlns="http://jboss.org/schema/arquillian"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
@@ -5,9 +6,12 @@
         http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 	<container qualifier="jbossas-7-managed" default="true">
 		<configuration>
-			<property name="jbossHome">E:\jboss-as-7.1.1.Final</property>
+			<property name="jbossHome">C:\Servers\jboss-as-7.1.1.Final</property>
 		</configuration>
 	</container>
 	<extension qualifier="jacoco">
+		<property name="excludes">my.package.some.*</property>
+		<property name="includes">my.package.some.include.*,my.package.some.other.*</property>
 	</extension>
 </arquillian>
+

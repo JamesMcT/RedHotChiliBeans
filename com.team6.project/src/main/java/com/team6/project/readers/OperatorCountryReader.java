@@ -22,6 +22,7 @@ public class OperatorCountryReader extends Reader {
         super();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void processExcelFile(DataImportServiceLocal service) {
         HSSFSheet sheet = service.getSheet(NAME);
@@ -57,5 +58,4 @@ public class OperatorCountryReader extends Reader {
     public static String getName() {
         return NAME;
     }
-
 }

@@ -3,17 +3,7 @@ package com.team6.project.services;
 import java.util.Collection;
 
 import javax.ejb.Local;
-import javax.ejb.Stateless;
 import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Default;
-import javax.inject.Inject;
-
-import com.team6.project.dao.BaseDataDAO;
-import com.team6.project.dao.EventCauseDAO;
-import com.team6.project.dao.FailureTypeDAO;
-import com.team6.project.dao.OperatorCountryDAO;
-import com.team6.project.dao.RecordDAO;
-import com.team6.project.dao.UserEquipmentDAO;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;

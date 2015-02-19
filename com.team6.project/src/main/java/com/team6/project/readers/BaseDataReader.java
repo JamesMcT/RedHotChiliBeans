@@ -36,10 +36,10 @@ public class BaseDataReader extends Reader {
     public void processExcelFile(DataImportServiceLocal service) {
         HSSFSheet sheet = service.getSheet(NAME);
         IValidator validator = createValidator();
-        
+
         long beginTime = System.currentTimeMillis();
         readerLogger.info("BaseDataReader: Begin reading BaseData");
-        
+
         while (currentRow <= sheet.getLastRowNum()) {
             Record record = read(sheet);
             BaseData baseData = new BaseData();
@@ -47,13 +47,15 @@ public class BaseDataReader extends Reader {
             if (isValid) {
                 service.getPersistenceService().persistBaseData(baseData);
             } else {
-            	service.getPersistenceService().persistErroneusRecord(record);
+                service.getPersistenceService().persistErroneusRecord(record);
             }
         }
 
         long endTime = System.currentTimeMillis();
-        double timeTaken = ((double)(endTime - beginTime))/1000;
-        readerLogger.info(String.format("BaseDataReader: End reading BaseData (%s seconds)", new DecimalFormat("0.00").format(timeTaken) ));
+        double timeTaken = ((double) (endTime - beginTime)) / 1000;
+        readerLogger.info(String
+                .format("BaseDataReader: End reading BaseData (%s seconds)",
+                        new DecimalFormat("0.00").format(timeTaken)));
     }
 
     public Record read(HSSFSheet sheet) {
@@ -86,45 +88,36 @@ public class BaseDataReader extends Reader {
             IDescription record) {
         Integer integer = getIntegerFromCell(cell);
         if (integer == null) {
-            record.setDescription("Cell " + cell.getColumnIndex()
-                    + " wrong cell type, was " + cell.getCellType());
+            record.setDescription("Cell Integer type at row " + currentRow
+                                  + " corrupted");
         }
         return integer;
     }
 
-    
     public Date getDateFromCellAndSetDesc(HSSFCell cell, IDescription record) {
         Date date = getDateFromCell(cell);
         if (date == null) {
-            if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                record.setDescription("Cell " + cell.getColumnIndex()
-                        + " is not date formatted");
-            } else {
-                record.setDescription("Cell " + cell.getColumnIndex()
-                        + " wrong cell type, is " + cell.getCellType());
-            }
-
+            record.setDescription("Cell Date type at row " + currentRow
+                    + " corrupted");
         }
         return date;
     }
 
-    
     public String getStringFromCellAndSetDesc(HSSFCell cell, IDescription record) {
         String string = getStringFromCell(cell);
         if (string == null) {
-            record.setDescription("Cell " + cell.getColumnIndex()
-                    + " wrong cell type, was " + cell.getCellType());
+            record.setDescription("Cell String type at row " + currentRow
+                                  + " corrupted");
         }
         return string;
     }
 
-    
     public BigInteger getBigIntFromCellAndSetDesc(HSSFCell cell,
             IDescription record) {
         BigInteger bigInt = getBigIntFromCell(cell);
         if (bigInt == null) {
-            record.setDescription("Cell " + cell.getColumnIndex()
-                    + " wrong cell type, was " + cell.getCellType());
+            record.setDescription("Cell Big Integer type at row " + currentRow
+                                  + " corrupted");
         }
         return bigInt;
     }
@@ -142,7 +135,5 @@ public class BaseDataReader extends Reader {
     public static String getName() {
         return NAME;
     }
-    
-    
 
 }
