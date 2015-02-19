@@ -23,7 +23,7 @@ public class Record implements IDescription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private Date date;
     private Integer causeCode;
     private Integer eventId;
@@ -189,15 +189,17 @@ public class Record implements IDescription {
         return true;
     }
 
-    public int getId() {
-        return id;
-    }
+   
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public Integer getId() {
+		return id;
+	}
 
-    public Date getDate() {
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getDate() {
         return date;
     }
 

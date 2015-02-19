@@ -50,24 +50,7 @@ public class JPABaseDataDAOTest {
     private FailureType failureType;
     private OperatorCountry operatorCountry;
     private UserEquipment userEquipment;
-    
-    /*
-     *     @Deployment
-    public static Archive<?> createDeployment() {
-        return ShrinkWrap
-                .create(WebArchive.class, "test.war")
-                .addPackages(true, "com.team6.project.dao",
-                             "com.team6.project.dao.jpa",
-                             "com.team6.project.entities")
-                .addAsResource("test-persistence.xml",
-                               "META-INF/persistence.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE,
-                                     ArchivePaths.create("beans.xml"));
-    }
-     * 
-     * 
-     */
-    
+   
     
     @Deployment
     public static Archive<?> createDeployment() {
@@ -93,7 +76,7 @@ public class JPABaseDataDAOTest {
     	eventCauseDAO.addEventCauseData(eventCause);
     	failureTypeDAO.addFailureType(failureType);
     	userEquipmentDAO.addUserEquipment(userEquipment);
-//    	
+   	
     	baseDataDao.addBaseData(baseData);
     }
     

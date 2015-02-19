@@ -22,7 +22,7 @@ public class BaseData {
    
    @GeneratedValue(strategy=GenerationType.IDENTITY)
    @Id
-   private int id;
+   private Integer id;
    private Date date;
    @ManyToOne
    private EventCause eventCause;
@@ -150,13 +150,19 @@ public Integer getKey(){
        return id;
    }
 
-public int getId() {
-    return id;
+
+
+public Integer getId() {
+	return id;
 }
 
-public void setId(int id) {
-    this.id = id;
+
+
+public void setId(Integer id) {
+	this.id = id;
 }
+
+
 
 public Date getDate() {
     return date;
