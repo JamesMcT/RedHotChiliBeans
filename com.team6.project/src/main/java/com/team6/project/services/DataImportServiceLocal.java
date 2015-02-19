@@ -18,6 +18,6 @@ public interface DataImportServiceLocal {
     
     public void startDirectoryWatcher(final String folderPath);
     
-    public int getFileCount();
+    public int getProcessedFileCount();
 	
 }

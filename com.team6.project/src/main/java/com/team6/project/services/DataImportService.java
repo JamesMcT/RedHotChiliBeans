@@ -14,8 +14,10 @@ import java.nio.file.WatchService;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -79,7 +81,9 @@ public class DataImportService implements DataImportServiceLocal{
 	private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
 	
 	//an int to keep record of how many files have been processed
-	private static int fileCount;
+	private static int processedFileCount;
+	
+	private Set<String> watchedDirectories = new HashSet<String>();
 	
 	public DataImportService()
 	{}
@@ -155,6 +159,13 @@ public class DataImportService implements DataImportServiceLocal{
 	 */
 	public void startDirectoryWatcher(final String folderPath){
 		
+		if(watchedDirectories.contains(folderPath)){
+			return;
+		}
+		else{
+			watchedDirectories.add(folderPath);
+		}
+		
 		logger.info(String.format("startDirectoryWatcher() watching...", folderPath));
 		
 		try 
@@ -188,7 +199,7 @@ public class DataImportService implements DataImportServiceLocal{
 		
 		for (;;) {
 
-			logger.info("Beginning watchDirectory()...");
+			logger.info("Beginning watchDirectory(): " + folderPath);
 
 		    // wait for key to be signaled
 		    WatchKey key;
@@ -234,6 +245,7 @@ public class DataImportService implements DataImportServiceLocal{
 		            continue;
 		        }
 		        	initialiseWorkBook(fullUri);
+		        	incrementFileCount();
 		        	processWorkBook();
 					renameFileAfterProcessing(fullUri);
 		    }
@@ -313,8 +325,12 @@ public class DataImportService implements DataImportServiceLocal{
 		}
 	}
 	
-	public int getFileCount(){
-		return fileCount;
+	private void incrementFileCount(){
+		logger.info(String.format("Incrementing fileCount from %d to %d", processedFileCount, ++processedFileCount));
+	}
+	
+	public int getProcessedFileCount(){
+		return processedFileCount;
 	}
 	
 	public HSSFSheet getSheet(String sheetName) {

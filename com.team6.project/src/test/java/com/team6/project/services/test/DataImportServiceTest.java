@@ -17,7 +17,10 @@ import org.jboss.shrinkwrap.api.container.ResourceContainer;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jboss.shrinkwrap.resolver.api.maven.MavenResolverSystem;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -33,6 +36,7 @@ import com.team6.project.readers.OperatorCountryReader;
 import com.team6.project.readers.UserEquipmentReader;
 import com.team6.project.services.DataImportServiceLocal;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.*;
 
 import javax.ejb.EJB;
@@ -40,11 +44,14 @@ import javax.ejb.EJB;
 @RunWith(Arquillian.class)
 public class DataImportServiceTest {
 
+	//TODO: get these from a configuration file instead of hard-coding them in.
 	private final static String TEST_WATCH_PATH = 
 	System.getProperty("os.name").startsWith("Windows")? "c:/watching/test/":"/watching/test/";
 	
 	private static String INPUT_FILE_NAME = "DITSampleDataset_SHORT.xls";
 	private static String PATH_TO_TEST_INPUT = "src/test/resources/";
+	
+	private static final long DELAY_IN_MS = 50;
 	
 	@EJB
 	DataImportServiceLocal service;
@@ -59,12 +66,18 @@ public class DataImportServiceTest {
                 					"com.team6.project.dao",
                 					"com.team6.project.dao.jpa",
                 					"com.team6.project.validators",
-                					"org.apache.poi")
+                					"org.apache.poi",
+                					"org.apache.commons")
                 .addAsResource("test-persistence.xml","META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE,ArchivePaths.create("beans.xml"));
 		
 		File[] files = Maven.resolver().resolve("org.apache.poi:poi:3.11").withTransitivity().asFile();
+		for(File f: files){
+			System.out.println("Adding file resource: "+f.getName());
+			((ResourceContainer<WebArchive>) a).addAsResource(f);
+		}
 		
+		files = Maven.resolver().resolve("org.apache.commons:commons-io:1.3.2").withTransitivity().asFile();
 		for(File f: files){
 			System.out.println("Adding file resource: "+f.getName());
 			((ResourceContainer<WebArchive>) a).addAsResource(f);
@@ -74,19 +87,29 @@ public class DataImportServiceTest {
     }
 	
 	@Before
-    public void prepareDataImportTest(){
+    public void prepareDataImportTest() throws InterruptedException{
+		
 		startWatchingFolder();
+		
+		//add delay here to ensure the directory is being watched before
+		//copying test file into watched directory
+		new Thread().sleep(DELAY_IN_MS);
+		
 		copyTestSheetIntoWatchDirectory();
+		
+		//add delay here to allow file to be processed before beginning
+		//testing.
+		new Thread().sleep(DELAY_IN_MS);
 	}
-	
+
 	/**
 	 * This test aims to assert that a file has been picked up by the directory
 	 * watching thread, and processed into the temporary test database.
 	 * 
 	 */
 	@Test
-    public void testDirectoryWatcher(){
-		assertTrue(service.getFileCount()>0);
+	public void testDirectoryWatcher(){
+		assertTrue(service.getProcessedFileCount()>0);
 	}
 	
 	/**
@@ -118,9 +141,8 @@ public class DataImportServiceTest {
 		File sourceFile = new File(PATH_TO_TEST_INPUT + INPUT_FILE_NAME);
 		File destinationFile = new File(TEST_WATCH_PATH + INPUT_FILE_NAME);
 		try {
-			Files.copy(sourceFile.toPath(), destinationFile.toPath());
+			FileUtils.copyFile(sourceFile, destinationFile);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -63,7 +63,7 @@ public class DataImportServiceFake implements DataImportServiceLocal{
 	}
 
 	@Override
-	public int getFileCount() {
+	public int getProcessedFileCount() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
