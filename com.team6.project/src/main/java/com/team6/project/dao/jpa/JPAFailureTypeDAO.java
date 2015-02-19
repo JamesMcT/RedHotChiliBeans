@@ -31,7 +31,8 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	/**
 	 * Returns collection of FailureType
 	 */
-	@Override
+	@SuppressWarnings("unchecked")
+    @Override
 	public Collection<FailureType> getAllFailureTypes() {
 		Query q = em.createQuery("from FailureType");
 		List<FailureType> result = q.getResultList();

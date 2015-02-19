@@ -28,7 +28,8 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 	/**
 	 * Returns collection of OperatorCountry
 	 */
-	@Override
+	@SuppressWarnings("unchecked")
+    @Override
 	public Collection<OperatorCountry> getAllOperatorCountries() {
 		Query q = em.createQuery("from Operator");
 		List<OperatorCountry> result = q.getResultList();

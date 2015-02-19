@@ -23,6 +23,7 @@ public class EventCauseReader extends Reader {
     // that make the reader class able to call only the method that it uses
     // without messing with the
     // DataImportService.
+    @SuppressWarnings("unchecked")
     @Override
     public void processExcelFile(DataImportServiceLocal service) {
 

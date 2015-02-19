@@ -31,6 +31,7 @@ public class FailureTypeValidatorTest {
         record = new Record();
         baseData = new BaseData();
         failureTypeValidator = new FailureTypeValidator();
+        @SuppressWarnings("rawtypes")
         Map<String, Map> map = new HashMap<>();
         Map<Integer, FailureType> failureMap = new HashMap<>();
         FailureType failureType = new FailureType( 2, "description");

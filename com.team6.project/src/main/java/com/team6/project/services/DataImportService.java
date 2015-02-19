@@ -91,7 +91,8 @@ public class DataImportService implements DataImportServiceLocal{
 		startDirectoryWatcher();
 	}
 	
-	private void initialiseHashMaps(){
+	@SuppressWarnings("unchecked")
+    private void initialiseHashMaps(){
 		entityMap.put(EventCauseReader.getName(), new HashMap<EventCausePK, EventCause>());
 		entityMap.put(FailureTypeReader.getName(), new HashMap<Integer, FailureType>());
 		entityMap.put(UserEquipmentReader.getName(), new HashMap<Integer, UserEquipment>());

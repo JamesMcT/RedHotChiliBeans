@@ -28,7 +28,8 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 	/**
 	 * 
 	 */
-	@Override
+	@SuppressWarnings("unchecked")
+    @Override
 	public Collection<EventCause> getAllEventCauses() {
 		Query q = em.createQuery("from EventCause");
 		List<EventCause> result = q.getResultList();

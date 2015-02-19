@@ -30,7 +30,8 @@ public class OperatorCountryValidatorTest {
         record = new Record();
         baseData = new BaseData();
         operatorCountryValidator = new OperatorCountryValidator();
-        Map<String, Map> map = new HashMap();
+        @SuppressWarnings("rawtypes")
+        Map<String, Map> map = new HashMap<>();
         Map<OperatorCountryPK,OperatorCountry> operatorCountryMap = new HashMap<>();
         OperatorCountry oc = new OperatorCountry(22,33,"country","operator");
         operatorCountryMap.put(oc.getKey(), oc);

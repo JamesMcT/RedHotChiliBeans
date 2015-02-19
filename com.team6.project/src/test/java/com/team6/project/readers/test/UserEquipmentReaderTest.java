@@ -26,7 +26,8 @@ public class UserEquipmentReaderTest {
         service = new DataImportServiceFake();
         HSSFWorkbook workBook = new HSSFWorkbook(new FileInputStream("src/test/resources/DITSampleDataset_SHORT.xls"));
         service.setWorkBook(workBook);
-        Map<String, Map> map = new HashMap();
+        @SuppressWarnings("rawtypes")
+        Map<String, Map> map = new HashMap<>();
         Map<Integer,UserEquipment> userEquipmentMap = new HashMap<>();
         map.put(UserEquipmentReader.getName(), userEquipmentMap);
         service.setMap(map);

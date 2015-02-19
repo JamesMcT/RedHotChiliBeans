@@ -26,7 +26,7 @@ public class FailureTypeReaderTest {
         service = new DataImportServiceFake();
         HSSFWorkbook workBook = new HSSFWorkbook(new FileInputStream("src/test/resources/DITSampleDataset_SHORT.xls"));
         service.setWorkBook(workBook);
-        @SuppressWarnings("rawtypes")
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         Map<String, Map> map = new HashMap();
         Map<Integer, FailureType> failureTypeMap = new HashMap<>();
         map.put(FailureTypeReader.getName(), failureTypeMap);
