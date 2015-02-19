@@ -27,14 +27,11 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 	@PersistenceContext
 	private EntityManager em;
 
-<<<<<<< HEAD
-	@Override
-=======
-	@SuppressWarnings("unchecked")
+	
     @Override
->>>>>>> refs/heads/readers_branch_cris
 	public Collection<UserEquipment> getAllUserEquipment() {
 		Query q = em.createQuery("from UserEquipment ");
+		@SuppressWarnings("unchecked")
 		List<UserEquipment> result = q.getResultList();
 		return result;
 	}

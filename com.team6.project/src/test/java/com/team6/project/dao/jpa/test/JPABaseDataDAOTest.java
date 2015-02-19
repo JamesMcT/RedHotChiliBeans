@@ -140,7 +140,7 @@ public class JPABaseDataDAOTest {
         System.err.println("DAO "+baseDataDao);
         BaseData bd = baseDataDao.getBaseDataByKey(baseData.getId());
         System.err.println("Event Cause retrieved "+bd.getEventCause());
-        assertEquals(bd.getId(), baseData.getId());	// Real test which should be run.
+        assertEquals(bd, baseData);	// Real test which should be run.
   
     }
 

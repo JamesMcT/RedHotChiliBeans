@@ -19,8 +19,6 @@ public class JPARecordDAO implements RecordDAO {
         em.persist(record);
     }
 
-<<<<<<< HEAD
-=======
     @Override
     public void deleteRecord(Record record) {
         em.remove(record);
@@ -33,6 +31,5 @@ public class JPARecordDAO implements RecordDAO {
         
     }
 
->>>>>>> refs/heads/readers_branch_cris
 }
 
