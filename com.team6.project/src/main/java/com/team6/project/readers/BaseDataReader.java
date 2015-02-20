@@ -37,7 +37,7 @@ public class BaseDataReader extends Reader {
         IValidator validator = createValidator();
 
         long beginTime = System.currentTimeMillis();
-        readerLogger.info("BaseDataReader: Begin reading BaseData");
+        readerLogger.warn("BaseDataReader: Begin reading BaseData");
 
         while (currentRow <= sheet.getLastRowNum()) {
             Record record = read(sheet);
@@ -52,7 +52,7 @@ public class BaseDataReader extends Reader {
         currentRow = FIRSTROW;
         long endTime = System.currentTimeMillis();
         double timeTaken = ((double) (endTime - beginTime)) / 1000;
-        readerLogger.info(String
+        readerLogger.warn(String
                 .format("BaseDataReader: End reading BaseData (%s seconds)",
                         new DecimalFormat("0.00").format(timeTaken)));
     }

@@ -17,12 +17,7 @@ import com.team6.project.services.DataImportServiceLocal;
 public class EventCauseReader extends Reader {
 
     private static final String NAME = "Event-Cause Table";
-    // The name is not correct because the service is provided and not the excel
-    // we could call that import or similar. We should have an interface
-    // implemented by DataImportService
-    // that make the reader class able to call only the method that it uses
-    // without messing with the
-    // DataImportService.
+  
     @SuppressWarnings("unchecked")
     @Override
     public void processExcelFile(DataImportServiceLocal service) {
