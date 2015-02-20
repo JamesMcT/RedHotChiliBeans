@@ -1,11 +1,12 @@
 package com.team6.project.entities.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
 
 public class OperatorCountryPKTest {

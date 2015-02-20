@@ -1,8 +1,10 @@
 package com.team6.project.services;
 
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -24,10 +26,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
-
-import static java.nio.file.StandardWatchEventKinds.*;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -78,7 +77,8 @@ public class DataImportService implements DataImportServiceLocal{
 	private final static String PROCESSED_FILE_SUFFIX = ".processed";
 	
 	//A map of maps, one map for each cached entity type, using entity name as key.
-	private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
+	@SuppressWarnings("rawtypes")
+    private Map<String, HashMap> entityMap = new HashMap<String, HashMap>();
 	
 	//an int to keep record of how many files have been processed
 	private static int processedFileCount;
@@ -98,7 +98,8 @@ public class DataImportService implements DataImportServiceLocal{
 		startDirectoryWatcher(WATCH_PATH);
 	}
 	
-	private void initialiseHashMaps(){
+	@SuppressWarnings("unchecked")
+    private void initialiseHashMaps(){
 		
 		entityMap.put(EventCauseReader.getName(), new HashMap<EventCausePK, EventCause>());
 		entityMap.put(FailureTypeReader.getName(), new HashMap<Integer, FailureType>());
@@ -184,7 +185,8 @@ public class DataImportService implements DataImportServiceLocal{
 		{e.printStackTrace();}
 	}
 	
-	private void watchDirectory(WatchService directoryWatcher, String folderPath){
+	@SuppressWarnings("unchecked")
+    private void watchDirectory(WatchService directoryWatcher, String folderPath){
 		
 		//Code based on "http://docs.oracle.com/javase/tutorial/essential/io/notification.html"
 		
@@ -192,7 +194,8 @@ public class DataImportService implements DataImportServiceLocal{
 		try
 		{
 			//watch for new files only
-			WatchKey watchKey = dir.register(directoryWatcher, ENTRY_CREATE);
+			@SuppressWarnings("unused")
+            WatchKey watchKey = dir.register(directoryWatcher, ENTRY_CREATE);
 		}
 		catch(IOException ioe) 
 		{logger.error(ioe);}
@@ -337,7 +340,8 @@ public class DataImportService implements DataImportServiceLocal{
 		return workBook.getSheet(sheetName);
 	}
 
-	public Map getMap(String key) {
+	@SuppressWarnings("rawtypes")
+    public Map getMap(String key) {
 		if(entityMap.containsKey(key)){
 			return entityMap.get(key);
 		}

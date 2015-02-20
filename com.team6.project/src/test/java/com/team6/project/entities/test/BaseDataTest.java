@@ -1,6 +1,9 @@
 package com.team6.project.entities.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -163,8 +166,6 @@ public class BaseDataTest {
 	}
 
     private void setSecondBaseData() {
-    	Date date = new Date();
-        BigInteger b = new BigInteger("1234");
     	operatorCountry= new OperatorCountry(1, 2, "Country", "Operator");
     	eventCause = new EventCause(1, 2, "desc Event Cause");
     	failureType = new FailureType(1, "desc Failure Type");

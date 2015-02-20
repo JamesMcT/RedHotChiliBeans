@@ -3,7 +3,6 @@ package com.team6.project.dao.jpa.test;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -71,13 +70,19 @@ public class JPABaseDataDAOTest {
     }
     
     
+    @Test
+    public void test() {
+        BaseData bd = baseDataDao.getBaseDataByKey(baseData.getId());
+        assertEquals(bd, baseData);	// Real test which should be run.
+    }
+    
     private void insertData() throws Exception {
-    	operatorCountryDAO.addOperatorCountry(operatorCountry);
-    	eventCauseDAO.addEventCauseData(eventCause);
-    	failureTypeDAO.addFailureType(failureType);
-    	userEquipmentDAO.addUserEquipment(userEquipment);
-   	
-    	baseDataDao.addBaseData(baseData);
+        operatorCountryDAO.addOperatorCountry(operatorCountry);
+        eventCauseDAO.addEventCauseData(eventCause);
+        failureTypeDAO.addFailureType(failureType);
+        userEquipmentDAO.addUserEquipment(userEquipment);
+    
+        baseDataDao.addBaseData(baseData);
     }
     
     private void clear() throws Exception {
@@ -90,42 +95,31 @@ public class JPABaseDataDAOTest {
     }
     
     private void createBaseDate(){
-    	
-    	Date date = new Date();
-    	System.out.println(date);
-    	BigInteger b = new BigInteger("1234");
-    	operatorCountry= new OperatorCountry(1, 2, "Country", "Operator");
-    	eventCause = new EventCause(1, 2, "desc Event Cause");
-    	failureType = new FailureType(1, "desc Failure Type");
-    	userEquipment = new UserEquipment(123, "a", "a", "a", "a", "a", "a", "a", "a");
-    	
-    	baseData = new BaseData();
-    	baseData.setDate(date);
-    	baseData.setEventCause(eventCause);
-    	baseData.setCellId(4);
-    	baseData.setDuration(1000);
-//    	baseData.setId(1);
-    	baseData.setFailure(failureType);
-    	baseData.setHier321Id(b);
-    	baseData.setHier32Id(b);
-    	baseData.setHier3Id(b);
-    	baseData.setImsi(b);
-    	baseData.setOperatorCountry(operatorCountry);
-    	baseData.setNeVersion("12g");
-    	baseData.setUserEquipment(userEquipment);
+        
+        Date date = new Date();
+        System.out.println(date);
+        BigInteger b = new BigInteger("1234");
+        operatorCountry= new OperatorCountry(1, 2, "Country", "Operator");
+        eventCause = new EventCause(1, 2, "desc Event Cause");
+        failureType = new FailureType(1, "desc Failure Type");
+        userEquipment = new UserEquipment(123, "a", "a", "a", "a", "a", "a", "a", "a");
+        
+        baseData = new BaseData();
+        baseData.setDate(date);
+        baseData.setEventCause(eventCause);
+        baseData.setCellId(4);
+        baseData.setDuration(1000);
+        baseData.setFailure(failureType);
+        baseData.setHier321Id(b);
+        baseData.setHier32Id(b);
+        baseData.setHier3Id(b);
+        baseData.setImsi(b);
+        baseData.setOperatorCountry(operatorCountry);
+        baseData.setNeVersion("12g");
+        baseData.setUserEquipment(userEquipment);
     }
 
     
-    @Test
-    public void test() {
-    	
-        System.err.println("BaseData "+baseData);
-        System.err.println("DAO "+baseDataDao);
-        BaseData bd = baseDataDao.getBaseDataByKey(baseData.getId());
-        System.err.println("Event Cause retrieved "+bd.getEventCause());
-        assertEquals(bd, baseData);	// Real test which should be run.
-  
-    }
 
 
   

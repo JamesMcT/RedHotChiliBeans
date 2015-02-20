@@ -52,7 +52,6 @@ public class JPARecordDAOTest {
     @Test
     public void test() {
         Record rec = recordDao.getRecordByKey(record.getKey());
-        System.err.println(rec.toString());
         assertEquals(rec, record);
 
     }

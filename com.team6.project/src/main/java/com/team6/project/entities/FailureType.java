@@ -3,8 +3,6 @@ package com.team6.project.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 /**
  * @author Cristiana FailureType table

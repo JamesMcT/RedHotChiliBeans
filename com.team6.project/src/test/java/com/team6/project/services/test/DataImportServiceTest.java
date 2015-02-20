@@ -1,12 +1,14 @@
 package com.team6.project.services.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.HashMap;
 
+import javax.ejb.EJB;
+
+import org.apache.commons.io.FileUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -16,11 +18,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.container.ResourceContainer;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenResolverSystem;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -35,11 +33,6 @@ import com.team6.project.readers.FailureTypeReader;
 import com.team6.project.readers.OperatorCountryReader;
 import com.team6.project.readers.UserEquipmentReader;
 import com.team6.project.services.DataImportServiceLocal;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.poi.hssf.usermodel.*;
-
-import javax.ejb.EJB;
 
 @RunWith(Arquillian.class)
 public class DataImportServiceTest {
@@ -56,7 +49,8 @@ public class DataImportServiceTest {
 	@EJB
 	DataImportServiceLocal service;
 	
-	@Deployment
+	@SuppressWarnings("unchecked")
+    @Deployment
     public static Archive<?> createDeployment() {
 		Archive<?> a = ShrinkWrap
                 .create(WebArchive.class, "test.war")
@@ -86,7 +80,8 @@ public class DataImportServiceTest {
 		return a;
     }
 	
-	@Before
+	@SuppressWarnings("static-access")
+    @Before
     public void prepareDataImportTest() throws InterruptedException{
 		
 		startWatchingFolder();
@@ -117,7 +112,8 @@ public class DataImportServiceTest {
 	 * during data import. 
 	 * 
 	 */
-	@Test
+	@SuppressWarnings("unchecked")
+    @Test
 	public void testHashMapPopulation(){
 		
 		HashMap<EventCausePK, EventCause> eventCauseMap = (HashMap<EventCausePK, EventCause>) service.getMap(EventCauseReader.getName());
