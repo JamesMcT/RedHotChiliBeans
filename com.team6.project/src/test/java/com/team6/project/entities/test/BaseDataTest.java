@@ -142,7 +142,6 @@ public class BaseDataTest {
     
    
     private static void setFirstBaseData() {
-    	Date date = new Date();
        	BigInteger b = new BigInteger("1234");
     	operatorCountry= new OperatorCountry(1, 2, "Country", "Operator");
     	eventCause = new EventCause(1, 2, "desc Event Cause");
@@ -150,7 +149,7 @@ public class BaseDataTest {
     	userEquipment = new UserEquipment(123, "a", "a", "a", "a", "a", "a", "a", "a");
     	
     	bd1 = new BaseData();
-		bd1.setDate(date);
+		bd1.setDate(new Date());
 		bd1.setEventCause(eventCause);
 		bd1.setCellId(4);
 		bd1.setDuration(1000);
@@ -166,11 +165,6 @@ public class BaseDataTest {
 	}
 
     private void setSecondBaseData() {
-    	operatorCountry= new OperatorCountry(1, 2, "Country", "Operator");
-    	eventCause = new EventCause(1, 2, "desc Event Cause");
-    	failureType = new FailureType(1, "desc Failure Type");
-    	userEquipment = new UserEquipment(123, "a", "a", "a", "a", "a", "a", "a", "a");
-    	
     	bd2 = new BaseData();
     	bd2.setDate(bd1.getDate());
     	bd2.setEventCause(bd1.getEventCause());

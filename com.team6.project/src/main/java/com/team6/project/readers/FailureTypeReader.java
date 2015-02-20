@@ -45,6 +45,7 @@ public class FailureTypeReader extends Reader {
             }
             currentRow++;
         }
+        currentRow = FIRSTROW;
 
     }
 

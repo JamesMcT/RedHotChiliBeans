@@ -49,7 +49,7 @@ public class BaseDataReader extends Reader {
                 service.getPersistenceService().persistErroneusRecord(record);
             }
         }
-
+        currentRow = FIRSTROW;
         long endTime = System.currentTimeMillis();
         double timeTaken = ((double) (endTime - beginTime)) / 1000;
         readerLogger.info(String

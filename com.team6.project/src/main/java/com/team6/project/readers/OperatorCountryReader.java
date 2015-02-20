@@ -52,6 +52,7 @@ public class OperatorCountryReader extends Reader {
             }
             currentRow++;
         }
+        currentRow = FIRSTROW;
 
     }
 

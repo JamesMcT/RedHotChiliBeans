@@ -52,6 +52,7 @@ public class EventCauseReader extends Reader {
             }
             currentRow++;
         }
+        currentRow = FIRSTROW;
 
     }
 
