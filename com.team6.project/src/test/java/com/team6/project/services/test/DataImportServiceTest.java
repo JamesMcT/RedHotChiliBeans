@@ -4,6 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 
 import javax.ejb.EJB;
@@ -18,6 +20,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.container.ResourceContainer;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,11 +41,11 @@ import com.team6.project.services.DataImportServiceLocal;
 public class DataImportServiceTest {
 
 	//TODO: get these from a configuration file instead of hard-coding them in.
-	private final static String TEST_WATCH_PATH = 
-	System.getProperty("os.name").startsWith("Windows")? "c:/watching/test/":"/watching/test/";
-	
-	private static String INPUT_FILE_NAME = "DITSampleDataset_SHORT.xls";
-	private static String PATH_TO_TEST_INPUT = "src/test/resources/";
+	//private final static String TEST_WATCH_PATH = 
+	//System.getProperty("os.name").startsWith("Windows")? "c:/watching/test/":"/watching/test/";
+	private Path testWatchPath;
+	private static final String INPUT_FILE_NAME = "DITSampleDataset_SHORT.xls";
+	private static final String PATH_TO_TEST_INPUT = "src/test/resources/";
 	
 	private static final long DELAY_IN_MS = 500;
 	
@@ -80,7 +83,7 @@ public class DataImportServiceTest {
 		return a;
     }
 	
-	@SuppressWarnings("static-access")
+	
     @Before
     public void prepareDataImportTest() throws InterruptedException{
 		
@@ -88,13 +91,13 @@ public class DataImportServiceTest {
 		
 		//add delay here to ensure the directory is being watched before
 		//copying test file into watched directory
-		new Thread().sleep(DELAY_IN_MS);
+		Thread.sleep(DELAY_IN_MS);
 		
 		copyTestSheetIntoWatchDirectory();
 		
 		//add delay here to allow file to be processed before beginning
 		//testing.
-		new Thread().sleep(DELAY_IN_MS);
+		Thread.sleep(DELAY_IN_MS);
 	}
 
 	/**
@@ -129,13 +132,28 @@ public class DataImportServiceTest {
 		assertTrue(operatorCountryMap.size()>0);
 	}
 	
+	@After
+	public void cleanTestEnvironment(){
+	    try {
+            FileUtils.deleteDirectory(testWatchPath.toFile());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+	}
+	
 	private void startWatchingFolder(){
-		service.startDirectoryWatcher(TEST_WATCH_PATH);
+        try {
+            testWatchPath = Files.createTempDirectory("ArquillanTestDir");
+            service.startDirectoryWatcher(testWatchPath.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 	
 	private void copyTestSheetIntoWatchDirectory(){
 		File sourceFile = new File(PATH_TO_TEST_INPUT + INPUT_FILE_NAME);
-		File destinationFile = new File(TEST_WATCH_PATH + INPUT_FILE_NAME);
+		File destinationFile = new File(testWatchPath.resolve(INPUT_FILE_NAME).toString() );
 		try {
 			FileUtils.copyFile(sourceFile, destinationFile);
 		} catch (IOException e) {
