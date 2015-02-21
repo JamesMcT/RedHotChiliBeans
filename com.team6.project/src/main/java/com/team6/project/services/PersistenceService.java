@@ -98,18 +98,6 @@ public class PersistenceService implements PersistenceServiceLocal{
 		record.addRecord(r);
 
 	}
-
-    @Override
-    public void persistBaseDataSet(Collection<BaseData> list) {
-        baseData.addBaseDataSet(list);
-        
-    }
-
-    @Override
-    public void persistErroneusRecordSet(Collection<Record> list) {
-        record.addRecordSet(list);
-        
-    }
 	
 }
 

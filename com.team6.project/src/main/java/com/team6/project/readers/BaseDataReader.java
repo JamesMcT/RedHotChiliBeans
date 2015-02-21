@@ -2,7 +2,6 @@ package com.team6.project.readers;
 
 import java.math.BigInteger;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -39,29 +38,16 @@ public class BaseDataReader extends Reader {
 
         long beginTime = System.currentTimeMillis();
         readerLogger.warn("BaseDataReader: Begin reading BaseData");
-        ArrayList<BaseData> list = new ArrayList<>();
-        ArrayList<Record> records = new ArrayList<>();
+
         while (currentRow <= sheet.getLastRowNum()) {
             Record record = read(sheet);
             BaseData baseData = new BaseData();
             boolean isValid = validator.isValid(record, baseData, service);
             if (isValid) {
-                list.add(baseData);
-                //service.getPersistenceService().persistBaseData(baseData);
+                service.getPersistenceService().persistBaseData(baseData);
             } else {
-                records.add(record);
-                //service.getPersistenceService().persistErroneusRecord(record);
+                service.getPersistenceService().persistErroneusRecord(record);
             }
-            if(list.size()%1000 == 0){
-                service.getPersistenceService().persistBaseDataSet(list);
-                list.clear();
-            }
-            if(records.size()%1000 == 0){
-                service.getPersistenceService().persistErroneusRecordSet(records);
-                records.clear();
-            }
-            
-            
         }
         currentRow = FIRSTROW;
         long endTime = System.currentTimeMillis();

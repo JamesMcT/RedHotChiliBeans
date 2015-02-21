@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -59,15 +58,6 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	@Override
 	public void addBaseData(BaseData baseData) {
 		em.persist(baseData);
-	}
-	
-	public void addBaseDataSet(Collection<BaseData> baseDataSet){
-	    //EntityTransaction tx =  em.getTransaction();
-	    //tx.begin();
-	    for(BaseData bd : baseDataSet){
-	        em.persist(bd);
-	    }
-	    //tx.commit();
 	}
 
 	@Override
