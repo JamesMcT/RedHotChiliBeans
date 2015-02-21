@@ -228,18 +228,16 @@ public class DataImportService implements DataImportServiceLocal{
 		        // The filename is the context of the event.
 		        WatchEvent<Path> ev = (WatchEvent<Path>)event;
 		        Path filename = ev.context();
-
-		        String fullUri = folderPath + filename;
+		        Path pathname = dir.resolve(filename);
 		        
 		        // Do not process files that have been marked as ".processed"
-		        if(fullUri.contains(PROCESSED_FILE_SUFFIX)){
-		        	continue;
+		        if(pathname.toString().contains(PROCESSED_FILE_SUFFIX)){
+		            continue;
 		        }
 		        
 		        // Verify that the new file is an Excel file, restart the watcher loop if not
 		        try {
-		            Path child = dir.resolve(filename);
-		            if (!Files.probeContentType(child).equals("application/vnd.ms-excel") && !Files.probeContentType(child).equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
+		            if (!Files.probeContentType(pathname).equals("application/vnd.ms-excel") && !Files.probeContentType(pathname).equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
 		            	logger.error(String.format("New file '%s' is not a spreadsheet file.", filename));
 		                continue;
 		            }
@@ -247,10 +245,10 @@ public class DataImportService implements DataImportServiceLocal{
 		            logger.error(ioe);
 		            continue;
 		        }
-		        	initialiseWorkBook(fullUri);
+		        	initialiseWorkBook(pathname.toString());
 		        	incrementFileCount();
 		        	processWorkBook();
-					renameFileAfterProcessing(fullUri);
+					renameFileAfterProcessing(pathname.toString());
 		    }
 
 		    // TODO: WTF does this shit mean?

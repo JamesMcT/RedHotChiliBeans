@@ -36,6 +36,8 @@ public interface BaseDataDAO {
 
 	public void deleteBaseData(BaseData baseData);
 	
+	public void addBaseDataSet(Collection<BaseData> baseDataSet);
+	
 //	public void updateBaseData(BaseData baseData);
 
 //	public void deleteAll();

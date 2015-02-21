@@ -31,5 +31,9 @@ public interface PersistenceServiceLocal {
 	public void persistUserEquipment(UserEquipment u);
 	
 	public void persistErroneusRecord(Record r);
+	
+	public void persistBaseDataSet(Collection<BaseData> list);
+	
+	public void persistErroneusRecordSet(Collection<Record> list);
 }
 
