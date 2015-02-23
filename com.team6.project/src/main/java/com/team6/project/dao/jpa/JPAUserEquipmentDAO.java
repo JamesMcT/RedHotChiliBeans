@@ -15,8 +15,10 @@ import com.team6.project.entities.UserEquipment;
 
 
 /**
+ * The JPA implementation of the UserEquipmentDAO.
  * 
- * @author James
+ * @author James McTernan
+ * @author Eoin Kernan
  *
  */
 
@@ -30,10 +32,8 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 	
     @Override
 	public Collection<UserEquipment> getAllUserEquipment() {
-		Query q = em.createQuery("from UserEquipment ");
-		@SuppressWarnings("unchecked")
-		List<UserEquipment> result = q.getResultList();
-		return result;
+    	//Call a named query, defined within the UserEquipment entity class, here.
+    	return em.createNamedQuery("allUserEquipment").getResultList();
 	}
 
 	/**

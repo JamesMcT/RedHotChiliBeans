@@ -4,9 +4,16 @@ package com.team6.project.entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.NamedQuery;
+
 /**
- * @author Cristiana UserEquipment table
+ * UserEquipment table
+ * 
+ * @author Cristiana Conti
+ * @author Eoin Kernan
  */
+
+@NamedQuery(name="allUserEquipment", query="from UserEquipment")
 @Entity
 public class UserEquipment {
 
