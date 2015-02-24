@@ -2,22 +2,31 @@ package com.team6.project.dao;
 
 import java.util.Collection;
 
+import javax.ejb.Local;
+
 import com.team6.project.entities.EventCause;
+import com.team6.project.entities.EventCausePK;
 
-
-
+@Local
 public interface EventCauseDAO {
 
+
 	public Collection<EventCause> getAllEventCauses();
-	
-	public void addNewEventCauseDataSet(EventCause eventCause);
+
+	public EventCause getEventCauseByKey(EventCausePK eventCausePK);
+
+	public void addEventCauseData(EventCause eventCause);
 
 	public void updateEventCause(EventCause eventCause);
 
-	public EventCause findByCauseCodeAndEventId(Integer causeCode, Integer eventId);
+	public void deleteEventCause(EventCause eventCause);
 
-	public void deleteByCauseCodeAndEventId(Integer causeCode, Integer eventId);
+	// public EventCause findByCauseCodeAndEventId(Integer causeCode, Integer
+	// eventId);
 
-	public void deleteAll();
-	
+	// public void deleteByCauseCodeAndEventId(Integer causeCode, Integer
+	// eventId);
+
+	// public void deleteAll();
+
 }

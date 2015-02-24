@@ -1,22 +1,26 @@
 package com.team6.project.dao;
 
-
 import java.util.Collection;
 
-import com.team6.project.entities.OperatorCountry;
+import javax.ejb.Local;
 
+import com.team6.project.entities.OperatorCountry;
+import com.team6.project.entities.OperatorCountryPK;
+
+@Local
 public interface OperatorCountryDAO {
 
-	public Collection<OperatorCountry> getOperatorCountryRecords();
+	public Collection<OperatorCountry> getAllOperatorCountries();
 
-	public void addNewOperatorCountryDataSet(OperatorCountry operatorCountry);
+	public OperatorCountry getOperatorCountryByKey(
+			OperatorCountryPK operatorCountryPK);
+
+	public void addOperatorCountry(OperatorCountry operatorCountry);
 
 	public void updateOperatorCountry(OperatorCountry operatorCountry);
 
-	public OperatorCountry findByOperatorCountry(Integer mcc, Integer mnc);
+	public void deleteOperatorCountry(OperatorCountry operatorCountry);
 
-	public void deleteByMccAndMnc(Integer mcc, Integer mnc);
+	// public OperatorCountry getByOperatorCountry(Integer mcc, Integer mnc);
 
-	public void deleteAll();
-	
 }

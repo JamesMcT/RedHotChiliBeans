@@ -1,3 +1,4 @@
+
 package com.team6.project.entities;
 
 import java.io.Serializable;
@@ -14,18 +15,23 @@ public class EventCausePK implements Serializable {
     public EventCausePK() {
     }
 
-    public EventCausePK(Integer eventId , Integer causeCode) {
+    public EventCausePK(Integer eventId, Integer causeCode) {
         super();
         this.causeCode = causeCode;
         this.eventId = eventId;
     }
-    
+
+    public String toString() {
+        return "Event Id : " + eventId + " Cause code: " + causeCode;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + causeCode;
-        result = prime * result + eventId;
+        result = prime * result
+                + ((causeCode == null) ? 0 : causeCode.hashCode());
+        result = prime * result + ((eventId == null) ? 0 : eventId.hashCode());
         return result;
     }
 
@@ -38,9 +44,15 @@ public class EventCausePK implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         EventCausePK other = (EventCausePK) obj;
-        if (causeCode != other.causeCode)
+        if (causeCode == null) {
+            if (other.causeCode != null)
+                return false;
+        } else if (!causeCode.equals(other.causeCode))
             return false;
-        if (eventId != other.eventId)
+        if (eventId == null) {
+            if (other.eventId != null)
+                return false;
+        } else if (!eventId.equals(other.eventId))
             return false;
         return true;
     }
@@ -60,7 +72,8 @@ public class EventCausePK implements Serializable {
     public void setEventId(Integer eventId) {
         this.eventId = eventId;
     }
-
+    
     
 
 }
+

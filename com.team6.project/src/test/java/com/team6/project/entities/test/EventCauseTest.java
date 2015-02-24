@@ -1,13 +1,12 @@
 package com.team6.project.entities.test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.team6.project.entities.EventCause;
+import com.team6.project.entities.EventCausePK;
 
 public class EventCauseTest {
 
@@ -25,7 +24,38 @@ public class EventCauseTest {
         ec4 = new EventCause(1, 2, null);
         ec5 = new EventCause(1, null, "description");
     }
+    
+    @Test
+    public void getKeyTest_True() {
+        assertEquals(ec3.getKey(), new EventCausePK(1,2));
+    }
+    
+    @Test
+    public void getKeyTest_False() {
+        assertNotEquals(ec3.getKey(), new EventCausePK(2,1));
+    }
 
+    @Test
+    public void toStringTest() {
+        assertEquals(ec3.toString(), "Event Id : 1 Cause code: 2 Description: description");
+    }
+    
+    @Test
+    public void equalsTrueTest() {
+        EventCause ecOther = new EventCause(1, 2, "description");
+        assertTrue(ec3.equals(ecOther));
+    }
+    @Test
+    public void equalsFalseTest_EventId() {
+        EventCause ecOther = new EventCause(null, 2, "description");
+        assertFalse(ec3.equals(ecOther));
+    }
+    @Test
+    public void equalsFalseTest_CauseCode() {
+        EventCause ecOther = new EventCause(1, null, "description");
+        assertFalse(ec3.equals(ecOther));
+    }
+    
     @Test
     public void hasRequiredFieldsTest_NoCauseCode() {
         assertFalse(ec1.hasRequiredFields());

@@ -4,12 +4,12 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 import com.team6.project.entities.UserEquipment;
-import com.team6.project.services.MapExcelInterface;
+import com.team6.project.services.DataImportServiceLocal;
+
 /**
- * Reads rows in sheet called UE Table.
- * Create the UserEquipment object.
- * If the object is not already in the appropriated map
- * it is added and written to the DB
+ * Reads rows in sheet called UE Table. Create the UserEquipment object. If the
+ * object is not already in the appropriated map it is added and written to the
+ * DB
  * 
  * @author Cristiana
  */
@@ -21,8 +21,9 @@ public class UserEquipmentReader extends Reader {
         super();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public void processExcelFile(MapExcelInterface service) {
+    public void processExcelFile(DataImportServiceLocal service) {
         HSSFSheet sheet = service.getSheet(NAME);
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);
@@ -38,15 +39,21 @@ public class UserEquipmentReader extends Reader {
             userEquip.setInputMode(getStringFromCell(row.getCell(8)));
             if (userEquip.hasRequiredFields()) {
                 if (!service.getMap(NAME).containsKey(userEquip.getTac())) {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() +" not in map. Writing on DB as well....");
                     service.getMap(NAME).put(userEquip.getTac(), userEquip);
-                    // persistence.persist(failure);
+                    service.getPersistenceService().persistUserEquipment(userEquip);
+                } else {
+                    readerLogger.info("In sheet " + NAME + " row number "
+                            + row.getRowNum() + " already in memory");
                 }
-                // It is already in the map
             } else {
-                // Data corrupted write Log file
+                readerLogger.warn("In sheet " + NAME + " row number "
+                        + row.getRowNum() + " primary key not valued properly");
             }
             currentRow++;
         }
+        currentRow = FIRSTROW;
 
     }
 
@@ -55,3 +62,4 @@ public class UserEquipmentReader extends Reader {
     }
 
 }
+

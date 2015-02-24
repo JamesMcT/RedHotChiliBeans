@@ -1,3 +1,4 @@
+
 package com.team6.project.entities;
 
 import java.io.Serializable;
@@ -14,6 +15,10 @@ public class OperatorCountryPK implements Serializable {
     public OperatorCountryPK() {
         // TODO Auto-generated constructor stub
     }
+    
+    public String toString() {
+        return "MCC : " + mcc + " MNC : " + mnc;
+    }
 
     public OperatorCountryPK(Integer mcc, Integer mnc) {
         super();
@@ -21,27 +26,13 @@ public class OperatorCountryPK implements Serializable {
         this.mnc = mnc;
     }
 
-    public int getMcc() {
-        return mcc;
-    }
 
-    public void setMcc(int mcc) {
-        this.mcc = mcc;
-    }
-
-    public int getMnc() {
-        return mnc;
-    }
-
-    public void setMnc(int mnc) {
-        this.mnc = mnc;
-    }
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + mcc;
-        result = prime * result + mnc;
+        result = prime * result + ((mcc == null) ? 0 : mcc.hashCode());
+        result = prime * result + ((mnc == null) ? 0 : mnc.hashCode());
         return result;
     }
 
@@ -54,11 +45,33 @@ public class OperatorCountryPK implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         OperatorCountryPK other = (OperatorCountryPK) obj;
-        if (mcc != other.mcc)
+        if (mcc == null) {
+            if (other.mcc != null)
+                return false;
+        } else if (!mcc.equals(other.mcc))
             return false;
-        if (mnc != other.mnc)
+        if (mnc == null) {
+            if (other.mnc != null)
+                return false;
+        } else if (!mnc.equals(other.mnc))
             return false;
         return true;
+    }
+
+    public Integer getMcc() {
+        return mcc;
+    }
+
+    public void setMcc(Integer mcc) {
+        this.mcc = mcc;
+    }
+
+    public Integer getMnc() {
+        return mnc;
+    }
+
+    public void setMnc(Integer mnc) {
+        this.mnc = mnc;
     }
 
 }

@@ -2,7 +2,8 @@ package com.team6.project.validators;
 
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.Record;
-import com.team6.project.services.MapExcelInterface;
+import com.team6.project.services.DataImportServiceLocal;
+
 
 /**
  * Interface implemented by all validators
@@ -10,6 +11,6 @@ import com.team6.project.services.MapExcelInterface;
  */
 public interface IValidator {
 
-	  public boolean isValid(Record record, BaseData baseData, MapExcelInterface service);
+	  public boolean isValid(Record record, BaseData baseData, DataImportServiceLocal service);
 
 }

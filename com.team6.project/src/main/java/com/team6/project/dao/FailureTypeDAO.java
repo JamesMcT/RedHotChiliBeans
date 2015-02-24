@@ -2,21 +2,31 @@ package com.team6.project.dao;
 
 import java.util.Collection;
 
+import javax.ejb.Local;
+
 import com.team6.project.entities.FailureType;
 
-
+@Local
 public interface FailureTypeDAO {
 
-	public Collection<FailureType> getFailureTypes();
+	public Collection<FailureType> getAllFailureTypes();
 
-	public void addNewFailureTypeDataSet(FailureType failureType);
+	public FailureType getFailureTypeByKey(Integer failureCode);
+
+	public void addFailureType(FailureType failureType);
 
 	public void updateFailureType(FailureType failureType);
 
-	public FailureType findByFailureCode(Integer failureCode);
+//	public void deleteFailureType(Integer failureCode);
 
-	public void deleteByFailureCode(Integer failureCode);
+	public void deleteFailureType(FailureType failureType);
 
-	public void deleteAll();
-	
+	// public void addNewFailureTypeDataSet(FailureType failureType);
+
+	// public FailureType findByFailureCode(Integer failureCode);
+
+	// public void deleteByFailureCode(Integer failureCode);
+
+	// public void deleteAll();
+
 }

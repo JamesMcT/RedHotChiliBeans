@@ -37,7 +37,8 @@ public class AllTrueCompositeValidatorTest {
         validator = BaseDataReader.createValidator();
         rec1 = new Record();
         service = new DataImportServiceFake();
-        Map<String, Map> map = new HashMap();
+        @SuppressWarnings("rawtypes")
+        Map<String, Map> map = new HashMap<String, Map>();
         Map<EventCausePK, EventCause> eventCauseMap = new HashMap<>();
         eventCauseMap.put((new EventCausePK(1, 2)), (new EventCause(1,2,"desc")));
         map.put(EventCauseReader.getName(), eventCauseMap);

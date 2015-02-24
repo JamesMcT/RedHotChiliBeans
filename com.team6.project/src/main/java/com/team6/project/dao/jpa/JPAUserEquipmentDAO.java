@@ -1,6 +1,7 @@
 package com.team6.project.dao.jpa;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -11,51 +12,84 @@ import javax.persistence.Query;
 import com.team6.project.dao.UserEquipmentDAO;
 import com.team6.project.entities.UserEquipment;
 
+
+
 /**
- * @author Sabee
+ * The JPA implementation of the UserEquipmentDAO.
  * 
+ * @author James McTernan
+ * @author Eoin Kernan
+ *
  */
 
-@Stateless
 @Local
+@Stateless
 public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 
 	@PersistenceContext
 	private EntityManager em;
+
 	
-	@Override
-	public Collection<UserEquipment> getRecords() {
-		Query q = em.createQuery("from UserEquipment");
-		return q.getResultList();		
+    @Override
+	public Collection<UserEquipment> getAllUserEquipment() {
+    	//Call a named query, defined within the UserEquipment entity class, here.
+    	return em.createNamedQuery("allUserEquipment").getResultList();
 	}
 
+	/**
+	 * 
+	 */
 	@Override
-	public void addNewUserEquipmentDataSet(UserEquipment userEquipment) {
+	public UserEquipment getUserEquipmentByKey(Integer tac) {
+		Query q = em.createQuery("from UserEquipment where tac = :code");
+		q.setParameter("code", tac);
+		return (UserEquipment) q.getSingleResult();
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public void addUserEquipment(UserEquipment userEquipment) {
 		em.persist(userEquipment);
+
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void updateUserEquipment(UserEquipment userEquipment) {
 		em.merge(userEquipment);
+
 	}
 
+	/**
+	 * 
+	 */
 	@Override
-	public UserEquipment findByTac(Integer tac) {
-		Query q = em.createQuery("from EquipmentType c where c.tac like :tac")
-				.setParameter("tac", tac);
-		return null;
-	}
+	public void deleteUserEquipment(UserEquipment userEquipment) {
+		em.remove(userEquipment);
 
-	@Override
-	public void deleteByTac(Integer tac) {
-		Query q = em.createQuery("delete from EquipmentType where tac=dTac like :dTac")
-				.setParameter("dTac", tac);		
 	}
+	
+// Unused May be required at a later stage
+//	/**
+//	 * 
+//	 */
+//	@Override
+//	public void deleteByTac(Integer tac) {
+//		Query q = em.createQuery("from UserEquipment where tac = :code");
+//		q.setParameter("code", tac);
+//		List<UserEquipment> result = q.getResultList();
+//		em.remove(result.get(0));
+//
+//	}
 
-	@Override
-	public void deleteAll() {
-		Query q = em.createQuery("delete from EquipmentType where tac>=0");
-		
-	}
+	// @Override
+	// public void deleteAll() {
+	// // TODO Auto-generated method stub
+	//
+	// }
 
 }

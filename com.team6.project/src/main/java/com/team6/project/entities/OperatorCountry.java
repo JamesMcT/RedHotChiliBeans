@@ -1,3 +1,4 @@
+
 package com.team6.project.entities;
 
 import java.io.Serializable;
@@ -31,6 +32,21 @@ public class OperatorCountry implements Serializable{
         this.operator = operator;
     }
     
+    public String toString(){
+        return "MCC : "+mcc+" MNC : "+mnc+" Operator : "+operator+" Country : "+country;
+    }
+
+    public boolean hasRequiredFields(){
+        if(mcc != null & mnc != null){
+            return true;
+        }
+        return false;
+    }
+    
+    public OperatorCountryPK getKey(){
+        return new OperatorCountryPK(mcc, mnc);
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -60,17 +76,6 @@ public class OperatorCountry implements Serializable{
         } else if (!mnc.equals(other.mnc))
             return false;
         return true;
-    }
-    
-    public String toString(){
-        return "MCC : "+mcc+" MNC : "+mnc+" Operator : "+operator+" Country : "+country;
-    }
-
-    public boolean hasRequiredFields(){
-        if(mcc != null & mnc != null){
-            return true;
-        }
-        return false;
     }
 
     public Integer getMcc() {
@@ -105,6 +110,5 @@ public class OperatorCountry implements Serializable{
         this.operator = operator;
     }
 
-  
     
 }
