@@ -136,8 +136,9 @@ public class BaseDataTest {
     
     @Test
     public void equalsFalseTest_Date(){
-    bd2.setDate(new Date());
-    assertFalse(bd1.equals(bd2));
+	    sleep(100);
+	    bd2.setDate(new Date());
+	    assertFalse(bd1.equals(bd2));
     }
     
    
@@ -181,4 +182,12 @@ public class BaseDataTest {
 		
 	}
     
+    private void sleep(long ms){
+    	try {
+			Thread.sleep(ms);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 }
