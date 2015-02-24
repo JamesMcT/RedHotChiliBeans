@@ -68,6 +68,7 @@ public class RecordTest {
     
     @Test
     public void equalsFalseTest_Date() {
+    	sleep(100);
         rec2.setDate(new Date());
         assertFalse(rec1.equals(rec2));
     }
@@ -181,4 +182,13 @@ public class RecordTest {
         rec2.setNeVersion(rec1.getNeVersion());
         rec2.setUserEquipment(rec1.getUserEquipment());
     }
+   
+   private void sleep(long ms){
+   	try {
+			Thread.sleep(ms);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   }
 }
