@@ -6,8 +6,38 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
           http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     version="3.0">
-<servlet-mapping>
+<!-- <servlet-mapping>
 <servlet-name>javax.ws.rs.core.Application</servlet-name>
 <url-pattern>/rest/*</url-pattern>
-</servlet-mapping>
+</servlet-mapping> -->
+
+    
+<security-constraint>
+	     <display-name>Constraint-0</display-name>
+	     <web-resource-collection>
+	         <web-resource-name>Constraint-0</web-resource-name>
+	         <url-pattern>/rest/*</url-pattern>
+	     </web-resource-collection>
+	     <auth-constraint>
+	         <role-name>*</role-name>
+	     </auth-constraint>
+	     <user-data-constraint>
+	         <transport-guarantee>NONE</transport-guarantee>
+	     </user-data-constraint>
+	</security-constraint>
+	 
+	<login-config>
+	     <auth-method>FORM</auth-method>
+	     <form-login-config>
+	         <form-login-page>/login.html</form-login-page>
+	         <form-error-page>/error.html</form-error-page>
+	     </form-login-config>
+	</login-config>
+	 
+	<security-role>
+	     <role-name>administrator</role-name>
+	</security-role>
+
+
+
 </web-app>
