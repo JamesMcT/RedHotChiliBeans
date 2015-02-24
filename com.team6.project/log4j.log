@@ -1,0 +1,14 @@
+main INFO  org.xnio - XNIO Version 3.0.0.GA
+main INFO  xnio.nio - XNIO NIO Implementation Version 3.0.0.GA
+main INFO  jboss.remoting - JBoss Remoting version 3.2.3.GA
+main INFO  jmx.ArquillianServiceDeployer - Deploy arquillian service: arquillian-service: 884 assets
+main WARN  readers.Reader - In sheet Failure Class Table row number 7 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 4 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 5 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 6 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 7 primary key not valued properly
+main WARN  readers.Reader - In sheet UE Table row number 3 primary key not valued properly
+main WARN  readers.Reader - In sheet UE Table row number 4 primary key not valued properly
+main INFO  jmx.ArquillianServiceDeployer - Undeploy arquillian service: arquillian-service: 885 assets
+Remoting "management-client" read-1 ERROR remote.connection - JBREM000200: Remote connection failed: java.io.IOException: An existing connection was forcibly closed by the remote host
+Remoting "endpoint" read-1 ERROR remote.connection - JBREM000200: Remote connection failed: java.io.IOException: An existing connection was forcibly closed by the remote host
