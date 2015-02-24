@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.ejb.Local;
 
+import com.team6.project.entities.BaseData;
 import com.team6.project.entities.UserEquipment;
 /**
  * The QueryService local interface.
@@ -15,5 +16,7 @@ import com.team6.project.entities.UserEquipment;
 public interface QueryServiceLocal {
 	
 	public Collection<UserEquipment> getAllUserEquipment();
+	
+	public Collection<BaseData> findByIMSI();
 	
 }
