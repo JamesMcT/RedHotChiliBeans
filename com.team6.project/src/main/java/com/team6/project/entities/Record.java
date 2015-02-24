@@ -22,8 +22,10 @@ public class Record implements IDescription {
             .getLogger(Record.class);
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", unique=true, nullable=false)
     private Integer id;
+    
     private Date date;
     private Integer causeCode;
     private Integer eventId;

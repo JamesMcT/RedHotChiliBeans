@@ -2,7 +2,9 @@ package com.team6.project.readers;
 
 import java.math.BigInteger;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -25,7 +27,8 @@ import com.team6.project.validators.UserEquipmentValidator;
  * object is not already in the appropriated map it is added and written to the
  * DB
  * 
- * @author Cristiana
+ * @author Cristiana Conti
+ * @Author Eoin Kernan
  */
 public class BaseDataReader extends Reader {
 
@@ -35,26 +38,51 @@ public class BaseDataReader extends Reader {
     public void processExcelFile(DataImportServiceLocal service) {
         HSSFSheet sheet = service.getSheet(NAME);
         IValidator validator = createValidator();
+        
+        List<BaseData> dataList = new ArrayList<BaseData>();
+        List<Record> recordList = new ArrayList<Record>();
 
         long beginTime = System.currentTimeMillis();
         readerLogger.warn("BaseDataReader: Begin reading BaseData");
 
         while (currentRow <= sheet.getLastRowNum()) {
+        	
             Record record = read(sheet);
             BaseData baseData = new BaseData();
+            
             boolean isValid = validator.isValid(record, baseData, service);
             if (isValid) {
-                service.getPersistenceService().persistBaseData(baseData);
+            	dataList.add(baseData);
+                
             } else {
-                service.getPersistenceService().persistErroneusRecord(record);
+                recordList.add(record);
             }
         }
-        currentRow = FIRSTROW;
+        
         long endTime = System.currentTimeMillis();
         double timeTaken = ((double) (endTime - beginTime)) / 1000;
         readerLogger.warn(String
                 .format("BaseDataReader: End reading BaseData (%s seconds)",
                         new DecimalFormat("0.00").format(timeTaken)));
+        
+        beginTime = System.currentTimeMillis();
+        readerLogger.warn("BaseDataReader: Begin persisting BaseData");
+        
+        if(dataList.size()>0){
+        	service.getPersistenceService().persistBaseDataCollection(dataList);
+        }
+        
+        if(recordList.size()>0){
+        	service.getPersistenceService().persistErroneusRecordCollection(recordList);
+        }
+        
+        endTime = System.currentTimeMillis();
+        timeTaken = ((double) (endTime - beginTime)) / 1000;
+        readerLogger.warn(String
+                .format("BaseDataReader: End reading BaseData (%s seconds)",
+                        new DecimalFormat("0.00").format(timeTaken)));
+        
+        currentRow = FIRSTROW;
     }
 
     public Record read(HSSFSheet sheet) {
@@ -77,10 +105,12 @@ public class BaseDataReader extends Reader {
         record.setHier3Id(getBigIntFromCellAndSetDesc(row.getCell(11), record));
         record.setHier32Id(getBigIntFromCellAndSetDesc(row.getCell(12), record));
         record.setHier321Id(getBigIntFromCellAndSetDesc(row.getCell(13), record));
+        
         currentRow++;
-
+        
+        //record.setId(currentRow++);
+        
         return record;
-
     }
 
     public Integer getIntegerFromCellAndSetDesc(HSSFCell cell,

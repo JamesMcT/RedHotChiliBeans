@@ -77,6 +77,10 @@ public class PersistenceService implements PersistenceServiceLocal{
 		baseData.addBaseData(b);
 	}
 	
+	public void persistBaseDataCollection(Collection<BaseData> b){
+		baseData.addBaseDataCollection(b);
+	}
+	
 	public void persistEventCause(EventCause e){
 		eventCause.addEventCauseData(e);
 	}
@@ -97,6 +101,11 @@ public class PersistenceService implements PersistenceServiceLocal{
 	public void persistErroneusRecord(Record r) {
 		record.addRecord(r);
 
+	}
+	
+	@Override
+	public void persistErroneusRecordCollection(Collection<Record> r){
+		record.addRecordCollection(r);
 	}
 	
 }

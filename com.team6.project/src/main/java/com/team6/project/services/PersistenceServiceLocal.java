@@ -11,6 +11,11 @@ import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.Record;
 import com.team6.project.entities.UserEquipment;
 
+/**
+ * 
+ * @author Eoin Kernan
+ *
+ */
 @Local
 public interface PersistenceServiceLocal {
 
@@ -22,6 +27,8 @@ public interface PersistenceServiceLocal {
 	
 	public void persistBaseData(BaseData b);
 	
+	public void persistBaseDataCollection(Collection<BaseData> b);
+	
 	public void persistEventCause(EventCause e);
 	
 	public void persistFailureType(FailureType f);
@@ -31,5 +38,7 @@ public interface PersistenceServiceLocal {
 	public void persistUserEquipment(UserEquipment u);
 	
 	public void persistErroneusRecord(Record r);
+	
+	public void persistErroneusRecordCollection(Collection<Record> r);
 }
 

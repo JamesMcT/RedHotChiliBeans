@@ -8,8 +8,17 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
+import net.sf.ehcache.hibernate.HibernateUtil;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.entities.BaseData;
@@ -21,7 +30,8 @@ import com.team6.project.entities.UserEquipment;
 
 /**
  * 
- * @author James
+ * @author James Mc Ternan
+ * @Author Eoin Kernan
  *
  */
 @Stateless
@@ -31,6 +41,11 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	@PersistenceContext
 	EntityManager em;
 
+	@PersistenceContext
+    private Session session;
+	
+	public static int count;
+	
 	/**
 	 * 
 	 */
@@ -57,9 +72,28 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	 */
 	@Override
 	public void addBaseData(BaseData baseData) {
+		baseData.setId(count++);
 		em.persist(baseData);
 	}
 
+	@Override
+	public void addBaseDataCollection(Collection<BaseData> baseData){
+		
+		Transaction tx = session.beginTransaction();
+		
+		for(BaseData b:baseData){
+			b.setId(count++);
+			em.persist(b);
+			
+			if(count%50 == 0){
+				session.flush();
+				session.clear();
+			}
+		}
+		
+		tx.commit();
+	}
+	
 	@Override
 	public void deleteBaseData(BaseData baseData) {
 		em.remove(baseData);

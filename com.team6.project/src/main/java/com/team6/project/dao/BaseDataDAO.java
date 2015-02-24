@@ -33,6 +33,8 @@ public interface BaseDataDAO {
 	public BaseData getBaseDataByKey(Integer id);
 
 	public void addBaseData(BaseData baseData);
+	
+	public void addBaseDataCollection(Collection<BaseData> baseData);
 
 	public void deleteBaseData(BaseData baseData);
 	

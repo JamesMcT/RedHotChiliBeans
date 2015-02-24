@@ -19,9 +19,11 @@ import javax.persistence.ManyToOne;
 public class BaseData {
 
    
-   @GeneratedValue(strategy=GenerationType.IDENTITY)
+   //@GeneratedValue(strategy=GenerationType.IDENTITY)
    @Id
+   @Column(name="id", unique=true, nullable=false)
    private Integer id;
+   
    private Date date;
    @ManyToOne
    private EventCause eventCause;
