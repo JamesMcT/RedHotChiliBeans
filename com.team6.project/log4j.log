@@ -8,4 +8,4 @@ main WARN  readers.Reader - In sheet MCC - MNC Table row number 7 primary key no
 main WARN  readers.Reader - In sheet UE Table row number 3 primary key not valued properly
 main WARN  readers.Reader - In sheet UE Table row number 4 primary key not valued properly
 main WARN  readers.Reader - In sheet Failure Class Table row number 7 primary key not valued properly
-main INFO  jmx.ArquillianServiceDeployer - Undeploy arquillian service: arquillian-service: 885 assets
+main INFO  jmx.ArquillianServiceDeployer - Undeploy arquillian service: arquillian-service: 920 assets

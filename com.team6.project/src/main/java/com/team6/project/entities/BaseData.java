@@ -1,6 +1,7 @@
 
 package com.team6.project.entities;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ import javax.persistence.ManyToOne;
  * BaseData table
  */
 @Entity
-public class BaseData {
+public class BaseData implements Serializable{
 
    
    @GeneratedValue(strategy=GenerationType.IDENTITY)

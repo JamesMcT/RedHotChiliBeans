@@ -1,6 +1,8 @@
 
 package com.team6.project.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -15,7 +17,7 @@ import org.hibernate.annotations.NamedQuery;
 
 @NamedQuery(name="allUserEquipment", query="from UserEquipment")
 @Entity
-public class UserEquipment {
+public class UserEquipment implements Serializable{
 
     @Id
     private Integer tac;
