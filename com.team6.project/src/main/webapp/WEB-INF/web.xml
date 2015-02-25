@@ -11,7 +11,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
 	     <display-name>Constraint-0</display-name>
 	     <web-resource-collection>
 	         <web-resource-name>Constraint-0</web-resource-name>
-	         <url-pattern>/*</url-pattern>
+	         <url-pattern>/protected/*</url-pattern>
 	     </web-resource-collection>
 	     <auth-constraint>
 	         <role-name>*</role-name>
@@ -24,8 +24,8 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
 	<login-config>
 	     <auth-method>FORM</auth-method>
 	     <form-login-config>
-	         <form-login-page>/login.html</form-login-page>
-	         <form-error-page>/error.html</form-error-page>
+	         <form-login-page>/protected/login.html</form-login-page>
+	         <form-error-page>/protected/error.html</form-error-page>
 	     </form-login-config>
 	</login-config>
 	 
@@ -35,7 +35,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
 
 	<servlet-mapping>
 	<servlet-name>javax.ws.rs.core.Application</servlet-name>
-	<url-pattern>/rest/*</url-pattern>
+	<url-pattern>/protected/rest/*</url-pattern>
 	</servlet-mapping>
 
 

@@ -45,7 +45,9 @@ public class UserEquipmentRestTest {
                 					"com.team6.project.dao.jpa",
                 					"com.team6.project.validators")
                 .addAsResource("test-persistence.xml","META-INF/persistence.xml")
+                .addAsResource(new File("src/main/webapp/protected"))
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
+                //.setWebXML(new File("src/main/webapp/WEB-INF/jboss-web.xml"))
                 .addAsWebInfResource(EmptyAsset.INSTANCE,ArchivePaths.create("beans.xml"));
 		
 		File[] files = Maven.resolver().resolve("com.jayway.restassured:rest-assured:2.4.0").withTransitivity().as(File.class);
@@ -81,7 +83,8 @@ public class UserEquipmentRestTest {
 		expect().statusCode(200)
 		 		.contentType(ContentType.JSON)
 		 		.when()
-		 		.get(buildUri("rest", "userequipment", "all")).then().log().all();
+		 		.with().authentication().basic("cristiana ", "password")
+		 		.get(buildUri("protected","rest", "userequipment", "all")).then().log().all();
 		
 		System.out.println();
 		System.out.println();
