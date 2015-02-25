@@ -115,5 +115,22 @@ public class JPABaseDataDAO implements BaseDataDAO {
         baseData.setHier32Id(record.getHier32Id());
         baseData.setHier321Id(record.getHier321Id());
     }
+
+	@Override
+	public long countCallFailureByTac(Integer tac) {		
+		
+//		Query q2 = em.createQuery("from UserEquipment where tac = :tac")
+//				.setParameter("tac", tac);
+//		UserEquipment ue = (UserEquipment) q2.getSingleResult();		
+//		
+//		Query q = em.createQuery("select count(*) from BaseData where userEquipment = :ue")
+//				.setParameter("ue", ue);
+				
+		Query q = em.createQuery("select count(*) from BaseData where userEquipment = (from UserEquipment where tac = :tac)")
+				.setParameter("tac", tac);				
+							
+		
+		return  (long) q.getSingleResult();
+	}
     
 }

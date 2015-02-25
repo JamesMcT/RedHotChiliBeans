@@ -36,6 +36,8 @@ public interface BaseDataDAO {
 
 	public void deleteBaseData(BaseData baseData);
 	
+	public long countCallFailureByTac(Integer tac);
+	
 //	public void updateBaseData(BaseData baseData);
 
 //	public void deleteAll();

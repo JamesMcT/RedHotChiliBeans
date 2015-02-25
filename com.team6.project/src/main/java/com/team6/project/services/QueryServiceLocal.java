@@ -15,5 +15,6 @@ import com.team6.project.entities.UserEquipment;
 public interface QueryServiceLocal {
 	
 	public Collection<UserEquipment> getAllUserEquipment();
+	public long countCallFailureByTac(Integer tac);
 	
 }
