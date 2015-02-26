@@ -1,4 +1,4 @@
-package com.team6.project.services.rest.test;
+/*package com.team6.project.services.rest.test;
 
 import static com.jayway.restassured.RestAssured.config;
 import static com.jayway.restassured.RestAssured.given;
@@ -75,11 +75,11 @@ public class UserEquipmentRestTest {
 	@EJB
 	UserDAO userDao;
 
-	/**
+	*//**
 	 * This test will simply make sure the RESTfulo endpoint can be reached and that it is returning JSON
 	 * even if there are no records in the database.
 	 * 
-	 */
+	 *//*
 	@Test
 	public void testGetAll(){
 		 
@@ -105,4 +105,4 @@ public class UserEquipmentRestTest {
 	        return builder.build();
 	 }
 	 
-}
+}*/

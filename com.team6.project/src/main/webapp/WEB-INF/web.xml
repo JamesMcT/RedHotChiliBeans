@@ -22,11 +22,11 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j
 	</security-constraint>
 	 
 	<login-config>
-	     <auth-method>BASIC</auth-method>
-	    <!--  <form-login-config>
+	     <auth-method>FORM</auth-method>
+	     <form-login-config>
 	         <form-login-page>/protected/login.html</form-login-page>
 	         <form-error-page>/protected/error.html</form-error-page>
-	     </form-login-config> -->
+	     </form-login-config>
 	</login-config>
 	 
 	<security-role>

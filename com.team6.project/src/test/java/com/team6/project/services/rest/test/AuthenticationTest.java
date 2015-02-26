@@ -25,7 +25,6 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.authentication.FormAuthConfig;
 import com.jayway.restassured.config.LogConfig;
 import com.team6.project.dao.UserDAO;
-import com.team6.project.entities.User;
 
 @RunWith(Arquillian.class)
 public class AuthenticationTest {
@@ -54,7 +53,7 @@ public class AuthenticationTest {
                 .addAsWebResource(new File(WEBAPP_SRC, "error.html"),
                                   ArchivePaths.create("protected/error.html"))
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
-                .setWebXML(new File("src/main/webapp/WEB-INF/jboss-web.xml"))
+                //.setWebXML(new File("src/main/webapp/WEB-INF/jboss-web.xml"))
                 .addAsWebInfResource(EmptyAsset.INSTANCE,
                                      ArchivePaths.create("beans.xml"));
         File[] files = Maven.resolver()
@@ -99,27 +98,15 @@ public class AuthenticationTest {
 
     @Test
     public void test_login_success() {
-        given().auth()
-                .form("cristiana",
+        given().auth().form("cristiana",
                       "password",
-                      new FormAuthConfig(ARCHIVE_NAME
-                              + "/protected/j_security_check", "j_username",
+                      new FormAuthConfig("j_security_check", "j_username",
                                          "j_password")).expect()
                 .statusCode(200).when()
                 .get(buildUri("protected", "index.html"));
     }
 
-    @Test
-    public void test_login_failure() {
-        given().auth()
-                .form("fail",
-                      "hard",
-                      new FormAuthConfig(ARCHIVE_NAME + "/protected/j_security_check", "j_username",
-                                         "j_password")).expect()
-                .statusCode(200).when()
-                .get(buildUri("protected", "index.html"));
-    }
-
+    
     private URI buildUri(String... paths) {
         UriBuilder builder = UriBuilder.fromUri(baseURL);
         for (String path : paths) {
