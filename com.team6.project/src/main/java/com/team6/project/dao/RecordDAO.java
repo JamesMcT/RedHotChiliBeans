@@ -15,5 +15,7 @@ public interface RecordDAO {
 	public void deleteRecord(Record record);
 	
 	public Record getRecordByKey(int id);
+	
+	public long getRecordCount();
 
 }

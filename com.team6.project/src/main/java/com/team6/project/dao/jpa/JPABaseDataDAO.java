@@ -38,13 +38,15 @@ import com.team6.project.entities.UserEquipment;
 @Local
 public class JPABaseDataDAO implements BaseDataDAO {
 
+	public final static int BATCH_SIZE = 2000;
+	
 	@PersistenceContext
 	EntityManager em;
 
 	@PersistenceContext
     private Session session;
 	
-	public static int count;
+	public static long count;
 	
 	/**
 	 * 
@@ -72,21 +74,23 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	 */
 	@Override
 	public void addBaseData(BaseData baseData) {
-		baseData.setId(count++);
+		baseData.setId((int)count++);
 		em.persist(baseData);
 	}
 
 	@Override
 	public void addBaseDataCollection(Collection<BaseData> baseData){
 		
+		count = getBaseDataCount() + 1;
+		
 		session.beginTransaction();
 		
 		for(BaseData b:baseData){
-			b.setId(count++);
+			b.setId((int)count++);
 			em.persist(b);
 			
 			// Magic number, this is the batch size stated in hibernate.xml
-			if(count%50 == 0){
+			if(count%BATCH_SIZE == 0){
 				session.flush();
 				session.clear();
 			}
@@ -140,6 +144,10 @@ public class JPABaseDataDAO implements BaseDataDAO {
 		return null;
 	}
 
+	@Override
+	public long getBaseDataCount(){
+		return (long)em.createNamedQuery("baseDataCount").getSingleResult();
+	}
 	
 	public static void fillData(Record record, BaseData baseData){
         baseData.setCellId(record.getCellId());

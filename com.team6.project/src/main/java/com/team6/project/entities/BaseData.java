@@ -11,10 +11,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.NamedQuery;
+
 /**
- * @author Cristiana
  * BaseData table
+ * 
+ * @author Cristiana Conti
+ * @author Eoin Kernan
+ * 
  */
+
+@NamedQuery(name="baseDataCount", query="SELECT COUNT(b.id) FROM BaseData b")
 @Entity
 public class BaseData {
 

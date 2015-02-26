@@ -33,10 +33,10 @@ public class JPARecordDAO implements RecordDAO {
     @PersistenceContext
     private Session session;
     
-    public static int count;
+    public static long count;
     
     public void addRecord(Record record){
-    	record.setId(count++);
+    	record.setId((int)count++);
         em.persist(record);
         
     }
@@ -44,14 +44,16 @@ public class JPARecordDAO implements RecordDAO {
     @Override
     public void addRecordCollection(Collection<Record> records){
     	
+    	count = getRecordCount() + 1;
+    	
     	session.beginTransaction();
     	
     	for(Record r:records){
-			r.setId(count++);
+			r.setId((int)count++);
 			em.persist(r);
 			
 			// Magic number, this is the batch size stated in hibernate.xml
-			if(count%50 == 0){
+			if(count % JPABaseDataDAO.BATCH_SIZE == 0){
 				session.flush();
 				session.clear();
 			}
@@ -71,6 +73,11 @@ public class JPARecordDAO implements RecordDAO {
         return em.find(Record.class, id);
         
     }
+
+	@Override
+	public long getRecordCount() {
+		return (long)em.createNamedQuery("erroneousRecordCount").getSingleResult();
+	}
 
 }
 

@@ -11,9 +11,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQuery;
+
 /**
- * @author Cristiana Record mapping ErroneousBaseData table
+ * Record mapping ErroneousBaseData table
+ * 
+ * @author Cristiana Conti
+ * @author Eoin Kernan
  */
+@NamedQuery(name="erroneousRecordCount", query="SELECT COUNT(e.id) FROM Record e")
 @Entity
 @Table(name = "ErroneousBaseData")
 public class Record implements IDescription {

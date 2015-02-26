@@ -38,6 +38,8 @@ public interface BaseDataDAO {
 
 	public void deleteBaseData(BaseData baseData);
 	
+	public long getBaseDataCount();
+	
 //	public void updateBaseData(BaseData baseData);
 
 //	public void deleteAll();

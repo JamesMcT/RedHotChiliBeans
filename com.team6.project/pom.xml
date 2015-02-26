@@ -39,7 +39,7 @@
 		</profile>
 	</profiles>
 	<dependencies>
-	    
+		
 	    <dependency>
 			<groupId>com.jayway.restassured</groupId>
 			<artifactId>rest-assured</artifactId>
