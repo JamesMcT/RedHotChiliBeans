@@ -41,21 +41,23 @@ public class JPARecordDAO implements RecordDAO {
         
     }
 
+    @Override
     public void addRecordCollection(Collection<Record> records){
     	
-    	Transaction tx = session.beginTransaction();
-		
+    	session.beginTransaction();
+    	
     	for(Record r:records){
 			r.setId(count++);
 			em.persist(r);
 			
+			// Magic number, this is the batch size stated in hibernate.xml
 			if(count%50 == 0){
 				session.flush();
 				session.clear();
 			}
 		}
     	
-    	tx.commit();
+    	session.getTransaction().commit();
     }
     
     @Override

@@ -79,19 +79,20 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	@Override
 	public void addBaseDataCollection(Collection<BaseData> baseData){
 		
-		Transaction tx = session.beginTransaction();
+		session.beginTransaction();
 		
 		for(BaseData b:baseData){
 			b.setId(count++);
 			em.persist(b);
 			
+			// Magic number, this is the batch size stated in hibernate.xml
 			if(count%50 == 0){
 				session.flush();
 				session.clear();
 			}
 		}
 		
-		tx.commit();
+		session.getTransaction().commit();
 	}
 	
 	@Override
