@@ -29,7 +29,9 @@ public class User implements Serializable{
     @Column(name="group_role", table="Roles")
     private String group;
     
-    
+    public String toString(){
+        return "UserId : "+userId+" Password : "+password+" User Role : "+role;
+    }
    
     public String getUserId() {
         return userId;
