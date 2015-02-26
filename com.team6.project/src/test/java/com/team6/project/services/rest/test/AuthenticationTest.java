@@ -1,4 +1,4 @@
-/*package com.team6.project.services.rest.test;
+package com.team6.project.services.rest.test;
 
 import static com.jayway.restassured.RestAssured.config;
 import static com.jayway.restassured.RestAssured.given;
@@ -24,7 +24,9 @@ import org.junit.runner.RunWith;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.authentication.FormAuthConfig;
 import com.jayway.restassured.config.LogConfig;
+import com.jayway.restassured.filter.session.SessionFilter;
 import com.team6.project.dao.UserDAO;
+import com.team6.project.entities.User;
 
 @RunWith(Arquillian.class)
 public class AuthenticationTest {
@@ -45,7 +47,8 @@ public class AuthenticationTest {
                              "com.team6.project.dao",
                              "com.team6.project.dao.jpa",
                              "com.team6.project.validators")
-                .addAsResource("META-INF/persistence.xml")
+                .addAsResource("test-persistence.xml",
+                               "META-INF/persistence.xml")
                 .addAsWebResource(new File(WEBAPP_SRC, "login.html"),
                                   ArchivePaths.create("protected/login.html"))
                 .addAsWebResource(new File(WEBAPP_SRC, "index.html"),
@@ -53,13 +56,12 @@ public class AuthenticationTest {
                 .addAsWebResource(new File(WEBAPP_SRC, "error.html"),
                                   ArchivePaths.create("protected/error.html"))
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
-                //.setWebXML(new File("src/main/webapp/WEB-INF/jboss-web.xml"))
+                .addAsWebInfResource("test-jboss-web.xml", "jboss-web.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE,
                                      ArchivePaths.create("beans.xml"));
         File[] files = Maven.resolver()
                 .resolve("com.jayway.restassured:rest-assured:2.4.0")
                 .withTransitivity().as(File.class);
-        // files = removeGroovyXml(files);
         a.addAsLibraries(files);
 
         files = Maven.resolver().resolve("org.apache.poi:poi:3.11")
@@ -80,7 +82,7 @@ public class AuthenticationTest {
 
     @EJB
     private UserDAO userDao;
-    
+
     private static FormAuthConfig fac;
 
     @Before
@@ -88,32 +90,29 @@ public class AuthenticationTest {
         RestAssured.config = config()
                 .logConfig(new LogConfig(System.out, true));
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        System.err.println(userDao.getUserByKey("cristiana").getPassword());
-        //User p = new User();
-        //p.setUserId("cristiana");
-        //p.setPassword("password");
-        //p.setRole("administrator");
-        //userDao.addUser(p);
+        RestAssured.basePath = ARCHIVE_NAME;
+        RestAssured.rootPath = ARCHIVE_NAME;
+
+        User testuser = new User();
+        testuser.setUserId("testuser");
+        testuser.setPassword("testpassword");
+        testuser.setRole("administrator");
+        userDao.addUser(testuser);
     }
 
     @Test
     public void test_login_success() {
-        given().auth().form("cristiana",
-                      "password",
-                      new FormAuthConfig("j_security_check", "j_username",
-                                         "j_password")).expect()
-                .statusCode(200).when()
-                .get(buildUri("protected", "index.html"));
-    }
+        SessionFilter sessionFilter = new SessionFilter();
+        given().filter(sessionFilter).when().get("protected/").then()
+                .statusCode(200);
 
-    
-    private URI buildUri(String... paths) {
-        UriBuilder builder = UriBuilder.fromUri(baseURL);
-        for (String path : paths) {
-            builder.path(path);
-        }
-        return builder.build();
-    }
+        given().auth()
+                .form("testuser",
+                      "testpassword",
+                      new FormAuthConfig("protected/j_security_check",
+                                         "j_username", "j_password"))
+                .filter(sessionFilter).expect().statusCode(200).when()
+                .get("protected/");
 
+    }
 }
-*/
