@@ -1,8 +1,12 @@
 package com.team6.project.readers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
+import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.UserEquipment;
 import com.team6.project.services.DataImportServiceLocal;
 
@@ -11,7 +15,8 @@ import com.team6.project.services.DataImportServiceLocal;
  * object is not already in the appropriated map it is added and written to the
  * DB
  * 
- * @author Cristiana
+ * @author Cristiana Conti
+ * @author Eoin Kernan
  */
 public class UserEquipmentReader extends Reader {
 
@@ -24,7 +29,10 @@ public class UserEquipmentReader extends Reader {
     @SuppressWarnings("unchecked")
     @Override
     public void processExcelFile(DataImportServiceLocal service) {
+    	
         HSSFSheet sheet = service.getSheet(NAME);
+        List<UserEquipment> dataList = new ArrayList<UserEquipment>();
+        
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);
             UserEquipment userEquip = new UserEquipment();
@@ -42,7 +50,8 @@ public class UserEquipmentReader extends Reader {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() +" not in map. Writing on DB as well....");
                     service.getMap(NAME).put(userEquip.getTac(), userEquip);
-                    service.getPersistenceService().persistUserEquipment(userEquip);
+                    dataList.add(userEquip);
+                    //service.getPersistenceService().persistUserEquipment(userEquip);
                 } else {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() + " already in memory");
@@ -52,6 +61,10 @@ public class UserEquipmentReader extends Reader {
                         + row.getRowNum() + " primary key not valued properly");
             }
             currentRow++;
+        }
+        
+        if(dataList.size()>0){
+        	service.getPersistenceService().persistUserEequipmentCollection(dataList);
         }
         currentRow = FIRSTROW;
 

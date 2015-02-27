@@ -40,5 +40,13 @@ public interface PersistenceServiceLocal {
 	public void persistErroneusRecord(Record r);
 	
 	public void persistErroneusRecordCollection(Collection<Record> r);
+	
+	public void persistEventCauseCollection(Collection<EventCause> eventCauses);
+	
+	public void persistFailureTypeCollection(Collection<FailureType> failureTypes);
+	
+	public void persistOperatorCountryCollection(Collection<OperatorCountry> operatorCountries);
+	
+	public void persistUserEequipmentCollection(Collection<UserEquipment> userEquipment);
 }
 

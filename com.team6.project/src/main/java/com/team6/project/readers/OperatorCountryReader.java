@@ -1,8 +1,12 @@
 package com.team6.project.readers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
+import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.services.DataImportServiceLocal;
@@ -12,7 +16,8 @@ import com.team6.project.services.DataImportServiceLocal;
  * object. If the object is not already in the appropriated map it is added and
  * written to the DB
  * 
- * @author Cristiana
+ * @author Cristiana Conti
+ * @author Eoin Kernan
  */
 public class OperatorCountryReader extends Reader {
 
@@ -25,7 +30,10 @@ public class OperatorCountryReader extends Reader {
     @SuppressWarnings("unchecked")
     @Override
     public void processExcelFile(DataImportServiceLocal service) {
+    	
         HSSFSheet sheet = service.getSheet(NAME);
+        List<OperatorCountry> dataList = new ArrayList<OperatorCountry>();
+        
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);
             OperatorCountry operatorCountry = new OperatorCountry();
@@ -41,7 +49,8 @@ public class OperatorCountryReader extends Reader {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() +" not in map. Writing on DB as well....");
                     service.getMap(NAME).put(pk, operatorCountry);
-                    service.getPersistenceService().persistOperatorCountry(operatorCountry);
+                    dataList.add(operatorCountry);
+                    //service.getPersistenceService().persistOperatorCountry(operatorCountry);
                 } else {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() + " already in memory");
@@ -51,6 +60,10 @@ public class OperatorCountryReader extends Reader {
                         + row.getRowNum() + " primary key not valued properly");
             }
             currentRow++;
+        }
+        
+        if(dataList.size()>0){
+        	service.getPersistenceService().persistOperatorCountryCollection(dataList);
         }
         currentRow = FIRSTROW;
 
