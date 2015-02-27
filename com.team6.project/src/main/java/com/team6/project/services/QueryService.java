@@ -11,12 +11,14 @@ import com.mysql.jdbc.util.BaseBugReport;
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.dao.UserEquipmentDAO;
 import com.team6.project.entities.BaseData;
+import com.team6.project.entities.EventCause;
 import com.team6.project.entities.UserEquipment;
 
 /**
  * The QueryService EJB
  * 
  * @author Eoin Kernan
+ * @author James
  *
  */
 @Local(QueryServiceLocal.class)
@@ -34,10 +36,13 @@ public class QueryService implements QueryServiceLocal{
 		return userEquipment.getAllUserEquipment();
 	}
 
+	
+	
+	
 	@Override
-	public Collection<BaseData> findByIMSI() {
+	public Collection<EventCause> findByIMSI(BigInteger IMSI) {
 		BigInteger b = new BigInteger("191911000163430");
-		return baseData.findByImsi(b);
+		return baseData.findByImsi(IMSI);
 	}
 
 
