@@ -37,7 +37,7 @@ import com.team6.project.readers.OperatorCountryReader;
 import com.team6.project.readers.UserEquipmentReader;
 import com.team6.project.services.DataImportServiceLocal;
 
-//@RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 public class DataImportServiceTest {
 
 	//TODO: get these from a configuration file instead of hard-coding them in.
@@ -49,11 +49,11 @@ public class DataImportServiceTest {
 	
 	private static final long DELAY_IN_MS = 500;
 	
-//	@EJB
+	@EJB
 	DataImportServiceLocal service;
 	
 	@SuppressWarnings("unchecked")
-  //  @Deployment
+    @Deployment
     public static Archive<?> createDeployment() {
 		Archive<?> a = ShrinkWrap
                 .create(WebArchive.class, "test.war")
@@ -84,7 +84,7 @@ public class DataImportServiceTest {
     }
 	
 	
-   // @Before
+    @Before
     public void prepareDataImportTest() throws InterruptedException{
 		
 		startWatchingFolder();
@@ -105,7 +105,7 @@ public class DataImportServiceTest {
 	 * watching thread, and processed into the temporary test database.
 	 * 
 	 */
-	//@Test
+	@Test
 	public void testDirectoryWatcher(){
 		assertTrue(service.getProcessedFileCount()>0);
 	}
@@ -116,7 +116,7 @@ public class DataImportServiceTest {
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-  //  @Test
+    @Test
 	public void testHashMapPopulation(){
 		
 		HashMap<EventCausePK, EventCause> eventCauseMap = (HashMap<EventCausePK, EventCause>) service.getMap(EventCauseReader.getName());
