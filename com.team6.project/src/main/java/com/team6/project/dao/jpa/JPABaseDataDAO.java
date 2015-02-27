@@ -2,7 +2,10 @@ package com.team6.project.dao.jpa;
 
 
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -22,6 +25,7 @@ import com.team6.project.entities.UserEquipment;
 /**
  * 
  * @author James
+ * @author D14125306 - Sabee
  *
  */
 @Stateless
@@ -116,8 +120,8 @@ public class JPABaseDataDAO implements BaseDataDAO {
         baseData.setHier321Id(record.getHier321Id());
     }
 
-	@Override
-	public long countCallFailureByTac(Integer tac) {		
+	@Override //S
+	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate) {		
 		
 //		Query q2 = em.createQuery("from UserEquipment where tac = :tac")
 //				.setParameter("tac", tac);
@@ -125,12 +129,20 @@ public class JPABaseDataDAO implements BaseDataDAO {
 //		
 //		Query q = em.createQuery("select count(*) from BaseData where userEquipment = :ue")
 //				.setParameter("ue", ue);
-				
-		Query q = em.createQuery("select count(*) from BaseData where userEquipment = (from UserEquipment where tac = :tac)")
-				.setParameter("tac", tac);				
+			
+	
+	
+		
+		Query q = em.createQuery("select count(*) from BaseData "
+				+ "where userEquipment = (from UserEquipment where tac = :tac) "
+				+ "and date >= :fromDate "
+				+ "and date <= :toDate")
+				.setParameter("tac", tac)
+				.setParameter("fromDate", fromDate)				
+				.setParameter("toDate", toDate);
 							
 		
-		return  (long) q.getSingleResult();
+		return (long) q.getSingleResult();
 	}
     
 }

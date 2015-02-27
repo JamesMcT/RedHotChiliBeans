@@ -2,6 +2,7 @@ package com.team6.project.dao;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Local;
 
@@ -36,7 +37,7 @@ public interface BaseDataDAO {
 
 	public void deleteBaseData(BaseData baseData);
 	
-	public long countCallFailureByTac(Integer tac);
+	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
 	
 //	public void updateBaseData(BaseData baseData);
 

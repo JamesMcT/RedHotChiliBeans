@@ -1,11 +1,16 @@
 package com.team6.project.services.rest;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 
 
 
@@ -32,7 +37,21 @@ public class BaseDataRest {
 	@Path("/{tac}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public long countCallFailureByTac(@PathParam("tac") Integer tac){
-		return queryService.countCallFailureByTac(tac);
+		String fromDate_s = "2013-01-11 17:15:00";
+		String toDate_s = "2013-01-11 17:16:00";
+				
+		SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
+		Date fromDate = new Date();
+		Date toDate = new Date();
+		
+		try {
+			fromDate = dt.parse(fromDate_s);
+			toDate = dt.parse(toDate_s);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} 
+						
+		return queryService.countCallFailureByTac(tac, fromDate, toDate);
 	}
 	
 	
