@@ -1,7 +1,8 @@
 package com.team6.project.services.rest.test;
 
-import static com.jayway.restassured.RestAssured.config;
-import static com.jayway.restassured.RestAssured.given;
+import static com.jayway.restassured.RestAssured.*;
+import static com.jayway.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
 
 import java.io.File;
 import java.net.URI;
@@ -83,7 +84,9 @@ public class AuthenticationTest {
     @EJB
     private UserDAO userDao;
 
-    private static FormAuthConfig fac;
+    private FormAuthConfig fac = new FormAuthConfig(
+                                                    "protected/j_security_check",
+                                                    "j_username", "j_password");
 
     @Before
     public void setup() {
@@ -106,13 +109,21 @@ public class AuthenticationTest {
         given().filter(sessionFilter).when().get("protected/").then()
                 .statusCode(200);
 
-        given().auth()
-                .form("testuser",
-                      "testpassword",
-                      new FormAuthConfig("protected/j_security_check",
-                                         "j_username", "j_password"))
-                .filter(sessionFilter).expect().statusCode(200).when()
-                .get("protected/");
+        given().auth().form("testuser", "testpassword", fac)
+                .filter(sessionFilter).when().get("protected/").then()
+                .body(containsString("Welcome"));
+
+    }
+
+    @Test
+    public void test_login_fail() {
+        SessionFilter sessionFilter = new SessionFilter();
+        given().filter(sessionFilter).when().get("protected/").then()
+                .statusCode(200);
+
+        given().auth().form("user", "password", fac).filter(sessionFilter)
+                .when().get("protected/").then()
+                .body(containsString("<title>Login Form</title>"));
 
     }
 }
