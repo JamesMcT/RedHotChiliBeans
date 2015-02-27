@@ -89,7 +89,6 @@ public class JPABaseDataDAO implements BaseDataDAO {
 			b.setId((int)count++);
 			em.persist(b);
 			
-			// Magic number, this is the batch size stated in hibernate.xml
 			if(count%BATCH_SIZE == 0){
 				session.flush();
 				session.clear();

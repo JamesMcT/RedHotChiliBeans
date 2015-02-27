@@ -11,7 +11,13 @@ import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.entities.UserEquipment;
 
-
+/**
+ * The base data DAO interface.
+ * 
+ * @author John O Keeffe
+ * @author Eoin Kernan
+ *
+ */
 
 @Local
 public interface BaseDataDAO {
