@@ -9,14 +9,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import com.team6.project.dao.OperatorCountryDAO;
+import org.hibernate.Session;
 
+import com.team6.project.dao.OperatorCountryDAO;
+import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
 
 /**
  * 
- * @author James
+ * @author James Mc Ternan
+ * @author Eoin Kernan
  *
  */
 @Stateless
@@ -26,6 +29,9 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 	@PersistenceContext
 	private EntityManager em;
 
+	@PersistenceContext
+    private Session session;
+	
 	/**
 	 * Returns collection of OperatorCountry
 	 */
@@ -57,6 +63,17 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 		em.persist(operatorCountry);
 	}
 
+	@Override
+	public void addOperatorCountryCollection(Collection<OperatorCountry> operatorCountry) {
+		session.beginTransaction();
+    	
+    	for(OperatorCountry o:operatorCountry){
+			em.persist(o);
+		}
+    	
+    	session.getTransaction().commit();
+	}
+	
 	/**
 	 * Update existing OperatorCountry, record to be updated returned via PK.
 	 * Updated OperatorCountry also passed.

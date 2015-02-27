@@ -9,13 +9,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.hibernate.Session;
+
 import com.team6.project.dao.EventCauseDAO;
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
+import com.team6.project.entities.Record;
 
 /**
  * 
- * @author James
+ * @author James Mc Ternan
+ * @author Eoin Kernan
  *
  */
 @Stateless
@@ -25,6 +29,9 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 	@PersistenceContext
 	EntityManager em;
 
+	@PersistenceContext
+    private Session session;
+	
 	/**
 	 * 
 	 */
@@ -52,6 +59,19 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 		em.persist(eventCause);
 	}
 
+	@Override
+	public void addEventCauseCollection(Collection<EventCause> eventCause) {
+		
+		session.beginTransaction();
+    	
+    	for(EventCause e:eventCause){
+			em.persist(e);
+		}
+    	
+    	session.getTransaction().commit();
+		
+	}
+	
 	/**
 	 * 
 	 */
@@ -67,6 +87,5 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 	public void deleteEventCause(EventCause eventCause) {
 		em.remove(eventCause);
 	}
-
 }
 	

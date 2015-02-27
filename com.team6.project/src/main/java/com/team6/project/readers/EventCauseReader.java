@@ -1,8 +1,12 @@
 package com.team6.project.readers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
+import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
 import com.team6.project.services.DataImportServiceLocal;
@@ -12,7 +16,8 @@ import com.team6.project.services.DataImportServiceLocal;
  * If the object is not already in the appropriated map it is added and written
  * to the DB
  * 
- * @author Cristiana
+ * @author Cristiana Conti
+ * @author Eoin Kernan
  */
 public class EventCauseReader extends Reader {
 
@@ -23,6 +28,8 @@ public class EventCauseReader extends Reader {
     public void processExcelFile(DataImportServiceLocal service) {
 
         HSSFSheet sheet = service.getSheet(NAME);
+        List<EventCause> dataList = new ArrayList<EventCause>();
+        
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);
             EventCause eventCause = new EventCause();
@@ -36,7 +43,8 @@ public class EventCauseReader extends Reader {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() +" not in map. Writing on DB as well....");
                     service.getMap(NAME).put(pk, eventCause);
-                    service.getPersistenceService().persistEventCause(eventCause);
+                    dataList.add(eventCause);
+                    //service.getPersistenceService().persistEventCause(eventCause);
                 } else {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() + " already in memory");
@@ -46,6 +54,10 @@ public class EventCauseReader extends Reader {
                         + row.getRowNum() + " primary key not valued properly");
             }
             currentRow++;
+        }
+        
+        if(dataList.size()>0){
+        	service.getPersistenceService().persistEventCauseCollection(dataList);
         }
         currentRow = FIRSTROW;
 

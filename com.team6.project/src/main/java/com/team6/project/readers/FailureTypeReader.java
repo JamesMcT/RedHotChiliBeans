@@ -1,8 +1,12 @@
 package com.team6.project.readers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
+import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
 import com.team6.project.services.DataImportServiceLocal;
 
@@ -11,7 +15,8 @@ import com.team6.project.services.DataImportServiceLocal;
  * object. If the object is not already in the appropriated map it is added and
  * written to the DB
  * 
- * @author Cristiana
+ * @author Cristiana Conti
+ * @author Eoin Kernan
  */
 public class FailureTypeReader extends Reader {
 
@@ -23,7 +28,10 @@ public class FailureTypeReader extends Reader {
 
     @SuppressWarnings("unchecked")
     public void processExcelFile(DataImportServiceLocal service) {
+    	
         HSSFSheet sheet = service.getSheet(NAME);
+        List<FailureType> dataList = new ArrayList<FailureType>();
+        
         while (currentRow <= sheet.getLastRowNum()) {
             HSSFRow row = sheet.getRow(currentRow);
             FailureType failure = new FailureType();
@@ -34,7 +42,8 @@ public class FailureTypeReader extends Reader {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() +" not in map. Writing on DB as well....");
                     service.getMap(NAME).put(failure.getFailureCode(), failure);
-                    service.getPersistenceService().persistFailureType(failure);;
+                    dataList.add(failure);
+                    //service.getPersistenceService().persistFailureType(failure);;
                 } else {
                     readerLogger.info("In sheet " + NAME + " row number "
                             + row.getRowNum() + " already in memory");
@@ -44,6 +53,10 @@ public class FailureTypeReader extends Reader {
                         + row.getRowNum() + " primary key not valued properly");
             }
             currentRow++;
+        }
+        
+        if(dataList.size()>0){
+        	service.getPersistenceService().persistFailureTypeCollection(dataList);
         }
         currentRow = FIRSTROW;
 
