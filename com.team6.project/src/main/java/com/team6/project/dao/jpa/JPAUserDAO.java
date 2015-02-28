@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.team6.project.dao.UserDAO;
+import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 @Stateless
 @Local
@@ -17,13 +18,17 @@ public class JPAUserDAO implements UserDAO {
     private EntityManager em;
 
     @Override
-    public void addUser(User user) {
+    public Response addUser(User user) {
+        Response response = new Response();
         if (em.find(User.class, user.getUserId()) == null) {
             em.persist(user);
+            response.setStatus(Response.Status.OK);
         }
         else{
-            em.merge(user);
+            response.setStatus(Response.Status.ERROR);
+            response.setDescription("User already exists");
         }
+        return response;
     }
 
     @Override

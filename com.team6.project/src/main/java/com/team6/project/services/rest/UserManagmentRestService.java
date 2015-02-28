@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.team6.project.dao.UserDAO;
+import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 /**
  * 
@@ -16,7 +17,7 @@ import com.team6.project.entities.User;
  * @author Cristiana
  *
  */
-@Path("/usermanagment")
+@Path("/usermanagement")
 public class UserManagmentRestService {
     
     @EJB
@@ -32,8 +33,9 @@ public class UserManagmentRestService {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void addUser(User user) {
-        userDao.addUser(user);
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addUser(User user) {
+        return userDao.addUser(user);
     }
 
 }
