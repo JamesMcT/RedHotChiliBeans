@@ -9,6 +9,8 @@
 
 			<property name="jbossHome">/home/cristiana/applications/jboss-as-7.1.1.Final</property>
 			<property name="javaVmArguments">-Djava.security.debug=logincontext</property>
+			<property name="serverConfig">standalone-test.xml</property>
+			<property name="managementPort">19999</property>
 		</configuration>
 	</container>
 	<extension qualifier="jacoco">

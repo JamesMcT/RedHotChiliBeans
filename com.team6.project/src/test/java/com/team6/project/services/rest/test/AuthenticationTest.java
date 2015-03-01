@@ -14,8 +14,11 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.Filters;
+import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Before;
@@ -33,8 +36,6 @@ import com.team6.project.entities.User;
 public class AuthenticationTest {
 
     private final static String ARCHIVE_NAME = "test";
-    private final static String baseURL = "http://localhost:8080/"
-            + ARCHIVE_NAME;
     private final static String WEBAPP_SRC = "src/main/webapp/protected";
 
     @Deployment
@@ -50,12 +51,11 @@ public class AuthenticationTest {
                              "com.team6.project.validators")
                 .addAsResource("test-persistence.xml",
                                "META-INF/persistence.xml")
-                .addAsWebResource(new File(WEBAPP_SRC, "login.html"),
-                                  ArchivePaths.create("protected/login.html"))
-                .addAsWebResource(new File(WEBAPP_SRC, "index.html"),
-                                  ArchivePaths.create("protected/index.html"))
-                .addAsWebResource(new File(WEBAPP_SRC, "error.html"),
-                                  ArchivePaths.create("protected/error.html"))
+                .merge(ShrinkWrap.create(GenericArchive.class)
+                               .as(ExplodedImporter.class)
+                               .importDirectory(WEBAPP_SRC)
+                               .as(GenericArchive.class), "protected",
+                       Filters.includeAll())
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
                 .addAsWebInfResource("test-jboss-web.xml", "jboss-web.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE,
@@ -94,7 +94,7 @@ public class AuthenticationTest {
                 .logConfig(new LogConfig(System.out, true));
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.basePath = ARCHIVE_NAME;
-        RestAssured.rootPath = ARCHIVE_NAME;
+        RestAssured.port = 18080;
 
         User testuser = new User();
         testuser.setUserId("testuser");
@@ -106,11 +106,11 @@ public class AuthenticationTest {
     @Test
     public void test_login_success() {
         SessionFilter sessionFilter = new SessionFilter();
-        given().filter(sessionFilter).when().get("protected/").then()
+        given().filter(sessionFilter).when().get("protected/admin").then()
                 .statusCode(200);
 
         given().auth().form("testuser", "testpassword", fac)
-                .filter(sessionFilter).when().get("protected/").then()
+                .filter(sessionFilter).when().get("protected/admin").then()
                 .body(containsString("Welcome"));
 
     }
@@ -118,11 +118,11 @@ public class AuthenticationTest {
     @Test
     public void test_login_fail() {
         SessionFilter sessionFilter = new SessionFilter();
-        given().filter(sessionFilter).when().get("protected/").then()
+        given().filter(sessionFilter).when().get("protected/admin").then()
                 .statusCode(200);
 
         given().auth().form("user", "password", fac).filter(sessionFilter)
-                .when().get("protected/").then()
+                .when().get("protected/admin").then()
                 .body(containsString("<title>Login Form</title>"));
 
     }
