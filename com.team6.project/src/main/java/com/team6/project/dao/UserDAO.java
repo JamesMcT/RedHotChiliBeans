@@ -9,8 +9,8 @@ import com.team6.project.entities.User;
 public interface UserDAO {
     
     public Response addUser(User user);
-    public void updateUser(User user);
+    public Response updateUser(User user);
     public User getUserByKey(String userId);
-    public void daleteUser(User user);
+    public Response deleteUser(User user);
 
 }

@@ -32,5 +32,29 @@
 	<%
 	    }
 	%>
+	<%
+	    if (request.isUserInRole("Support Engineer")) {
+	%>
+	<%
+	    	// New location to be redirected
+	        String site = new String("se/index.html");
+	        response.setStatus(response.SC_MOVED_TEMPORARILY);
+	        response.setHeader("Location", site);
+	%>
+	<%
+	    }
+	%>
+	<%
+	    if (request.isUserInRole("Customer Service")) {
+	%>
+	<%
+	    	// New location to be redirected
+	        String site = new String("csr/index.html");
+	        response.setStatus(response.SC_MOVED_TEMPORARILY);
+	        response.setHeader("Location", site);
+	%>
+	<%
+	    }
+	%>
 </body>
 </html>

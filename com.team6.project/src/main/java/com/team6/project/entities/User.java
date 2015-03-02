@@ -2,14 +2,17 @@ package com.team6.project.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * @author Cristiana User mapping tables
@@ -24,6 +27,7 @@ public class User implements Serializable {
     private String userId;
     @Column(name = "password")
     private String password;
+    
     @Column(name = "user_role", table = "Roles")
     private String role;
 
@@ -63,6 +67,10 @@ public class User implements Serializable {
         } else if (!userId.equals(other.userId))
             return false;
         return true;
+    }
+    
+    public String getKey(){
+        return userId;
     }
 
     public String toString() {

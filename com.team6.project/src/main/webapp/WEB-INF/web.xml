@@ -40,6 +40,7 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Network Management Engineer</role-name>
+			<role-name>administrator</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
@@ -59,6 +60,12 @@
 	</security-role>
 	<security-role>
 		<role-name>Network Management Engineer</role-name>
+	</security-role>
+	<security-role>
+		<role-name>Support Engineer</role-name>
+	</security-role>
+	<security-role>
+		<role-name>Customer Representative</role-name>
 	</security-role>
 
 	<servlet-mapping>
