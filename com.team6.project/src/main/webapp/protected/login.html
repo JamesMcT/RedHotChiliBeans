@@ -2,34 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-	<style>
-body {
-	background-image: url("Network1.jpg"); no-repeat center center fixed;
-	opacity: 0.7;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-
-}
-</style>
 	<title>Login Form</title>
 </h:head>
 <h:body>
-<div align="center">
 	<h2>Hello, please log in:</h2>
 	<form name="loginForm" method="POST" action="j_security_check">
-		<p>
-		<div><strong>Please type your user name: </strong> </div>
-		<div><input type="text"	name="j_username" size="25"></div>
-		<div><strong>Please type your password: </strong></div>
-		<div><input type="password"
-				size="15" name="j_password"></div>
-		<div><input type="submit" value="Submit" /> 
-			<input type="reset"	value="Reset" /></div>
-
+		<div align="center">
+			<p>
+				<strong>Please type your user name: </strong> <input type="text"
+					name="j_username" size="25">
+			</p>
+			<p>
+				<strong>Please type your password: </strong> <input type="password"
+					size="15" name="j_password">
+			</p>
+			<p>
+				<input type="submit" value="Submit" /> <input type="reset"
+					value="Reset" />
+			</p>
+		</div>
 	</form>
-	</div>
 </h:body>
 </html>
-

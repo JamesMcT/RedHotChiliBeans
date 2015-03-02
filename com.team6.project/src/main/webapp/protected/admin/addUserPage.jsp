@@ -30,6 +30,7 @@
 			response = xhr.response;
 		}
 	}
+	
 </script>
 
 <title>New User</title>
@@ -55,6 +56,9 @@
 		</div>
 		<div>
 			<input type='button' onclick="addUser()" value="submit" />
+		</div>
+		<div>
+			<input type='button' onclick="window.location.href='../logout.jsp'" value="logout" />
 		</div>
 	</div>
 
