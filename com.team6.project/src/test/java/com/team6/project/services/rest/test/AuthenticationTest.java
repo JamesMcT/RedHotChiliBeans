@@ -33,37 +33,33 @@ import com.team6.project.dao.UserDAO;
 import com.team6.project.entities.User;
 
 @RunWith(Arquillian.class)
-public class AuthenticationTest extends RestTest{
-
-    
-   
+public class AuthenticationTest extends RestTest {
 
     private FormAuthConfig fac;
     private SessionFilter sessionFilter;
-    
+
     @Before
-    public void setUp(){
+    public void setUp() {
         super.setUp();
         createUsers();
         fac = getformAuthConfig();
         sessionFilter = new SessionFilter();
-        given().filter(sessionFilter).when().get("protected/admin").then()
+        given().filter(sessionFilter).when().get("protected/index.jsp").then()
                 .statusCode(200);
     }
 
     @Test
     public void test_login_success() {
-        given().auth().form("admin", "admin", fac)
-                .filter(sessionFilter).when().get("protected/admin").then()
-                .body(containsString("Welcome"));
+        given().auth().form("admin", "admin", fac).filter(sessionFilter).when()
+                .get("protected/index.jsp").then().body(containsString("Welcome"));
 
     }
 
     @Test
     public void test_login_fail() {
-        
+
         given().auth().form("user", "password", fac).filter(sessionFilter)
-                .when().get("protected/admin").then()
+                .when().get("protected/index.jsp").then()
                 .body(containsString("<title>Login Form</title>"));
 
     }
