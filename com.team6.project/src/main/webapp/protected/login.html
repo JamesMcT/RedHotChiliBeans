@@ -2,25 +2,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
+
 	<title>Login Form</title>
+	<!-- Bootstrap core CSS -->
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="../signin.css" rel="stylesheet">
 </h:head>
 <h:body>
-	<h2>Hello, please log in:</h2>
-	<form name="loginForm" method="POST" action="j_security_check">
-		<div align="center">
-			<p>
-				<strong>Please type your user name: </strong> <input type="text"
-					name="j_username" size="25">
-			</p>
-			<p>
-				<strong>Please type your password: </strong> <input type="password"
-					size="15" name="j_password">
-			</p>
-			<p>
-				<input type="submit" value="Submit" /> <input type="reset"
-					value="Reset" />
-			</p>
-		</div>
-	</form>
+	<div class="container">
+
+		<form name="loginForm" method="POST" action="j_security_check"
+			class="form-signin">
+			<h2 class="form-signin-heading">Please log in:</h2>
+			
+			
+				 <label for="inputusername" class="sr-only">User Name</label>
+					<input type="text"
+						name="j_username" id="inputusername" class="form-control" placeholder="User Name" required autofocus>
+				
+				 <label for="inputpassword" class="sr-only">Password</label>
+					<input type="password"
+						name="j_password" id="inputpassword" class="form-control" placeholder="Password" required>
+				
+					<input type="submit" value="Submit" class="btn btn-lg btn-primary btn-block"/>
+				
+		
+		</form>
+	</div>
 </h:body>
 </html>
