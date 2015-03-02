@@ -56,7 +56,7 @@ public class JPAUserDAOTest extends JPADAOTest{
        assertEquals(Response.Status.NOT_FOUND, response.getStatus());
    }
    
-   @Test
+/*   @Test
    public void testDeleteUser_OK() {
        User user1 = new User("username4", "password", "administrator");
        userDAO.addUser(user1);
@@ -69,7 +69,7 @@ public class JPAUserDAOTest extends JPADAOTest{
        User user1 = new User("username3", "password", "administrator");
        Response response = userDAO.deleteUser(user1);
        assertEquals(Response.Status.NOT_FOUND, response.getStatus());
-   }
+   }*/
 
 
 }

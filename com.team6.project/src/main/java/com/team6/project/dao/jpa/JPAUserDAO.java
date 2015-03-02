@@ -50,7 +50,7 @@ public class JPAUserDAO implements UserDAO {
 
     }
 
-    @Override
+   /* @Override
     public Response deleteUser(User user) {
         Response response = new Response();
         if (em.find(User.class, user.getKey()) != null) {
@@ -62,6 +62,6 @@ public class JPAUserDAO implements UserDAO {
         }
         return response;
 
-    }
+    }*/
 
 }
