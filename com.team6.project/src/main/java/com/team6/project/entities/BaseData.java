@@ -30,9 +30,6 @@ public class BaseData {
 	private Integer id;
 	private Date date;
 	@ManyToOne
-	// @JoinColumns({
-	// @JoinColumn(name = "causeCode", referencedColumnName = "causeCode"),
-	// @JoinColumn(name = "eventId", referencedColumnName = "eventId") })
 	private EventCause eventCause;
 	@ManyToOne
 	private FailureType failure;
