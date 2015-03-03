@@ -65,12 +65,12 @@
 		<role-name>Support Engineer</role-name>
 	</security-role>
 	<security-role>
-		<role-name>Customer Representative</role-name>
+		<role-name>Customer Service</role-name>
 	</security-role>
 
 	<servlet-mapping>
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
-		<url-pattern>/rest/*</url-pattern>
+		<url-pattern>/protected/rest/*</url-pattern>
 	</servlet-mapping>
 
 

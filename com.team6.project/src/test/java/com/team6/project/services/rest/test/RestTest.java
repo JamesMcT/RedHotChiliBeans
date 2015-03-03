@@ -114,7 +114,7 @@ public abstract class RestTest {
     
     public SessionFilter getSession(){
         SessionFilter sessionFilter = new SessionFilter();
-        given().filter(sessionFilter).when().get("protected/admin").then()
+        given().filter(sessionFilter).when().get("protected/index.jsp").then()
         .statusCode(200);
         return sessionFilter;
     }
