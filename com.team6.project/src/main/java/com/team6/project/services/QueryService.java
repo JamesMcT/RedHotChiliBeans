@@ -41,7 +41,6 @@ public class QueryService implements QueryServiceLocal{
 	
 	@Override
 	public Collection<EventCause> findByIMSI(BigInteger IMSI) {
-		BigInteger b = new BigInteger("191911000163430");
 		return baseData.findByImsi(IMSI);
 	}
 
