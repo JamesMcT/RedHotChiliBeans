@@ -2,7 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Login Form</title>
 	<!-- Bootstrap core CSS -->
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -11,7 +13,7 @@
 	<link href="../signin.css" rel="stylesheet">
 </h:head>
 <h:body>
-	<div class="container">
+	<div class="container" style="width:300px">
 
 		<form name="loginForm" method="POST" action="j_security_check"
 			class="form-signin">
@@ -31,5 +33,7 @@
 		
 		</form>
 	</div>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </h:body>
 </html>

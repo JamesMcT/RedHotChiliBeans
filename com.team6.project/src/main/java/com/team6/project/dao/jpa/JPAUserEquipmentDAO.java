@@ -3,6 +3,7 @@ package com.team6.project.dao.jpa;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.security.DeclareRoles;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,6 +25,7 @@ import com.team6.project.entities.UserEquipment;
 
 @Local
 @Stateless
+@DeclareRoles({ "administrator" })
 public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 
 	@PersistenceContext
