@@ -10,11 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * @author Cristiana
  * BaseData table
  */
+@NamedQuery(name="allBaseData", 
+query="from BaseData b where b.neVersion = :neVersion")
 @Entity
 public class BaseData {
 
@@ -43,11 +47,36 @@ public class BaseData {
    @Column(name = "hier321Id", precision=20, scale=0)
    private BigInteger hier321Id;
    
-   public BaseData() { }
+   public BaseData() {
+	   super();
+   }
    
    
 
-   @Override
+   public BaseData(Integer id, Date date, EventCause eventCause,
+		FailureType failure, UserEquipment userEquipment,
+		OperatorCountry operatorCountry, Integer cellId, Integer duration,
+		String neVersion, BigInteger imsi, BigInteger hier3Id,
+		BigInteger hier32Id, BigInteger hier321Id) {
+	super();
+	this.id = id;
+	this.date = date;
+	this.eventCause = eventCause;
+	this.failure = failure;
+	this.userEquipment = userEquipment;
+	this.operatorCountry = operatorCountry;
+	this.cellId = cellId;
+	this.duration = duration;
+	this.neVersion = neVersion;
+	this.imsi = imsi;
+	this.hier3Id = hier3Id;
+	this.hier32Id = hier32Id;
+	this.hier321Id = hier321Id;
+}
+
+
+
+@Override
 public int hashCode() {
 	final int prime = 31;
 	int result = 1;

@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.ejb.Local;
 import javax.enterprise.inject.Alternative;
+
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
@@ -80,5 +81,11 @@ public class PersistenceServiceFake implements PersistenceServiceLocal{
         // TODO Auto-generated method stub
         
     }
+
+	@Override
+	public Collection<BaseData> findImsiByDates(String neVersion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

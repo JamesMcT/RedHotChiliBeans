@@ -19,6 +19,8 @@ public interface PersistenceServiceLocal {
     public Collection<OperatorCountry> getAllOperatorCountries();
     public Collection<UserEquipment> getAllUserEquipment();
     public Collection<BaseData> getAllBaseData();
+    public Collection<BaseData> findImsiByDates(String neVersion);
+
 	
 	public void persistBaseData(BaseData b);
 	

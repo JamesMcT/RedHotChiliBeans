@@ -52,6 +52,11 @@ public class PersistenceService implements PersistenceServiceLocal{
 	private RecordDAO record;
 	
 	public PersistenceService(){}
+	
+	
+	public Collection<BaseData> findImsiByDates(String neVersion) {
+		return baseData.findImsiByDates(neVersion);
+	}
 
 	public Collection<BaseData> getAllBaseData(){
 		return baseData.getAllBaseData();
@@ -98,6 +103,8 @@ public class PersistenceService implements PersistenceServiceLocal{
 		record.addRecord(r);
 
 	}
+
+	
 	
 }
 

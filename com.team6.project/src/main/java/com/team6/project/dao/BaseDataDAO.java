@@ -2,6 +2,7 @@ package com.team6.project.dao;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Local;
 
@@ -29,6 +30,8 @@ public interface BaseDataDAO {
 	public Collection<BaseData> findByEventCause(EventCausePK eventCausePK);
 	
 	public Collection<BaseData> getAllBaseData();
+	
+	public Collection<BaseData> findImsiByDates(String neVersion); 
 
 	public BaseData getBaseDataByKey(Integer id);
 
