@@ -5,18 +5,13 @@ import java.util.Collection;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 
 import com.team6.project.dao.RecordDAO;
-import com.team6.project.entities.BaseData;
 import com.team6.project.entities.Record;
+
 /**
  * 
  * @Author James Mc Ternan
