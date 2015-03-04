@@ -53,42 +53,57 @@ public class PersistenceService implements PersistenceServiceLocal{
 	
 	public PersistenceService(){}
 
+	@Override
 	public Collection<BaseData> getAllBaseData(){
 		return baseData.getAllBaseData();
 	}
 	
+	@Override
 	public Collection<EventCause> getAllEventCauses(){
 		return eventCause.getAllEventCauses();
 	}
 	
+	@Override
 	public Collection<FailureType> getAllFailureTypes(){
 		return failureType.getAllFailureTypes();
 	}
 	
+	@Override
 	public Collection<OperatorCountry> getAllOperatorCountries(){
 		return operatorCountry.getAllOperatorCountries();
 	}
 	
+	@Override
 	public Collection<UserEquipment> getAllUserEquipment(){
 		return userEquipment.getAllUserEquipment();
 	}
 	
+	@Override
 	public void persistBaseData(BaseData b){
 		baseData.addBaseData(b);
 	}
 	
+	@Override
+	public void persistBaseDataCollection(Collection<BaseData> b){
+		baseData.addBaseDataCollection(b);
+	}
+	
+	@Override
 	public void persistEventCause(EventCause e){
 		eventCause.addEventCauseData(e);
 	}
 	
+	@Override
 	public void persistFailureType(FailureType f){
 		failureType.addFailureType(f);
 	}
 	
+	@Override
 	public void persistOperatorCountry(OperatorCountry o){
 		operatorCountry.addOperatorCountry(o);
 	}
 	
+	@Override
 	public void persistUserEquipment(UserEquipment u){
 		userEquipment.addUserEquipment(u);
 	}
@@ -97,6 +112,33 @@ public class PersistenceService implements PersistenceServiceLocal{
 	public void persistErroneusRecord(Record r) {
 		record.addRecord(r);
 
+	}
+	
+	@Override
+	public void persistErroneusRecordCollection(Collection<Record> r){
+		record.addRecordCollection(r);
+	}
+
+	@Override
+	public void persistEventCauseCollection(Collection<EventCause> eventCauses) {
+		eventCause.addEventCauseCollection(eventCauses);
+	}
+
+	@Override
+	public void persistFailureTypeCollection(
+			Collection<FailureType> failureTypes) {
+		failureType.addFailureTypeCollection(failureTypes);
+	}
+
+	@Override
+	public void persistOperatorCountryCollection(
+			Collection<OperatorCountry> operatorCountries) {
+		operatorCountry.addOperatorCountryCollection(operatorCountries);
+	}
+
+	@Override
+	public void persistUserEequipmentCollection(Collection<UserEquipment> userEquipmentCollection) {
+		userEquipment.addUserEquipmentCollection(userEquipmentCollection);
 	}
 	
 }

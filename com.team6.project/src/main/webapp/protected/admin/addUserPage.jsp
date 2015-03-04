@@ -15,7 +15,7 @@
 			u.role = userRole;
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
-			xhr.open("POST", root + "/rest/usermanagement", false);
+			xhr.open("POST", root + "/protected/rest/usermanagement", false);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify(u));
 			if (xhr.status == 200) {

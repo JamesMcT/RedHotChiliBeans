@@ -12,9 +12,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQuery;
+
 /**
- * @author Cristiana Record mapping ErroneousBaseData table
+ * Record mapping ErroneousBaseData table
+ * 
+ * @author Cristiana Conti
+ * @author Eoin Kernan
  */
+@NamedQuery(name="erroneousRecordCount", query="SELECT COUNT(e.id) FROM Record e")
 @Entity
 @Table(name = "ErroneousBaseData")
 public class Record implements IDescription, Serializable{
@@ -23,8 +29,10 @@ public class Record implements IDescription, Serializable{
             .getLogger(Record.class);
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id", unique=true, nullable=false)
     private Integer id;
+    
     private Date date;
     private Integer causeCode;
     private Integer eventId;

@@ -10,13 +10,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.hibernate.Session;
+
 import com.team6.project.dao.FailureTypeDAO;
+import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
 
 /**
  * Concrete implementation of CRUD operations.
  * 
- * @author James
+ * @author James Mc Ternan
+ * @author Eoin Kernan
  *
  */
 
@@ -28,6 +32,9 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	@PersistenceContext
 	private EntityManager em;
 
+	@PersistenceContext
+    private Session session;
+	
 	/**
 	 * Returns collection of FailureType
 	 */
@@ -60,6 +67,17 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 		em.persist(failureType);
 	}
 
+	@Override
+	public void addFailureTypeCollection(Collection<FailureType> failureType) {
+		session.beginTransaction();
+    	
+    	for(FailureType f:failureType){
+			em.persist(f);
+		}
+    	
+    	session.getTransaction().commit();
+	}
+	
 	/**
 	 * 
 	 * @param failureType

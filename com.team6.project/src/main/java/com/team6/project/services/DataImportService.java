@@ -3,6 +3,7 @@ package com.team6.project.services;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -272,7 +273,7 @@ public class DataImportService implements DataImportServiceLocal{
 	 */
 	public void initialiseWorkBook(String URI){
 		try {
-			workBook = new HSSFWorkbook(new FileInputStream(URI));
+			workBook = new HSSFWorkbook(new BufferedInputStream(new FileInputStream(URI), 1024*1024));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

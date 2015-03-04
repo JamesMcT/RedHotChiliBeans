@@ -7,6 +7,9 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
       <jta-data-source>java:/mySQL</jta-data-source>     
       <properties>
+          <property name="hibernate.order_inserts" value="true"/>
+          <property name="hibernate.jdbc.batch_size" value="2000"/>
+          <property name="hibernate.cache.use_second_level_cache" value="false"/>
          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
          <property name="hibernate.hbm2ddl.auto" value="update"/> 
       </properties>

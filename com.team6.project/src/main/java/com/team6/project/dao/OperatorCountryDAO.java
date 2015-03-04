@@ -7,6 +7,12 @@ import javax.ejb.Local;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
 
+/**
+ * 
+ * @author John O Keeffe
+ * @author Eoin Kernan
+ *
+ */
 @Local
 public interface OperatorCountryDAO {
 
@@ -16,6 +22,8 @@ public interface OperatorCountryDAO {
 			OperatorCountryPK operatorCountryPK);
 
 	public void addOperatorCountry(OperatorCountry operatorCountry);
+	
+	public void addOperatorCountryCollection(Collection<OperatorCountry> operatorCountry);
 
 	public void updateOperatorCountry(OperatorCountry operatorCountry);
 

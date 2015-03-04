@@ -10,7 +10,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.hibernate.Session;
+
 import com.team6.project.dao.UserEquipmentDAO;
+import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.UserEquipment;
 
 
@@ -31,6 +34,8 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 	@PersistenceContext
 	private EntityManager em;
 
+	@PersistenceContext
+    private Session session;
 	
     @Override
 	public Collection<UserEquipment> getAllUserEquipment() {
@@ -57,6 +62,17 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 
 	}
 
+	@Override
+	public void addUserEquipmentCollection(Collection<UserEquipment> userEquipment) {
+		session.beginTransaction();
+    	
+    	for(UserEquipment u:userEquipment){
+			em.persist(u);
+		}
+    	
+    	session.getTransaction().commit();
+	}
+	
 	/**
 	 * 
 	 */

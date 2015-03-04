@@ -12,17 +12,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.NamedQuery;
+
 /**
- * @author Cristiana
  * BaseData table
+ * 
+ * @author Cristiana Conti
+ * @author Eoin Kernan
+ * 
  */
+
+@NamedQuery(name="baseDataCount", query="SELECT COUNT(b.id) FROM BaseData b")
 @Entity
 public class BaseData implements Serializable{
 
    
-   @GeneratedValue(strategy=GenerationType.IDENTITY)
+   //@GeneratedValue(strategy=GenerationType.IDENTITY)
    @Id
+   @Column(name="id", unique=true, nullable=false)
    private Integer id;
+   
    private Date date;
    @ManyToOne
    private EventCause eventCause;
