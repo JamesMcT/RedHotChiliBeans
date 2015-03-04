@@ -11,12 +11,16 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 /**
- * @author Cristiana User mapping tables
+ *User mapping tables
+ * @author Cristiana 
  */
+
+//@NamedQuery(name="User.allUser", query="from Principals")
 @Entity
 @Table(name = "Principals")
 @SecondaryTable(name = "Roles", pkJoinColumns = @PrimaryKeyJoinColumn(name = "principal_id", referencedColumnName = "principal_id"))

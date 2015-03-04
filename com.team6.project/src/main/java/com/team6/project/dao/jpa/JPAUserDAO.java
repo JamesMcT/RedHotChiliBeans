@@ -1,5 +1,7 @@
 package com.team6.project.dao.jpa;
 
+import java.util.Collection;
+
 import javax.annotation.security.DeclareRoles;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -49,6 +51,11 @@ public class JPAUserDAO implements UserDAO {
         return em.find(User.class, userId);
 
     }
+
+   /* @Override
+    public Collection<User> getAllUser() {
+        return em.createNamedQuery("User.allUser").getResultList();
+    }*/
 
    /* @Override
     public Response deleteUser(User user) {
