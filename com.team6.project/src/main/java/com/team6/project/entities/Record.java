@@ -1,6 +1,7 @@
 
 package com.team6.project.entities;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ErroneousBaseData")
-public class Record implements IDescription {
+public class Record implements IDescription, Serializable{
 
     protected static org.apache.log4j.Logger recordEntityLogger = org.apache.log4j.Logger
             .getLogger(Record.class);

@@ -42,15 +42,6 @@ function findByImsi() {
 	xmlhttp.open("GET","http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/rest/IMSIEvent/" + imsi,true);
 	xmlhttp.send();
 	
-//     $.ajax({
-//         type: 'GET',
-//         url: localhost:8080/com.team6.project-0.0.1-SNAPSHOT/rest/IMSIEvent/ + imsi,
-//         dataType: "json",
-//         success: function(data){
-//             $('#btnDelete').show();
-//             renderDetails(data);
-//         }
-//     });
 }
 
 //Helper function to serialize all the form fields into a JSON string

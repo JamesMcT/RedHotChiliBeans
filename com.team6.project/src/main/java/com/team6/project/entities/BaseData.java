@@ -1,5 +1,6 @@
 package com.team6.project.entities;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -23,7 +24,7 @@ import com.team6.project.dao.EventCauseDAO;
 
 @NamedQueries({ @NamedQuery(name = "BaseData.findByImsiQuery", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi") })
 @Entity
-public class BaseData {
+public class BaseData implements Serializable{
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id

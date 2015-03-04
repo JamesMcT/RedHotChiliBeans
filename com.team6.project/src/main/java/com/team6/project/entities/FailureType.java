@@ -1,6 +1,8 @@
 
 package com.team6.project.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,7 +10,7 @@ import javax.persistence.Id;
  * @author Cristiana FailureType table
  */
 @Entity
-public class FailureType {
+public class FailureType implements Serializable{
 
     @Id
     private Integer failureCode;
