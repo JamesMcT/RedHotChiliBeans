@@ -8,7 +8,7 @@
 		if (username) {
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
-			xhr.open("GET", root + "/rest/usermanagement/" + username, false);
+			xhr.open("GET", "http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/protected/rest/usermanagement/" + username);
 			xhr.send();
 			if (xhr.status == 200) {
 				var user = JSON.parse(xhr.responseText);
