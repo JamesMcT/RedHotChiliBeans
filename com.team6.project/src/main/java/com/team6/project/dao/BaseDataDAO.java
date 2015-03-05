@@ -12,7 +12,13 @@ import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.entities.UserEquipment;
 
-
+/**
+ * The base data DAO interface.
+ * 
+ * @author John O Keeffe
+ * @author Eoin Kernan
+ *
+ */
 
 @Local
 public interface BaseDataDAO {
@@ -37,8 +43,12 @@ public interface BaseDataDAO {
 	public BaseData getBaseDataByKey(Integer id);
 
 	public void addBaseData(BaseData baseData);
+	
+	public void addBaseDataCollection(Collection<BaseData> baseData);
 
 	public void deleteBaseData(BaseData baseData);
+	
+	public long getBaseDataCount();
 	
 //	public void updateBaseData(BaseData baseData);
 

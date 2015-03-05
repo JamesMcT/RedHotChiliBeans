@@ -55,30 +55,25 @@
 //	@SuppressWarnings("unchecked")
 //    @Deployment
 //    public static Archive<?> createDeployment() {
-//		Archive<?> a = ShrinkWrap
+//		WebArchive a = ShrinkWrap
 //                .create(WebArchive.class, "test.war")
 //                .addPackages(true, 	"com.team6.project.services",
 //                					"com.team6.project.entities", 
 //                					"com.team6.project.readers", 
 //                					"com.team6.project.dao",
 //                					"com.team6.project.dao.jpa",
-//                					"com.team6.project.validators",
-//                					"org.apache.poi",
-//                					"org.apache.commons")
+//                					"com.team6.project.validators")
 //                .addAsResource("test-persistence.xml","META-INF/persistence.xml")
 //                .addAsWebInfResource(EmptyAsset.INSTANCE,ArchivePaths.create("beans.xml"));
 //		
-//		File[] files = Maven.resolver().resolve("org.apache.poi:poi:3.11").withTransitivity().asFile();
-//		for(File f: files){
-//			System.out.println("Adding file resource: "+f.getName());
-//			((ResourceContainer<WebArchive>) a).addAsResource(f);
-//		}
-//		
-//		files = Maven.resolver().resolve("org.apache.commons:commons-io:1.3.2").withTransitivity().asFile();
-//		for(File f: files){
-//			System.out.println("Adding file resource: "+f.getName());
-//			((ResourceContainer<WebArchive>) a).addAsResource(f);
-//		}
+//		File[] files = Maven.resolver().resolve("org.apache.poi:poi:3.11").withTransitivity().as(File.class);
+//        a.addAsLibraries(files);
+//        
+//        files = Maven.resolver().resolve("org.apache.commons:commons-io:1.3.2").withTransitivity().as(File.class);
+//        a.addAsLibraries(files);
+//        
+//        files = Maven.resolver().resolve("commons-logging:commons-logging:1.1.3").withTransitivity().as(File.class);
+//        a.addAsLibraries(files);
 //		
 //		return a;
 //    }
@@ -163,20 +158,5 @@
 //	}
 //	
 //}
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //

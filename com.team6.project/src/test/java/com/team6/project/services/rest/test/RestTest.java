@@ -112,13 +112,7 @@ public abstract class RestTest {
         userDao.addUser(cusSer);
     }
     
-    public SessionFilter getSession(){
-        SessionFilter sessionFilter = new SessionFilter();
-        given().filter(sessionFilter).when().get("protected/admin").then()
-        .statusCode(200);
-        return sessionFilter;
-    }
-    
+   
     public FormAuthConfig getformAuthConfig(){
         return new FormAuthConfig(
                               "protected/j_security_check",

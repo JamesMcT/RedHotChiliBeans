@@ -1,17 +1,14 @@
 <!DOCTYPE html>
+
+
 <html>
+
 <head>
 <meta charset="ISO-8859-1">
 <title>Demo: Search EventCause By IMSI</title>
 
-<!-- // function processFormData()  -->
-<!-- // { -->
-	
-<!-- //   var imsi = document.getElementById('imsi_attr').value; -->
-<!-- //   alert("Imsi Entered is  " + imsi); -->
-  
-  
-<!-- // } -->
+
+
 <script>
 
 
@@ -23,13 +20,13 @@ function findByImsi() {
 	var xmlhttp;
 	if (window.XMLHttpRequest)
 	  {// code for IE7+, Firefox, Chrome, Opera, Safari
-		alert("IE7+ etc")
+ 		alert("IE7+ etc")
 		  window.crossDomain = true;
 	  xmlhttp=new XMLHttpRequest();
 	  }
 	else
 	  {// code for IE6, IE5
-		alert("IE5/ IE6 etc")
+ 		alert("IE5/ IE6 etc")
 	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	  }
 	xmlhttp.onreadystatechange=function()
@@ -38,8 +35,12 @@ function findByImsi() {
 	    {
 	    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
 	    }
+	   if (xmlhttp.status==404)
+	    {
+	    alert(ERROR: No Page Found);
+	    }
 	}
-	xmlhttp.open("GET","http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/rest/IMSIEvent/" + imsi,true);
+	xmlhttp.open("GET","http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/protected/rest/IMSIEvent/" + imsi,true);
 	xmlhttp.send();
 	
 }
@@ -47,12 +48,8 @@ function findByImsi() {
 //Helper function to serialize all the form fields into a JSON string
 function formToJSON() {
     return JSON.stringify({
-        "imsi": $('#imsi').val(),
-        "name": $('#name').val(),
-        "grapes": $('#grapes').val(),
-        "country": $('#country').val(),
-        "region": $('#region').val(),
-        "year": $('#year').val(),
+        "CauseCode": $('#CauseCode').val(),
+        "EventId": $('#EventId').val(),
         "description": $('#description').val()
         });
 }

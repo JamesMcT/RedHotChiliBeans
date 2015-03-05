@@ -26,7 +26,9 @@ public class UserEquipmentRestTest extends RestTest {
         super.setUp();
         createUsers();
         fac = getformAuthConfig();
-        sessionFilter = getSession();
+        sessionFilter = new SessionFilter();
+        given().filter(sessionFilter).when().get("/protected/rest/userequipment/all").then()
+        .statusCode(200);
     }
 
     /**
@@ -34,13 +36,12 @@ public class UserEquipmentRestTest extends RestTest {
      * that it is returning JSON even if there are no records in the database.
      * 
      */
-    @Test
+   @Test
     public void testGetAll() {
 
         given().auth().form("admin", "admin", fac).filter(sessionFilter)
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
-                .get("/rest/userequipment/all")
-                .then().log().all();
+                .get("/protected/rest/userequipment/all");
 
       
     }

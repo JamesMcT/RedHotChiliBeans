@@ -6,6 +6,12 @@ import javax.ejb.Local;
 
 import com.team6.project.entities.FailureType;
 
+/**
+ * 
+ * @author John O Keeffe
+ * @author Eoin Kernan
+ *
+ */
 @Local
 public interface FailureTypeDAO {
 
@@ -14,6 +20,8 @@ public interface FailureTypeDAO {
 	public FailureType getFailureTypeByKey(Integer failureCode);
 
 	public void addFailureType(FailureType failureType);
+	
+	public void addFailureTypeCollection(Collection<FailureType> failureType);
 
 	public void updateFailureType(FailureType failureType);
 

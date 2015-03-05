@@ -6,52 +6,57 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-import com.team6.project.dao.EventCauseDAO;
-
 /**
+
  * @author Cristiana BaseData table
  * @author James NamedQueries
+
+ * BaseData table
+ * 
+ * @author Cristiana Conti
+ * @author Eoin Kernan
+ * 
  */
 
+
 @NamedQueries({ @NamedQuery(name = "BaseData.findByImsiQuery", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi") })
+
 @Entity
 public class BaseData implements Serializable{
 
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	private Integer id;
-	private Date date;
-	@ManyToOne
-	private EventCause eventCause;
-	@ManyToOne
-	private FailureType failure;
-	@ManyToOne
-	private UserEquipment userEquipment;
-	@ManyToOne
-	private OperatorCountry operatorCountry;
-	private Integer cellId;
-	private Integer duration;
-	private String neVersion;
-	@Column(name = "imsi", precision = 20, scale = 0)
-	private BigInteger imsi;
-	@Column(name = "hier3Id", precision = 20, scale = 0)
-	private BigInteger hier3Id;
-	@Column(name = "hier32Id", precision = 20, scale = 0)
-	private BigInteger hier32Id;
-	@Column(name = "hier321Id", precision = 20, scale = 0)
-	private BigInteger hier321Id;
-
-	public BaseData() {
-	}
+   //@GeneratedValue(strategy=GenerationType.IDENTITY)
+   @Id
+   @Column(name="id", unique=true, nullable=false)
+   private Integer id;
+   
+   private Date date;
+   @ManyToOne
+   private EventCause eventCause;
+   @ManyToOne
+   private FailureType failure;
+   @ManyToOne
+   private UserEquipment userEquipment;
+   @ManyToOne
+   private OperatorCountry operatorCountry;
+   private Integer cellId;
+   private Integer duration;
+   private String neVersion;
+   @Column(name = "imsi", precision=20, scale=0)
+   private BigInteger imsi;
+   @Column(name = "hier3Id", precision=20, scale=0)
+   private BigInteger hier3Id;
+   @Column(name = "hier32Id", precision=20, scale=0)
+   private BigInteger hier32Id;
+   @Column(name = "hier321Id", precision=20, scale=0)
+   private BigInteger hier321Id;
+   
+   public BaseData() { }
+   
 
 	@Override
 	public int hashCode() {

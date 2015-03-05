@@ -17,6 +17,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+com.team6.project/src/test/resources/arquillian.xml
 com.team6.project/log4j.log
 com.team6.project/.classpath
 com.team6.project/.settings/

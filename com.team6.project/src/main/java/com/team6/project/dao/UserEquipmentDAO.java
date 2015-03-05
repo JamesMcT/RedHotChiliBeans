@@ -6,6 +6,12 @@ import javax.ejb.Local;
 
 import com.team6.project.entities.UserEquipment;
 
+/**
+ * 
+ * @author John O Keeffe
+ * @author Eoin Kernan
+ *
+ */
 @Local
 public interface UserEquipmentDAO {
 
@@ -14,6 +20,8 @@ public interface UserEquipmentDAO {
 	public UserEquipment getUserEquipmentByKey(Integer tac);
 	
 	public void addUserEquipment(UserEquipment userEquipment);
+	
+	public void addUserEquipmentCollection(Collection<UserEquipment> userEquipment);
 
 	public void updateUserEquipment(UserEquipment userEquipment);
 

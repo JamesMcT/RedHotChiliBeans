@@ -81,4 +81,43 @@ public class PersistenceServiceFake implements PersistenceServiceLocal{
         
     }
 
+	@Override
+	public void persistBaseDataCollection(Collection<BaseData> b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void persistErroneusRecordCollection(Collection<Record> r) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void persistEventCauseCollection(Collection<EventCause> eventCauses) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void persistFailureTypeCollection(
+			Collection<FailureType> failureTypes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void persistOperatorCountryCollection(
+			Collection<OperatorCountry> operatorCountries) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void persistUserEequipmentCollection(
+			Collection<UserEquipment> userEquipment) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

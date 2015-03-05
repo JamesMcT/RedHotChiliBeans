@@ -8,7 +8,6 @@
 		<configuration>
 
 			<property name="jbossHome">C:\Servers\jboss-as-7.1.1.Final</property>
-
 			<property name="serverConfig">standalone-test.xml</property>
 			<property name="managementPort">19999</property>
 

@@ -15,7 +15,7 @@
 			u.role = userRole;
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
-			xhr.open("POST", root + "/rest/usermanagement", false);
+			xhr.open("POST", root + "/protected/rest/usermanagement", false);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify(u));
 			if (xhr.status == 200) {
@@ -30,29 +30,37 @@
 			response = xhr.response;
 		}
 	}
+	
 </script>
 
 <title>New User</title>
 <head>
 <h:body>
 	<h2>Please insert user name, password and select a role:</h2>
-	<p>
-		<strong>Please type the user name: </strong> <input type="text"
-			name="username" size="25" id="username">
-	</p>
-	<p>
-		<strong>Please type the password: </strong> <input type="password"
-			size="15" name="password" id="password">
-	</p>
-	<p>
-	<p>
-		<strong>Please type the user role: </strong> <input type="text"
-			size="15" name="userRole" id="userRole">
-	</p>
-	<p>
-		<input type='button' onclick="addUser()" value="submit"
-			id="submitButton"></input> <input type="reset" value="Reset" />
-	</p>
-	</form>
+	<div align="center">
+		<div>
+			<strong>Please type the user name: </strong> <input type="text"
+				name="username" size="25" id="username">
+		</div>
+		<div>
+			<strong>Please type the password: </strong> <input type="password"
+				size="15" name="password" id="password">
+		</div>
+		<div>
+			<select name="userRole" id="userRole">
+				<option value="Network Management Engineer">Network
+					Management Engineer</option>
+				<option value="Support Engineer">Support Engineer</option>
+				<option value="Customer Service">Customer Sevice</option>
+			</select>
+		</div>
+		<div>
+			<input type='button' onclick="addUser()" value="submit" />
+		</div>
+		<div>
+			<input type='button' onclick="window.location.href='../logout.jsp'" value="logout" />
+		</div>
+	</div>
+
 </h:body>
 </html>

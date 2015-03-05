@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome Support Engineer</title>
+
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+
+  
+
+<!-- jQuery -->
+
+<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+  
+
+<!-- DataTables -->
+
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+
+
+<script>
+
+
+function findByImsi() {
+
+	
+	var imsi = document.getElementById('imsi_attr').value;
+	alert("Imsi Entered is  " + imsi);
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+ 		alert("IE7+ etc")
+		  window.crossDomain = true;
+	  xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+ 		alert("IE5/ IE6 etc")
+	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	xmlhttp.onreadystatechange=function()
+	  {
+	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	    {
+		  alert("Page Found");
+		  
+
+// 		  $('table_id').dataTable();
+ 	    document.getElementById("example").innerHTML=xmlhttp.
+ 	   
+// 	   $("#example").dataTable()
+ 	    // document.dataTable();
+// 	    $('table_id').dataTable( {
+
+// 		    document.getElementById("table_id").innerHTML=xmlhttp.responseText;
+
+// 	    } );
+	    
+	    
+	    }
+	   if (xmlhttp.status==404)
+	    {
+	    alert("ERROR: No Page Found");
+	    }
+	}
+	xmlhttp.open("GET","http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/protected/rest/IMSIEvent/" + imsi,true);
+	xmlhttp.send();
+	
+}
+
+// //Helper function to serialize all the form fields into a JSON string
+// function formToJSON() {
+//     return JSON.stringify({
+//         "CauseCode": $('#CauseCode').val(),
+//         "EventId": $('#EventId').val(),
+//         "description": $('#description').val()
+//         });
+// }
+
+</script>
+
+<link rel = "stylesheet" href = "css/bootstrap.min.css">
+</head>
+<body>
+	<h1>Search EventCause By IMSI</h1>
+  <div class="col-lg-6">
+    <div class="form-group has-error has-feedback">
+    <label class="col-sm-2 control-label" for="inputError"></label>
+      <input type="text" class="form-control" id="imsi_attr" name="Imsi_In" placeholder="IMSI"/>
+<!--       <span class="glyphicon glyphicon-remove form-control-feedback"></span> -->
+      
+<!--       <span class="input-group-btn">  -->
+      <button type="button" class="btn btn-default " onclick="findByImsi()">
+ 		 <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+	  </button>
+	  <h2>Results</h2>
+	  
+	  <div id="myDiv"></div>
+<table id="example" class="display">
+        <thead>
+            <tr>
+                <th>Cause Code</th>
+                <th>Event Id</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+            <tr>
+                <th>Cause Code</th>
+                <th>Event Id</th>
+                <th>Description</th>
+
+            </tr>
+        </tfoot>
+    </table>
+<!--       </span> -->
+<!--     </div>/input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+	
+	
+</body>
+</html>

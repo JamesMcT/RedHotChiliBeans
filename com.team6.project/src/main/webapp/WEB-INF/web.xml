@@ -24,6 +24,7 @@
 		<web-resource-collection>
 			<web-resource-name>Admin Constraint</web-resource-name>
 			<url-pattern>/protected/admin/*</url-pattern>
+			<url-pattern>/protected/rest/usermanagement/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>administrator</role-name>
@@ -32,14 +33,50 @@
 			<transport-guarantee>NONE</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
+	
 	<security-constraint>
 		<display-name>NM Eng Constraint</display-name>
 		<web-resource-collection>
 			<web-resource-name>NM Eng Constraint</web-resource-name>
 			<url-pattern>/protected/nme/*</url-pattern>
+			<url-pattern>/protected/rest/userequipment/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Network Management Engineer</role-name>
+			<role-name>administrator</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	
+	<security-constraint>
+		<display-name>Support Engineer Contraint</display-name>
+		<web-resource-collection>
+			<web-resource-name>Support Engineer Constraint</web-resource-name>
+			<url-pattern>/protected/se/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>Support Engineer</role-name>
+			<role-name>Network Management Engineer</role-name>
+			<role-name>administrator</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	
+	<security-constraint>
+		<display-name>Customer Service Constraint</display-name>
+		<web-resource-collection>
+			<web-resource-name>Customer Service Constraint</web-resource-name>
+			<url-pattern>/protected/csr/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>Customer Service</role-name>
+			<role-name>Support Engineer</role-name>
+			<role-name>Network Management Engineer</role-name>
+			<role-name>administrator</role-name>
 		</auth-constraint>
 		<user-data-constraint>
 			<transport-guarantee>NONE</transport-guarantee>
@@ -60,10 +97,16 @@
 	<security-role>
 		<role-name>Network Management Engineer</role-name>
 	</security-role>
+	<security-role>
+		<role-name>Support Engineer</role-name>
+	</security-role>
+	<security-role>
+		<role-name>Customer Service</role-name>
+	</security-role>
 
 	<servlet-mapping>
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
-		<url-pattern>/rest/*</url-pattern>
+		<url-pattern>/protected/rest/*</url-pattern>
 	</servlet-mapping>
 
 
