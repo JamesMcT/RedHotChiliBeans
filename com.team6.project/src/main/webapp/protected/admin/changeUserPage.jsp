@@ -25,22 +25,27 @@
 			var root = "${pageContext.servletContext.contextPath}";
 			xhr.open("GET",
 					root + "/protected/rest/usermanagement/" + username, false);
+			xhr
+					.addEventListener(
+							'load',
+							function() {
+								if (xhr.status == 200) {
+									user = JSON.parse(xhr.responseText);
+									if (user.userId) {
+										var currentRole = document
+												.createTextNode("The current role of the user is : "
+														+ user.role);
+										currentDiv.appendChild(currentRole);
+										showDivs();
+									} else {
+										alert("User not found!");
+									}
+								} else {
+									alert("error! the response status is : "
+											+ xhr.status);
+								}
+							}, false);
 			xhr.send();
-			if (xhr.status == 200) {
-				user = JSON.parse(xhr.responseText);
-				if (user.userId) {
-					var currentRole = document
-							.createTextNode("The current role of the user is : "
-									+ user.role);				
-					currentDiv.appendChild(currentRole);
-					showDivs();
-				} else {
-					alert("User not found!");
-				}
-			} else {
-				alert("error! the response status is : " + xhr.status);
-			}
-
 		}
 	}
 
@@ -56,40 +61,43 @@
 			xhr.open("POST", root + "/protected/rest/usermanagement/update",
 					false);
 			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.send(JSON.stringify(u));
-			if (xhr.status == 200) {
-				var response = JSON.parse(xhr.responseText);
-				if (response.description) {
-					alert("Status : " + response.status + " \n Description : "
-							+ response.description);
+			xhr.addEventListener('load', function() {
+				if (xhr.status == 200) {
+					var response = JSON.parse(xhr.responseText);
+					if (response.description) {
+						alert("Status : " + response.status
+								+ " \n Description : " + response.description);
+					} else {
+						alert("User updated with success! \n Status : " + response.status);
+					}
+					clean();
 				} else {
-					alert("Status : " + response.status);
+					alert("error! the response status is : " + xhr.status);
 				}
-				clean();
-			}
+			}, false);
+			xhr.send(JSON.stringify(u));
 		}
 	}
-	
+
 	function getAllUsers() {
-			var users = {};
-			var dropdown = document.getElementById("users");
-			var xhr = new XMLHttpRequest();
-			var root = "${pageContext.servletContext.contextPath}";
-			xhr.open("GET",
-					root + "/protected/rest/usermanagement/all", false);
-			xhr.send();
-			if (xhr.status == 200) {
-				users = JSON.parse(xhr.responseText);
-				for(var i =0 ; i< users.length ; i++){
-					var userId = users[i].userId;
-					var opt = document.createElement("option"); 
-					opt.text = userId;
-					opt.value = userId;
-					dropdown.options.add(opt);
-				} 
-			}else {
-				alert("error! the response status is : " + xhr.status);
+		var users = {};
+		var dropdown = document.getElementById("users");
+		var xhr = new XMLHttpRequest();
+		var root = "${pageContext.servletContext.contextPath}";
+		xhr.open("GET", root + "/protected/rest/usermanagement/all", false);
+		xhr.send();
+		if (xhr.status == 200) {
+			users = JSON.parse(xhr.responseText);
+			for (var i = 0; i < users.length; i++) {
+				var userId = users[i].userId;
+				var opt = document.createElement("option");
+				opt.text = userId;
+				opt.value = userId;
+				dropdown.options.add(opt);
 			}
+		} else {
+			alert("error! the response status is : " + xhr.status);
+		}
 
 	}
 
@@ -97,13 +105,13 @@
 		document.getElementById("div3").style.display = 'block';
 		document.getElementById("div4").style.display = 'block';
 	}
-	
+
 	function hideDivs() {
 		document.getElementById("div3").style.display = 'none';
 		document.getElementById("div4").style.display = 'none';
 	}
-	
-	function clean(){
+
+	function clean() {
 		var currentDiv = document.getElementById("div2");
 		currentDiv.removeChild(currentDiv.lastChild);
 		hideDivs();

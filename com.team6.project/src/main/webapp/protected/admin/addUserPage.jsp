@@ -26,28 +26,32 @@
 			u.role = userRole;
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
-			xhr
-					.open("POST", root + "/protected/rest/usermanagement/add",
-							false);
+			xhr.open("POST", root + "/protected/rest/usermanagement/add", true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.send(JSON.stringify(u));
-			if (xhr.status == 200) {
-				var response = JSON.parse(xhr.responseText);
-				if (response.description) {
-					alert("Status : " + response.status + " \n Description : "
-							+ response.description);
-				} else {
-					alert("Status : " + response.status);
+			xhr.addEventListener('load', function() {
+				if (xhr.status == 200) {
+					var response = JSON.parse(xhr.responseText);
+					if (response.description) {
+						alert("Status : " + response.status
+								+ " \n Description : " + response.description);
+					} else {
+						alert("New user inserted with success! \n Status : " + response.status);
+					}
 				}
-			}
+			}, false);
+			xhr.send(JSON.stringify(u));
+
 			clean();
 		}
+		else{
+			alert("Fields are mandatory!");
+		}
 	}
-	
-function clean(){
-	document.getElementById("username").value = "";
-	document.getElementById("password").value = "";
-}
+
+	function clean() {
+		document.getElementById("username").value = "";
+		document.getElementById("password").value = "";
+	}
 </script>
 <head>
 <body>
@@ -92,12 +96,12 @@ function clean(){
 					<p>Please insert user name, password and select a role:</p>
 					<div>
 						<div>
-							<input type="text" name="username" size="25" id="username"
-								class="form-control" placeholder="User Name" required> <br>
+							<input type="text" name="username" id="username"
+								class="form-control" placeholder="User Name"> <br>
 						</div>
 						<div>
 							<input type="password" size="15" name="password" id="password"
-								class="form-control" placeholder="Password" required> <br>
+								class="form-control" placeholder="Password"> <br>
 						</div>
 						<div>
 							<select name="userRole" id="userRole" class="form-control">
