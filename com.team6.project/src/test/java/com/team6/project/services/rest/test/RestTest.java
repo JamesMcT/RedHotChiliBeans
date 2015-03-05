@@ -75,6 +75,11 @@ public abstract class RestTest {
                 .resolve("commons-logging:commons-logging:1.1.3")
                 .withTransitivity().as(File.class);
         a.addAsLibraries(files);
+        
+        files = Maven.resolver()
+                .resolve("org.glassfish:javax.json:1.0")
+                .withTransitivity().as(File.class);
+        a.addAsLibraries(files);
 
         return a;
     }
