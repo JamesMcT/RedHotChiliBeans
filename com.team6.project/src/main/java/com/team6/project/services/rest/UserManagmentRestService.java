@@ -1,7 +1,7 @@
 package com.team6.project.services.rest;
 import java.util.Collection;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -10,9 +10,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.team6.project.dao.UserDAO;
 import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
+import com.team6.project.services.PersistenceServiceLocal;
+import com.team6.project.services.QueryServiceLocal;
 /**
  * 
  * 
@@ -22,21 +23,25 @@ import com.team6.project.entities.User;
 @Path("/usermanagement")
 public class UserManagmentRestService {
     
-    @EJB
-    UserDAO userDao;
+    @Inject
+    private PersistenceServiceLocal persistence;
+    
+    @Inject
+    private QueryServiceLocal query;
+    
     
     @GET
     @Path("/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
     public User getUserByKey(@PathParam("userId") String userId){
-        return userDao.getUserByKey(userId);
+        return query.getUserByKey(userId);
     }
     
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<User> getAllUser(){
-        return userDao.getAllUser();
+        return query.getAllUser();
     }
     
     
@@ -45,7 +50,7 @@ public class UserManagmentRestService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addUser(User user) {
-        return userDao.addUser(user);
+        return persistence.addUser(user);
     }
     
     @POST
@@ -53,7 +58,7 @@ public class UserManagmentRestService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateUser(User user) {
-        return userDao.updateUser(user);
+        return persistence.updateUser(user);
     }
 
 }

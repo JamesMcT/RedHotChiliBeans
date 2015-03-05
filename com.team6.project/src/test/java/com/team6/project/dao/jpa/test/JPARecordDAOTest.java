@@ -22,25 +22,9 @@ import com.team6.project.dao.RecordDAO;
 import com.team6.project.entities.Record;
 
 @RunWith(Arquillian.class)
-public class JPARecordDAOTest {
-
-    @EJB
-    RecordDAO recordDao;
+public class JPARecordDAOTest extends JPADAOTest{
 
     private Record record;
-
-    @Deployment
-    public static Archive<?> createDeployment() {
-        return ShrinkWrap
-                .create(WebArchive.class, "test.war")
-                .addPackages(true, "com.team6.project.dao",
-                             "com.team6.project.dao.jpa",
-                             "com.team6.project.entities")
-                .addAsResource("test-persistence.xml",
-                               "META-INF/persistence.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE,
-                                     ArchivePaths.create("beans.xml"));
-    }
 
     @Before
     public void preparePersistenceTest() throws Exception {
@@ -51,17 +35,17 @@ public class JPARecordDAOTest {
 
     @Test
     public void test() {
-        Record rec = recordDao.getRecordByKey(record.getKey());
+        Record rec = recordDAO.getRecordByKey(record.getKey());
         assertEquals(rec, record);
 
     }
 
     private void insertData() throws Exception {
-        recordDao.addRecord(record);
+        recordDAO.addRecord(record);
     }
 
     private void clear() throws Exception {
-        recordDao.deleteRecord(record);
+        recordDAO.deleteRecord(record);
     }
 
     private void setRecord() {

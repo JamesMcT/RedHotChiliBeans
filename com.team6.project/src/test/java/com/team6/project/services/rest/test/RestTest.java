@@ -1,11 +1,10 @@
 package com.team6.project.services.rest.test;
 
 import static com.jayway.restassured.RestAssured.config;
-import static com.jayway.restassured.RestAssured.given;
 
 import java.io.File;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
@@ -22,16 +21,20 @@ import org.junit.Before;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.authentication.FormAuthConfig;
 import com.jayway.restassured.config.LogConfig;
-import com.jayway.restassured.filter.session.SessionFilter;
-import com.team6.project.dao.UserDAO;
 import com.team6.project.entities.User;
+import com.team6.project.services.PersistenceServiceLocal;
+import com.team6.project.services.QueryServiceLocal;
 
 public abstract class RestTest {
     
     public final static String ARCHIVE_NAME = "test";
     public final static String WEBAPP_SRC = "src/main/webapp/protected";
-    @EJB
-    private UserDAO userDao;
+  
+    @Inject
+    private PersistenceServiceLocal persistence;
+    
+    @Inject
+    private QueryServiceLocal query;
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -91,25 +94,25 @@ public abstract class RestTest {
         admin.setUserId("admin");
         admin.setPassword("admin");
         admin.setRole("administrator");
-        userDao.addUser(admin);
+        persistence.addUser(admin);
         
         User nmEng = new User();
         nmEng.setUserId("nmEng");
         nmEng.setPassword("nmEng");
         nmEng.setRole("Network Management Engineer");
-        userDao.addUser(nmEng);
+        persistence.addUser(nmEng);
         
         User supEng = new User();
         supEng.setUserId("supEng");
         supEng.setPassword("supEng");
         supEng.setRole("Support Engineer");
-        userDao.addUser(supEng);
+        persistence.addUser(supEng);
         
         User cusSer = new User();
         cusSer.setUserId("cusSer");
         cusSer.setPassword("cusSer");
         cusSer.setRole("Customer Service");
-        userDao.addUser(cusSer);
+        persistence.addUser(cusSer);
     }
     
    
