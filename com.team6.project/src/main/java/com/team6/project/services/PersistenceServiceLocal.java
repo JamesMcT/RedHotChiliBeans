@@ -9,6 +9,8 @@ import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.Record;
+import com.team6.project.entities.Response;
+import com.team6.project.entities.User;
 import com.team6.project.entities.UserEquipment;
 
 /**
@@ -48,5 +50,10 @@ public interface PersistenceServiceLocal {
 	public void persistOperatorCountryCollection(Collection<OperatorCountry> operatorCountries);
 	
 	public void persistUserEequipmentCollection(Collection<UserEquipment> userEquipment);
+
+	public Response addUser(User newUser);
+	
+	public Response updateUser(User newUser);
+
 }
 

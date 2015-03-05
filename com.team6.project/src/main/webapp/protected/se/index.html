@@ -47,18 +47,12 @@ function findByImsi() {
 	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
 	    {
 		  alert("Page Found");
-		  
 
-// 		  $('table_id').dataTable();
- 	    document.getElementById("example").innerHTML=xmlhttp.
- 	   
-// 	   $("#example").dataTable()
- 	    // document.dataTable();
-// 	    $('table_id').dataTable( {
+	    document.getElementById("dataTables-example").innerHTML=xmlhttp.responseText;
+	    
+	    var response = JSON.parse(xmlhttp.responseText);
+		
 
-// 		    document.getElementById("table_id").innerHTML=xmlhttp.responseText;
-
-// 	    } );
 	    
 	    
 	    }
@@ -72,14 +66,6 @@ function findByImsi() {
 	
 }
 
-// //Helper function to serialize all the form fields into a JSON string
-// function formToJSON() {
-//     return JSON.stringify({
-//         "CauseCode": $('#CauseCode').val(),
-//         "EventId": $('#EventId').val(),
-//         "description": $('#description').val()
-//         });
-// }
 
 </script>
 
@@ -100,7 +86,7 @@ function findByImsi() {
 	  <h2>Results</h2>
 	  
 	  <div id="myDiv"></div>
-<table id="example" class="display">
+<table id="dataTables-example" class="display">
         <thead>
             <tr>
                 <th>Cause Code</th>
@@ -123,6 +109,14 @@ function findByImsi() {
   </div><!-- /.col-lg-6 -->
 </div><!-- /.row -->
 	
+	    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
 	
 </body>
 </html>

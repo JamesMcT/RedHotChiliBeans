@@ -5,7 +5,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
           http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
-	
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
 	<security-constraint>
 		<display-name>Constraint-0</display-name>
 		<web-resource-collection>
@@ -33,7 +37,7 @@
 			<transport-guarantee>NONE</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
-	
+
 	<security-constraint>
 		<display-name>NM Eng Constraint</display-name>
 		<web-resource-collection>
@@ -49,7 +53,7 @@
 			<transport-guarantee>NONE</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
-	
+
 	<security-constraint>
 		<display-name>Support Engineer Contraint</display-name>
 		<web-resource-collection>
@@ -65,7 +69,7 @@
 			<transport-guarantee>NONE</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint>
-	
+
 	<security-constraint>
 		<display-name>Customer Service Constraint</display-name>
 		<web-resource-collection>

@@ -19,25 +19,9 @@ import com.team6.project.dao.OperatorCountryDAO;
 import com.team6.project.entities.OperatorCountry;
 
 @RunWith(Arquillian.class)
-public class JPAOperatorCountryDAOTest {
-
-    @EJB
-    OperatorCountryDAO operatorCountryDao;
+public class JPAOperatorCountryDAOTest extends JPADAOTest{
 
     private OperatorCountry operatorCountry;
-
-    @Deployment
-    public static Archive<?> createDeployment() {
-        return ShrinkWrap
-                .create(WebArchive.class, "test.war")
-                .addPackages(true, "com.team6.project.dao",
-                             "com.team6.project.dao.jpa",
-                             "com.team6.project.entities")
-                .addAsResource("test-persistence.xml",
-                               "META-INF/persistence.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE,
-                                     ArchivePaths.create("beans.xml"));
-    }
 
     @Before
     public void preparePersistenceTest() throws Exception {
@@ -47,16 +31,16 @@ public class JPAOperatorCountryDAOTest {
     }
 
     private void insertData() throws Exception {
-        operatorCountryDao.addOperatorCountry(operatorCountry);
+        operatorCountryDAO.addOperatorCountry(operatorCountry);
     }
 
     private void clear() throws Exception {
-        operatorCountryDao.deleteOperatorCountry(operatorCountry);
+        operatorCountryDAO.deleteOperatorCountry(operatorCountry);
     }
 
     @Test
     public void testOperatorCountry() {
-        OperatorCountry oc = operatorCountryDao
+        OperatorCountry oc = operatorCountryDAO
                 .getOperatorCountryByKey(operatorCountry.getKey());
         assertEquals(oc, operatorCountry);
     }
