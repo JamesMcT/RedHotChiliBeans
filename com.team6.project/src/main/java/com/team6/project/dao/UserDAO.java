@@ -13,7 +13,7 @@ public interface UserDAO {
     public Response addUser(User user);
     public Response updateUser(User user);
     public User getUserByKey(String userId);
-    /*public Collection<User> getAllUser();*/
+    public Collection<User> getAllUser();
     /*public Response deleteUser(User user);*/
 
 }

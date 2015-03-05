@@ -20,7 +20,8 @@ import org.hibernate.annotations.OnDeleteAction;
  * @author Cristiana 
  */
 
-//@NamedQuery(name="User.allUser", query="from Principals")
+@NamedQuery(name="User.allUser", query="from User")
+
 @Entity
 @Table(name = "Principals")
 @SecondaryTable(name = "Roles", pkJoinColumns = @PrimaryKeyJoinColumn(name = "principal_id", referencedColumnName = "principal_id"))

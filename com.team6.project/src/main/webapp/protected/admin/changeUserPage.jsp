@@ -18,7 +18,7 @@
 	var user;
 
 	function findUser() {
-		var username = document.getElementById("username").value;
+		var username = document.getElementById("users").value;
 		var currentDiv = document.getElementById("div2");
 		if (username) {
 			var xhr = new XMLHttpRequest();
@@ -31,7 +31,7 @@
 				if (user.userId) {
 					var currentRole = document
 							.createTextNode("The current role of the user is : "
-									+ user.role);
+									+ user.role);				
 					currentDiv.appendChild(currentRole);
 					showDivs();
 				} else {
@@ -65,11 +65,12 @@
 				} else {
 					alert("Status : " + response.status);
 				}
+				clean();
 			}
 		}
 	}
 	
-	function getAllUser() {
+	function getAllUsers() {
 			var users = {};
 			var dropdown = document.getElementById("users");
 			var xhr = new XMLHttpRequest();
@@ -82,11 +83,11 @@
 				for(var i =0 ; i< users.length ; i++){
 					var userId = users[i].userId;
 					var opt = document.createElement("option"); 
-					opt.text = userId.;
+					opt.text = userId;
 					opt.value = userId;
 					dropdown.options.add(opt);
 				} 
-			} else {
+			}else {
 				alert("error! the response status is : " + xhr.status);
 			}
 
@@ -96,9 +97,20 @@
 		document.getElementById("div3").style.display = 'block';
 		document.getElementById("div4").style.display = 'block';
 	}
+	
+	function hideDivs() {
+		document.getElementById("div3").style.display = 'none';
+		document.getElementById("div4").style.display = 'none';
+	}
+	
+	function clean(){
+		var currentDiv = document.getElementById("div2");
+		currentDiv.removeChild(currentDiv.lastChild);
+		hideDivs();
+	}
 </script>
 </head>
-<body onload="getAllUser()">
+<body onload="getAllUsers()">
 	<div id="wrapper">
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"

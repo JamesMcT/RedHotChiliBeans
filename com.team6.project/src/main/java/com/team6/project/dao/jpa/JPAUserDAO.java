@@ -52,10 +52,10 @@ public class JPAUserDAO implements UserDAO {
 
     }
 
-   /* @Override
+   @Override
     public Collection<User> getAllUser() {
         return em.createNamedQuery("User.allUser").getResultList();
-    }*/
+    }
 
    /* @Override
     public Response deleteUser(User user) {

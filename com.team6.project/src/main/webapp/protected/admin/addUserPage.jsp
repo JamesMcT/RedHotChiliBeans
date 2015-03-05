@@ -40,7 +40,7 @@
 					alert("Status : " + response.status);
 				}
 			}
-			//response = xhr.response;
+			clean();
 		}
 	}
 	

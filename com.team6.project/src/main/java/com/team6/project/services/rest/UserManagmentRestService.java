@@ -32,12 +32,12 @@ public class UserManagmentRestService {
         return userDao.getUserByKey(userId);
     }
     
-    /*@GET
+    @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<User> getAllUser(){
         return userDao.getAllUser();
-    }*/
+    }
     
     
     @POST
