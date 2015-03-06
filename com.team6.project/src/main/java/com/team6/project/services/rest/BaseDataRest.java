@@ -21,7 +21,7 @@ import com.team6.project.services.QueryServiceLocal;
 /**
  * 
  * @author Sabee D14125306
- *
+ * This class is dealing with the requests to BaseData table
  */
 
 @Path("/tac")
@@ -33,6 +33,11 @@ public class BaseDataRest {
 	
 	public BaseDataRest() {}
 	
+	
+	/**
+	 * This will count the failures from the BaseData Table for the given tac and time period	 
+	 * 
+	 */	
 	@GET
 	@Path("/{tac}")
 	@Produces(MediaType.APPLICATION_JSON)
