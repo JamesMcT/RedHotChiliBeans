@@ -29,6 +29,7 @@
 			<web-resource-name>Admin Constraint</web-resource-name>
 			<url-pattern>/protected/admin/*</url-pattern>
 			<url-pattern>/protected/rest/usermanagement/*</url-pattern>
+			<url-pattern>/protected/rest/userequipment/*</url-pattern>
 			<url-pattern>/protected/rest/networkmanagement/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>

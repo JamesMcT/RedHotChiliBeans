@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 import com.jayway.restassured.authentication.FormAuthConfig;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
-import com.team6.project.services.test.DataImportServiceTest;
 @RunWith(Arquillian.class)
 public class NetworkManagementRestServiceTest extends RestTest {
 
