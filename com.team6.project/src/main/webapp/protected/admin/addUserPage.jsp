@@ -109,6 +109,7 @@
 									Management Engineer</option>
 								<option value="Support Engineer">Support Engineer</option>
 								<option value="Customer Service">Customer Sevice</option>
+								<option value="administrator">Administrator</option>
 							</select> <br>
 						</div>
 						<div>

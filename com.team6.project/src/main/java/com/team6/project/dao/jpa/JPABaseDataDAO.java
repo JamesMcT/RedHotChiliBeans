@@ -23,7 +23,6 @@ import com.team6.project.entities.UserEquipment;
 
 
 /**
- * 
  * @author James Mc Ternan
  * @Author Eoin Kernan
  *
@@ -150,6 +149,14 @@ public class JPABaseDataDAO implements BaseDataDAO {
         baseData.setHier3Id(record.getHier3Id());
         baseData.setHier32Id(record.getHier32Id());
         baseData.setHier321Id(record.getHier321Id());
+    }
+
+    @Override
+    public Collection<Object[]> getDistinctEventByTac(Integer ue) {
+        Query q = em.createNamedQuery("eventCauseAndIdByTac");
+        q.setParameter("userEquipment", ue);
+        return q.getResultList();
+        
     }
     
 }

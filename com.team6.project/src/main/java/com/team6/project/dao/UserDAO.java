@@ -7,6 +7,9 @@ import javax.ejb.Local;
 import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 
+/**
+ * @author Cristiana Conti
+ */
 @Local
 public interface UserDAO {
     

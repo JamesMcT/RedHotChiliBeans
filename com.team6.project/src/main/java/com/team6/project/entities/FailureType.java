@@ -12,6 +12,8 @@ import javax.persistence.Id;
 @Entity
 public class FailureType implements Serializable{
 
+    private static final long serialVersionUID = -1420241973884926828L;
+
     @Id
     private Integer failureCode;
     private String description;

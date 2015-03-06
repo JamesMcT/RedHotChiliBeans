@@ -5,20 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.math.BigInteger;
 import java.util.Date;
 
-import javax.ejb.EJB;
-
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.team6.project.dao.RecordDAO;
 import com.team6.project.entities.Record;
 
 @RunWith(Arquillian.class)

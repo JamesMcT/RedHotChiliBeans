@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.ejb.Local;
 import javax.inject.Inject;
 
+import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.dao.UserDAO;
 import com.team6.project.dao.UserEquipmentDAO;
 import com.team6.project.entities.User;
@@ -14,17 +15,18 @@ import com.team6.project.entities.UserEquipment;
  * The QueryService EJB
  * 
  * @author Eoin Kernan
- *
+ * @author Cristiana Conti
  */
 @Local(QueryServiceLocal.class)
 public class QueryService implements QueryServiceLocal{
 
 	@Inject
 	private UserEquipmentDAO userEquipment;
-	
 	@Inject
     private UserDAO user;
-	
+	@Inject
+    private BaseDataDAO baseData;
+    
 	public QueryService() {}
 
 	@Override
@@ -40,6 +42,12 @@ public class QueryService implements QueryServiceLocal{
     @Override
     public Collection<User> getAllUser() {
         return user.getAllUser();
+    }
+
+   @Override
+    public Collection<Object[]> getDistinctEventByTac(String ue) {
+        Integer tac = Integer.parseInt(ue);
+        return baseData.getDistinctEventByTac(tac);
     }
 
 }

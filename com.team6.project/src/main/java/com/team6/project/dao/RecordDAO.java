@@ -5,6 +5,10 @@ import java.util.Collection;
 import javax.ejb.Local;
 
 import com.team6.project.entities.Record;
+/**
+ * @author Cristiana Conti
+ *
+ */
 @Local
 public interface RecordDAO {
 

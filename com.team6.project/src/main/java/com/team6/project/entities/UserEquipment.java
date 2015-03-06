@@ -19,6 +19,8 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 public class UserEquipment implements Serializable{
 
+    private static final long serialVersionUID = 934318010137631519L;
+
     @Id
     private Integer tac;
     private String marketingName;
