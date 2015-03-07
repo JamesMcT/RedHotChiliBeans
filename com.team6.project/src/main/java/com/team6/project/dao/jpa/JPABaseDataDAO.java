@@ -2,6 +2,7 @@ package com.team6.project.dao.jpa;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -136,6 +137,17 @@ public class JPABaseDataDAO implements BaseDataDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate) {
+		// TODO Auto-generated method stub
+		Query q = em.createNamedQuery("getImsiByDate");
+		q.setParameter("firstDate", firstDate).setParameter("secondDate", secondDate);
+		@SuppressWarnings("unchecked")
+        List<BaseData> result = q.getResultList();
+		
+    	return result;
+	}
+    
 
 	@Override
 	public long getBaseDataCount(){
@@ -151,5 +163,6 @@ public class JPABaseDataDAO implements BaseDataDAO {
         baseData.setHier32Id(record.getHier32Id());
         baseData.setHier321Id(record.getHier321Id());
     }
-    
+
+
 }

@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
 /**
@@ -21,8 +22,10 @@ import org.hibernate.annotations.NamedQuery;
  * @author Eoin Kernan
  * 
  */
-
-@NamedQuery(name="baseDataCount", query="SELECT COUNT(b.id) FROM BaseData b")
+@NamedQueries({
+@NamedQuery(name="baseDataCount", query="SELECT COUNT(b.id) FROM BaseData b"),
+@NamedQuery(name="getImsiByDate", query="from BaseData b where b.date between :firstDate and :secondDate")
+})
 @Entity
 public class BaseData implements Serializable{
 

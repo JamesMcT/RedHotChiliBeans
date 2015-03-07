@@ -2,6 +2,7 @@ package com.team6.project.dao;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Local;
 
@@ -33,6 +34,8 @@ public interface BaseDataDAO {
 	public Collection<BaseData> findByOperatorCountryPK(OperatorCountryPK operatorCountryPK);
 	
 	public Collection<BaseData> findByEventCause(EventCausePK eventCausePK);
+	
+	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate);
 	
 	public Collection<BaseData> getAllBaseData();
 
