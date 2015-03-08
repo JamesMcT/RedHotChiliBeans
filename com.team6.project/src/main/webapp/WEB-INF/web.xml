@@ -94,7 +94,7 @@
 		<auth-method>FORM</auth-method>
 		<form-login-config>
 			<form-login-page>/protected/login.html</form-login-page>
-			<form-error-page>/protected/error.html</form-error-page>
+			<form-error-page>/protected/error.jsp</form-error-page>
 		</form-login-config>
 	</login-config>
 
