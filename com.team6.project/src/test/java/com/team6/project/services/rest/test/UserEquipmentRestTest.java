@@ -39,9 +39,9 @@ public class UserEquipmentRestTest extends RestTest {
    @Test
     public void testGetAll() {
 
-        given().auth().form("admin", "admin", fac).filter(sessionFilter)
+        given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
-                .get("/protected/rest/userequipment/all");
+                .get("/protected/rest/");
 
       
     }
