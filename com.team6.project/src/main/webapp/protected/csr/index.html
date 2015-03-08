@@ -1,10 +1,229 @@
 <!DOCTYPE html>
-<html>
+<title>Customer Service Rep</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
 <head>
-<meta charset="UTF-8"/>
-<title>Home</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Customer Service Index">
+<meta name="author" content="James">
+
+<!-- Bootstrap Core CSS -->
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="../../css/sb-admin-2.css" rel="stylesheet">
+
+<!-- MetisMenu CSS -->
+<link href="../../css/metisMenu.min.css" rel="stylesheet">
+
+<!-- DataTables CSS -->
+<link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
+
+<!-- DataTables Responsive CSS -->
+<link href="../../css/dataTables.responsive.css" rel="stylesheet">
+
+
+<!-- Custom Fonts -->
+<link href="../../fonts/font-awesome.min.css" rel="stylesheet"
+	type="text/css">
+
+
+
+
+
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<script>
+	function findByImsi() {
+
+		var imsi = document.getElementById('imsi_attr').value;
+
+		var xmlhttp;
+		
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			window.crossDomain = true;
+			xmlhttp = new XMLHttpRequest();
+		} else {// code for IE6, IE5
+			alert("IE5/ IE6 etc")
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp
+				.open(
+						"GET",
+						"http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/protected/rest/IMSIEvent/"
+								+ imsi, true);
+		xmlhttp.send();
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+	
+				var eventCause = JSON.parse(xmlhttp.responseText);
+				var myTable = "<table id = 'eventCauseTable' class = 'table table-striped table-bordered table-hover'> ";
+				myTable += "<thead><tr><th>Cause Code</th><th>Event Id</th><th>Description</th></tr></thead><tfoot><tr><th>Cause Code</th><th>Event Id</th><th>Description</th></tr></tfoot><tbody>";
+				for ( var i in eventCause) {
+					// 	    for(var i = 0; i < eventCause ; i++){
+					var causeCode = eventCause[i].causeCode;
+					var eventId = eventCause[i].eventId;
+					var description = eventCause[i].description;
+					myTable += "<tr> <td>" + causeCode + "<td>" + eventId
+							+ "<td>" + description + "<td> </tr>";
+
+				}
+				myTable += "</tbody></table>"
+				document.getElementById("dataTables-example").innerHTML = myTable;
+
+			}
+			if (xmlhttp.status == 404) {
+				alert("ERROR: No Page Found");
+			}
+		}
+
+	}
+</script>
+
+
 </head>
+
 <body>
-<h1>Welcome Customer Service Representative</h1>
+
+	<div id="wrapper">
+
+		<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-static-top" role="navigation"
+			style="margin-bottom: 0">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="index.html">Customer Service
+				Representative</a>
+		</div>
+		<!-- /.navbar-header -->
+		<ul class="nav navbar-top-links navbar-right">
+			<li class="active"><a href="index.html">Home</a></li>
+			<li class="active"><a href="../logout.jsp">Logout</a></li>
+		</ul>
+		<!-- /.navbar-top-links -->
+
+		<div class="navbar-default sidebar" role="navigation">
+			<div class="sidebar-nav navbar-collapse">
+				<ul class="nav" id="side-menu">
+					<li class="sidebar-search">
+<!-- 						<div class="input-group custom-search-form"> -->
+<!-- 							<input type="text" class="form-control" id="imsi_attr" -->
+<!-- 								placeholder="Enter IMSI"> <span class="input-group-btn"> -->
+<!-- 								<button class="btn btn-default" type="button" onclick="findByImsi()"> -->
+<!-- 									<i class="fa fa-search"></i> -->
+<!-- 								</button> -->
+<!-- 							</span> -->
+<!-- 						</div> /input-group -->
+					</li>
+
+					<li><a href="tables.html"><i class="fa fa-table fa-fw"></i>
+							Fault Viewer</a></li>
+
+
+				</ul>
+			</div>
+			<!-- /.sidebar-collapse -->
+		</div>
+		<!-- /.navbar-static-side --> </nav>
+
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">Event Cause Search</h1>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<!-- /.row -->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Search for failures by IMSI</div>
+						<div class="input-group custom-search-form">
+							<input type="text" class="form-control" id="imsi_attr"
+								placeholder="Enter IMSI"> <span class="input-group-btn">
+								<button class="btn btn-default" type="button" onclick="findByImsi()">
+									<i class="fa fa-search"></i>
+								</button>
+							</span>
+						</div> <!-- /input-group -->
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+							<div class="dataTable_wrapper">
+								<table class="table table-striped table-bordered table-hover"
+									id="dataTables-example">
+									<thead>
+										<tr>
+											<th>Cause Code</th>
+											<th>Event Id</th>
+											<th>Description</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+							<!-- /.table-responsive -->
+
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+
+		</div>
+		<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- jQuery -->
+	<script src="../../js/jquery.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../../js/bootstrap.min.js"></script>
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../../js/metisMenu.min.js"></script>
+
+	<!-- DataTables JavaScript -->
+	<script src="../../js/jquery.dataTables.min.js"></script>
+	<script src="../../js/dataTables.bootstrap.min.js"></script>
+
+	<!-- Custom Theme JavaScript -->
+	<script src="../../js/sb-admin-2.js"></script>
+
+	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+	<script>
+		$(document).ready(function() {
+			$('#dataTables-example').DataTable({
+				responsive : true
+				 "paging":   false,
+			      "ordering": false,
+			      "info":     false
+			      "scrollY":        "200px",
+			        "scrollCollapse": true,
+			        "paging":         false
+				
+			});
+		});
+	</script>
+
 </body>
+
 </html>

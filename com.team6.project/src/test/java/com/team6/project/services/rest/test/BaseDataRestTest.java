@@ -46,73 +46,78 @@ public class BaseDataRestTest extends RestTest {
 	public BaseDataRestTest() {
 	}
 
-    private FormAuthConfig fac;
-    private SessionFilter sessionFilter;
+	private FormAuthConfig fac;
+	private SessionFilter sessionFilter;
 
-    @Before
-    public void setUp() {
-        super.setUp();
-        createUsers();
-        fac = getformAuthConfig();
-        sessionFilter = new SessionFilter();
-        given().filter(sessionFilter).when().get("protected/se/index.html").then()
-        .statusCode(200);
-    }
-    
-    @Test
-    public void test_login_success() {
-        given().auth().form("admin", "admin", fac).filter(sessionFilter).when()
-                .get("protected/index.jsp").then().body(containsString("Welcome"));
+	@Before
+	public void setUp() {
+		super.setUp();
+		createUsers();
+		fac = getformAuthConfig();
+		sessionFilter = new SessionFilter();
+		given().filter(sessionFilter).when().get("/protected/csr/index.html")
+				.then().statusCode(200);
+	}
 
-    }
-    
-    
-//    @Test
-//    public void testGetAll() {
-//
-//        given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
-//                .expect().statusCode(200).contentType(ContentType.JSON).when()
-//                .get(buildUri("protected","rest", "IMSIEvent", "191911000456423"));
-//               // .get("/protected/rest/IMSIEvent/191911000456423");
-//    }
+	@Test
+	public void test_login_success() {
+		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+				.when().get("protected/csr/index.html").then()
+				.body(containsString("<title>Customer Service Rep</title>"));
+
+	}
+
+	@Test
+	public void testGetEventCause() {
+
+		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+				.expect().statusCode(200).contentType(ContentType.JSON).when()
+				.when().get("protected/rest/IMSIEvent/191911000456426");
+		//		.get(buildUri("protected","rest", "IMSIEvent", "191911000456426")).then().log().all();
+		// .then().body(containsString("causeCode"))
+		// given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+		// .expect().statusCode(200).contentType(ContentType.JSON).when()
+		// .get(buildUri("protected","rest", "IMSIEvent", "1111"));
+		// .get("/protected/rest/IMSIEvent/191911000456423");
+	}
 
 	/**
 	 * This test will simply make sure the RESTfulo endpoint can be reached and
 	 * that it is returning JSON even if there are no records in the database.
 	 * 
 	 */
-//	@Test
-//	public void testRestEndPoint() {
-//
-//		RestAssured.config = config()
-//				.logConfig(new LogConfig(System.out, true));
-//		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-//
-//		expect().statusCode(200).contentType(ContentType.JSON).when()
-//				.get(buildUri("rest", "IMSIEvent", "1")).then().log().all();
-//	}
-//
-//	@Test
-//	public void testNoInput() {
-//
-//		RestAssured.config = config()
-//				.logConfig(new LogConfig(System.out, true));
-//		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-//
-//		expect().statusCode(404).when().get(buildUri("rest", "IMSIEvent", ""))
-//				.then().log().all();
-//	}
-//
-//	@Test
-//	public void testInvalidInputType() {
-//
-//		RestAssured.config = config()
-//				.logConfig(new LogConfig(System.out, true));
-//		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-//
-//		expect().statusCode(400).when().get(buildUri("rest", "IMSIEvent", " "))
-//				.then().log().all();
-//	}
+	// @Test
+	// public void testRestEndPoint() {
+	//
+	// RestAssured.config = config()
+	// .logConfig(new LogConfig(System.out, true));
+	// RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+	//
+	// expect().statusCode(200).contentType(ContentType.JSON).when()
+	// .get(buildUri("rest", "IMSIEvent", "1")).then().log().all();
+	// }
+	//
+	// @Test
+	// public void testNoInput() {
+	//
+	// RestAssured.config = config()
+	// .logConfig(new LogConfig(System.out, true));
+	// RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+	//
+	// expect().statusCode(404).when().get(buildUri("rest", "IMSIEvent", ""))
+	// .then().log().all();
+	// }
+	//
+	// @Test
+	// public void testInvalidInputType() {
+	//
+	// RestAssured.config = config()
+	// .logConfig(new LogConfig(System.out, true));
+	// RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+	//
+	// expect().statusCode(400).when().get(buildUri("rest", "IMSIEvent", " "))
+	// .then().log().all();
+	// }
 
 	private URI buildUri(String... paths) {
 		UriBuilder builder = UriBuilder.fromUri(baseURL);

@@ -75,6 +75,7 @@
 		<web-resource-collection>
 			<web-resource-name>Customer Service Constraint</web-resource-name>
 			<url-pattern>/protected/csr/*</url-pattern>
+			<url-pattern>/protected/rest/IMSIEvent/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Customer Service</role-name>
