@@ -24,13 +24,14 @@
 function getRecordsByTac() {
 		
 		
-		var tac = document.getElementById("tac").value;
+		
+		var pickedTac = document.getElementById("tacs").value;		
 		var fromDate = document.getElementById("fromDate").value;
 		var toDate = document.getElementById("toDate").value;
-		if (tac && fromDate && toDate) {
+		if (pickedTac && fromDate && toDate) {
 
 			var reqParams = {};
-			reqParams.tac = tac;
+			reqParams.tac = pickedTac;
 			reqParams.fromDate = fromDate;
 			reqParams.toDate = toDate;
 
@@ -44,10 +45,6 @@ function getRecordsByTac() {
 			if (xhr.status == 200) {
 				var response = JSON.parse(xhr.responseText);
 				if (response.description) {
-					alert("Status : " + response.status + " \n Description : "
-							+ response.description);
-					
-					document.getElementById("porba").innerHTML= "proba Changed!";
 					
 					document.getElementById("searchResult").innerHTML = response.description;
 				} else {
@@ -80,14 +77,14 @@ function getRecordsByTac() {
 		} else {
 			alert("error! the response status is : " + xhr.status);
 		}
-
+	
 	}
 
 	
 	
 	function startup() {
 		loadbar('sidebar.html');
-
+		getAllTacs();
 	}
 </script>
 
@@ -109,8 +106,8 @@ function getRecordsByTac() {
 					<div>
 						<div id="div1">
 							<div>
-								<strong>tac: </strong> <input type="text" name="tac" size="25"
-									id="tac" value="21060800">
+								<select name="tacs" id="tacs" class="form-control">
+								</select>								
 							</div>
 							<div>
 								<strong>Please enter from date: </strong> <input type="text"
@@ -121,21 +118,20 @@ function getRecordsByTac() {
 									size="15" name="toDate" id="toDate" value="2013-01-11 17:16:00">
 							</div>
 							</select> 
-							<br> <input type='button' onclick="getRecordsByTac()" value="Search" /> <br>
+							<br> <input id = button1 type='button' onclick="getRecordsByTac()" value="Search" /> <br>
 						</div>
 						<!-- /#div1 -->
 					</div>
 					<br>
 				</div>
-				<div id=proba>proba
-				</div>
+				
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">Number of the search result
 						</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
-								<div id="searchResult"> semmi
+								<div id="searchResult"> 
 								</div>	
 							</div>
 							<!-- /#dataTable_wrapper -->
