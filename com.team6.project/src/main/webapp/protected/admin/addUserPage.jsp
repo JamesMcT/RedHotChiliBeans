@@ -87,7 +87,7 @@
 							</select> <br>
 						</div>
 						<div>
-							<br> <input type='button' onclick="addUser()" value="submit" />
+							<br> <input type='button' class="btn btn-default" onclick="addUser()" value="submit" />
 						</div>
 					</div>
 				</div>

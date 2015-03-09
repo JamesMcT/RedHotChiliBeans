@@ -38,7 +38,8 @@
 										var currentRole = document
 												.createTextNode("The current role of the user is : "
 														+ user.role);
-										currentDiv.appendChild(document.createElement("br"));
+										currentDiv.appendChild(document
+												.createElement("br"));
 										currentDiv.appendChild(currentRole);
 										showDivs();
 									} else {
@@ -57,7 +58,8 @@
 		var role = document.getElementById("userRole").value;
 		var oldPassword = document.getElementById("oldPassword").value;
 		var newPassword = document.getElementById("newPassword").value;
-		if (fieldValidation(oldPassword, newPassword)) {
+		var reNewPassword = document.getElementById("reinsertNewPassword").value;
+		if (fieldValidation(oldPassword, newPassword, reNewPassword)) {
 			if (user.userId && role) {
 				var u = {};
 				u.userId = user.userId;
@@ -70,7 +72,7 @@
 				var xhr = new XMLHttpRequest();
 				var root = "${pageContext.servletContext.contextPath}";
 				xhr.open("POST",
-						root + "/protected/rest/usermanagement/update", false);
+						root + "/protected/rest/usermanagement/update", true);
 				xhr.setRequestHeader('Content-Type', 'application/json');
 				xhr.addEventListener('load', function() {
 					if (xhr.status == 200) {
@@ -92,20 +94,27 @@
 			}
 		}
 	}
-	function fieldValidation(oldPassword, newPassword) {
-		if ((oldPassword && !newPassword) || (!oldPassword && newPassword)) {
-			alert("Please fill both passwords fields!");
-			return false;
-		}
-		if (oldPassword && newPassword) {
+	function fieldValidation(oldPassword, newPassword, reNewPassword) {
+		if(oldPassword && newPassword && reNewPassword){
 			if (oldPassword == user.password) {
-				return true
+				if(newPassword == reNewPassword){
+					return true;
+				}
+				else{
+					alert("New Password is not the same in both fields!");
+				}
 			} else {
 				alert("The old password is incorrect!");
 				return false;
 			}
 		}
-		return true;
+		else if(!oldPassword && !newPassword && !reNewPassword){
+			return true;
+		}
+		else{
+			alert("Please fill all passwords fields!");
+			return false;
+		}
 	}
 	function getAllUsers() {
 		var users = {};
@@ -146,6 +155,7 @@
 		currentDiv.removeChild(currentDiv.lastChild);
 		document.getElementById("oldPassword").value = "";
 		document.getElementById("newPassword").value = "";
+		document.getElementById("reinsertNewPassword").value = "";
 		hideDivs();
 	}
 
@@ -186,9 +196,11 @@
 						</div>
 						<div id="div4" class="form-group" style="display: none">
 							<label> Fill this forms ONLY if you want change the
-								password </label> <input id="oldPassword" class="form-control"
+								password </label> <input id="oldPassword" type="password" class="form-control"
 								placeholder="Old Password"></input> <br> <input
-								id="newPassword" class="form-control" placeholder="New Password"></input>
+								id="newPassword" type="password" class="form-control" placeholder="New Password"></input>
+							<br> <input id="reinsertNewPassword" type="password" class="form-control"
+								placeholder="Re-insert New Password"></input>
 						</div>
 						<div id="div5" class="hidden-div-cri">
 							<input type='button' onclick="updateUser()" value="update"
