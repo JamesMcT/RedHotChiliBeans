@@ -1,6 +1,7 @@
 package com.team6.project.services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Local;
 
@@ -23,4 +24,5 @@ public interface QueryServiceLocal {
 	
 	public Collection<Object[]> getDistinctEventByTac(String ue);
 	
+	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate);
 }

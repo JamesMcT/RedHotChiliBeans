@@ -21,7 +21,8 @@ import org.hibernate.annotations.NamedQuery;
  */
 @NamedQueries({
         @NamedQuery(name = "baseDataCount", query = "SELECT COUNT(b.id) FROM BaseData b") ,
-        @NamedQuery(name = "eventCauseAndIdByTac", query = "SELECT b.eventCause, COUNT(b) FROM BaseData b where b.userEquipment.tac=:userEquipment GROUP BY b.eventCause")})
+        @NamedQuery(name = "eventCauseAndIdByTac", query = "SELECT b.eventCause, COUNT(b) FROM BaseData b where b.userEquipment.tac=:userEquipment GROUP BY b.eventCause"),
+        @NamedQuery(name = "failureCountAndDurationPerImsiByDate", query = "select b.imsi, count(b.id) as 'failures',sum(b.duration) as 'duration' from BaseData b where b.date >=:startDate and b.date <=:endDate group by b.imsi order by count(b.id) desc")})
 @Entity
 public class BaseData implements Serializable {
 

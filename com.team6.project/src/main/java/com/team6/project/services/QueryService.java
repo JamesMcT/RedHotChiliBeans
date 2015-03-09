@@ -1,6 +1,7 @@
 package com.team6.project.services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Local;
 import javax.inject.Inject;
@@ -48,6 +49,11 @@ public class QueryService implements QueryServiceLocal{
     public Collection<Object[]> getDistinctEventByTac(String ue) {
         Integer tac = Integer.parseInt(ue);
         return baseData.getDistinctEventByTac(tac);
+    }
+
+    @Override
+    public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate) {
+    	return baseData.getFailureCountAndDurationPerImsiByDate(startDate, endDate);
     }
 
 }
