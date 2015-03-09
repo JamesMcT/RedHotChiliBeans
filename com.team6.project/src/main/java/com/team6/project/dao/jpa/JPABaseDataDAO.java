@@ -1,7 +1,9 @@
 package com.team6.project.dao.jpa;
 
+
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -18,6 +20,7 @@ import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.entities.Record;
+import com.team6.project.entities.Response;
 import com.team6.project.entities.UserEquipment;
 
 
@@ -25,6 +28,7 @@ import com.team6.project.entities.UserEquipment;
 /**
  * @author James Mc Ternan
  * @Author Eoin Kernan
+ * @author Sabee D14125306
  *
  */
 @Stateless
@@ -158,5 +162,26 @@ public class JPABaseDataDAO implements BaseDataDAO {
         return q.getResultList();
         
     }
+    
+    
+    @Override //S
+	public Response countCallFailureByTac(Integer tac, Date fromDate, Date toDate) {		
+		Response response = new Response();
+		
+		Query q = em.createQuery("select count(*) from BaseData "
+				+ "where userEquipment = (from UserEquipment where tac = :tac) "
+				+ "and date >= :fromDate "
+				+ "and date <= :toDate")
+				.setParameter("tac", tac)
+				.setParameter("fromDate", fromDate)				
+				.setParameter("toDate", toDate);
+		
+		long l = (long) q.getSingleResult();
+		String s = String.valueOf(l);
+		response.setStatus(Response.Status.OK);
+		response.setDescription(s);
+		
+		return response;		
+	}
     
 }

@@ -1,9 +1,11 @@
 package com.team6.project.services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Local;
 
+import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 import com.team6.project.entities.UserEquipment;
 /**
@@ -22,5 +24,7 @@ public interface QueryServiceLocal {
 	public Collection<User> getAllUser();
 	
 	public Collection<Object[]> getDistinctEventByTac(String ue);
+	
+	public Response countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
 	
 }

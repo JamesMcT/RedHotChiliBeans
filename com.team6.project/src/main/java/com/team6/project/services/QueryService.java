@@ -1,6 +1,7 @@
 package com.team6.project.services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Local;
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import javax.inject.Inject;
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.dao.UserDAO;
 import com.team6.project.dao.UserEquipmentDAO;
+import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 import com.team6.project.entities.UserEquipment;
 
@@ -49,5 +51,12 @@ public class QueryService implements QueryServiceLocal{
         Integer tac = Integer.parseInt(ue);
         return baseData.getDistinctEventByTac(tac);
     }
+
+	@Override
+	public Response countCallFailureByTac(Integer tac, Date fromDate,
+			Date toDate) {
+		
+		return baseData.countCallFailureByTac(tac, fromDate, toDate);
+	}
 
 }

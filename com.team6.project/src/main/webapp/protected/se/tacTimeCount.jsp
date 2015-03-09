@@ -21,6 +21,46 @@
 <script src="../../js/common.js"></script>
 
 <script>
+function getRecordsByTac() {
+		
+		
+		var tac = document.getElementById("tac").value;
+		var fromDate = document.getElementById("fromDate").value;
+		var toDate = document.getElementById("toDate").value;
+		if (tac && fromDate && toDate) {
+
+			var reqParams = {};
+			reqParams.tac = tac;
+			reqParams.fromDate = fromDate;
+			reqParams.toDate = toDate;
+
+			var xhr = new XMLHttpRequest();
+			var root = "${pageContext.servletContext.contextPath}";
+
+			var root2 = "/com.team6.project-0.0.1-SNAPSHOT";
+			xhr.open("POST", root + "/protected/rest/tac", false);
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.send(JSON.stringify(reqParams));
+			if (xhr.status == 200) {
+				var response = JSON.parse(xhr.responseText);
+				if (response.description) {
+					alert("Status : " + response.status + " \n Description : "
+							+ response.description);
+					
+					document.getElementById("porba").innerHTML= "proba Changed!";
+					
+					document.getElementById("searchResult").innerHTML = response.description;
+				} else {
+					alert("Status : " + response.status);
+				}
+			} else {
+				var response = xhr.response;
+				document.getElementById("mainPage").innerHTML = response;
+			}
+
+		}
+	}
+
 	function getAllTacs() {
 		var tacs = {};
 		var dropdown = document.getElementById("tacs");
@@ -43,92 +83,11 @@
 
 	}
 
-	function getEventIdCauseCode() {
-		var tac = document.getElementById("tacs").value;
-		var xhr = new XMLHttpRequest();
-		var root = "${pageContext.servletContext.contextPath}";
-		xhr.open("GET", root
-				+ "/protected/rest/networkmanagement/eventidcausecode/" + tac,
-				true);
-		xhr.addEventListener('load', function() {
-			if (xhr.status == 200) {
-				cleanTable();
-				response = JSON.parse(xhr.responseText);
-				createTableHead();
-				createTableBody();
-			}
-		}, false);
-		xhr.send();
-	}
-
-	function createTableHead() {
-		var table = document.getElementById("eventcauseTable");
-		var thead = document.createElement("thead");
-		thead.id = "tableHead";
-		var tr = document.createElement("tr");
-		var th1 = document.createElement("th");
-		th1.appendChild(document.createTextNode("Event Id"));
-		var th2 = document.createElement("th");
-		th2.appendChild(document.createTextNode("Cause Code"));
-		var th3 = document.createElement("th");
-		th3.appendChild(document.createTextNode("Description"));
-		var th4 = document.createElement("th");
-		th4.appendChild(document.createTextNode("Occurence"));
-		tr.appendChild(th1);
-		tr.appendChild(th2);
-		tr.appendChild(th3);
-		tr.appendChild(th4);
-		thead.appendChild(tr);
-		table.appendChild(thead);
-	}
-
-	function createTableBody() {
-		var table = document.getElementById("eventcauseTable");
-		var tbody = document.createElement("tbody");
-		tbody.id = "tableBody";
-		for (var i = 0; i < response.length; i++) {
-			var singleResponse = response[i];
-			var eventCause = singleResponse[0];
-			var occurence = singleResponse[1];
-			var tr = document.createElement("tr");
-			if (i % 2) {
-				tr.className = "even gradeA";
-			} else {
-				tr.className = "odd gradeA";
-			}
-			var td1 = document.createElement("td");
-			td1.appendChild(document.createTextNode(eventCause.eventId));
-			var td2 = document.createElement("td");
-			td2.appendChild(document.createTextNode(eventCause.causeCode));
-			var td3 = document.createElement("td");
-			td3.appendChild(document.createTextNode(eventCause.description));
-			var td4 = document.createElement("td");
-			td4.appendChild(document.createTextNode(occurence));
-			tr.appendChild(td1);
-			tr.appendChild(td2);
-			tr.appendChild(td3);
-			tr.appendChild(td4);
-			tbody.appendChild(tr);
-		}
-		table.appendChild(tbody);
-	}
-
-	function cleanTable() {
-		var tableBody = document.getElementById("tableBody");
-		var tableHead = document.getElementById("tableHead");
-		if (tableHead) {
-			console.log("removing head");
-			tableHead.parentNode.removeChild(tableHead);
-		}
-		if (tableBody) {
-			console.log("removing body");
-			tableBody.parentNode.removeChild(tableBody);
-		}
-	}
-
+	
+	
 	function startup() {
 		loadbar('sidebar.html');
-		getAllTacs();
+
 	}
 </script>
 
@@ -149,23 +108,35 @@
 					<p>Please give a tac and time period</p>
 					<div>
 						<div id="div1">
-							<select name="tacs" id="tacs" class="form-control">
-							</select> <br> <input type='button' onclick="getEventIdCauseCode()"
-								value="show data" /> <br>
+							<div>
+								<strong>tac: </strong> <input type="text" name="tac" size="25"
+									id="tac" value="21060800">
+							</div>
+							<div>
+								<strong>Please enter from date: </strong> <input type="text"
+									size="15" name="fromDate" id="fromDate" value="2013-01-11 17:15:00">
+							</div>
+							<div>
+								<strong>Please enter to date: </strong> <input type="text"
+									size="15" name="toDate" id="toDate" value="2013-01-11 17:16:00">
+							</div>
+							</select> 
+							<br> <input type='button' onclick="getRecordsByTac()" value="Search" /> <br>
 						</div>
 						<!-- /#div1 -->
 					</div>
 					<br>
 				</div>
+				<div id=proba>proba
+				</div>
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Table: Event Id Cause Code and
-							Occurence for selected UserEquipment</div>
+						<div class="panel-heading">Number of the search result
+						</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
-								<table class="table table-striped table-bordered table-hover"
-									id="eventcauseTable">
-								</table>
+								<div id="searchResult"> semmi
+								</div>	
 							</div>
 							<!-- /#dataTable_wrapper -->
 						</div>

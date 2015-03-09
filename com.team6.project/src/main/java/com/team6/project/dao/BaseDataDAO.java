@@ -2,9 +2,11 @@ package com.team6.project.dao;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Local;
 
+import com.team6.project.entities.Response;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
@@ -47,6 +49,8 @@ public interface BaseDataDAO {
 	public long getBaseDataCount();
 	
 	public Collection<Object[]> getDistinctEventByTac(Integer ue);
+	
+	public Response countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
 	
 //	public void updateBaseData(BaseData baseData);
 
