@@ -55,7 +55,7 @@
 	}
 </script>
 <head>
-<body onload="loadbar('sidebar.html')">
+<body onload="loadbar('../sidebar.jsp')">
 
 	<div id="wrapper">
 

@@ -160,7 +160,7 @@
 	}
 
 	function startup() {
-		loadbar('sidebar.html');
+		loadbar('../sidebar.jsp');
 		getAllUsers();
 	}
 </script>
