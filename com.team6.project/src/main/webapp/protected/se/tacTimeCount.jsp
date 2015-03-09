@@ -17,23 +17,36 @@
 <link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../../css/dataTables.responsive.css" rel="stylesheet">
 
+<link
+	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="screen"
+	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+
 <!-- Adding functions -->
 <script src="../../js/common.js"></script>
 
+
 <script>
-function getRecordsByTac() {
+	function getRecordsByTacPOST() {
+
 		
-		
-		
-		var pickedTac = document.getElementById("tacs").value;		
+
+		var pickedTac = document.getElementById("tacs").value;
 		var fromDate = document.getElementById("fromDate").value;
 		var toDate = document.getElementById("toDate").value;
+		var picker = $('#datetimepicker').data('datetimepicker');
+		var picker2 = $('#datetimepicker2').data('datetimepicker');
+		
+		
+		document.getElementById("button1").value = picker.getDate();
+		
 		if (pickedTac && fromDate && toDate) {
 
 			var reqParams = {};
 			reqParams.tac = pickedTac;
-			reqParams.fromDate = fromDate;
-			reqParams.toDate = toDate;
+			reqParams.fromDate = picker.getDate();
+			reqParams.toDate = tpicker2.getDate();
 
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
@@ -45,7 +58,7 @@ function getRecordsByTac() {
 			if (xhr.status == 200) {
 				var response = JSON.parse(xhr.responseText);
 				if (response.description) {
-					
+
 					document.getElementById("searchResult").innerHTML = response.description;
 				} else {
 					alert("Status : " + response.status);
@@ -58,6 +71,45 @@ function getRecordsByTac() {
 		}
 	}
 
+	
+function getRecordsByTac() {
+
+		
+
+		var pickedTac = document.getElementById("tacs").value;
+		var fromDate = document.getElementById("fromDate").value;
+		var toDate = document.getElementById("toDate").value;
+		
+		
+		
+		//document.getElementById("button1").value = picker.getDate();
+		
+		if (pickedTac && fromDate && toDate) {
+
+			
+
+			var xhr = new XMLHttpRequest();
+			var root = "${pageContext.servletContext.contextPath}";
+
+			
+			xhr.open("GET", root + "/protected/rest/tac" + "?tac=" + pickedTac + "&fromDate=" + fromDate + "&toDate=" + toDate, true);
+			xhr.addEventListener('load', function() {
+				if (xhr.status == 200) {
+					cleanTable();
+					response = JSON.parse(xhr.responseText);
+					createTableHead();
+					createTableBody();
+				}
+			}, false);
+			xhr.send();
+
+		}
+	}
+	
+	
+	
+	
+	
 	function getAllTacs() {
 		var tacs = {};
 		var dropdown = document.getElementById("tacs");
@@ -77,11 +129,9 @@ function getRecordsByTac() {
 		} else {
 			alert("error! the response status is : " + xhr.status);
 		}
-	
+
 	}
 
-	
-	
 	function startup() {
 		loadbar('sidebar.html');
 		getAllTacs();
@@ -107,32 +157,86 @@ function getRecordsByTac() {
 						<div id="div1">
 							<div>
 								<select name="tacs" id="tacs" class="form-control">
-								</select>								
+								</select>
 							</div>
+
+							<div id="datetimepicker" class="input-append date">
+								<input type="text"></input> <span class="add-on"> <i
+									data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+								</span>
+							</div>
+
+							<div id="datetimepicker2" class="input-append date">
+								<input type="text"></input> <span class="add-on"> <i
+									data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+								</span>
+							</div>
+
+							<script type="text/javascript"
+								src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+								
+							</script>
+							<script type="text/javascript"
+								src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+								
+							</script>
+							<script type="text/javascript"
+								src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+								
+							</script>
+							<script type="text/javascript"
+								src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+								
+							</script>
+
+							<script type="text/javascript">
+								$('#datetimepicker').datetimepicker({
+									format : 'yyyy-MM-dd hh:mm:ss',
+									language : 'en'
+								});
+								$('#datetimepicker').data('datetimepicker')
+										.setLocalDate(
+												new Date(2013, 0, 11, 17, 15));
+							</script>
+
+
+							<script type="text/javascript">
+								$('#datetimepicker2').datetimepicker({
+									format : 'yyyy-MM-dd hh:mm:ss',
+									language : 'en'
+								});
+								$('#datetimepicker2').data('datetimepicker')
+										.setLocalDate(
+												new Date(2013, 0, 11, 17, 20));
+							</script>
+
+
+
+
 							<div>
 								<strong>Please enter from date: </strong> <input type="text"
-									size="15" name="fromDate" id="fromDate" value="2013-01-11 17:15:00">
+									size="15" name="fromDate" id="fromDate"
+									value="2013-01-11 17:15:00">
 							</div>
 							<div>
 								<strong>Please enter to date: </strong> <input type="text"
 									size="15" name="toDate" id="toDate" value="2013-01-11 17:16:00">
 							</div>
-							</select> 
-							<br> <input id = button1 type='button' onclick="getRecordsByTac()" value="Search" /> <br>
+							
+							<br> <input id=button1 type='button'
+								onclick="getRecordsByTac()" value="Search" /> <br>
 						</div>
 						<!-- /#div1 -->
 					</div>
 					<br>
 				</div>
-				
+
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Number of the search result
-						</div>
+						<div class="panel-heading">Number of the search result</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
-								<div id="searchResult"> 
-								</div>	
+								<div id="searchResult"></div>
 							</div>
 							<!-- /#dataTable_wrapper -->
 						</div>

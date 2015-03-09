@@ -25,6 +25,8 @@ public interface QueryServiceLocal {
 	
 	public Collection<Object[]> getDistinctEventByTac(String ue);
 	
-	public Response countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
+	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
+			
+	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate);
 	
 }

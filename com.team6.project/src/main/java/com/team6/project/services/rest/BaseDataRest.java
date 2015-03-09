@@ -12,6 +12,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.xml.ws.soap.AddressingFeature.Responses;
 
@@ -36,16 +37,19 @@ public class BaseDataRest {
 	
 	public BaseDataRest() {}
 	
-//	@GET
-//	@Path("/{tac}")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public long countCallFailureByTac(@PathParam("tac") Integer tac){
-//		String fromDate_s = "2013-01-11 17:15:00";
-//		String toDate_s = "2013-01-11 17:16:00";
-//				
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public long countCallFailureByTac(
+			@QueryParam("tac") Integer tac,
+			@QueryParam("fromDate") Date fromDate,
+			@QueryParam("toDate") Date toDate){
+	
+		String fromDate_s = "2013-01-11 17:15:00";
+		String toDate_s = "2013-01-11 17:16:00";
+				
 //		SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
-//		Date fromDate = new Date();
-//		Date toDate = new Date();
+//		fromDate = new Date();
+//		toDate = new Date();
 //		
 //		try {
 //			fromDate = dt.parse(fromDate_s);
@@ -53,9 +57,9 @@ public class BaseDataRest {
 //		} catch (ParseException e) {
 //			e.printStackTrace();
 //		} 
-//						
-//		return queryService.countCallFailureByTac(tac, fromDate, toDate);
-//	}
+						
+		return queryService.countCallFailureByTac(tac, fromDate, toDate);
+	}
 	
 	
 	@POST
@@ -89,7 +93,7 @@ public class BaseDataRest {
 //		response.setDescription("666666");
 		
 		
-		return queryService.countCallFailureByTac(tac, fromDate, toDate);
+		return queryService.countCallFailureByTacPOST(tac, fromDate, toDate);
         
 	}
 	

@@ -53,10 +53,17 @@ public class QueryService implements QueryServiceLocal{
     }
 
 	@Override
-	public Response countCallFailureByTac(Integer tac, Date fromDate,
+	public long countCallFailureByTac(Integer tac, Date fromDate,
 			Date toDate) {
 		
 		return baseData.countCallFailureByTac(tac, fromDate, toDate);
+	}
+	
+	@Override
+	public Response countCallFailureByTacPOST(Integer tac, Date fromDate,
+			Date toDate) {
+		
+		return baseData.countCallFailureByTacPOST(tac, fromDate, toDate);
 	}
 
 }
