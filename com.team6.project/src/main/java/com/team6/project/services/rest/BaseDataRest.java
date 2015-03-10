@@ -11,6 +11,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.team6.project.entities.BaseData;
@@ -25,10 +26,10 @@ public class BaseDataRest {
 	public BaseDataRest(){}
 
 	@GET
-	@Path("/{firstDate}/{secondDate}")
+	@Path("/datequery")
 	@Produces(MediaType.APPLICATION_JSON)
 
-	public Collection<BaseData> findImsiByDate(@PathParam("firstDate") String firstDate, @PathParam("secondDate") String secondDate) {
+	public Collection<BaseData> findImsiByDate(@QueryParam("firstDate") String firstDate, @QueryParam("secondDate") String secondDate) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 

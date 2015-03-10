@@ -1,0 +1,58 @@
+<!doctype html>
+<html ng-app>
+<head>
+<title>Hello AngularJS</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+
+<script src="js/basedata.js"></script>
+<script src="js/DatepickerCtrl.js"></script>
+
+
+</head>
+
+<body>
+	<div ng-app="App" ng-controller="readDates">
+		<p>2013-01-11T17:36:00
+		<p>
+		<p>testtttt</p>
+		<p>The ID is {{baseDataDate}}</p>
+		<p>The kkk is {{baseDataDate.date}}</p>
+		<input type="text" ng-model="firstDate"> <input type="text"
+			ng-model="secondDate"> <br>
+		<button ng-click='sayHello(firstDate,secondDate)'>search</button>
+
+		<table>
+			<tr ng-repeat="x in baseDataDate">
+				<td>{{ x.eventCause.eventId }}</td>
+				<td>{{ x.imsi }}</td>
+				<td>{{ x.date }}</td>
+
+			</tr>
+		</table>
+
+		<p>date::: {{baseDataDate.imsi}}</p>
+		<p>date::: {{firstDate}}</p>
+
+
+	</div>
+<div class="container container-fluid" ng-controller="MainCtrl">
+       var1={{var1}}
+      <form class="form-horizontal" novalidate name="form" ng-submit="submit()">
+      <div class="well">
+        <div id="date" class="input-append" datetimez ng-model="var1">
+          <input data-format="hh:mm:ss"  type="text" id="input1" name="input1"></input>
+          <span class="add-on">
+            <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+          </span>
+        </div>
+      </div>
+  </form>
+
+  </div>
+<script type="text/javascript">
+
+
+</script>
+</body>
+</html>
