@@ -6,12 +6,14 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import com.team6.project.dao.jpa.JPABaseDataDAO;
@@ -29,6 +31,9 @@ public class NetworkManagementRestService {
     @Inject
     QueryServiceLocal queryService;
     
+    @Context
+    private HttpServletResponse response;
+    
     @GET
     @Path("/eventidcausecode/{userequipment}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -45,6 +50,8 @@ public class NetworkManagementRestService {
     throws ParseException{
     	
     	SimpleDateFormat sdf = new SimpleDateFormat(JPABaseDataDAO.MYSQL_DATE_FORMAT);
+    	
+    	//validate dates here, return error status if needed
     	
     	return queryService.getFailureCountAndDurationPerImsiByDate(sdf.parse(dateString1), sdf.parse(dateString2));
     }
