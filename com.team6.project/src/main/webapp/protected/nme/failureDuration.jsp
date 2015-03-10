@@ -56,8 +56,8 @@
 	}
 
 	function showError(message){
-		var tableDiv = document.getElementById("dataTableDiv");
-		tableDiv.innerHTML = message;
+		var errorDiv = document.getElementById("errorDiv");
+		errorDiv.innerHTML = message;
 	}
 
 	function createTableHead() {
@@ -113,6 +113,10 @@
 	function cleanTable() {
 		var tableBody = document.getElementById("tableBody");
 		var tableHead = document.getElementById("tableHead");
+		
+		var errorDiv = document.getElementById("errorDiv");
+		errorDiv.innerHTML = '';
+		
 		if (tableHead) {
 			console.log("removing head");
 			tableHead.parentNode.removeChild(tableHead);
@@ -185,6 +189,7 @@
 						<div class="panel-heading">Table: IMSI, failure count, total duration.</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper" id="dataTableDiv">
+								<div id="errorDiv"></div>
 								<table class="table table-striped table-bordered table-hover"
 									id="failureDurationTable">
 								</table>
