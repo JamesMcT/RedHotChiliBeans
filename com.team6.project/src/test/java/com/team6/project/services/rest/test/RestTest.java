@@ -106,7 +106,7 @@ public abstract class RestTest {
                 .logConfig(new LogConfig(System.out, true));
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.basePath = ARCHIVE_NAME;
-        RestAssured.port = 18080;
+        RestAssured.port = 8080;
     }
     
     public void createUsers() {

@@ -41,23 +41,16 @@ public class BaseDataRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public long countCallFailureByTac(
 			@QueryParam("tac") Integer tac,
-			@QueryParam("fromDate") Date fromDate,
-			@QueryParam("toDate") Date toDate){
+			@QueryParam("fromDate") long lFromDate,
+			@QueryParam("toDate") long lToDate){
 	
-		String fromDate_s = "2013-01-11 17:15:00";
-		String toDate_s = "2013-01-11 17:16:00";
-				
-//		SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
-//		fromDate = new Date();
-//		toDate = new Date();
-//		
-//		try {
-//			fromDate = dt.parse(fromDate_s);
-//			toDate = dt.parse(toDate_s);
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		} 
-						
+	
+		Date fromDate = new Date();		
+		Date toDate = new Date();
+		
+		fromDate.setTime(lFromDate);
+		toDate.setTime(lToDate);
+		
 		return queryService.countCallFailureByTac(tac, fromDate, toDate);
 	}
 	

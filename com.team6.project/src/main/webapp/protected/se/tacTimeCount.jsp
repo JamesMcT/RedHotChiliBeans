@@ -77,8 +77,19 @@ function getRecordsByTac() {
 		
 
 		var pickedTac = document.getElementById("tacs").value;
-		var fromDate = document.getElementById("fromDate").value;
-		var toDate = document.getElementById("toDate").value;
+		
+		//var fromDate = 1357924500000;
+		//var toDate = 1357924560000;
+		
+		var date = new Date();
+		
+		var picker = $('#datetimepicker').data('datetimepicker');				
+		date = picker.getDate();
+		var fromDate = date.valueOf();
+		
+		var picker2 = $('#datetimepicker2').data('datetimepicker');
+		date = picker2.getDate();
+		var toDate = date.valueOf();
 		
 		
 		
@@ -95,10 +106,9 @@ function getRecordsByTac() {
 			xhr.open("GET", root + "/protected/rest/tac" + "?tac=" + pickedTac + "&fromDate=" + fromDate + "&toDate=" + toDate, true);
 			xhr.addEventListener('load', function() {
 				if (xhr.status == 200) {
-					cleanTable();
-					response = JSON.parse(xhr.responseText);
-					createTableHead();
-					createTableBody();
+					
+					var response = JSON.parse(xhr.responseText);
+					document.getElementById("searchResult").innerHTML = response;
 				}
 			}, false);
 			xhr.send();
