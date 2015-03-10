@@ -85,6 +85,7 @@ function getRecordsByTac() {
 		
 		var picker = $('#datetimepicker').data('datetimepicker');				
 		date = picker.getDate();
+		
 		var fromDate = date.valueOf();
 		
 		var picker2 = $('#datetimepicker2').data('datetimepicker');
@@ -258,8 +259,7 @@ function getRecordsByTac() {
 		</div>
 	</div>
 
-	</div>
-	</div>
+	
 	<!-- /#wrapper -->
 </body>
 
