@@ -29,17 +29,12 @@
 
 <script>
 	function getRecordsByTacPOST() {
-
-		
-
 		var pickedTac = document.getElementById("tacs").value;
 		var fromDate = document.getElementById("fromDate").value;
 		var toDate = document.getElementById("toDate").value;
 		var picker = $('#datetimepicker').data('datetimepicker');
 		var picker2 = $('#datetimepicker2').data('datetimepicker');
-		
-		
-		document.getElementById("button1").value = picker.getDate();
+				
 		
 		if (pickedTac && fromDate && toDate) {
 
@@ -73,14 +68,7 @@
 
 	
 function getRecordsByTac() {
-
-		
-
 		var pickedTac = document.getElementById("tacs").value;
-		
-		//var fromDate = 1357924500000;
-		//var toDate = 1357924560000;
-		
 		var date = new Date();
 		
 		var picker = $('#datetimepicker').data('datetimepicker');				
@@ -92,18 +80,13 @@ function getRecordsByTac() {
 		date = picker2.getDate();
 		var toDate = date.valueOf();
 		
-		
-		
-		//document.getElementById("button1").value = picker.getDate();
+		//var fromDate = 1357924500000;
+		//var toDate = 1357924560000;
+			
 		
 		if (pickedTac && fromDate && toDate) {
-
-			
-
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
-
-			
 			xhr.open("GET", root + "/protected/rest/tac" + "?tac=" + pickedTac + "&fromDate=" + fromDate + "&toDate=" + toDate, true);
 			xhr.addEventListener('load', function() {
 				if (xhr.status == 200) {
@@ -113,7 +96,6 @@ function getRecordsByTac() {
 				}
 			}, false);
 			xhr.send();
-
 		}
 	}
 	
@@ -222,17 +204,6 @@ function getRecordsByTac() {
 							</script>
 
 
-
-
-							<div>
-								<strong>Please enter from date: </strong> <input type="text"
-									size="15" name="fromDate" id="fromDate"
-									value="2013-01-11 17:15:00">
-							</div>
-							<div>
-								<strong>Please enter to date: </strong> <input type="text"
-									size="15" name="toDate" id="toDate" value="2013-01-11 17:16:00">
-							</div>
 							
 							<br> <input id=button1 type='button'
 								onclick="getRecordsByTac()" value="Search" /> <br>
