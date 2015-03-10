@@ -1,4 +1,4 @@
-
+<xsd:schema>
 <arquillian xmlns="http://jboss.org/schema/arquillian"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
@@ -13,4 +13,4 @@
 	<extension qualifier="jacoco">
 	</extension>
 </arquillian>
-
+</xsd:schema>

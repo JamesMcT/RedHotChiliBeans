@@ -42,8 +42,8 @@ public abstract class RestTest {
 
     private static final long DELAY_IN_MS = 500;
     
-    private static boolean importComplete = false;
-    private static boolean usersCreated = false;
+    private static volatile boolean importComplete = false;
+    private static volatile boolean usersCreated = false;
     
     @EJB
     DataImportServiceLocal service;

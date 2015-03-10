@@ -13,8 +13,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.team6.project.dao.jpa.JPABaseDataDAO;
 import com.team6.project.services.QueryServiceLocal;
@@ -47,12 +50,55 @@ public class NetworkManagementRestService {
     public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(
     							@QueryParam("startDate") String dateString1,
     							@QueryParam("endDate") String dateString2)
-    throws ParseException{
+    {
     	
     	SimpleDateFormat sdf = new SimpleDateFormat(JPABaseDataDAO.MYSQL_DATE_FORMAT);
+    	Date d1 = new Date();
+    	Date d2 = new Date();
     	
-    	//validate dates here, return error status if needed
+    	//validate dates here, return error if needed
+    	try{
+    		d1 = sdf.parse(dateString1);
+    		d2 = sdf.parse(dateString2);
+    	}
+    	catch(ParseException pe){
+    		String message = pe.getMessage();
+    		final Response response=Response.status(Status.BAD_REQUEST).entity(message).build();
+    		throw new WebApplicationException(response);
+    	}
     	
-    	return queryService.getFailureCountAndDurationPerImsiByDate(sdf.parse(dateString1), sdf.parse(dateString2));
+    	Collection<Object[]> c = queryService.getFailureCountAndDurationPerImsiByDate(d1, d2);
+    	
+    	if(!(c.size() > 0)){
+    		String message = String.format("No results for given date range '%s'->'%s'.",dateString1,dateString2);
+    		final Response response=Response.status(Status.NOT_FOUND).entity(message).build();
+    		throw new WebApplicationException(response);
+    	}
+    	
+    	return c;
     }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

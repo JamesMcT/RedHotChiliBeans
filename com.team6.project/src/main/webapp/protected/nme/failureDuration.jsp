@@ -45,12 +45,23 @@
 				createTableHead();
 				createTableBody();
 			}
+			else{
+				//bad request, dates could not be parsed. Or no results
+				cleanTable();
+				var message = 'Error '+xhr.status+': ' + xhr.responseText;
+				showError(message);
+			}
 		}, false);
 		xhr.send();
 	}
 
+	function showError(message){
+		var tableDiv = document.getElementById("dataTableDiv");
+		tableDiv.innerHTML = message;
+	}
+
 	function createTableHead() {
-		var table = document.getElementById("eventcauseTable");
+		var table = document.getElementById("failureDurationTable");
 		var thead = document.createElement("thead");
 		thead.id = "tableHead";
 		var tr = document.createElement("tr");
@@ -68,7 +79,7 @@
 	}
 
 	function createTableBody() {
-		var table = document.getElementById("eventcauseTable");
+		var table = document.getElementById("failureDurationTable");
 		var tbody = document.createElement("tbody");
 		tbody.id = "tableBody";
 		for (var i = 0; i < response.length; i++) {
@@ -115,17 +126,17 @@
 	function startup() {
 		loadbar('sidebar.html');
 		
-		$('#datetimepicker').datetimepicker({
-		    format: 'yyyy-MM-dd hh:mm:ss',
-		    language: 'en'
-		  });
-		$('#datetimepicker').data('datetimepicker').setLocalDate(new Date(2013, 0, 11, 17, 15));
+		//$('#datetimepicker').datetimepicker({
+		    //format: 'yyyy-MM-dd hh:mm:ss',
+		    //language: 'en'
+		  //});
+		//$('#datetimepicker').data('datetimepicker').setLocalDate(new Date(2013, 0, 11, 17, 15));
 
-		$('#datetimepicker2').datetimepicker({
-		        format: 'yyyy-MM-dd hh:mm:ss',
-		        language: 'en'
-		      });
-		$('#datetimepicker2').data('datetimepicker').setLocalDate(new Date(2013, 0, 11, 17, 20));
+		//$('#datetimepicker2').datetimepicker({
+		        //format: 'yyyy-MM-dd hh:mm:ss',
+		        //language: 'en'
+		      //});
+		//$('#datetimepicker2').data('datetimepicker').setLocalDate(new Date(2013, 0, 11, 17, 20));
 	}
 </script>
 
@@ -173,9 +184,9 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">Table: IMSI, failure count, total duration.</div>
 						<div class="panel-body">
-							<div class="dataTable_wrapper">
+							<div class="dataTable_wrapper" id="dataTableDiv">
 								<table class="table table-striped table-bordered table-hover"
-									id="eventcauseTable">
+									id="failureDurationTable">
 								</table>
 							</div>
 							<!-- /#dataTable_wrapper -->
