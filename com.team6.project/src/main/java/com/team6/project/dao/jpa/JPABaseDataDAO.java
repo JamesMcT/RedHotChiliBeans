@@ -165,13 +165,13 @@ public class JPABaseDataDAO implements BaseDataDAO {
     @Override
     public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end){
     	
-    	SimpleDateFormat sdf = new SimpleDateFormat(MYSQL_DATE_FORMAT);
-    	String d1 = sdf.format(start);
-    	String d2 = sdf.format(end);
+    	//SimpleDateFormat sdf = new SimpleDateFormat(MYSQL_DATE_FORMAT);
+    	//String d1 = sdf.format(start);
+    	//String d2 = sdf.format(end);
     	
     	Query q = em.createNamedQuery("failureCountAndDurationPerImsiByDate");
-    	q.setParameter("startDate", d1);
-    	q.setParameter("endDate", d2);
+    	q.setParameter("startDate", start);
+    	q.setParameter("endDate", end);
     	
     	return q.getResultList();
     }
