@@ -123,7 +123,7 @@ public class PerformanceRestTest {
                 .get("/protected/rest/networkmanagement/eventidcausecode/21060800").then()
                 .statusCode(200);
         long beginTime = System.currentTimeMillis();
-        given().auth().form("cristi", "password", fac).filter(sessionFilter)
+        given().auth().form("admin", "admin", fac).filter(sessionFilter)
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
                 .get("/protected/rest/networkmanagement/eventidcausecode/21060800");
         long endTime = System.currentTimeMillis();
