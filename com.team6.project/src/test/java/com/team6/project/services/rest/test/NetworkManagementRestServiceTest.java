@@ -57,5 +57,20 @@ public class NetworkManagementRestServiceTest extends RestTest {
 
     }
     
+    @Test
+    public void testFailedCallDurationEndpoint(){
+    	
+    	String startDate = "2013-02-19 21:01:00";
+    	String endDate = "2013-02-21 21:01:00";
+    	
+    	//Expect to get the login page if not authenticated first
+    	given().queryParam("startDate", startDate).queryParam("endDate", endDate).filter(sessionFilter).when()
+        .get("/protected/rest/networkmanagement/failurecountandduration").then()
+        .statusCode(200).contentType(ContentType.HTML);
+    	
+    	given().log().all().auth().form("nmEng", "nmEng", fac).queryParam("startDate", startDate).queryParam("endDate", endDate).filter(sessionFilter)
+        .expect().statusCode(200).contentType(ContentType.JSON).when()
+        .get("/protected/rest/networkmanagement/failurecountandduration").then().log().all();
+    }
    
 }

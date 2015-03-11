@@ -49,6 +49,8 @@ public class DataImportServiceTest {
 
     private static final long DELAY_IN_MS = 500;
 
+    private static boolean importComplete = false;
+    
     @EJB
     DataImportServiceLocal service;
 
@@ -68,7 +70,12 @@ public class DataImportServiceTest {
                 .addAsWebInfResource(EmptyAsset.INSTANCE,
                                      ArchivePaths.create("beans.xml"));
 
-        File[] files = Maven.resolver().resolve("org.apache.poi:poi:3.11")
+        File[] files = Maven.resolver()
+                .resolve("com.jayway.restassured:rest-assured:2.4.0")
+                .withTransitivity().as(File.class);
+        a.addAsLibraries(files);
+        
+        files = Maven.resolver().resolve("org.apache.poi:poi:3.11")
                 .withTransitivity().as(File.class);
         a.addAsLibraries(files);
 
@@ -86,7 +93,10 @@ public class DataImportServiceTest {
 
     @Before
     public void prepareDataImportTest() throws InterruptedException {
-        importDataTest();
+    	if(!importComplete){
+    		importDataTest();
+    		importComplete = true;
+    	}
     }
     
     
@@ -143,12 +153,12 @@ public class DataImportServiceTest {
 
     @After
     public void cleanTestEnvironment() {
-        try {
-            FileUtils.deleteDirectory(testWatchPath.toFile());
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+//        try {
+//            FileUtils.deleteDirectory(testWatchPath.toFile());
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
     }
 
     private void startWatchingFolder() {
