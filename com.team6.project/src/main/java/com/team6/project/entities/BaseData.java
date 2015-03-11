@@ -24,7 +24,7 @@ import javax.persistence.NamedQuery;
  */
 
 
-@NamedQueries({ @NamedQuery(name = "BaseData.findByImsiQuery", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi") })
+@NamedQueries({ @NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi") })
 
 @Entity
 public class BaseData implements Serializable{

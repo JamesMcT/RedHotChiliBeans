@@ -30,23 +30,37 @@
 	type="text/css">
 
 
+<script lang="JavaScript" type="text/javascript">
+	
+	function validateImsi(imsi){
+
+	if(isNotEmpty(imsi, "Please Enter an Imsi") == false){
+		return false;
+	}
+	else if(isNaN(imsi) == true){
+		alert("IMSI Field should contain numbers only");
+		return false;
+	}
+	else{
+		//alert("True Entered on IMSI...")
+		return true;
+	}
+	}
+	
+	function isNotEmpty(imsi, alertMessage){
+		if(imsi == ""){
+			alert(alertMessage);
+			return false;
+		}
+			return true;
+	}
+	
 
 
-
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-<script>
 	function findByImsi() {
-
 		var imsi = document.getElementById('imsi_attr').value;
-
-		var xmlhttp;
+		if(validateImsi(imsi) == true){
+			var xmlhttp;
 		
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 			window.crossDomain = true;
@@ -69,7 +83,7 @@
 				var myTable = "<table id = 'eventCauseTable' class = 'table table-striped table-bordered table-hover'> ";
 				myTable += "<thead><tr><th>Cause Code</th><th>Event Id</th><th>Description</th></tr></thead><tfoot><tr><th>Cause Code</th><th>Event Id</th><th>Description</th></tr></tfoot><tbody>";
 				for ( var i in eventCause) {
-					// 	    for(var i = 0; i < eventCause ; i++){
+					
 					var causeCode = eventCause[i].causeCode;
 					var eventId = eventCause[i].eventId;
 					var description = eventCause[i].description;
@@ -82,10 +96,13 @@
 
 			}
 			if (xmlhttp.status == 404) {
-				alert("ERROR: No Page Found");
+				alert("Error: No Page Found");
 			}
-		}
-
+		
+			}
+	}else{
+			//alert("Imsi Validation has failed.....")
+		}	
 	}
 </script>
 
@@ -99,51 +116,55 @@
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
 			style="margin-bottom: 0">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="index.html">Customer Service
-				Representative</a>
-		</div>
-		<!-- /.navbar-header -->
-		<ul class="nav navbar-top-links navbar-right">
-			<li class="active"><a href="index.html">Home</a></li>
-			<li class="active"><a href="../logout.jsp">Logout</a></li>
-		</ul>
-		<!-- /.navbar-top-links -->
-
-		<div class="navbar-default sidebar" role="navigation">
-			<div class="sidebar-nav navbar-collapse">
-				<ul class="nav" id="side-menu">
-					<li class="sidebar-search">
-<!-- 						<div class="input-group custom-search-form"> -->
-<!-- 							<input type="text" class="form-control" id="imsi_attr" -->
-<!-- 								placeholder="Enter IMSI"> <span class="input-group-btn"> -->
-<!-- 								<button class="btn btn-default" type="button" onclick="findByImsi()"> -->
-<!-- 									<i class="fa fa-search"></i> -->
-<!-- 								</button> -->
-<!-- 							</span> -->
-<!-- 						</div> /input-group -->
-					</li>
-
-					<li><a href="tables.html"><i class="fa fa-table fa-fw"></i>
-							Fault Viewer</a></li>
-
-
-				</ul>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html">Customer Service
+					Representative</a>
 			</div>
-			<!-- /.sidebar-collapse -->
-		</div>
-		<!-- /.navbar-static-side --> </nav>
+			<!-- /.navbar-header -->
+			<ul class="nav navbar-top-links navbar-right">
+				<li class="active"><a href="index.html">Home</a></li>
+				<li class="active"><a href="../logout.jsp">Logout</a></li>
+			</ul>
+			<!-- /.navbar-top-links -->
+
+			<div class="navbar-default sidebar" role="navigation">
+				<div class="sidebar-nav navbar-collapse">
+					<ul class="nav" id="side-menu">
+						<li class="sidebar-search">
+	
+						</li>
+
+						<li><a href="tables.html"><i class="fa fa-table fa-fw"></i>
+								Fault Viewer</a></li>
+
+
+					</ul>
+				</div>
+				<!-- /.sidebar-collapse -->
+			</div>
+			<!-- /.navbar-static-side -->
+		</nav>
 
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">Event Cause Search</h1>
+											<div class="panel-heading">Search for failures by IMSI</div>
+						<div class="input-group custom-search-form">
+							<input type="text" class="form-control" id="imsi_attr"
+								placeholder="Enter IMSI"> <span class="input-group-btn">
+								<button class="btn btn-default" type="button"
+									onclick="findByImsi()">
+									<i class="fa fa-search"></i>
+								</button>
+							</span>
+						</div>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -151,15 +172,17 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Search for failures by IMSI</div>
-						<div class="input-group custom-search-form">
-							<input type="text" class="form-control" id="imsi_attr"
-								placeholder="Enter IMSI"> <span class="input-group-btn">
-								<button class="btn btn-default" type="button" onclick="findByImsi()">
-									<i class="fa fa-search"></i>
-								</button>
-							</span>
-						</div> <!-- /input-group -->
+<!-- 						<div class="panel-heading">Search for failures by IMSI</div> -->
+<!-- 						<div class="input-group custom-search-form"> -->
+<!-- 							<input type="text" class="form-control" id="imsi_attr" -->
+<!-- 								placeholder="Enter IMSI"> <span class="input-group-btn"> -->
+<!-- 								<button class="btn btn-default" type="button" -->
+<!-- 									onclick="findByImsi()"> -->
+<!-- 									<i class="fa fa-search"></i> -->
+<!-- 								</button> -->
+<!-- 							</span> -->
+<!-- 						</div> -->
+						<!-- /input-group -->
 						<!-- /.panel-heading -->
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
@@ -212,11 +235,11 @@
 	<script>
 		$(document).ready(function() {
 			$('#dataTables-example').DataTable({
-				responsive : true
-				 "paging":   false,
+				responsive : true,
 			      "ordering": false,
-			      "info":     false
-			      "scrollY":        "200px",
+ 			      "info":     false,
+ 			      "searching" : false,
+// 			      "scrollY":        "200px",
 			        "scrollCollapse": true,
 			        "paging":         false
 				

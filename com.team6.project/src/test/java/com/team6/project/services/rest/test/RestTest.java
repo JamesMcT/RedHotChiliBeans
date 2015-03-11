@@ -3,9 +3,14 @@ package com.team6.project.services.rest.test;
 import static com.jayway.restassured.RestAssured.config;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 
+import org.apache.commons.io.FileUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -16,12 +21,14 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.After;
 import org.junit.Before;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.authentication.FormAuthConfig;
 import com.jayway.restassured.config.LogConfig;
 import com.team6.project.entities.User;
+import com.team6.project.services.DataImportServiceLocal;
 import com.team6.project.services.PersistenceServiceLocal;
 import com.team6.project.services.QueryServiceLocal;
 
@@ -29,6 +36,14 @@ public abstract class RestTest {
     
     public final static String ARCHIVE_NAME = "test";
     public final static String WEBAPP_SRC = "src/main/webapp/protected";
+    private Path testWatchPath;
+    private static final String INPUT_FILE_NAME = "dataset3A.xls";
+    private static final String PATH_TO_TEST_INPUT = "src/test/resources/";
+
+    private static final long DELAY_IN_MS = 500;
+    
+    @EJB
+    DataImportServiceLocal service;
   
     @Inject
     private PersistenceServiceLocal persistence;
@@ -85,7 +100,8 @@ public abstract class RestTest {
     }
     
     @Before
-    public void setUp(){
+    public void setUp() throws InterruptedException{
+        importDataTest();
         RestAssured.config = config()
                 .logConfig(new LogConfig(System.out, true));
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
@@ -119,12 +135,49 @@ public abstract class RestTest {
         cusSer.setRole("Customer Service");
         persistence.addUser(cusSer);
     }
-    
-   
+       
     public FormAuthConfig getformAuthConfig(){
         return new FormAuthConfig(
                               "protected/j_security_check",
                               "j_username", "j_password");
+    }
+    
+    public void importDataTest() throws InterruptedException {
+        startWatchingFolder();
+        Thread.sleep(DELAY_IN_MS);
+        copyTestSheetIntoWatchDirectory();
+        Thread.sleep(DELAY_IN_MS);
+    }
+    
+    private void startWatchingFolder() {
+        try {
+            testWatchPath = Files.createTempDirectory("ArquillanTestDir");
+            service.startDirectoryWatcher(testWatchPath.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void copyTestSheetIntoWatchDirectory() {
+        File sourceFile = new File(PATH_TO_TEST_INPUT + INPUT_FILE_NAME);
+        File destinationFile = new File(testWatchPath.resolve(INPUT_FILE_NAME)
+                .toString());
+        try {
+            FileUtils.copyFile(sourceFile, destinationFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    
+    @After
+    public void cleanTestEnvironment() {
+        try {
+            FileUtils.deleteDirectory(testWatchPath.toFile());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 

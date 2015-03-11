@@ -100,7 +100,7 @@ public class JPABaseDataDAO implements BaseDataDAO {
 
 	@Override
 	public Collection<EventCause> findByImsi(BigInteger imsi) {
-		Query q = em.createNamedQuery("BaseData.findByImsiQuery",EventCause.class);
+		Query q = em.createNamedQuery("BaseData.findEventCauseByImsi",EventCause.class);
 		q.setParameter("imsi", imsi);
 		@SuppressWarnings("unchecked")
         List<EventCause> result = q.getResultList();

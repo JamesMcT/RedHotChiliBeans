@@ -22,12 +22,9 @@ import com.team6.project.entities.UserEquipment;
 
 @Local
 public interface BaseDataDAO {
-
-//	public Collection<BaseData> findByImsi(BigInteger imsi);
 	
 	public Collection<EventCause> findByImsi(BigInteger imsi);
 
-	
 	public Collection<BaseData> findByFailureType(FailureType failureType);
 	
 	public Collection<BaseData> findByUserEquipment(UserEquipment userEquipment);

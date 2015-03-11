@@ -50,81 +50,95 @@ public class BaseDataRestTest extends RestTest {
 	private SessionFilter sessionFilter;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException {
 		super.setUp();
 		createUsers();
 		fac = getformAuthConfig();
 		sessionFilter = new SessionFilter();
-		given().filter(sessionFilter).when().get("/protected/csr/index.html")
-				.then().statusCode(200);
+
 	}
 
+	/**
+	 * Test if the restful EventCauseSearch.html page can be accessed by a
+	 * customer service representative. This is the page which currently host's
+	 * the GUI for the findEventCauseByIMSI named query.
+	 */
 	@Test
-	public void test_login_success() {
+	public void testEventCausePage() {
+
+		given().filter(sessionFilter).when()
+				.get("/protected/csr/EventCauseSearch.html").then()
+				.statusCode(200);
+
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
-				.when().get("protected/csr/index.html").then()
+				.when().get("protected/csr/EventCauseSearch.html").then()
 				.body(containsString("<title>Customer Service Rep</title>"));
 
 	}
 
+	/**
+	 * Test if getEventCause Query returns valid status code and JSON response.
+	 */
 	@Test
 	public void testGetEventCause() {
 
+		given().filter(sessionFilter).expect().statusCode(200).when()
+				.get("protected/rest/IMSIEvent/191911000423586"); // This IMSI
+																	// value has
+																	// been
+																	// taken
+																	// from Test
+																	// Data
+																	// which is
+																	// loaded
+																	// into test
+																	// database.
+
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
-				.expect().statusCode(200).contentType(ContentType.JSON).when()
-				.when().get("protected/rest/IMSIEvent/191911000456426");
-		//		.get(buildUri("protected","rest", "IMSIEvent", "191911000456426")).then().log().all();
-		// .then().body(containsString("causeCode"))
-		// given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
-		// .expect().statusCode(200).contentType(ContentType.JSON).when()
-		// .get(buildUri("protected","rest", "IMSIEvent", "1111"));
-		// .get("/protected/rest/IMSIEvent/191911000456423");
+				.expect().statusCode(200).when()
+				.get("protected/rest/IMSIEvent/191911000423586").then()
+				.contentType(ContentType.JSON);
+
 	}
 
 	/**
-	 * This test will simply make sure the RESTfulo endpoint can be reached and
-	 * that it is returning JSON even if there are no records in the database.
-	 * 
+	 * Ensure no input will return the correct HTML status code.
 	 */
-	// @Test
-	// public void testRestEndPoint() {
-	//
-	// RestAssured.config = config()
-	// .logConfig(new LogConfig(System.out, true));
-	// RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-	//
-	// expect().statusCode(200).contentType(ContentType.JSON).when()
-	// .get(buildUri("rest", "IMSIEvent", "1")).then().log().all();
-	// }
-	//
-	// @Test
-	// public void testNoInput() {
-	//
-	// RestAssured.config = config()
-	// .logConfig(new LogConfig(System.out, true));
-	// RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-	//
-	// expect().statusCode(404).when().get(buildUri("rest", "IMSIEvent", ""))
-	// .then().log().all();
-	// }
-	//
-	// @Test
-	// public void testInvalidInputType() {
-	//
-	// RestAssured.config = config()
-	// .logConfig(new LogConfig(System.out, true));
-	// RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-	//
-	// expect().statusCode(400).when().get(buildUri("rest", "IMSIEvent", " "))
-	// .then().log().all();
-	// }
 
-	private URI buildUri(String... paths) {
-		UriBuilder builder = UriBuilder.fromUri(baseURL);
-		for (String path : paths) {
-			builder.path(path);
-		}
-		return builder.build();
+	@Test
+	public void testNoInput() {
+
+		given().filter(sessionFilter).expect().statusCode(200).when()
+				.get("protected/rest/IMSIEvent/191911000423586");
+
+		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+				.expect().statusCode(404).when().get("procted/rest/IMSIEvent/");
+
 	}
+
+	/**
+	 * Test that invalid input data returns Http error code 400 = bad request.
+	 */
+	@Test
+	public void testInvalidInputType() {
+
+		given().filter(sessionFilter).expect().statusCode(200).when()
+				.get("protected/rest/IMSIEvent/A");
+
+		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+				.expect().statusCode(400).when()
+				.get("protected/rest/IMSIEvent/A");
+	}
+	
+//	@Test
+//	public void testInvalidUserType() {
+//
+//		given().filter(sessionFilter).expect().statusCode(200).when()
+//				.get("/protected/csr/EventCauseSearch.html");
+//
+//		given().auth().form("aaa", "aaa", fac).filter(sessionFilter)
+//				.expect().when()
+//				.get("/protected/csr/EventCauseSearch.html").then().statusCode(403);
+//	}
 
 }
