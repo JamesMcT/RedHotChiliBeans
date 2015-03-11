@@ -79,6 +79,12 @@ public class NetworkManagementRestService {
     		throw new WebApplicationException(response);
     	}
     	
+    	if(d1.after(new Date(System.currentTimeMillis()))){
+    		message = "Start-date can not be in the future";
+    		final Response response=Response.status(Status.BAD_REQUEST).entity(message).build();
+    		throw new WebApplicationException(response);
+    	}
+    	
     	Collection<Object[]> c = queryService.getFailureCountAndDurationPerImsiByDate(d1, d2);
     	
     	if(!(c.size() > 0)){

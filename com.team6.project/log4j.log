@@ -1,7 +1,6 @@
-main INFO  org.xnio - XNIO Version 3.0.0.GA
-main INFO  xnio.nio - XNIO NIO Implementation Version 3.0.0.GA
-main INFO  jboss.remoting - JBoss Remoting version 3.2.3.GA
-main INFO  jmx.ArquillianServiceDeployer - Deploy arquillian service: arquillian-service: 1043 assets
-main INFO  jmx.ArquillianServiceDeployer - Undeploy arquillian service: arquillian-service: 1044 assets
+MSC service thread 1-2 INFO  services.DataImportService - atStartUp() running...
+MSC service thread 1-2 INFO  services.DataImportService - Readers Intialized...
+MSC sermain INFO  jmx.ArquillianServiceDeployer - Deploy arquillian service: arquillian-service: 1319 assets
+main INFO  jmx.ArquillianServiceDeployer - Undeploy arquillian service: arquillian-service: 1320 assets
 Remoting "management-client" read-1 ERROR remote.connection - JBREM000200: Remote connection failed: java.io.IOException: An existing connection was forcibly closed by the remote host
 Remoting "endpoint" read-1 ERROR remote.connection - JBREM000200: Remote connection failed: java.io.IOException: An existing connection was forcibly closed by the remote host
