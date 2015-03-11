@@ -23,7 +23,7 @@ public class UserManagementRestTest extends RestTest {
     private SessionFilter sessionFilter;
 
     @Before
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         super.setUp();
         createUsers();
         fac = getformAuthConfig();
