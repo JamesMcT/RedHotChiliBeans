@@ -18,7 +18,7 @@ public class NetworkManagementRestServiceTest extends RestTest {
 
     private FormAuthConfig fac;
     private SessionFilter sessionFilter;
-    private Logger networkManagementLogger = org.apache.log4j.Logger.getLogger(NetworkManagementRestServiceTest.class);
+    //private Logger networkManagementLogger = org.apache.log4j.Logger.getLogger(NetworkManagementRestServiceTest.class);
 
     @Before
     public void setUp() throws InterruptedException {
@@ -34,15 +34,11 @@ public class NetworkManagementRestServiceTest extends RestTest {
         given().filter(sessionFilter).when()
                 .get("/protected/rest/networkmanagement/eventidcausecode/21060800").then()
                 .statusCode(200);
-        long beginTime = System.currentTimeMillis();
+       
         given().auth().form("nmEng", "nmEng", fac).filter(sessionFilter)
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
                 .get("/protected/rest/networkmanagement/eventidcausecode/21060800");
-        long endTime = System.currentTimeMillis();
-        double timeTaken = (endTime-beginTime)/1000.0;
-        networkManagementLogger.warn(String
-                                      .format("NetworkManagment-GetDistinctEventByTac : loading in (%s seconds)",
-                                              new DecimalFormat("0.00").format(timeTaken)));
+        
     }
 
     @Test

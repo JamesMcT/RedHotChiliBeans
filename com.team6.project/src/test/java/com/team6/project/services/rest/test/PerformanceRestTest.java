@@ -1,17 +1,18 @@
 package com.team6.project.services.rest.test;
 
 import static com.jayway.restassured.RestAssured.config;
+import static com.jayway.restassured.RestAssured.given;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.DecimalFormat;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
 
-import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.Filters;
@@ -21,36 +22,36 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.authentication.FormAuthConfig;
 import com.jayway.restassured.config.LogConfig;
-import com.team6.project.entities.User;
+import com.jayway.restassured.filter.session.SessionFilter;
+import com.jayway.restassured.http.ContentType;
 import com.team6.project.services.DataImportServiceLocal;
 import com.team6.project.services.PersistenceServiceLocal;
 import com.team6.project.services.QueryServiceLocal;
 
-public abstract class RestTest {
-    
+@RunWith(Arquillian.class)
+public class PerformanceRestTest {
+
     public final static String ARCHIVE_NAME = "test";
     public final static String WEBAPP_SRC = "src/main/webapp/protected";
     private Path testWatchPath;
-    private static final String INPUT_FILE_NAME = "Dataset_LONG2.xls";
+    private static final String INPUT_FILE_NAME = "Dataset_LONG.xls";
     private static final String PATH_TO_TEST_INPUT = "src/test/resources/";
 
     private static final long DELAY_IN_MS = 500;
-    
-    private static volatile boolean importComplete = false;
-    private static volatile boolean usersCreated = false;
-    
+
     @EJB
     DataImportServiceLocal service;
-  
+
     @Inject
     private PersistenceServiceLocal persistence;
-    
+
     @Inject
     private QueryServiceLocal query;
 
@@ -65,7 +66,7 @@ public abstract class RestTest {
                              "com.team6.project.dao",
                              "com.team6.project.dao.jpa",
                              "com.team6.project.validators")
-                .addAsResource("test-persistence.xml",
+                .addAsResource("test-persistence-performance.xml",
                                "META-INF/persistence.xml")
                 .merge(ShrinkWrap.create(GenericArchive.class)
                                .as(ExplodedImporter.class)
@@ -73,7 +74,7 @@ public abstract class RestTest {
                                .as(GenericArchive.class), "protected",
                        Filters.includeAll())
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"))
-                .addAsWebInfResource("test-jboss-web.xml", "jboss-web.xml")
+                .addAsWebInfResource("test-jboss-performance.xml", "jboss-web.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE,
                                      ArchivePaths.create("beans.xml"));
         File[] files = Maven.resolver()
@@ -93,101 +94,51 @@ public abstract class RestTest {
                 .resolve("commons-logging:commons-logging:1.1.3")
                 .withTransitivity().as(File.class);
         a.addAsLibraries(files);
-        
-        files = Maven.resolver()
-                .resolve("org.glassfish:javax.json:1.0")
+
+        files = Maven.resolver().resolve("org.glassfish:javax.json:1.0")
                 .withTransitivity().as(File.class);
         a.addAsLibraries(files);
 
         return a;
     }
     
+    private FormAuthConfig fac;
+    private SessionFilter sessionFilter;
+    private Logger performanceLogger = org.apache.log4j.Logger.getLogger(PerformanceRestTest.class);
+
     @Before
-    public void setUp() throws InterruptedException{
-    	if(!importComplete){
-	        importDataTest();
-	        RestAssured.config = config()
-	                .logConfig(new LogConfig(System.out, true));
-	        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-	        RestAssured.basePath = ARCHIVE_NAME;
-	        RestAssured.port = 18080;
-	        importComplete = true;
-    	}
+    public void setUp() throws InterruptedException {
+        RestAssured.config = config()
+                .logConfig(new LogConfig(System.out, true));
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+        RestAssured.basePath = ARCHIVE_NAME;
+        RestAssured.port = 18080;
+        fac = getformAuthConfig();
+        sessionFilter = new SessionFilter();
     }
     
-    public void createUsers() {
-        if(!usersCreated){
-	        User admin = new User();
-	        admin.setUserId("admin");
-	        admin.setPassword("admin");
-	        admin.setRole("administrator");
-	        persistence.addUser(admin);
-	        
-	        User nmEng = new User();
-	        nmEng.setUserId("nmEng");
-	        nmEng.setPassword("nmEng");
-	        nmEng.setRole("Network Management Engineer");
-	        persistence.addUser(nmEng);
-	        
-	        User supEng = new User();
-	        supEng.setUserId("supEng");
-	        supEng.setPassword("supEng");
-	        supEng.setRole("Support Engineer");
-	        persistence.addUser(supEng);
-	        
-	        User cusSer = new User();
-	        cusSer.setUserId("cusSer");
-	        cusSer.setPassword("cusSer");
-	        cusSer.setRole("Customer Service");
-	        persistence.addUser(cusSer);
-	        
-	        usersCreated = true;
-        }
+    @Test
+    public void testGetDistinctEventByTac() {
+        given().filter(sessionFilter).when()
+                .get("/protected/rest/networkmanagement/eventidcausecode/21060800").then()
+                .statusCode(200);
+        long beginTime = System.currentTimeMillis();
+        given().auth().form("cristi", "password", fac).filter(sessionFilter)
+                .expect().statusCode(200).contentType(ContentType.JSON).when()
+                .get("/protected/rest/networkmanagement/eventidcausecode/21060800");
+        long endTime = System.currentTimeMillis();
+        double timeTaken = (endTime-beginTime)/1000.0;
+        performanceLogger.warn(String
+                                      .format("NetworkManagment-GetDistinctEventByTac : loading in (%s seconds)",
+                                              new DecimalFormat("0.00").format(timeTaken)));
     }
-       
+
+    
+    
+    
     public FormAuthConfig getformAuthConfig(){
         return new FormAuthConfig(
                               "protected/j_security_check",
                               "j_username", "j_password");
     }
-    
-    public void importDataTest() throws InterruptedException {
-        startWatchingFolder();
-        Thread.sleep(DELAY_IN_MS);
-        copyTestSheetIntoWatchDirectory();
-        Thread.sleep((DELAY_IN_MS*2)*2);
-    }
-    
-    private void startWatchingFolder() {
-        try {
-            testWatchPath = Files.createTempDirectory("ArquillanTestDir");
-            service.startDirectoryWatcher(testWatchPath.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void copyTestSheetIntoWatchDirectory() {
-        File sourceFile = new File(PATH_TO_TEST_INPUT + INPUT_FILE_NAME);
-        File destinationFile = new File(testWatchPath.resolve(INPUT_FILE_NAME)
-                .toString());
-        try {
-            FileUtils.copyFile(sourceFile, destinationFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    
-    @After
-    public void cleanTestEnvironment() {
-//        try {
-//            FileUtils.deleteDirectory(testWatchPath.toFile());
-//        } catch (IOException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-    }
-
-
 }
