@@ -4,11 +4,7 @@ import static com.jayway.restassured.RestAssured.config;
 import static com.jayway.restassured.RestAssured.given;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.text.DecimalFormat;
-
-import javax.ejb.EJB;
-import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -31,29 +27,13 @@ import com.jayway.restassured.authentication.FormAuthConfig;
 import com.jayway.restassured.config.LogConfig;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
-import com.team6.project.services.DataImportServiceLocal;
-import com.team6.project.services.PersistenceServiceLocal;
-import com.team6.project.services.QueryServiceLocal;
 
 @RunWith(Arquillian.class)
 public class PerformanceRestTest {
 
     public final static String ARCHIVE_NAME = "test";
     public final static String WEBAPP_SRC = "src/main/webapp/protected";
-    private Path testWatchPath;
-    private static final String INPUT_FILE_NAME = "Dataset_LONG.xls";
-    private static final String PATH_TO_TEST_INPUT = "src/test/resources/";
 
-    private static final long DELAY_IN_MS = 500;
-
-    @EJB
-    DataImportServiceLocal service;
-
-    @Inject
-    private PersistenceServiceLocal persistence;
-
-    @Inject
-    private QueryServiceLocal query;
 
     @Deployment
     public static Archive<?> createDeployment() {
