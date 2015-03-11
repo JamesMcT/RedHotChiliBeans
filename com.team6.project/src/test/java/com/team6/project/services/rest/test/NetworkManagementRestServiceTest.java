@@ -40,6 +40,18 @@ public class NetworkManagementRestServiceTest extends RestTest {
                 .get("/protected/rest/networkmanagement/eventidcausecode/21060800");
         
     }
+    
+    @Test
+    public void testGetDistinctEventByTac_NotValidTac() {
+        given().filter(sessionFilter).when()
+                .get("/protected/rest/networkmanagement/eventidcausecode/ciao").then()
+                .statusCode(200);
+       
+        given().auth().form("nmEng", "nmEng", fac).filter(sessionFilter)
+                .expect().statusCode(400).when()
+                .get("/protected/rest/networkmanagement/eventidcausecode/ciao");
+        
+    }
 
     @Test
     public void testGetAllUser_NotAllowed() {

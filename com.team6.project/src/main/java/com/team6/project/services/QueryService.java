@@ -46,9 +46,8 @@ public class QueryService implements QueryServiceLocal{
     }
 
    @Override
-    public Collection<Object[]> getDistinctEventByTac(String ue) {
-        Integer tac = Integer.parseInt(ue);
-        return baseData.getDistinctEventByTac(tac);
+    public Collection<Object[]> getDistinctEventByTac(Integer ue) {
+        return baseData.getDistinctEventByTac(ue);
     }
 
     @Override

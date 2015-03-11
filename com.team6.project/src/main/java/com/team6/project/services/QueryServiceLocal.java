@@ -22,7 +22,7 @@ public interface QueryServiceLocal {
 	
 	public Collection<User> getAllUser();
 	
-	public Collection<Object[]> getDistinctEventByTac(String ue);
+	public Collection<Object[]> getDistinctEventByTac(Integer ue);
 	
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate);
 }

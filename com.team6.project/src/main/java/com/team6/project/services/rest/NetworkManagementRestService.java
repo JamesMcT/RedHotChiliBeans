@@ -23,82 +23,72 @@ import com.team6.project.dao.jpa.JPABaseDataDAO;
 import com.team6.project.services.QueryServiceLocal;
 
 /**
- * Restful Service Class for managing the 
- * Network Management Engineer requests
+ * Restful Service Class for managing the Network Management Engineer requests
  * 
  * @author Cristiana Conti
  */
 @Path("/networkmanagement")
 public class NetworkManagementRestService {
-    
+
     @Inject
     QueryServiceLocal queryService;
-    
+
     @Context
     private HttpServletResponse response;
-    
+
     @GET
     @Path("/eventidcausecode/{userequipment}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Object[]> getDistinctEventByTac(@PathParam("userequipment") String userequipment){
-        return queryService.getDistinctEventByTac(userequipment);
+    public Collection<Object[]> getDistinctEventByTac(
+            @PathParam("userequipment") String userequipment) {
+        try {
+            Integer tac = Integer.parseInt(userequipment);
+            return queryService.getDistinctEventByTac(tac);
+        } catch (NumberFormatException e) {
+            String message = e.getMessage();
+            final Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+
     }
 
     @GET
     @Path("/failurecountandduration")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(
-    							@QueryParam("startDate") String dateString1,
-    							@QueryParam("endDate") String dateString2)
-    {
-    	
-    	SimpleDateFormat sdf = new SimpleDateFormat(JPABaseDataDAO.MYSQL_DATE_FORMAT);
-    	Date d1 = new Date();
-    	Date d2 = new Date();
-    	
-    	//validate dates here, return error if needed
-    	try{
-    		d1 = sdf.parse(dateString1);
-    		d2 = sdf.parse(dateString2);
-    	}
-    	catch(ParseException pe){
-    		String message = pe.getMessage();
-    		final Response response=Response.status(Status.BAD_REQUEST).entity(message).build();
-    		throw new WebApplicationException(response);
-    	}
-    	
-    	Collection<Object[]> c = queryService.getFailureCountAndDurationPerImsiByDate(d1, d2);
-    	
-    	if(!(c.size() > 0)){
-    		String message = String.format("No results for given date range '%s'->'%s'.",dateString1,dateString2);
-    		final Response response=Response.status(Status.NOT_FOUND).entity(message).build();
-    		throw new WebApplicationException(response);
-    	}
-    	
-    	return c;
+            @QueryParam("startDate") String dateString1,
+            @QueryParam("endDate") String dateString2) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat(
+                                                    JPABaseDataDAO.MYSQL_DATE_FORMAT);
+        Date d1 = new Date();
+        Date d2 = new Date();
+
+        // validate dates here, return error if needed
+        try {
+            d1 = sdf.parse(dateString1);
+            d2 = sdf.parse(dateString2);
+        } catch (ParseException pe) {
+            String message = pe.getMessage();
+            final Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+
+        Collection<Object[]> c = queryService
+                .getFailureCountAndDurationPerImsiByDate(d1, d2);
+
+        if (!(c.size() > 0)) {
+            String message = String
+                    .format("No results for given date range '%s'->'%s'.",
+                            dateString1, dateString2);
+            final Response response = Response.status(Status.NOT_FOUND)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+
+        return c;
     }
-    
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
