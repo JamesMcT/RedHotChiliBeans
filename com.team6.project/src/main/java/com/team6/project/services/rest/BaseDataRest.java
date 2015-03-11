@@ -22,29 +22,37 @@ public class BaseDataRest {
 
 	@Inject
 	BaseDataServiceLocal baseDataServiceLocal;
-	
-	public BaseDataRest(){}
+
+	public BaseDataRest() {
+	}
 
 	@GET
 	@Path("/datequery")
 	@Produces(MediaType.APPLICATION_JSON)
-
-	public Collection<BaseData> findImsiByDate(@QueryParam("firstDate") String firstDate, @QueryParam("secondDate") String secondDate) {
+	public Collection<BaseData> findImsiByDate(
+			@QueryParam("firstDate") String firstDate,
+			@QueryParam("secondDate") String secondDate) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-	    Date first = null;
-	    Date second = null;
+		// Date first = new Date();
+		// Date second = new Date();
 
-			try {
-				first = sdf.parse(firstDate);
-				second = sdf1.parse(secondDate);
+		// first.setTime(firstDate);
+		// second.setTime(secondDate);
+		Date first = null;
+		Date second = null;
 
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			first = sdf.parse(firstDate);
+			second = sdf1.parse(secondDate);
+
+		} catch (ParseException | NullPointerException e) {
+			System.out.println("null pointer:::" + e);
+			e.printStackTrace();
+		}
+
 		System.out.println("1date" + first + "2date" + second);
-		return baseDataServiceLocal.findImsiByDate(first,second);
+		return baseDataServiceLocal.findImsiByDate(first, second);
 	}
 }
