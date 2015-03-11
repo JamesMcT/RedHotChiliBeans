@@ -32,6 +32,12 @@
 
 		var startDate = document.getElementById("startDate").value;
 		var endDate = document.getElementById("endDate").value;
+
+		if(document.getElementById("validationEnabled").checked){
+			if(!validateDate(startDate, "Invalid start date") || !validateDate(endDate, "Invalid end date")){
+				return false;
+			}
+		}
 		
 		var xhr = new XMLHttpRequest();
 		var root = "${pageContext.servletContext.contextPath}";
@@ -55,6 +61,18 @@
 		xhr.send();
 	}
 
+	function validateDate(dateString, errorMessage){
+		//yyyy-mm-dd hh-mm-ss
+		regexPattern = /^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$/;
+		if(dateString.match(regexPattern)){
+			return true;
+		}
+		else{
+			showError(errorMessage + ": " + dateString);
+			return false;
+		}
+	}
+	
 	function showError(message){
 		var errorDiv = document.getElementById("errorDiv");
 		errorDiv.innerHTML = message;
@@ -179,6 +197,7 @@
 							<br/> 
 							<input type='button' onclick="getFailureData()"
 								value="show data" /> <br>
+							<input type='checkbox' name='validationEnabled' id='validationEnabled' value='JS Validation Enabled'/> JS Validation Enabled<br/>
 						</div>
 						<!-- /#div1 -->
 					</div>
