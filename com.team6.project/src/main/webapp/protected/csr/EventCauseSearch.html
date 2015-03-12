@@ -76,7 +76,7 @@
 
 					var eventCause = JSON.parse(xmlhttp.responseText);
 					var myTable = "<table id = 'eventCauseTable' class = 'table table-striped table-bordered table-hover'> ";
-					myTable += "<thead><tr><th>Cause Code</th><th>Event Id</th><th>Description</th></tr></thead><tfoot><tr><th>Cause Code</th><th>Event Id</th><th>Description</th></tr></tfoot><tbody>";
+					myTable += "<thead><tr><th>Cause Code</th><th>Event Id</th><th>Description</th></tr></thead><tfoot><tr><th>Cause Code</th><th>Event Id</th><th>Description</th></tr></tfoot><tbody id="tableBody">";
 					for ( var i in eventCause) {
 
 						var causeCode = eventCause[i].causeCode;
@@ -96,11 +96,17 @@
 
 			}
 		} else {
+			document.getElementById("dataTables-example").innerHTML = myTable;
 			//alert("Imsi Validation has failed.....")
 		}
 	}
-</script>
+
+	
+	</script>
+
+
 <script src="../../js/common.js"></script>
+
 
 </head>
 
