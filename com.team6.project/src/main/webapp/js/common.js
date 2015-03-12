@@ -5,3 +5,10 @@ function loadbar(href) {
 		xmlhttp.send();
 		sidebar.innerHTML = xmlhttp.responseText;
 	}
+
+function showDiv(divId) {
+	document.getElementById(divId).style.display = 'block';
+}
+function hideDiv(divId) {
+	document.getElementById(divId).style.display = 'none';
+}

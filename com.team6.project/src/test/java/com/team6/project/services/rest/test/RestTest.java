@@ -37,10 +37,13 @@ public abstract class RestTest {
     public final static String ARCHIVE_NAME = "test";
     public final static String WEBAPP_SRC = "src/main/webapp/protected";
     private Path testWatchPath;
-    private static final String INPUT_FILE_NAME = "Dataset_LONG.xls";
+    private static final String INPUT_FILE_NAME = "Dataset_LONG2.xls";
     private static final String PATH_TO_TEST_INPUT = "src/test/resources/";
 
     private static final long DELAY_IN_MS = 500;
+    
+    private static volatile boolean importComplete = false;
+    private static volatile boolean usersCreated = false;
     
     @EJB
     DataImportServiceLocal service;
@@ -101,39 +104,45 @@ public abstract class RestTest {
     
     @Before
     public void setUp() throws InterruptedException{
-        importDataTest();
-        RestAssured.config = config()
-                .logConfig(new LogConfig(System.out, true));
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        RestAssured.basePath = ARCHIVE_NAME;
-        RestAssured.port = 18080;
+    	if(!importComplete){
+	        importDataTest();
+	        RestAssured.config = config()
+	                .logConfig(new LogConfig(System.out, true));
+	        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+	        RestAssured.basePath = ARCHIVE_NAME;
+	        RestAssured.port = 18080;
+	        importComplete = true;
+    	}
     }
     
     public void createUsers() {
-        
-        User admin = new User();
-        admin.setUserId("admin");
-        admin.setPassword("admin");
-        admin.setRole("administrator");
-        persistence.addUser(admin);
-        
-        User nmEng = new User();
-        nmEng.setUserId("nmEng");
-        nmEng.setPassword("nmEng");
-        nmEng.setRole("Network Management Engineer");
-        persistence.addUser(nmEng);
-        
-        User supEng = new User();
-        supEng.setUserId("supEng");
-        supEng.setPassword("supEng");
-        supEng.setRole("Support Engineer");
-        persistence.addUser(supEng);
-        
-        User cusSer = new User();
-        cusSer.setUserId("cusSer");
-        cusSer.setPassword("cusSer");
-        cusSer.setRole("Customer Service");
-        persistence.addUser(cusSer);
+        if(!usersCreated){
+	        User admin = new User();
+	        admin.setUserId("admin");
+	        admin.setPassword("admin");
+	        admin.setRole("administrator");
+	        persistence.addUser(admin);
+	        
+	        User nmEng = new User();
+	        nmEng.setUserId("nmEng");
+	        nmEng.setPassword("nmEng");
+	        nmEng.setRole("Network Management Engineer");
+	        persistence.addUser(nmEng);
+	        
+	        User supEng = new User();
+	        supEng.setUserId("supEng");
+	        supEng.setPassword("supEng");
+	        supEng.setRole("Support Engineer");
+	        persistence.addUser(supEng);
+	        
+	        User cusSer = new User();
+	        cusSer.setUserId("cusSer");
+	        cusSer.setPassword("cusSer");
+	        cusSer.setRole("Customer Service");
+	        persistence.addUser(cusSer);
+	        
+	        usersCreated = true;
+        }
     }
        
     public FormAuthConfig getformAuthConfig(){
@@ -146,7 +155,7 @@ public abstract class RestTest {
         startWatchingFolder();
         Thread.sleep(DELAY_IN_MS);
         copyTestSheetIntoWatchDirectory();
-        Thread.sleep(DELAY_IN_MS);
+        Thread.sleep((DELAY_IN_MS*2)*5);
     }
     
     private void startWatchingFolder() {
@@ -172,12 +181,12 @@ public abstract class RestTest {
     
     @After
     public void cleanTestEnvironment() {
-        try {
-            FileUtils.deleteDirectory(testWatchPath.toFile());
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+//        try {
+//            FileUtils.deleteDirectory(testWatchPath.toFile());
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
     }
 
 

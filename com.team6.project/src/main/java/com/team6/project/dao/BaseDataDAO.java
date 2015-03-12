@@ -2,6 +2,7 @@ package com.team6.project.dao;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Local;
 
@@ -47,6 +48,8 @@ public interface BaseDataDAO {
 	public long getBaseDataCount();
 	
 	public Collection<Object[]> getDistinctEventByTac(Integer ue);
+	
+	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end);
 	
 //	public void updateBaseData(BaseData baseData);
 

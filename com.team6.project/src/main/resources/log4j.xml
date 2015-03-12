@@ -22,6 +22,9 @@
 	<logger name="com.team6.project.readers.Reader">
 		<level value="warn" />
 	</logger>
+	<logger name="com.team6.project.service.rest.test.PerformanceRestTest">
+		<level value="warn" />
+	</logger>
 	<root>
 		<priority value="info" />
 		<appender-ref ref="file" />
