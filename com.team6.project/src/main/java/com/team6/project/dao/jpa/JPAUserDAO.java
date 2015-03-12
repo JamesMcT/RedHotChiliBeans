@@ -12,6 +12,11 @@ import com.team6.project.dao.UserDAO;
 import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 
+
+/**
+ * 
+ * @author Cristiana Conti
+ */
 @Stateless
 @Local
 @DeclareRoles({ "administrator" })

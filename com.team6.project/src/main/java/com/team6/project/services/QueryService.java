@@ -2,6 +2,7 @@ package com.team6.project.services;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Local;
 import javax.inject.Inject;
@@ -65,9 +66,13 @@ public class QueryService implements QueryServiceLocal{
 
 
    @Override
-    public Collection<Object[]> getDistinctEventByTac(String ue) {
-        Integer tac = Integer.parseInt(ue);
-        return baseData.getDistinctEventByTac(tac);
+    public Collection<Object[]> getDistinctEventByTac(Integer ue) {
+        return baseData.getDistinctEventByTac(ue);
+    }
+
+    @Override
+    public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate) {
+    	return baseData.getFailureCountAndDurationPerImsiByDate(startDate, endDate);
     }
 
 }

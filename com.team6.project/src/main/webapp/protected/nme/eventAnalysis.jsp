@@ -150,7 +150,7 @@
 					<div>
 						<div id="div1">
 							<select name="tacs" id="tacs" class="form-control">
-							</select> <br> <input type='button' onclick="getEventIdCauseCode()"
+							</select> <br> <input type='button' class="btn btn-default" onclick="getEventIdCauseCode()"
 								value="show data" /> <br>
 						</div>
 						<!-- /#div1 -->
