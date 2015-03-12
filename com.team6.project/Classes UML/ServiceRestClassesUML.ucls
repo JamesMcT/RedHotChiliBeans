@@ -15,7 +15,7 @@
   <class id="2" language="java" name="com.team6.project.services.rest.UserEquipmentRest" project="com.team6.project" 
     file="/com.team6.project/src/main/java/com/team6/project/services/rest/UserEquipmentRest.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="53" width="146" x="231" y="93"/>    
+    <position height="-1" width="-1" x="320" y="44"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
@@ -26,27 +26,17 @@
     project="com.team6.project" 
     file="/com.team6.project/src/main/java/com/team6/project/services/rest/UserManagmentRestService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="53" width="187" x="417" y="93"/>    
+    <position height="-1" width="-1" x="324" y="120"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="com.team6.project.services.rest.FileImportRestService" project="com.team6.project" 
-    file="/com.team6.project/src/main/java/com/team6/project/services/rest/FileImportRestService.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="53" width="149" x="644" y="93"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
-      <operations public="false" package="false" protected="false" private="false" static="false"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="com.team6.project.services.rest.BaseDataRest" project="com.team6.project" 
+  <class id="4" language="java" name="com.team6.project.services.rest.BaseDataRest" project="com.team6.project" 
     file="/com.team6.project/src/main/java/com/team6/project/services/rest/BaseDataRest.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="53" width="146" x="833" y="93"/>    
+    <position height="-1" width="-1" x="101" y="44"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="false"/>      
