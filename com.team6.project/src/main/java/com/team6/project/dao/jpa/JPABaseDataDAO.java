@@ -2,6 +2,7 @@ package com.team6.project.dao.jpa;
 
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +37,7 @@ import com.team6.project.entities.UserEquipment;
 public class JPABaseDataDAO implements BaseDataDAO {
 
 	public final static int BATCH_SIZE = 2000;
+	public static final String MYSQL_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
 	
 	@PersistenceContext
 	EntityManager em;
@@ -200,5 +202,20 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	}
     
     
+
+    @Override
+    public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end){
+    	
+    	//SimpleDateFormat sdf = new SimpleDateFormat(MYSQL_DATE_FORMAT);
+    	//String d1 = sdf.format(start);
+    	//String d2 = sdf.format(end);
+    	
+    	Query q = em.createNamedQuery("failureCountAndDurationPerImsiByDate");
+    	q.setParameter("startDate", start);
+    	q.setParameter("endDate", end);
+    	
+    	return q.getResultList();
+    }
+
     
 }

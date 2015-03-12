@@ -23,10 +23,12 @@ public interface QueryServiceLocal {
 	
 	public Collection<User> getAllUser();
 	
-	public Collection<Object[]> getDistinctEventByTac(String ue);
+	public Collection<Object[]> getDistinctEventByTac(Integer ue);
 	
 	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
 			
 	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate);
 	
+	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate);
+
 }

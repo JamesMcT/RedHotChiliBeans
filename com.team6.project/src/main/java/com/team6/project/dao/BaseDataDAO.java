@@ -53,6 +53,9 @@ public interface BaseDataDAO {
 	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
 	
 	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate);
+
+	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end);
+
 	
 //	public void updateBaseData(BaseData baseData);
 

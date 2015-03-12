@@ -17,7 +17,7 @@ import com.team6.project.services.QueryServiceLocal;
 /**
  * Restful Service Class for managing the 
  * users of the system
- * @author Cristiana
+ * @author Cristiana Conti
  *
  */
 @Path("/usermanagement")
