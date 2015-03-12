@@ -7,12 +7,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Add New User Page">
 <meta name="author" content="Cristiana">
-
 <title>Red Hot Chilli Beans</title>
-
 <!-- Adding CSS -->
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
 <link href="../../css/sb-admin-2.css" rel="stylesheet">
+<link href="../../css/text-box.css" rel="stylesheet">
 <!-- Adding functions -->
 <script src="../../js/common.js"></script>
 <script>
@@ -20,6 +19,8 @@
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
 		var userRole = document.getElementById("userRole").value;
+		hideDiv("div6");
+		hideDiv("div7");
 		if (username && password && userRole) {
 			var u = {};
 			u.userId = username;
@@ -29,40 +30,42 @@
 			var root = "${pageContext.servletContext.contextPath}";
 			xhr.open("POST", root + "/protected/rest/usermanagement/add", true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.addEventListener('load', function() {
-				if (xhr.status == 200) {
-					var response = JSON.parse(xhr.responseText);
-					if (response.description) {
-						alert("Status : " + response.status
-								+ " \n Description : " + response.description);
-					} else {
-						alert("New user inserted with success! \n Status : "
-								+ response.status);
-					}
-				}
-			}, false);
+			xhr
+					.addEventListener(
+							'load',
+							function() {
+								if (xhr.status == 200) {
+									var response = JSON.parse(xhr.responseText);
+									if (response.description) {
+										document.getElementById("div7").innerHTML = ("Error! - " + response.description);
+										showDiv("div7");
+									} else {
+										showDiv("div6");
+									}
+								}
+							}, false);
 			xhr.send(JSON.stringify(u));
-
 			clean();
 		} else {
 			alert("Fields are mandatory!");
 		}
 	}
-
 	function clean() {
 		document.getElementById("username").value = "";
 		document.getElementById("password").value = "";
 	}
+	function startup() {
+		loadbar('../sidebar.jsp');
+		hideDiv("div6");
+		hideDiv("div7");
+	}
 </script>
 <head>
-<body onload="loadbar('../sidebar.jsp')">
-
+<body onload="startup()">
 	<div id="wrapper">
-
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
 			style="margin-bottom: 0" id="navigation"> </nav>
-
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
@@ -87,15 +90,18 @@
 							</select> <br>
 						</div>
 						<div>
-							<br> <input type='button' class="btn btn-default" onclick="addUser()" value="submit" />
+							<br> <input type='button' class="btn btn-default"
+								onclick="addUser()" value="submit" />
 						</div>
+						<div id="div6" class="success">New user inserted with
+							success!</div>
+						<div id="div7" class="error"></div>
 					</div>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
 		</div>
 		<!-- /#page-wrapper -->
-
 	</div>
 	<!-- /#wrapper -->
 </body>
