@@ -80,22 +80,22 @@ public class UserManagementRestServiceTest extends RestTest {
     }
 
 
-   /* @Test
+/*    @Test
     public void testAddNewUser() {
         String myJson = "{\"userId\":\"admin2\",\"password\":\"password\",\"role\":\"administrator\"}";
 
         given().auth().form("admin", "admin", fac).filter(sessionFilter)
-                .contentType("application/json").body(myJson).expect()
+                .contentType(ContentType.JSON).body(myJson).expect()
                 .statusCode(200).when()
                 .post("/protected/rest/usermanagement/add");
         
         given().auth().form("admin", "admin", fac).filter(sessionFilter)
-        .contentType("application/json").body(myJson).expect()
+        .contentType(ContentType.JSON).body(myJson).expect()
         .statusCode(200).when()
         .post("/protected/rest/usermanagement/add");
 
-    }
-    */
+    }*/
+    
    
 
 }

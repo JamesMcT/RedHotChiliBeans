@@ -39,7 +39,7 @@ public class NetworkManagementRestServiceTest extends RestTest {
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
                 .get("/protected/rest/networkmanagement/eventidcausecode/21060800");
         long endTime = System.currentTimeMillis();
-        long timeTaken = (endTime-beginTime)/1000;
+        double timeTaken = (endTime-beginTime)/1000.0;
         networkManagementLogger.warn(String
                                       .format("NetworkManagment-GetDistinctEventByTac : loading in (%s seconds)",
                                               new DecimalFormat("0.00").format(timeTaken)));
