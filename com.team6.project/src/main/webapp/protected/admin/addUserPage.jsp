@@ -55,7 +55,7 @@
 	}
 </script>
 <head>
-<body onload="loadbar('sidebar.html')">
+<body onload="loadbar('../sidebar.jsp')">
 
 	<div id="wrapper">
 
@@ -87,7 +87,7 @@
 							</select> <br>
 						</div>
 						<div>
-							<br> <input type='button' onclick="addUser()" value="submit" />
+							<br> <input type='button' class="btn btn-default" onclick="addUser()" value="submit" />
 						</div>
 					</div>
 				</div>
