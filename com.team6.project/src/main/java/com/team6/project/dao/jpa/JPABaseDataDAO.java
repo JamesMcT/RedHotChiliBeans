@@ -16,6 +16,7 @@ import org.hibernate.Session;
 
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.entities.BaseData;
+import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountryPK;
@@ -100,11 +101,11 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	}
 
 	@Override
-	public Collection<BaseData> findByImsi(BigInteger imsi) {
-		Query q = em.createQuery("from BaseData where imsi = :code");
-		q.setParameter("code", imsi);
+	public Collection<EventCause> findByImsi(BigInteger imsi) {
+		Query q = em.createNamedQuery("BaseData.findEventCauseByImsi",EventCause.class);
+		q.setParameter("imsi", imsi);
 		@SuppressWarnings("unchecked")
-        List<BaseData> result = q.getResultList();
+        List<EventCause> result = q.getResultList();
 		return result;
 	}
 

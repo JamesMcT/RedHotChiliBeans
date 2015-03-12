@@ -34,8 +34,10 @@ public class NetworkManagementRestServiceTest extends RestTest {
         given().filter(sessionFilter).when()
                 .get("/protected/rest/networkmanagement/eventidcausecode/21060800").then()
                 .statusCode(200);
-       
-        given().auth().form("nmEng", "nmEng", fac).filter(sessionFilter)
+
+        long beginTime = System.currentTimeMillis();
+        given().auth().form("admin", "admin", fac).filter(sessionFilter)
+
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
                 .get("/protected/rest/networkmanagement/eventidcausecode/21060800");
         

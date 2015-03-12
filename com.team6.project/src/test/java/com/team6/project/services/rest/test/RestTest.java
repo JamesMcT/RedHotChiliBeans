@@ -155,7 +155,9 @@ public abstract class RestTest {
         startWatchingFolder();
         Thread.sleep(DELAY_IN_MS);
         copyTestSheetIntoWatchDirectory();
+
         Thread.sleep((DELAY_IN_MS*2)*5);
+
     }
     
     private void startWatchingFolder() {
