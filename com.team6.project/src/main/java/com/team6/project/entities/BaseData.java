@@ -9,51 +9,69 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
 
 /**
+ * @author Cristiana BaseData table
+ * @author James NamedQueries
+ * BaseData table
  * 
  * @author Cristiana
  *
  */
+
+
+
+//@NamedQueries({ @NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi") })
+
+
 @NamedQueries({
-@NamedQuery(name="baseDataCount", query="SELECT COUNT(b.id) FROM BaseData b"),
-@NamedQuery(name="getImsiByDate", query="from BaseData b where b.date between :firstDate and :secondDate"),
-@NamedQuery(name = "eventCauseAndIdByTac", query = "SELECT b.eventCause, COUNT(b) FROM BaseData b where b.userEquipment.tac=:userEquipment GROUP BY b.eventCause"),
-@NamedQuery(name = "failureCountAndDurationPerImsiByDate", query = "SELECT b.imsi, COUNT(b.id), SUM(b.duration) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC")})
+@NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi"),
+        @NamedQuery(name = "baseDataCount", query = "SELECT COUNT(b.id) FROM BaseData b") ,
+        @NamedQuery(name="getImsiByDate", query="SELECT b.imsi, b.date from BaseData b where b.date between :firstDate and :secondDate"),
+        @NamedQuery(name = "eventCauseAndIdByTac", query = "SELECT b.eventCause, COUNT(b) FROM BaseData b where b.userEquipment.tac=:userEquipment GROUP BY b.eventCause"),
+        @NamedQuery(name = "failureCountAndDurationPerImsiByDate", query = "SELECT b.imsi, COUNT(b.id), SUM(b.duration) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC")})
+
 @Entity
-public class BaseData implements Serializable{
- 
-   
-   //@GeneratedValue(strategy=GenerationType.IDENTITY)
-   @Id
-   @Column(name="id", unique=true, nullable=false)
-   private Integer id;
-   
-   private Date date;
-   @ManyToOne
-   private EventCause eventCause;
-   @ManyToOne
-   private FailureType failure;
-   @ManyToOne
-   private UserEquipment userEquipment;
-   @ManyToOne
-   private OperatorCountry operatorCountry;
-   private Integer cellId;
-   private Integer duration;
-   private String neVersion;
-   @Column(name = "imsi", precision=20, scale=0)
-   private BigInteger imsi;
-   @Column(name = "hier3Id", precision=20, scale=0)
-   private BigInteger hier3Id;
-   @Column(name = "hier32Id", precision=20, scale=0)
-   private BigInteger hier32Id;
-   @Column(name = "hier321Id", precision=20, scale=0)
-   private BigInteger hier321Id;
-   
-   public BaseData() {}
-   
+public class BaseData implements Serializable {
+
+    public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Id
+    @Column(name = "id", unique = true, nullable = false)
+    private Integer id;
+
+    private Date date;
+    @ManyToOne
+    private EventCause eventCause;
+    @ManyToOne
+    private FailureType failure;
+    @ManyToOne
+    private UserEquipment userEquipment;
+    @ManyToOne
+    private OperatorCountry operatorCountry;
+    private Integer cellId;
+    private Integer duration;
+    private String neVersion;
+    @Column(name = "imsi", precision = 20, scale = 0)
+    private BigInteger imsi;
+    @Column(name = "hier3Id", precision = 20, scale = 0)
+    private BigInteger hier3Id;
+    @Column(name = "hier32Id", precision = 20, scale = 0)
+    private BigInteger hier32Id;
+    @Column(name = "hier321Id", precision = 20, scale = 0)
+    private BigInteger hier321Id;
+
+    public BaseData() {
+    }
 
     @Override
     public int hashCode() {
@@ -159,227 +177,106 @@ public boolean equals(Object obj) {
 		return false;
 	return true;
 }
+	
+	
+	public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public EventCause getEventCause() {
+        return eventCause;
+    }
+
+    public void setEventCause(EventCause eventCause) {
+        this.eventCause = eventCause;
+    }
+
+    public FailureType getFailure() {
+        return failure;
+    }
+
+    public void setFailure(FailureType failure) {
+        this.failure = failure;
+    }
+
+    public UserEquipment getUserEquipment() {
+        return userEquipment;
+    }
+
+    public void setUserEquipment(UserEquipment userEquipment) {
+        this.userEquipment = userEquipment;
+    }
+
+    public OperatorCountry getOperatorCountry() {
+        return operatorCountry;
+    }
+
+    public void setOperatorCountry(OperatorCountry operatorCountry) {
+        this.operatorCountry = operatorCountry;
+    }
+
+    public Integer getCellId() {
+        return cellId;
+    }
+
+    public void setCellId(Integer cellId) {
+        this.cellId = cellId;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    public String getNeVersion() {
+        return neVersion;
+    }
+
+    public void setNeVersion(String neVersion) {
+        this.neVersion = neVersion;
+    }
+
+    public BigInteger getImsi() {
+        return imsi;
+    }
+
+    public void setImsi(BigInteger imsi) {
+        this.imsi = imsi;
+    }
+
+    public BigInteger getHier3Id() {
+        return hier3Id;
+    }
+
+    public void setHier3Id(BigInteger hier3Id) {
+        this.hier3Id = hier3Id;
+    }
+
+    public BigInteger getHier32Id() {
+        return hier32Id;
+    }
+
+    public void setHier32Id(BigInteger hier32Id) {
+        this.hier32Id = hier32Id;
+    }
+
+    public BigInteger getHier321Id() {
+        return hier321Id;
+    }
+
+    public void setHier321Id(BigInteger hier321Id) {
+        this.hier321Id = hier321Id;
+    }
 
 
-/**
- * 
- * @return
- */
-public Integer getKey(){
-       return id;
-   }
 
-
-/**
- * 
- * @return
- */
-public Integer getId() {
-	return id;
-}
-
-
-/**
- * 
- * @param id
- */
-public void setId(Integer id) {
-	this.id = id;
-}
-
-
-/**
- * 
- * @return
- */
-public Date getDate() {
-    return date;
-}
-
-/**
- * 
- * @param date
- */
-public void setDate(Date date) {
-    this.date = date;
-}
-
-/**
- * 
- * @return
- */
-public EventCause getEventCause() {
-    return eventCause;
-}
-
-/**
- * 
- * @param eventCause
- */
-public void setEventCause(EventCause eventCause) {
-    this.eventCause = eventCause;
-}
-
-/**
- * 
- * @return
- */
-public FailureType getFailure() {
-    return failure;
-}
-
-/**
- * 
- * @param failure
- */
-public void setFailure(FailureType failure) {
-    this.failure = failure;
-}
-
-/**
- * 
- * @return
- */
-public UserEquipment getUserEquipment() {
-    return userEquipment;
-}
-
-/**
- * 
- * @param userEquipment
- */
-public void setUserEquipment(UserEquipment userEquipment) {
-    this.userEquipment = userEquipment;
-}
-
-/**
- * 
- * @return
- */
-public OperatorCountry getOperatorCountry() {
-    return operatorCountry;
-}
-
-/**
- * 
- * @param operatorCountry
- */
-public void setOperatorCountry(OperatorCountry operatorCountry) {
-    this.operatorCountry = operatorCountry;
-}
-
-/**
- * 
- * @return
- */
-public Integer getCellId() {
-    return cellId;
-}
-
-/**
- * 
- * @param cellId
- */
-public void setCellId(Integer cellId) {
-    this.cellId = cellId;
-}
-
-/**
- * 
- * @return
- */
-public Integer getDuration() {
-    return duration;
-}
-
-/**
- * 
- * @param duration
- */
-public void setDuration(Integer duration) {
-    this.duration = duration;
-}
-
-/**
- * 
- * @return
- */
-public String getNeVersion() {
-    return neVersion;
-}
-
-/**
- * 
- * @param neVersion
- */
-public void setNeVersion(String neVersion) {
-    this.neVersion = neVersion;
-}
-
-/**
- * 
- * @return
- */
-public BigInteger getImsi() {
-    return imsi;
-}
-
-/**
- * 
- * @param imsi
- */
-public void setImsi(BigInteger imsi) {
-    this.imsi = imsi;
-}
-
-/**
- * 
- * @return
- */
-public BigInteger getHier3Id() {
-    return hier3Id;
-}
-
-/**
- * 
- * @param hier3Id
- */
-public void setHier3Id(BigInteger hier3Id) {
-    this.hier3Id = hier3Id;
-}
-
-/**
- * 
- * @return
- */
-public BigInteger getHier32Id() {
-    return hier32Id;
-}
-
-/**
- * 
- * @param hier32Id
- */
-public void setHier32Id(BigInteger hier32Id) {
-    this.hier32Id = hier32Id;
-}
-
-/**
- * 
- * @return
- */
-public BigInteger getHier321Id() {
-    return hier321Id;
-}
-
-/**
- * 
- * @param hier321Id
- */
-public void setHier321Id(BigInteger hier321Id) {
-    this.hier321Id = hier321Id;
-}
-   
   
 }
 

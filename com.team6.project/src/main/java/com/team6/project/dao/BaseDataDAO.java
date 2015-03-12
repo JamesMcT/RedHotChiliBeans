@@ -6,7 +6,9 @@ import java.util.Date;
 
 import javax.ejb.Local;
 
+import com.team6.project.entities.Response;
 import com.team6.project.entities.BaseData;
+import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountryPK;
@@ -22,18 +24,14 @@ import com.team6.project.entities.UserEquipment;
 @Local
 public interface BaseDataDAO {
 
-	/**
-	 * 
-	 * @param imsi
-	 * @return
-	 */
-	public Collection<BaseData> findByImsi(BigInteger imsi);
-	
+
 	/**
 	 * 
 	 * @param failureType
 	 * @return
 	 */
+	public Collection<EventCause> findByImsi(BigInteger imsi);
+
 	public Collection<BaseData> findByFailureType(FailureType failureType);
 	
 	/**
@@ -111,7 +109,12 @@ public interface BaseDataDAO {
 	
 	public Collection<Object[]> getDistinctEventByTac(Integer ue);
 	
+	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
+	
+	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate);
+
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end);
+
 	
 //	public void updateBaseData(BaseData baseData);
 
