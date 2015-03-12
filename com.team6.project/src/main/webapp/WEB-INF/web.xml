@@ -29,6 +29,8 @@
 			<web-resource-name>Admin Constraint</web-resource-name>
 			<url-pattern>/protected/admin/*</url-pattern>
 			<url-pattern>/protected/rest/usermanagement/*</url-pattern>
+			<url-pattern>/protected/rest/userequipment/*</url-pattern>
+			<url-pattern>/protected/rest/networkmanagement/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>administrator</role-name>
@@ -44,6 +46,7 @@
 			<web-resource-name>NM Eng Constraint</web-resource-name>
 			<url-pattern>/protected/nme/*</url-pattern>
 			<url-pattern>/protected/rest/userequipment/*</url-pattern>
+			<url-pattern>/protected/rest/networkmanagement/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Network Management Engineer</role-name>
@@ -91,7 +94,7 @@
 		<auth-method>FORM</auth-method>
 		<form-login-config>
 			<form-login-page>/protected/login.html</form-login-page>
-			<form-error-page>/protected/error.html</form-error-page>
+			<form-error-page>/protected/error.jsp</form-error-page>
 		</form-login-config>
 	</login-config>
 

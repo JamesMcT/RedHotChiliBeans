@@ -138,7 +138,7 @@ public class BaseDataRestTest extends RestTest {
 //
 //		given().auth().form("aaa", "aaa", fac).filter(sessionFilter)
 //				.expect().when()
-//				.get("/protected/csr/EventCauseSearch.html").then().statusCode(403);
+//				.get("/protected/csr/EventCauseSearch.html").then().body(containsString("Invalid user name or password"));
 //	}
 
 }

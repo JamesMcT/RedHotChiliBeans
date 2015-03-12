@@ -7,8 +7,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,6 +22,8 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 @Table(name = "ErroneousBaseData")
 public class Record implements IDescription, Serializable{
+
+    private static final long serialVersionUID = 4955975259290289479L;
 
     protected static org.apache.log4j.Logger recordEntityLogger = org.apache.log4j.Logger
             .getLogger(Record.class);

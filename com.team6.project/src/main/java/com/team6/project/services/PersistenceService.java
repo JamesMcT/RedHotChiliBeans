@@ -143,7 +143,7 @@ public class PersistenceService implements PersistenceServiceLocal{
 	}
 
 	@Override
-	public void persistUserEequipmentCollection(Collection<UserEquipment> userEquipmentCollection) {
+	public void persistUserEquipmentCollection(Collection<UserEquipment> userEquipmentCollection) {
 		userEquipment.addUserEquipmentCollection(userEquipmentCollection);
 	}
 	

@@ -30,4 +30,6 @@ public interface QueryServiceLocal {
 	public Collection<User> getAllUser();
 
 	
+	public Collection<Object[]> getDistinctEventByTac(String ue);
+	
 }

@@ -2,7 +2,6 @@ package com.team6.project.services.rest;
 
 import java.util.Collection;
 
-import javax.annotation.security.DeclareRoles;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

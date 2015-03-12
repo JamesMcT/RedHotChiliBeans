@@ -15,8 +15,8 @@ import com.team6.project.entities.User;
 import com.team6.project.services.PersistenceServiceLocal;
 import com.team6.project.services.QueryServiceLocal;
 /**
- * 
- * 
+ * Restful Service Class for managing the 
+ * users of the system
  * @author Cristiana
  *
  */

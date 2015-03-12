@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 
 @RunWith(Arquillian.class)

@@ -117,7 +117,7 @@ public class PersistenceServiceFake implements PersistenceServiceLocal{
 	}
 
 	@Override
-	public void persistUserEequipmentCollection(
+	public void persistUserEquipmentCollection(
 			Collection<UserEquipment> userEquipment) {
 		// TODO Auto-generated method stub
 		

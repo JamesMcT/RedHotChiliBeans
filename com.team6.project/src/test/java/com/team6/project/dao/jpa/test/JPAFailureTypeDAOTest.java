@@ -2,20 +2,11 @@ package com.team6.project.dao.jpa.test;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.ejb.EJB;
-
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.team6.project.dao.FailureTypeDAO;
 import com.team6.project.entities.FailureType;
 
 @RunWith(Arquillian.class)

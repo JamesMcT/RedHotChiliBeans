@@ -49,7 +49,7 @@ public interface PersistenceServiceLocal {
 	
 	public void persistOperatorCountryCollection(Collection<OperatorCountry> operatorCountries);
 	
-	public void persistUserEequipmentCollection(Collection<UserEquipment> userEquipment);
+	public void persistUserEquipmentCollection(Collection<UserEquipment> userEquipment);
 
 	public Response addUser(User newUser);
 	

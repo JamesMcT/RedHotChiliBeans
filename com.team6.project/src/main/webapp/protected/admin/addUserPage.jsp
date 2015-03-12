@@ -13,7 +13,8 @@
 <!-- Adding CSS -->
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
 <link href="../../css/sb-admin-2.css" rel="stylesheet">
-
+<!-- Adding functions -->
+<script src="../../js/common.js"></script>
 <script>
 	function addUser() {
 		var username = document.getElementById("username").value;
@@ -26,64 +27,41 @@
 			u.role = userRole;
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
-			xhr
-					.open("POST", root + "/protected/rest/usermanagement/add",
-							false);
+			xhr.open("POST", root + "/protected/rest/usermanagement/add", true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.send(JSON.stringify(u));
-			if (xhr.status == 200) {
-				var response = JSON.parse(xhr.responseText);
-				if (response.description) {
-					alert("Status : " + response.status + " \n Description : "
-							+ response.description);
-				} else {
-					alert("Status : " + response.status);
+			xhr.addEventListener('load', function() {
+				if (xhr.status == 200) {
+					var response = JSON.parse(xhr.responseText);
+					if (response.description) {
+						alert("Status : " + response.status
+								+ " \n Description : " + response.description);
+					} else {
+						alert("New user inserted with success! \n Status : "
+								+ response.status);
+					}
 				}
-			}
+			}, false);
+			xhr.send(JSON.stringify(u));
+
 			clean();
+		} else {
+			alert("Fields are mandatory!");
 		}
 	}
-	
-function clean(){
-	document.getElementById("username").value = "";
-	document.getElementById("password").value = "";
-}
+
+	function clean() {
+		document.getElementById("username").value = "";
+		document.getElementById("password").value = "";
+	}
 </script>
 <head>
-<body>
+<body onload="loadbar('../sidebar.jsp')">
 
 	<div id="wrapper">
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
-			style="margin-bottom: 0">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="index.html">Red Hot Chilli Beans</a>
-		</div>
-		<!-- /.navbar-header -->
-
-		<ul class="nav navbar-top-links navbar-right">
-			<li class="active"><a href="index.html">Home</a></li>
-			<li class="active"><a href="../logout.jsp">Logout</a></li>
-		</ul>
-		<!-- /.navbar-top-links -->
-
-		<div class="navbar-default sidebar" role="navigation">
-			<div class="sidebar-nav navbar-collapse">
-				<ul class="nav" id="side-menu">
-					<li><a href="addUserPage.jsp"> Add New User</a></li>
-					<li><a href="changeUserPage.jsp"> Change User Role</a></li>
-				</ul>
-			</div>
-			<!-- /.sidebar-collapse -->
-		</div>
-		<!-- /.navbar-static-side --> </nav>
+			style="margin-bottom: 0" id="navigation"> </nav>
 
 		<div id="page-wrapper">
 			<div class="row">
@@ -92,12 +70,12 @@ function clean(){
 					<p>Please insert user name, password and select a role:</p>
 					<div>
 						<div>
-							<input type="text" name="username" size="25" id="username"
-								class="form-control" placeholder="User Name" required> <br>
+							<input type="text" name="username" id="username"
+								class="form-control" placeholder="User Name"> <br>
 						</div>
 						<div>
 							<input type="password" size="15" name="password" id="password"
-								class="form-control" placeholder="Password" required> <br>
+								class="form-control" placeholder="Password"> <br>
 						</div>
 						<div>
 							<select name="userRole" id="userRole" class="form-control">
@@ -105,10 +83,11 @@ function clean(){
 									Management Engineer</option>
 								<option value="Support Engineer">Support Engineer</option>
 								<option value="Customer Service">Customer Sevice</option>
+								<option value="administrator">Administrator</option>
 							</select> <br>
 						</div>
 						<div>
-							<br> <input type='button' onclick="addUser()" value="submit" />
+							<br> <input type='button' class="btn btn-default" onclick="addUser()" value="submit" />
 						</div>
 					</div>
 				</div>

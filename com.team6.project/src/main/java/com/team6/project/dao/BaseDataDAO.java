@@ -17,7 +17,7 @@ import com.team6.project.entities.UserEquipment;
  * 
  * @author John O Keeffe
  * @author Eoin Kernan
- *
+ * @author Cristiana Conti
  */
 
 @Local
@@ -46,6 +46,8 @@ public interface BaseDataDAO {
 	public void deleteBaseData(BaseData baseData);
 	
 	public long getBaseDataCount();
+	
+	public Collection<Object[]> getDistinctEventByTac(Integer ue);
 	
 //	public void updateBaseData(BaseData baseData);
 

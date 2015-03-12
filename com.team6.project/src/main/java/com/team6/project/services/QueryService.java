@@ -7,7 +7,9 @@ import javax.ejb.Local;
 import javax.inject.Inject;
 import javax.persistence.NamedQuery;
 
+
 import com.mysql.jdbc.util.BaseBugReport;
+
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.dao.UserDAO;
 import com.team6.project.dao.UserEquipmentDAO;
@@ -23,8 +25,9 @@ import com.team6.project.entities.UserEquipment;
  * The QueryService EJB
  * 
  * @author Eoin Kernan
- * @author James
- *
+ * @author James Mc Ternan
+ * @author Cristiana Conti
+
  */
 @Local(QueryServiceLocal.class)
 public class QueryService implements QueryServiceLocal{
@@ -32,11 +35,10 @@ public class QueryService implements QueryServiceLocal{
 	@Inject
 	private UserEquipmentDAO userEquipment;
 	@Inject
-	private BaseDataDAO baseData;
-	
-	@Inject
     private UserDAO user;
-	
+	@Inject
+    private BaseDataDAO baseData;
+    
 	public QueryService() {}
 
 	@Override
@@ -61,5 +63,11 @@ public class QueryService implements QueryServiceLocal{
         return user.getAllUser();
     }
 
+
+   @Override
+    public Collection<Object[]> getDistinctEventByTac(String ue) {
+        Integer tac = Integer.parseInt(ue);
+        return baseData.getDistinctEventByTac(tac);
+    }
 
 }

@@ -20,7 +20,7 @@ import com.team6.project.dao.UserEquipmentDAO;
 public abstract class JPADAOTest {
     
     @EJB
-    BaseDataDAO baseDataDao;
+    BaseDataDAO baseDataDAO;
     @EJB
     EventCauseDAO eventCauseDAO;
     @EJB
