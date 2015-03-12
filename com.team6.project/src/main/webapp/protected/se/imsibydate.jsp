@@ -35,11 +35,10 @@
 	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
 
 <script type="text/javascript">
-function startup() {
+	function startup() {
 		loadbar('../sidebar.jsp');
-	
-	}
 
+	}
 </script>
 </head>
 
@@ -101,17 +100,28 @@ function startup() {
 					</div>
 					<!-- /.panel-body -->
 				</div>
-</div>
-			</div>
-			</div>
-			<!-- /#wrapper -->
-
-			
-			<script type="text/javascript"
-				src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
 				
-			</script>
+								<div id="errorDiv">
+								<table class="table table-striped table-bordered table-hover"
+									id="failureDurationTable">
+								</table>
+					</div>
+
+
+			</div>
+
+		</div>
+
+
+	</div>
+	<!-- /#wrapper -->
+
+
+	<script type="text/javascript"
+		src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
 		
+	</script>
+
 </body>
 
 </html>

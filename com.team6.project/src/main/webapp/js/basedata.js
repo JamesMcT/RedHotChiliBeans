@@ -12,7 +12,15 @@ function readDates($scope, $http) {
 
 	//	var d = Date.parse(firstDate);
 
-	
+		
+		//if(document.getElementById("validationEnabled").checked){
+	//		if(!validateDate(firstDate, "Invalid start date") || !validateDate(secondDate, "Invalid end date")){
+				
+			//	return false;
+		//	}
+		//}
+
+
 		
 		console.log("firstdate!!!: " + firstDate);
 		console.log("seconddate!!!: " + secondDate);
@@ -43,7 +51,26 @@ function readDates($scope, $http) {
 							}
 						}).success(function(data, status) {
 					$scope.baseDataDate = data;
-				});
+				}).error(function(data, status) {
+			          $scope.data = data || "Request failed";
+			          $scope.status = status;
+			          document.getElementById('dataTables-example').innerHTML = "<div ng-controller='sheet'>Invalid date</div>";
+			          $compile( document.getElementById('dataTables-example') )($scope);
+			      });
 	}
 	// $scope.loadData($scope, $http);
 }
+function validateDate(dateString, errorMessage){
+	//yyyy-mm-dd hh-mm-ss
+	regexPattern = /^[0-9]{4}-[0-9]{2}-[0-9]{2}[T][0-9]{2}:[0-9]{2}:[0-9]{2}$/;
+	if(dateString.match(regexPattern)){
+		return true;
+	}
+	else{
+		showError(errorMessage + ": " + dateString);
+		return false;
+	}
+	sayHello(firstDate, secondDate);
+}
+
+
