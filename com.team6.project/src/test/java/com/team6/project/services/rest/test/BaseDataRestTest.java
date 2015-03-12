@@ -12,6 +12,7 @@ import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 
 import static com.jayway.restassured.RestAssured.given;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -23,7 +24,7 @@ import static com.jayway.restassured.RestAssured.given;
 
 /**
  * 
- * testing the BaseDataRest funcions
+ * testing the BaseDataRest functions
  *
  */
 
@@ -32,6 +33,8 @@ public class BaseDataRestTest extends RestTest{
 	
 	private FormAuthConfig fac;
 	private SessionFilter sessionFilter;
+	private long fromTime;
+	private long toTime;
 	
 	@Before
 	public void setUp() throws InterruptedException {
@@ -48,10 +51,19 @@ public class BaseDataRestTest extends RestTest{
 		
 	};
 	
+	
+	/**
+	 * 
+	 * Testing the large database (60 thousand records) with the given tac, fromDate, toDate parameters
+	 * logging in with Support Engineer (supEng) will able to process the request
+	 * and checking the request conentType and the status code as expected
+	 */
+	
+	
 	@Test
 	public void testCountCallFailureByTac() {
 		
-		long fromTime = System.currentTimeMillis();	
+		fromTime = System.currentTimeMillis();	
 		given()
 			.auth()
 			.form("supEng", "supEng", fac)
@@ -65,16 +77,35 @@ public class BaseDataRestTest extends RestTest{
 			.when()
 			.get("/protected/rest/tac");
 		
-		long toTime = System.currentTimeMillis();
+		toTime = System.currentTimeMillis();
 		
+	}
+	
+	/**
+	 * 
+	 * Checking the previous request is less then 2 second
+	 * 
+	 */
+	
+	@Test
+	public void responseTestCountCallFailureByTac() {
 		//less than 2 sec for the request
 		assertTrue((toTime-fromTime) < 2000);
 	}
 	
+	
+	/**
+	 * 
+	 * Testing the large database (60 thousand records) with the given tac, fromDate, toDate parameters
+	 * logging in with a user (Customer Service Rep. (cusSer)) who has NO PERMISSION
+	 * not to be able to reach this request 
+	 * and get a 403 authentication error code as the status code
+	 */
+	
 	@Test
 	public void testCountCallFailureByTac_NoPermission() {
 		
-		long fromTime = System.currentTimeMillis();	
+		fromTime = System.currentTimeMillis();	
 		given()
 			.auth()
 			.form("cusSer", "cusSer", fac)
@@ -87,15 +118,20 @@ public class BaseDataRestTest extends RestTest{
 			.when()
 			.get("/protected/rest/tac");
 		
-		long toTime = System.currentTimeMillis();
-		
-		//less than 2 sec for the request
-		assertTrue((toTime-fromTime) < 2000);
-		
-		
+		toTime = System.currentTimeMillis();
 	}
 	
+	/**
+	 * 
+	 * Checking the previous request is less then 2 second
+	 * 
+	 */
 	
+	@Test
+	public void responseTestCountCallFailureByTac_NoPermission() {
+		//less than 2 sec for the request
+		assertTrue((toTime-fromTime) < 2000);
+	}
 	
 	
 	
