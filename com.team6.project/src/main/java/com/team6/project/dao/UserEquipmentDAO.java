@@ -15,16 +15,41 @@ import com.team6.project.entities.UserEquipment;
 @Local
 public interface UserEquipmentDAO {
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Collection<UserEquipment> getAllUserEquipment();
 	
+	/**
+	 * 
+	 * @param tac
+	 * @return
+	 */
 	public UserEquipment getUserEquipmentByKey(Integer tac);
 	
+	/**
+	 * 
+	 * @param userEquipment
+	 */
 	public void addUserEquipment(UserEquipment userEquipment);
 	
+	/**
+	 * 
+	 * @param userEquipment
+	 */
 	public void addUserEquipmentCollection(Collection<UserEquipment> userEquipment);
 
+	/**
+	 * 
+	 * @param userEquipment
+	 */
 	public void updateUserEquipment(UserEquipment userEquipment);
 
+	/**
+	 * 
+	 * @param userEquipment
+	 */
 	public void deleteUserEquipment(UserEquipment userEquipment);
 
 //	public void deleteByTac(Integer tac);

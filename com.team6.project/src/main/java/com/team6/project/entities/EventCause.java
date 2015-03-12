@@ -10,10 +10,10 @@ import com.team6.project.entities.EventCausePK;
 
 
 /**
+ * 
  * @author Cristiana Conti 
  * EventCause table
  */
-
 @Entity
 @IdClass(EventCausePK.class)
 public class EventCause implements Serializable {
@@ -25,9 +25,18 @@ public class EventCause implements Serializable {
     private Integer eventId;
     private String description;
 
+    /**
+     * 
+     */
     public EventCause() {
     }
 
+    /**
+     * 
+     * @param eventId
+     * @param causeCode
+     * @param description
+     */
     public EventCause(Integer eventId, Integer causeCode, String description) {
         super();
         this.causeCode = causeCode;
@@ -35,6 +44,10 @@ public class EventCause implements Serializable {
         this.description = description;
     }
 
+    /**
+     * 
+     * @return
+     */
     public boolean hasRequiredFields() {
         if (causeCode != null && eventId != null) {
             return true;
@@ -42,11 +55,18 @@ public class EventCause implements Serializable {
         return false;
     }
 
+    /**
+     * 
+     */
     public String toString() {
         return "Event Id : " + eventId + " Cause code: " + causeCode
                 + " Description: " + description;
     }
     
+    /**
+     * 
+     * @return
+     */
     public EventCausePK getKey(){
         return new EventCausePK(eventId, causeCode);
     }
@@ -83,26 +103,50 @@ public class EventCause implements Serializable {
         return true;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getCauseCode() {
         return causeCode;
     }
 
+    /**
+     * 
+     * @param causeCode
+     */
     public void setCauseCode(Integer causeCode) {
         this.causeCode = causeCode;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getEventId() {
         return eventId;
     }
 
+    /**
+     * 
+     * @param eventId
+     */
     public void setEventId(Integer eventId) {
         this.eventId = eventId;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * 
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }

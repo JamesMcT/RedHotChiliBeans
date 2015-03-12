@@ -14,7 +14,6 @@ import org.hibernate.annotations.NamedQuery;
  * @author Cristiana Conti
  * @author Eoin Kernan
  */
-
 @NamedQuery(name="allUserEquipment", query="from UserEquipment")
 @Entity
 public class UserEquipment implements Serializable{
@@ -36,6 +35,18 @@ public class UserEquipment implements Serializable{
         super();
     }
 
+    /**
+     * 
+     * @param tac
+     * @param marketingName
+     * @param manufacturer
+     * @param accessCapability
+     * @param model
+     * @param vendorName
+     * @param type
+     * @param os
+     * @param inputMode
+     */
     public UserEquipment(Integer tac, String marketingName,
             String manufacturer, String accessCapability, String model,
             String vendorName, String type, String os, String inputMode) {
@@ -51,6 +62,9 @@ public class UserEquipment implements Serializable{
         this.inputMode = inputMode;
     }
 
+    /**
+     * 
+     */
    public String toString() {
         return "Tac : " + tac + " Marketing Name : " + marketingName
                 + " Manufacturer : " + manufacturer + " Access Capability : "
@@ -59,6 +73,10 @@ public class UserEquipment implements Serializable{
                 + " Input Mode : " + inputMode;
     }
 
+   /**
+    * 
+    * @return
+    */
     public boolean hasRequiredFields() {
         if (tac != null) {
             return true;
@@ -66,6 +84,10 @@ public class UserEquipment implements Serializable{
         return false;
     }
     
+    /**
+     * 
+     * @return
+     */
     public Integer getKey(){
         return tac;
     }
@@ -95,74 +117,146 @@ public class UserEquipment implements Serializable{
         return true;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getTac() {
         return tac;
     }
 
+    /**
+     * 
+     * @param tac
+     */
     public void setTac(Integer tac) {
         this.tac = tac;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getMarketingName() {
         return marketingName;
     }
 
+    /**
+     * 
+     * @param marketingName
+     */
     public void setMarketingName(String marketingName) {
         this.marketingName = marketingName;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getManufacturer() {
         return manufacturer;
     }
 
+    /**
+     * 
+     * @param manufacturer
+     */
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getAccessCapability() {
         return accessCapability;
     }
 
+    /**
+     * 
+     * @param accessCapability
+     */
     public void setAccessCapability(String accessCapability) {
         this.accessCapability = accessCapability;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getModel() {
         return model;
     }
 
+    /**
+     * 
+     * @param model
+     */
     public void setModel(String model) {
         this.model = model;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getVendorName() {
         return vendorName;
     }
 
+    /**
+     * 
+     * @param vendorName
+     */
     public void setVendorName(String vendorName) {
         this.vendorName = vendorName;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * 
+     * @param type
+     */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getOs() {
         return os;
     }
 
+    /**
+     * 
+     * @param os
+     */
     public void setOs(String os) {
         this.os = os;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getInputMode() {
         return inputMode;
     }
 
+    /**
+     * 
+     * @param inputMode
+     */
     public void setInputMode(String inputMode) {
         this.inputMode = inputMode;
     }

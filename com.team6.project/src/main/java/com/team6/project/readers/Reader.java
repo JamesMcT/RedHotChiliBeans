@@ -25,12 +25,24 @@ public abstract class Reader {
     protected int currentRow;
     protected static int FIRSTROW = 1;
 
+    /**
+     * 
+     */
     public Reader() {
         currentRow = FIRSTROW;
     }
 
+    /**
+     * 
+     * @param service
+     */
     public abstract void processExcelFile(DataImportServiceLocal service);
 
+    /**
+     * 
+     * @param cell
+     * @return
+     */
     public Integer getIntegerFromCell(HSSFCell cell) {
         if (!(cell == null) && !(cell.getCellType() == Cell.CELL_TYPE_BLANK)) {
             if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
@@ -40,6 +52,11 @@ public abstract class Reader {
         return null;
     }
 
+    /**
+     * 
+     * @param cell
+     * @return
+     */
     public Date getDateFromCell(HSSFCell cell) {
         if (!(cell == null) && !(cell.getCellType() == Cell.CELL_TYPE_BLANK)) {
             if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
@@ -52,6 +69,11 @@ public abstract class Reader {
         return null;
     }
 
+    /**
+     * 
+     * @param cell
+     * @return
+     */
     public String getStringFromCell(HSSFCell cell) {
         if (!(cell == null) && !(cell.getCellType() == Cell.CELL_TYPE_BLANK)) {
             if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
@@ -61,6 +83,11 @@ public abstract class Reader {
         return null;
     }
 
+    /**
+     * 
+     * @param cell
+     * @return
+     */
     public BigInteger getBigIntFromCell(HSSFCell cell) {
         if (!(cell == null) && !(cell.getCellType() == Cell.CELL_TYPE_BLANK)) {
             if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
@@ -71,18 +98,34 @@ public abstract class Reader {
         return null;
     }
 
+    /**
+     * 
+     * @return
+     */
     public int getCurrentRow() {
         return currentRow;
     }
 
+    /**
+     * 
+     * @param currentRow
+     */
     public void setCurrentRow(int currentRow) {
         this.currentRow = currentRow;
     }
 
+    /**
+     * 
+     * @return
+     */
     public static int getFIRSTROW() {
         return FIRSTROW;
     }
 
+    /**
+     * 
+     * @param fIRSTROW
+     */
     public static void setFIRSTROW(int fIRSTROW) {
         FIRSTROW = fIRSTROW;
     }

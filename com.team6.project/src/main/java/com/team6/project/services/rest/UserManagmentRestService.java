@@ -12,8 +12,10 @@ import javax.ws.rs.core.MediaType;
 
 import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
+
 import com.team6.project.services.PersistenceServiceLocal;
 import com.team6.project.services.QueryServiceLocal;
+
 /**
  * Restful Service Class for managing the 
  * users of the system
@@ -30,6 +32,11 @@ public class UserManagmentRestService {
     private QueryServiceLocal query;
     
     
+    /**
+     * 
+     * @param userId
+     * @return
+     */
     @GET
     @Path("/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -44,7 +51,11 @@ public class UserManagmentRestService {
         return query.getAllUser();
     }
     
-    
+    /**
+     * 
+     * @param user
+     * @return
+     */
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)

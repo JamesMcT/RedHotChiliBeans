@@ -32,137 +32,175 @@ import com.team6.project.validators.UserEquipmentValidator;
  */
 public class BaseDataReader extends Reader {
 
-    private static final String NAME = "Base Data";
+	private static final String NAME = "Base Data";
 
-    @Override
-    public void processExcelFile(DataImportServiceLocal service) {
-        HSSFSheet sheet = service.getSheet(NAME);
-        IValidator validator = createValidator();
-        
-        List<BaseData> dataList = new ArrayList<BaseData>();
-        List<Record> recordList = new ArrayList<Record>();
+	@Override
+	public void processExcelFile(DataImportServiceLocal service) {
+		HSSFSheet sheet = service.getSheet(NAME);
+		IValidator validator = createValidator();
 
-        long beginTime = System.currentTimeMillis();
-        readerLogger.warn("BaseDataReader: Begin reading BaseData");
+		List<BaseData> dataList = new ArrayList<BaseData>();
+		List<Record> recordList = new ArrayList<Record>();
 
-        while (currentRow <= sheet.getLastRowNum()) {
-        	
-            Record record = read(sheet);
-            BaseData baseData = new BaseData();
-            
-            boolean isValid = validator.isValid(record, baseData, service);
-            if (isValid) {
-            	dataList.add(baseData);
-                
-            } else {
-                recordList.add(record);
-            }
-        }
-        
-        long endTime = System.currentTimeMillis();
-        double timeTaken = ((double) (endTime - beginTime)) / 1000;
-        readerLogger.warn(String
-                .format("BaseDataReader: End reading BaseData (%s seconds)",
-                        new DecimalFormat("0.00").format(timeTaken)));
-        
-        beginTime = System.currentTimeMillis();
-        readerLogger.warn("BaseDataReader: Begin persisting BaseData");
-        
-        if(dataList.size()>0){
-        	service.getPersistenceService().persistBaseDataCollection(dataList);
-        }
-        
-        if(recordList.size()>0){
-        	service.getPersistenceService().persistErroneusRecordCollection(recordList);
-        }
-        
-        endTime = System.currentTimeMillis();
-        timeTaken = ((double) (endTime - beginTime)) / 1000;
-        readerLogger.warn(String
-                .format("BaseDataReader: End reading BaseData (%s seconds)",
-                        new DecimalFormat("0.00").format(timeTaken)));
-        
-        currentRow = FIRSTROW;
-    }
+		long beginTime = System.currentTimeMillis();
+		readerLogger.warn("BaseDataReader: Begin reading BaseData");
 
-    public Record read(HSSFSheet sheet) {
+		while (currentRow <= sheet.getLastRowNum()) {
 
-        Record record = new Record();
-        HSSFRow row = sheet.getRow(currentRow);
-        record.setDate(getDateFromCellAndSetDesc(row.getCell(0), record));
-        record.setEventId(getIntegerFromCellAndSetDesc(row.getCell(1), record));
-        record.setFailureType(getIntegerFromCellAndSetDesc(row.getCell(2),
-                                                           record));
-        record.setUserEquipment(getIntegerFromCellAndSetDesc(row.getCell(3),
-                                                             record));
-        record.setMcc(getIntegerFromCellAndSetDesc(row.getCell(4), record));
-        record.setMnc(getIntegerFromCellAndSetDesc(row.getCell(5), record));
-        record.setCellId(getIntegerFromCellAndSetDesc(row.getCell(6), record));
-        record.setDuration(getIntegerFromCellAndSetDesc(row.getCell(7), record));
-        record.setCauseCode(getIntegerFromCellAndSetDesc(row.getCell(8), record));
-        record.setNeVersion(getStringFromCellAndSetDesc(row.getCell(9), record));
-        record.setImsi(getBigIntFromCellAndSetDesc(row.getCell(10), record));
-        record.setHier3Id(getBigIntFromCellAndSetDesc(row.getCell(11), record));
-        record.setHier32Id(getBigIntFromCellAndSetDesc(row.getCell(12), record));
-        record.setHier321Id(getBigIntFromCellAndSetDesc(row.getCell(13), record));
-        
-        currentRow++;
-        
-        //record.setId(currentRow++);
-        
-        return record;
-    }
+			Record record = read(sheet);
+			BaseData baseData = new BaseData();
 
-    public Integer getIntegerFromCellAndSetDesc(HSSFCell cell,
-            IDescription record) {
-        Integer integer = getIntegerFromCell(cell);
-        if (integer == null) {
-            record.setDescription("Cell Integer type at row " + currentRow
-                                  + " corrupted");
-        }
-        return integer;
-    }
+			boolean isValid = validator.isValid(record, baseData, service);
+			if (isValid) {
+				dataList.add(baseData);
 
-    public Date getDateFromCellAndSetDesc(HSSFCell cell, IDescription record) {
-        Date date = getDateFromCell(cell);
-        if (date == null) {
-            record.setDescription("Cell Date type at row " + currentRow
-                    + " corrupted");
-        }
-        return date;
-    }
+			} else {
+				recordList.add(record);
+			}
+		}
 
-    public String getStringFromCellAndSetDesc(HSSFCell cell, IDescription record) {
-        String string = getStringFromCell(cell);
-        if (string == null) {
-            record.setDescription("Cell String type at row " + currentRow
-                                  + " corrupted");
-        }
-        return string;
-    }
+		long endTime = System.currentTimeMillis();
+		double timeTaken = ((double) (endTime - beginTime)) / 1000;
+		readerLogger.warn(String.format(
+				"BaseDataReader: End reading BaseData (%s seconds)",
+				new DecimalFormat("0.00").format(timeTaken)));
 
-    public BigInteger getBigIntFromCellAndSetDesc(HSSFCell cell,
-            IDescription record) {
-        BigInteger bigInt = getBigIntFromCell(cell);
-        if (bigInt == null) {
-            record.setDescription("Cell Big Integer type at row " + currentRow
-                                  + " corrupted");
-        }
-        return bigInt;
-    }
+		beginTime = System.currentTimeMillis();
+		readerLogger.warn("BaseDataReader: Begin persisting BaseData");
 
-    public static IValidator createValidator() {
-        AllTrueCompositeValidator validator = new AllTrueCompositeValidator();
-        validator.add(new DateValidator());
-        validator.add(new EventCauseValidator());
-        validator.add(new FailureTypeValidator());
-        validator.add(new OperatorCountryValidator());
-        validator.add(new UserEquipmentValidator());
-        return validator;
-    }
+		if (dataList.size() > 0) {
+			service.getPersistenceService().persistBaseDataCollection(dataList);
+		}
 
-    public static String getName() {
-        return NAME;
-    }
+		if (recordList.size() > 0) {
+			service.getPersistenceService().persistErroneusRecordCollection(
+					recordList);
+		}
+
+		endTime = System.currentTimeMillis();
+		timeTaken = ((double) (endTime - beginTime)) / 1000;
+		readerLogger.warn(String.format(
+				"BaseDataReader: End reading BaseData (%s seconds)",
+				new DecimalFormat("0.00").format(timeTaken)));
+
+		currentRow = FIRSTROW;
+	}
+
+	/**
+	 * 
+	 * @param sheet
+	 * @return
+	 */
+	public Record read(HSSFSheet sheet) {
+
+		Record record = new Record();
+		HSSFRow row = sheet.getRow(currentRow);
+		record.setDate(getDateFromCellAndSetDesc(row.getCell(0), record));
+		record.setEventId(getIntegerFromCellAndSetDesc(row.getCell(1), record));
+		record.setFailureType(getIntegerFromCellAndSetDesc(row.getCell(2),
+				record));
+		record.setUserEquipment(getIntegerFromCellAndSetDesc(row.getCell(3),
+				record));
+		record.setMcc(getIntegerFromCellAndSetDesc(row.getCell(4), record));
+		record.setMnc(getIntegerFromCellAndSetDesc(row.getCell(5), record));
+		record.setCellId(getIntegerFromCellAndSetDesc(row.getCell(6), record));
+		record.setDuration(getIntegerFromCellAndSetDesc(row.getCell(7), record));
+		record.setCauseCode(getIntegerFromCellAndSetDesc(row.getCell(8), record));
+		record.setNeVersion(getStringFromCellAndSetDesc(row.getCell(9), record));
+		record.setImsi(getBigIntFromCellAndSetDesc(row.getCell(10), record));
+		record.setHier3Id(getBigIntFromCellAndSetDesc(row.getCell(11), record));
+		record.setHier32Id(getBigIntFromCellAndSetDesc(row.getCell(12), record));
+		record.setHier321Id(getBigIntFromCellAndSetDesc(row.getCell(13), record));
+
+		currentRow++;
+
+		// record.setId(currentRow++);
+
+		return record;
+	}
+
+	/**
+	 * 
+	 * @param cell
+	 * @param record
+	 * @return
+	 */
+	public Integer getIntegerFromCellAndSetDesc(HSSFCell cell,
+			IDescription record) {
+		Integer integer = getIntegerFromCell(cell);
+		if (integer == null) {
+			record.setDescription("Cell Integer type at row " + currentRow
+					+ " corrupted");
+		}
+		return integer;
+	}
+
+	/**
+	 * 
+	 * @param cell
+	 * @param record
+	 * @return
+	 */
+	public Date getDateFromCellAndSetDesc(HSSFCell cell, IDescription record) {
+		Date date = getDateFromCell(cell);
+		if (date == null) {
+			record.setDescription("Cell Date type at row " + currentRow
+					+ " corrupted");
+		}
+		return date;
+	}
+
+	/**
+	 * 
+	 * @param cell
+	 * @param record
+	 * @return
+	 */
+	public String getStringFromCellAndSetDesc(HSSFCell cell, IDescription record) {
+		String string = getStringFromCell(cell);
+		if (string == null) {
+			record.setDescription("Cell String type at row " + currentRow
+					+ " corrupted");
+		}
+		return string;
+	}
+
+	/**
+	 * 
+	 * @param cell
+	 * @param record
+	 * @return
+	 */
+	public BigInteger getBigIntFromCellAndSetDesc(HSSFCell cell,
+			IDescription record) {
+		BigInteger bigInt = getBigIntFromCell(cell);
+		if (bigInt == null) {
+			record.setDescription("Cell Big Integer type at row " + currentRow
+					+ " corrupted");
+		}
+		return bigInt;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static IValidator createValidator() {
+		AllTrueCompositeValidator validator = new AllTrueCompositeValidator();
+		validator.add(new DateValidator());
+		validator.add(new EventCauseValidator());
+		validator.add(new FailureTypeValidator());
+		validator.add(new OperatorCountryValidator());
+		validator.add(new UserEquipmentValidator());
+		return validator;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static String getName() {
+		return NAME;
+	}
 
 }

@@ -11,6 +11,13 @@ import com.team6.project.services.DataImportServiceLocal;
  */
 public interface IValidator {
 
+	/**
+	 * 
+	 * @param record
+	 * @param baseData
+	 * @param service
+	 * @return
+	 */
 	  public boolean isValid(Record record, BaseData baseData, DataImportServiceLocal service);
 
 }

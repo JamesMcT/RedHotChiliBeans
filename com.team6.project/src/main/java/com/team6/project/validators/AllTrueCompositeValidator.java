@@ -17,9 +17,13 @@ public class AllTrueCompositeValidator implements IValidator{
 
 	private Collection<IValidator> validators;
 	
+	/**
+	 * 
+	 */
 	public AllTrueCompositeValidator() {
 		validators = new ArrayList<>();
 	}
+	
 	/**
 	 * Return false at the first IValidator that returns false.
 	 * If all IValidator are true, it builds the BaseData object 
@@ -36,6 +40,10 @@ public class AllTrueCompositeValidator implements IValidator{
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @param validator
+	 */
 	public void add(IValidator validator){
 		validators.add(validator);
 	}

@@ -12,19 +12,33 @@ public class EventCausePK implements Serializable {
     private Integer causeCode;
     private Integer eventId;
 
+    /**
+     * 
+     */
     public EventCausePK() {
     }
 
+    /**
+     * 
+     * @param eventId
+     * @param causeCode
+     */
     public EventCausePK(Integer eventId, Integer causeCode) {
         super();
         this.causeCode = causeCode;
         this.eventId = eventId;
     }
 
+    /**
+     * 
+     */
     public String toString() {
         return "Event Id : " + eventId + " Cause code: " + causeCode;
     }
 
+    /**
+     * 
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -35,6 +49,9 @@ public class EventCausePK implements Serializable {
         return result;
     }
 
+    /**
+     * 
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -57,18 +74,34 @@ public class EventCausePK implements Serializable {
         return true;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getCauseCode() {
         return causeCode;
     }
 
+    /**
+     * 
+     * @param causeCode
+     */
     public void setCauseCode(Integer causeCode) {
         this.causeCode = causeCode;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getEventId() {
         return eventId;
     }
 
+    /**
+     * 
+     * @param eventId
+     */
     public void setEventId(Integer eventId) {
         this.eventId = eventId;
     }
