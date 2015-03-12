@@ -30,9 +30,13 @@ public class BaseDataRest {
 	@Path("/datequery")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<BaseData> findImsiByDate(
-			@QueryParam("firstDate") String firstDate,
-			@QueryParam("secondDate") String secondDate) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			@QueryParam("firstDate") long firstDate,
+			@QueryParam("secondDate") long secondDate) {
+
+		
+		
+		System.out.println("date as long1: "+ firstDate + "date as long2: "+ secondDate);
+		/*	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
 		// Date first = new Date();
@@ -51,7 +55,15 @@ public class BaseDataRest {
 			System.out.println("null pointer:::" + e);
 			e.printStackTrace();
 		}
-
+*/
+		
+		
+		Date first = new Date();		
+		Date second = new Date();
+		
+		first.setTime(firstDate);
+		second.setTime(secondDate);
+		
 		System.out.println("1date" + first + "2date" + second);
 		return baseDataServiceLocal.findImsiByDate(first, second);
 	}
