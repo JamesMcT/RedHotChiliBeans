@@ -28,7 +28,7 @@ import org.hibernate.annotations.NamedQuery;
 })
 @Entity
 public class BaseData implements Serializable{
-
+ 
    
    //@GeneratedValue(strategy=GenerationType.IDENTITY)
    @Id
@@ -59,8 +59,10 @@ public class BaseData implements Serializable{
    public BaseData() { }
    
    
-
-   @Override
+/**
+ * 
+ */
+@Override
 public int hashCode() {
 	final int prime = 31;
 	int result = 1;
@@ -83,7 +85,9 @@ public int hashCode() {
 }
 
 
-
+/**
+ * 
+ */
 @Override
 public boolean equals(Object obj) {
 	if (this == obj)
@@ -157,118 +161,221 @@ public boolean equals(Object obj) {
 }
 
 
-
+/**
+ * 
+ * @return
+ */
 public Integer getKey(){
        return id;
    }
 
 
-
+/**
+ * 
+ * @return
+ */
 public Integer getId() {
 	return id;
 }
 
 
-
+/**
+ * 
+ * @param id
+ */
 public void setId(Integer id) {
 	this.id = id;
 }
 
 
-
+/**
+ * 
+ * @return
+ */
 public Date getDate() {
     return date;
 }
 
+/**
+ * 
+ * @param date
+ */
 public void setDate(Date date) {
     this.date = date;
 }
 
+/**
+ * 
+ * @return
+ */
 public EventCause getEventCause() {
     return eventCause;
 }
 
+/**
+ * 
+ * @param eventCause
+ */
 public void setEventCause(EventCause eventCause) {
     this.eventCause = eventCause;
 }
 
+/**
+ * 
+ * @return
+ */
 public FailureType getFailure() {
     return failure;
 }
 
+/**
+ * 
+ * @param failure
+ */
 public void setFailure(FailureType failure) {
     this.failure = failure;
 }
 
+/**
+ * 
+ * @return
+ */
 public UserEquipment getUserEquipment() {
     return userEquipment;
 }
 
+/**
+ * 
+ * @param userEquipment
+ */
 public void setUserEquipment(UserEquipment userEquipment) {
     this.userEquipment = userEquipment;
 }
 
+/**
+ * 
+ * @return
+ */
 public OperatorCountry getOperatorCountry() {
     return operatorCountry;
 }
 
+/**
+ * 
+ * @param operatorCountry
+ */
 public void setOperatorCountry(OperatorCountry operatorCountry) {
     this.operatorCountry = operatorCountry;
 }
 
+/**
+ * 
+ * @return
+ */
 public Integer getCellId() {
     return cellId;
 }
 
+/**
+ * 
+ * @param cellId
+ */
 public void setCellId(Integer cellId) {
     this.cellId = cellId;
 }
 
+/**
+ * 
+ * @return
+ */
 public Integer getDuration() {
     return duration;
 }
 
+/**
+ * 
+ * @param duration
+ */
 public void setDuration(Integer duration) {
     this.duration = duration;
 }
 
+/**
+ * 
+ * @return
+ */
 public String getNeVersion() {
     return neVersion;
 }
 
+/**
+ * 
+ * @param neVersion
+ */
 public void setNeVersion(String neVersion) {
     this.neVersion = neVersion;
 }
 
+/**
+ * 
+ * @return
+ */
 public BigInteger getImsi() {
     return imsi;
 }
 
+/**
+ * 
+ * @param imsi
+ */
 public void setImsi(BigInteger imsi) {
     this.imsi = imsi;
 }
 
+/**
+ * 
+ * @return
+ */
 public BigInteger getHier3Id() {
     return hier3Id;
 }
 
+/**
+ * 
+ * @param hier3Id
+ */
 public void setHier3Id(BigInteger hier3Id) {
     this.hier3Id = hier3Id;
 }
 
+/**
+ * 
+ * @return
+ */
 public BigInteger getHier32Id() {
     return hier32Id;
 }
 
+/**
+ * 
+ * @param hier32Id
+ */
 public void setHier32Id(BigInteger hier32Id) {
     this.hier32Id = hier32Id;
 }
 
+/**
+ * 
+ * @return
+ */
 public BigInteger getHier321Id() {
     return hier321Id;
 }
 
-
+/**
+ * 
+ * @param hier321Id
+ */
 public void setHier321Id(BigInteger hier321Id) {
     this.hier321Id = hier321Id;
 }
