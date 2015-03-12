@@ -1,5 +1,7 @@
 package com.team6.project.services.rest.test;
 
+
+
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +51,7 @@ public class BaseDataRestTest extends RestTest{
 	@Test
 	public void testCountCallFailureByTac() {
 		
-
+		long fromTime = System.currentTimeMillis();	
 		given()
 			.auth()
 			.form("supEng", "supEng", fac)
@@ -63,13 +65,16 @@ public class BaseDataRestTest extends RestTest{
 			.when()
 			.get("/protected/rest/tac");
 		
+		long toTime = System.currentTimeMillis();
 		
+		//less than 2 sec for the request
+		assertTrue((toTime-fromTime) < 2000);
 	}
 	
 	@Test
 	public void testCountCallFailureByTac_NoPermission() {
 		
-
+		long fromTime = System.currentTimeMillis();	
 		given()
 			.auth()
 			.form("cusSer", "cusSer", fac)
@@ -81,6 +86,11 @@ public class BaseDataRestTest extends RestTest{
 			.statusCode(403)
 			.when()
 			.get("/protected/rest/tac");
+		
+		long toTime = System.currentTimeMillis();
+		
+		//less than 2 sec for the request
+		assertTrue((toTime-fromTime) < 2000);
 		
 		
 	}
