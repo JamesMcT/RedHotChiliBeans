@@ -36,8 +36,7 @@
 				if (xhr.status == 200) {
 					var response = JSON.parse(xhr.responseText);
 					if (response.description) {
-						document.getElementById("div7").innerHTML = ("Status : " + response.status
-								+ " \n Description : " + response.description);
+						document.getElementById("div7").innerHTML = ("Error! - " + response.description);
 						showDiv("div7");
 					} else {
 						showDiv("div6");
