@@ -31,11 +31,18 @@ public class User implements Serializable {
     @Column(name = "user_role", table = "Roles")
     private String role;
 
-    /*
-     * @Column(name="group_role", table="Roles") private String group;
+   
+    /**
+     * @Column(name="group_role", table="Roles") private String group
      */
     public User() {}
     
+    /**
+     * 
+     * @param userId
+     * @param password
+     * @param role
+     */
     public User(String userId, String password, String role) {
         super();
         this.userId = userId;
@@ -69,37 +76,66 @@ public class User implements Serializable {
         return true;
     }
     
+    /**
+     * 
+     * @return
+     */
     public String getKey(){
         return userId;
     }
 
+    /**
+     * 
+     */
     public String toString() {
         return "UserId : " + userId + " Password : " + password
                 + " User Role : " + role;
     }
 
-   
-
+   /**
+    * 
+    * @return
+    */
     public String getUserId() {
         return userId;
     }
 
+    /**
+     * 
+     * @param userId
+     */
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * 
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getRole() {
         return role;
     }
 
+    /**
+     * 
+     * @param role
+     */
     public void setRole(String role) {
         this.role = role;
     }

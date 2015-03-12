@@ -154,6 +154,11 @@ public class JPABaseDataDAO implements BaseDataDAO {
 		return (long)em.createNamedQuery("baseDataCount").getSingleResult();
 	}
 	
+	/**
+	 * 
+	 * @param record
+	 * @param baseData
+	 */
 	public static void fillData(Record record, BaseData baseData){
         baseData.setCellId(record.getCellId());
         baseData.setDuration(record.getDuration());

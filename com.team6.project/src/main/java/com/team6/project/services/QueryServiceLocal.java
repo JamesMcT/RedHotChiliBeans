@@ -14,6 +14,10 @@ import com.team6.project.entities.UserEquipment;
 @Local
 public interface QueryServiceLocal {
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Collection<UserEquipment> getAllUserEquipment();
 	
 }

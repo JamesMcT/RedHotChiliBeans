@@ -22,6 +22,9 @@ public class UserEquipmentReader extends Reader {
 
     private static final String NAME = "UE Table";
 
+    /**
+     * 
+     */
     public UserEquipmentReader() {
         super();
     }
@@ -70,6 +73,10 @@ public class UserEquipmentReader extends Reader {
 
     }
 
+    /**
+     * 
+     * @return
+     */
     public static String getName() {
         return NAME;
     }

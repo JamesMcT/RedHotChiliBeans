@@ -10,12 +10,20 @@ import javax.inject.Inject;
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.entities.BaseData;
 
+/**
+ * 
+ * @author 
+ *
+ */
 @Local(BaseDataServiceLocal.class)
 public class BaseDataService implements BaseDataServiceLocal{
 
 	@Inject
 	private BaseDataDAO basedatadao;
 	
+	/**
+	 * 
+	 */
 	public BaseDataService() {}
 	
 	@Override

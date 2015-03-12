@@ -16,17 +16,41 @@ import com.team6.project.entities.EventCausePK;
 @Local
 public interface EventCauseDAO {
 
-
+	/**
+	 * 
+	 * @return
+	 */
 	public Collection<EventCause> getAllEventCauses();
 
+	/**
+	 * 
+	 * @param eventCausePK
+	 * @return
+	 */
 	public EventCause getEventCauseByKey(EventCausePK eventCausePK);
 
+	/**
+	 * 
+	 * @param eventCause
+	 */
 	public void addEventCauseData(EventCause eventCause);
 
+	/**
+	 * 
+	 * @param eventCause
+	 */
 	public void addEventCauseCollection(Collection<EventCause> eventCause);
-	
+
+	/**
+	 * 
+	 * @param eventCause
+	 */
 	public void updateEventCause(EventCause eventCause);
 
+	/**
+	 * 
+	 * @param eventCause
+	 */
 	public void deleteEventCause(EventCause eventCause);
 
 	// public EventCause findByCauseCodeAndEventId(Integer causeCode, Integer

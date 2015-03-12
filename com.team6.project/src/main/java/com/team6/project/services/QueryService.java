@@ -20,6 +20,9 @@ public class QueryService implements QueryServiceLocal{
 	@Inject
 	private UserEquipmentDAO userEquipment;
 	
+	/**
+	 * 
+	 */
 	public QueryService() {}
 
 	@Override

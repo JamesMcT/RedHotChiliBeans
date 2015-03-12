@@ -22,10 +22,16 @@ public class FailureTypeReader extends Reader {
 
     private static final String NAME = "Failure Class Table";
 
+    /**
+     * 
+     */
     public FailureTypeReader() {
         super();
     }
 
+    /**
+     * 
+     */
     @SuppressWarnings("unchecked")
     public void processExcelFile(DataImportServiceLocal service) {
     	

@@ -23,6 +23,9 @@ public class OperatorCountryReader extends Reader {
 
     private static final String NAME = "MCC - MNC Table";
 
+    /**
+     * 
+     */
     public OperatorCountryReader() {
         super();
     }
@@ -69,6 +72,10 @@ public class OperatorCountryReader extends Reader {
 
     }
 
+    /**
+     * 
+     * @return
+     */
     public static String getName() {
         return NAME;
     }

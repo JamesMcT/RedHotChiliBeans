@@ -53,13 +53,23 @@ public class Record implements IDescription, Serializable{
     private BigInteger hier321Id;
     private String description;
 
+    /**
+     * 
+     */
     public Record() {
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getKey() {
         return id;
     }
 
+    /**
+     * 
+     */
     public String toString() {
         return "Id : " + id + " Date : " + date.getTime() + " Cause Code : "
                 + causeCode + " Event Id : " + eventId + " Failure Type : "
@@ -198,36 +208,66 @@ public class Record implements IDescription, Serializable{
         return true;
     }
 
-   
-
+/**
+ * 
+ * @return
+ */
     public Integer getId() {
 		return id;
 	}
 
+    /**
+     * 
+     * @param id
+     */
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Date getDate() {
         return date;
     }
 
+	/**
+	 * 
+	 * @param date
+	 */
     public void setDate(Date date) {
         this.date = date;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getCauseCode() {
         return causeCode;
     }
 
+    /**
+     * 
+     * @param causeCode
+     */
     public void setCauseCode(Integer causeCode) {
         this.causeCode = causeCode;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getEventId() {
         return eventId;
     }
 
+    /**
+     * 
+     * @param eventId
+     */
     public void setEventId(Integer eventId) {
         this.eventId = eventId;
     }
@@ -236,94 +276,185 @@ public class Record implements IDescription, Serializable{
         return failureType;
     }
 
+    /**
+     * 
+     * @param failureType
+     */
     public void setFailureType(Integer failureType) {
         this.failureType = failureType;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getUserEquipment() {
         return userEquipment;
     }
 
+    /**
+     * 
+     * @param userEquipment
+     */
     public void setUserEquipment(Integer userEquipment) {
         this.userEquipment = userEquipment;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getMcc() {
         return mcc;
     }
 
+    /**
+     * 
+     * @param mcc
+     */
     public void setMcc(Integer mcc) {
         this.mcc = mcc;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getMnc() {
         return mnc;
     }
 
+    /**
+     * 
+     * @param mnc
+     */
     public void setMnc(Integer mnc) {
         this.mnc = mnc;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getCellId() {
         return cellId;
     }
 
+    /**
+     * 
+     * @param cellId
+     */
     public void setCellId(Integer cellId) {
         this.cellId = cellId;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getDuration() {
         return duration;
     }
 
+    /**
+     * 
+     * @param duration
+     */
     public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getNeVersion() {
         return neVersion;
     }
 
+    /**
+     * 
+     * @param neVersion
+     */
     public void setNeVersion(String neVersion) {
         this.neVersion = neVersion;
     }
 
+    /**
+     * 
+     * @return
+     */
     public BigInteger getImsi() {
         return imsi;
     }
 
+    /**
+     * 
+     * @param imsi
+     */
     public void setImsi(BigInteger imsi) {
         this.imsi = imsi;
     }
 
+    /**
+     * 
+     * @return
+     */
     public BigInteger getHier3Id() {
         return hier3Id;
     }
 
+    /**
+     * 
+     * @param hier3Id
+     */
     public void setHier3Id(BigInteger hier3Id) {
         this.hier3Id = hier3Id;
     }
 
+    /**
+     * 
+     * @return
+     */
     public BigInteger getHier32Id() {
         return hier32Id;
     }
 
+    /**
+     * 
+     * @param hier32Id
+     */
     public void setHier32Id(BigInteger hier32Id) {
         this.hier32Id = hier32Id;
     }
 
+    /**
+     * 
+     * @return
+     */
     public BigInteger getHier321Id() {
         return hier321Id;
     }
 
+    /**
+     * 
+     * @param hier321Id
+     */
     public void setHier321Id(BigInteger hier321Id) {
         this.hier321Id = hier321Id;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * 
+     */
     public void setDescription(String description) {
         this.description = description;
     }

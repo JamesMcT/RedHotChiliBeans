@@ -6,6 +6,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+
 /**
  * @author Cristiana
  * OperatorCountry table
@@ -22,8 +23,18 @@ public class OperatorCountry implements Serializable{
     private String country;
     private String operator;
     
+    /**
+     * 
+     */
     public OperatorCountry() {  }
 
+    /**
+     * 
+     * @param mcc
+     * @param mnc
+     * @param country
+     * @param operator
+     */
     public OperatorCountry(Integer mcc, Integer mnc, String country, String operator) {
         super();
         this.mcc = mcc;
@@ -32,10 +43,17 @@ public class OperatorCountry implements Serializable{
         this.operator = operator;
     }
     
+    /**
+     * 
+     */
     public String toString(){
         return "MCC : "+mcc+" MNC : "+mnc+" Operator : "+operator+" Country : "+country;
     }
 
+    /**
+     * 
+     * @return
+     */
     public boolean hasRequiredFields(){
         if(mcc != null & mnc != null){
             return true;
@@ -43,6 +61,10 @@ public class OperatorCountry implements Serializable{
         return false;
     }
     
+    /**
+     * 
+     * @return
+     */
     public OperatorCountryPK getKey(){
         return new OperatorCountryPK(mcc, mnc);
     }
@@ -78,34 +100,66 @@ public class OperatorCountry implements Serializable{
         return true;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getMcc() {
         return mcc;
     }
 
+    /**
+     * 
+     * @param mcc
+     */
     public void setMcc(Integer mcc) {
         this.mcc = mcc;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getMnc() {
         return mnc;
     }
 
+    /**
+     * 
+     * @param mnc
+     */
     public void setMnc(Integer mnc) {
         this.mnc = mnc;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getCountry() {
         return country;
     }
 
+    /**
+     * 
+     * @param country
+     */
     public void setCountry(String country) {
         this.country = country;
     }
 
+    /**
+     * 
+     * @return
+     */
     public String getOperator() {
         return operator;
     }
 
+    /**
+     * 
+     * @param operator
+     */
     public void setOperator(String operator) {
         this.operator = operator;
     }

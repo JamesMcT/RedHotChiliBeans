@@ -63,6 +63,10 @@ public class EventCauseReader extends Reader {
 
     }
 
+    /**
+     * 
+     * @return
+     */
     public static String getName() {
         return NAME;
     }
