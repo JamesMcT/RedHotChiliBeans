@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import com.team6.project.dao.UserDAO;
 import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
+
 /**
  * 
  * 
@@ -23,6 +24,11 @@ public class UserManagmentRestService {
     @EJB
     UserDAO userDao;
     
+    /**
+     * 
+     * @param userId
+     * @return
+     */
     @GET
     @Path("/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -30,7 +36,11 @@ public class UserManagmentRestService {
         return userDao.getUserByKey(userId);
     }
     
-    
+    /**
+     * 
+     * @param user
+     * @return
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
