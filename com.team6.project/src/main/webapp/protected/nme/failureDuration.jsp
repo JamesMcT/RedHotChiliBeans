@@ -16,7 +16,7 @@
 <link href="../../css/sb-admin-2.css" rel="stylesheet">
 <link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../../css/dataTables.responsive.css" rel="stylesheet">
-<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<!-- <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet"> -->
 <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
 <!-- Adding functions -->
@@ -32,6 +32,12 @@
 
 		var startDate = document.getElementById("startDate").value;
 		var endDate = document.getElementById("endDate").value;
+
+		if(document.getElementById("validationEnabled").checked){
+			if(!validateDate(startDate, "Invalid start date") || !validateDate(endDate, "Invalid end date")){
+				return false;
+			}
+		}
 		
 		var xhr = new XMLHttpRequest();
 		var root = "${pageContext.servletContext.contextPath}";
@@ -55,9 +61,21 @@
 		xhr.send();
 	}
 
+	function validateDate(dateString, errorMessage){
+		//yyyy-mm-dd hh-mm-ss
+		regexPattern = /^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$/;
+		if(dateString.match(regexPattern)){
+			return true;
+		}
+		else{
+			showError(errorMessage + ": " + dateString);
+			return false;
+		}
+	}
+	
 	function showError(message){
-		var tableDiv = document.getElementById("dataTableDiv");
-		tableDiv.innerHTML = message;
+		var errorDiv = document.getElementById("errorDiv");
+		errorDiv.innerHTML = message;
 	}
 
 	function createTableHead() {
@@ -113,6 +131,10 @@
 	function cleanTable() {
 		var tableBody = document.getElementById("tableBody");
 		var tableHead = document.getElementById("tableHead");
+		
+		var errorDiv = document.getElementById("errorDiv");
+		errorDiv.innerHTML = '';
+		
 		if (tableHead) {
 			console.log("removing head");
 			tableHead.parentNode.removeChild(tableHead);
@@ -124,7 +146,7 @@
 	}
 
 	function startup() {
-		loadbar('sidebar.html');
+		loadbar('../sidebar.jsp');
 		
 		//$('#datetimepicker').datetimepicker({
 		    //format: 'yyyy-MM-dd hh:mm:ss',
@@ -175,6 +197,7 @@
 							<br/> 
 							<input type='button' onclick="getFailureData()"
 								value="show data" /> <br>
+							<input type='checkbox' name='validationEnabled' id='validationEnabled' value='JS Validation Enabled'/> JS Validation Enabled<br/>
 						</div>
 						<!-- /#div1 -->
 					</div>
@@ -185,6 +208,7 @@
 						<div class="panel-heading">Table: IMSI, failure count, total duration.</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper" id="dataTableDiv">
+								<div id="errorDiv"></div>
 								<table class="table table-striped table-bordered table-hover"
 									id="failureDurationTable">
 								</table>

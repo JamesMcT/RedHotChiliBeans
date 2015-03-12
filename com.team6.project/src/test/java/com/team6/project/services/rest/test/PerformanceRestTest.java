@@ -48,6 +48,8 @@ public class PerformanceRestTest {
                              "com.team6.project.validators")
                 .addAsResource("test-persistence-performance.xml",
                                "META-INF/persistence.xml")
+                .addAsResource("log4j.xml",
+                               "log4j.xml")
                 .merge(ShrinkWrap.create(GenericArchive.class)
                                .as(ExplodedImporter.class)
                                .importDirectory(WEBAPP_SRC)

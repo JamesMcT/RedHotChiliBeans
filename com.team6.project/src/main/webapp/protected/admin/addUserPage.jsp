@@ -13,7 +13,6 @@
 <!-- Adding CSS -->
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
 <link href="../../css/sb-admin-2.css" rel="stylesheet">
-<link href="../../css/text-box.css" rel="stylesheet">
 <!-- Adding functions -->
 <script src="../../js/common.js"></script>
 <script>
@@ -21,8 +20,6 @@
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
 		var userRole = document.getElementById("userRole").value;
-		hideDiv("div6");
-		hideDiv("div7");
 		if (username && password && userRole) {
 			var u = {};
 			u.userId = username;
@@ -36,10 +33,11 @@
 				if (xhr.status == 200) {
 					var response = JSON.parse(xhr.responseText);
 					if (response.description) {
-						document.getElementById("div7").innerHTML = ("Error! - " + response.description);
-						showDiv("div7");
+						alert("Status : " + response.status
+								+ " \n Description : " + response.description);
 					} else {
-						showDiv("div6");
+						alert("New user inserted with success! \n Status : "
+								+ response.status);
 					}
 				}
 			}, false);
@@ -55,15 +53,9 @@
 		document.getElementById("username").value = "";
 		document.getElementById("password").value = "";
 	}
-	
-	function startup() {
-		loadbar('../sidebar.jsp');
-		hideDiv("div6");
-		hideDiv("div7");
-	}
 </script>
 <head>
-<body onload="startup()">
+<body onload="loadbar('../sidebar.jsp')">
 
 	<div id="wrapper">
 
@@ -97,8 +89,6 @@
 						<div>
 							<br> <input type='button' class="btn btn-default" onclick="addUser()" value="submit" />
 						</div>
-						<div id="div6" class="success">New user inserted with success!</div>
-						<div id="div7" class="error"></div>
 					</div>
 				</div>
 				<!-- /.col-lg-12 -->
