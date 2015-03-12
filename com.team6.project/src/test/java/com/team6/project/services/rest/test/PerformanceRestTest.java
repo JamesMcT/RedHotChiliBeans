@@ -98,20 +98,84 @@ public class PerformanceRestTest {
     }
     
     @Test
-    public void testGetDistinctEventByTac() {
+    public void testGetDistinctEventByTac_103600() {
         given().filter(sessionFilter).when()
-                .get("/protected/rest/networkmanagement/eventidcausecode/21060800").then()
+                .get("/protected/rest/networkmanagement/eventidcausecode/103600").then()
                 .statusCode(200);
         long beginTime = System.currentTimeMillis();
         given().auth().form("admin", "admin", fac).filter(sessionFilter)
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
-                .get("/protected/rest/networkmanagement/eventidcausecode/21060800");
+                .get("/protected/rest/networkmanagement/eventidcausecode/103600");
         long endTime = System.currentTimeMillis();
         double timeTaken = (endTime-beginTime)/1000.0;
         performanceLogger.warn(String
-                                      .format("NetworkManagment-GetDistinctEventByTac : loading in (%s seconds)",
+                                      .format("NetworkManagment-GetDistinctEventByTac (103600): loading in (%s seconds)",
                                               new DecimalFormat("0.00").format(timeTaken)));
     }
+
+    @Test
+    public void testGetDistinctEventByTac_100100() {
+        given().filter(sessionFilter).when()
+                .get("/protected/rest/networkmanagement/eventidcausecode/100100").then()
+                .statusCode(200);
+        long beginTime = System.currentTimeMillis();
+        given().auth().form("admin", "admin", fac).filter(sessionFilter)
+                .expect().statusCode(200).contentType(ContentType.JSON).when()
+                .get("/protected/rest/networkmanagement/eventidcausecode/100100");
+        long endTime = System.currentTimeMillis();
+        double timeTaken = (endTime-beginTime)/1000.0;
+        performanceLogger.warn(String
+                                      .format("NetworkManagment-GetDistinctEventByTac (100100): loading in (%s seconds)",
+                                              new DecimalFormat("0.00").format(timeTaken)));
+    }
+    
+    @Test
+    public void testGetDistinctEventByTac_33002353() {
+        given().filter(sessionFilter).when()
+                .get("/protected/rest/networkmanagement/eventidcausecode/33002353").then()
+                .statusCode(200);
+        long beginTime = System.currentTimeMillis();
+        given().auth().form("admin", "admin", fac).filter(sessionFilter)
+                .expect().statusCode(200).contentType(ContentType.JSON).when()
+                .get("/protected/rest/networkmanagement/eventidcausecode/33002353");
+        long endTime = System.currentTimeMillis();
+        double timeTaken = (endTime-beginTime)/1000.0;
+        performanceLogger.warn(String
+                                      .format("NetworkManagment-GetDistinctEventByTac (33002353): loading in (%s seconds)",
+                                              new DecimalFormat("0.00").format(timeTaken)));
+    }
+    @Test
+    public void testGetDistinctEventByTac_33002235() {
+        given().filter(sessionFilter).when()
+                .get("/protected/rest/networkmanagement/eventidcausecode/33002235").then()
+                .statusCode(200);
+        long beginTime = System.currentTimeMillis();
+        given().auth().form("admin", "admin", fac).filter(sessionFilter)
+                .expect().statusCode(200).contentType(ContentType.JSON).when()
+                .get("/protected/rest/networkmanagement/eventidcausecode/33002235");
+        long endTime = System.currentTimeMillis();
+        double timeTaken = (endTime-beginTime)/1000.0;
+        performanceLogger.warn(String
+                                      .format("NetworkManagment-GetDistinctEventByTac (33002235): loading in (%s seconds)",
+                                              new DecimalFormat("0.00").format(timeTaken)));
+    }
+    @Test
+    public void testGetDistinctEventByTac_108100() {
+        given().filter(sessionFilter).when()
+                .get("/protected/rest/networkmanagement/eventidcausecode/108100").then()
+                .statusCode(200);
+        long beginTime = System.currentTimeMillis();
+        given().auth().form("admin", "admin", fac).filter(sessionFilter)
+                .expect().statusCode(200).contentType(ContentType.JSON).when()
+                .get("/protected/rest/networkmanagement/eventidcausecode/108100");
+        long endTime = System.currentTimeMillis();
+        double timeTaken = (endTime-beginTime)/1000.0;
+        performanceLogger.warn(String
+                                      .format("NetworkManagment-GetDistinctEventByTac (108100): loading in (%s seconds)",
+                                              new DecimalFormat("0.00").format(timeTaken)));
+    }
+    
+    
 
     
     
