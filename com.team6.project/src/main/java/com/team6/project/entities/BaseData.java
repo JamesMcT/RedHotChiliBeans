@@ -9,26 +9,37 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
 
 /**
+
+ * @author Cristiana BaseData table
+ * @author James NamedQueries
+
  * BaseData table
  * 
  * @author Cristiana Conti
  * @author Eoin Kernan
  * 
  */
+
+
+
+//@NamedQueries({ @NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi") })
+
+
 @NamedQueries({
+	@NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi"),
         @NamedQuery(name = "baseDataCount", query = "SELECT COUNT(b.id) FROM BaseData b") ,
+
         @NamedQuery(name = "eventCauseAndIdByTac", query = "SELECT b.eventCause, COUNT(b) FROM BaseData b where b.userEquipment.tac=:userEquipment GROUP BY b.eventCause"),
         @NamedQuery(name = "failureCountAndDurationPerImsiByDate", query = "SELECT b.imsi, COUNT(b.id), SUM(b.duration) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC")})
+
 @Entity
 public class BaseData implements Serializable {
 
-    private static final long serialVersionUID = 3566051644134070390L;
-
-    // @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Id
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
@@ -262,5 +273,6 @@ public class BaseData implements Serializable {
     public void setHier321Id(BigInteger hier321Id) {
         this.hier321Id = hier321Id;
     }
+
 
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 MSC service thread 1-2 INFO  services.DataImportService - atStartUp() running...
 MSC service thread 1-2 INFO  services.DataImportService - Readers Intialized...
 MSC service thread 1-2 INFO  services.DataImportService - startDirectoryWatcher() watching...
@@ -1616,3 +1617,18 @@ java.lang.NoClassDefFoundError: com/jayway/restassured/internal/support/PathSupp
 main INFO  jmx.ArquillianServiceDeployer - Undeploy arquillian service: arquillian-service: 1044 assets
 Remoting "endpoint" read-1 ERROR remote.connection - JBREM000200: Remote connection failed: java.io.IOException: An existing connection was forcibly closed by the remote host
 Remoting "management-client" read-1 ERROR remote.connection - JBREM000200: Remote connection failed: java.io.IOException: An existing connection was forcibly closed by the remote host
+=======
+MSC service thread 1-2 INFO  services.DataImportService - atStartUp() running...
+MSC service thread 1-2 INFO  services.DataImportService - Readers Intialized...
+MSC service thread 1-2 INFO  services.DataImportService - startDirectoryWatcher() watching...
+Thread-65 INFO main WARN  readers.Reader - In sheet Failure Class Table row number 7 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 4 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 5 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 6 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 7 primary key not valued properly
+main WARN  readers.Reader - In sheet UE Table row number 3 primary key not valued properly
+main WARN  readers.Reader - In sheet UE Table row number 4 primary key not valued properly
+main INFO  jmx.ArquillianServiceDeployer - Undeploy arquillian service: arquillian-service: 1044 assets
+Remoting "management-client" read-1 ERROR remote.connection - JBREM000200: Remote connection failed: java.io.IOException: An existing connection was forcibly closed by the remote host
+Remoting "endpoint" read-1 ERROR remote.connection - JBREM000200: Remote connection failed: java.io.IOException: An existing connection was forcibly closed by the remote host
+>>>>>>> refs/heads/master

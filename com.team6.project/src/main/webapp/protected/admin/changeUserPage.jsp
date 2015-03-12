@@ -7,22 +7,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Add New User Page">
 <meta name="author" content="Cristiana">
-
 <title>Red Hot Chilli Beans</title>
-
 <!-- Adding CSS -->
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
 <link href="../../css/sb-admin-2.css" rel="stylesheet">
-
+<link href="../../css/text-box.css" rel="stylesheet">
 <!-- Adding functions -->
 <script src="../../js/common.js"></script>
-
 <script>
 	var user;
-
 	function findUser() {
 		var username = document.getElementById("users").value;
 		var currentDiv = document.getElementById("div2");
+		hideDiv("div6");
+		hideDiv("div7");
 		if (username) {
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
@@ -38,9 +36,8 @@
 										var currentRole = document
 												.createTextNode("The current role of the user is : "
 														+ user.role);
-										currentDiv.appendChild(document
-												.createElement("br"));
-										currentDiv.appendChild(currentRole);
+										appendDescription(currentDiv,
+												currentRole);
 										showDivs();
 									} else {
 										alert("User not found!");
@@ -53,7 +50,6 @@
 			xhr.send();
 		}
 	}
-
 	function updateUser() {
 		var role = document.getElementById("userRole").value;
 		var oldPassword = document.getElementById("oldPassword").value;
@@ -77,15 +73,12 @@
 				xhr.addEventListener('load', function() {
 					if (xhr.status == 200) {
 						var response = JSON.parse(xhr.responseText);
-						if (response.description) {
-							alert("Status : " + response.status
-									+ " \n Description : "
-									+ response.description);
-						} else {
-							alert("User updated with success! \n Status : "
-									+ response.status);
-						}
 						clean();
+						if (response.description) {
+							showDiv("div7");
+						} else {
+							showDiv("div6");
+						}
 					} else {
 						alert("error! the response status is : " + xhr.status);
 					}
@@ -95,23 +88,20 @@
 		}
 	}
 	function fieldValidation(oldPassword, newPassword, reNewPassword) {
-		if(oldPassword && newPassword && reNewPassword){
+		if (oldPassword && newPassword && reNewPassword) {
 			if (oldPassword == user.password) {
-				if(newPassword == reNewPassword){
+				if (newPassword == reNewPassword) {
 					return true;
-				}
-				else{
+				} else {
 					alert("New Password is not the same in both fields!");
 				}
 			} else {
 				alert("The old password is incorrect!");
 				return false;
 			}
-		}
-		else if(!oldPassword && !newPassword && !reNewPassword){
+		} else if (!oldPassword && !newPassword && !reNewPassword) {
 			return true;
-		}
-		else{
+		} else {
 			alert("Please fill all passwords fields!");
 			return false;
 		}
@@ -135,21 +125,30 @@
 		} else {
 			alert("error! the response status is : " + xhr.status);
 		}
-
 	}
-
+	function appendDescription(currentDiv, currentRole) {
+		while (currentDiv.childNodes.length > 3) {
+			currentDiv.removeChild(currentDiv.lastChild);
+		}
+		currentDiv.appendChild(document.createElement("br"));
+		currentDiv.appendChild(currentRole);
+	}
 	function showDivs() {
-		document.getElementById("div3").style.display = 'block';
-		document.getElementById("div4").style.display = 'block';
-		document.getElementById("div5").style.display = 'block';
+		showDiv("div3");
+		showDiv("div4");
+		showDiv("div5");
 	}
-
 	function hideDivs() {
-		document.getElementById("div3").style.display = 'none';
-		document.getElementById("div4").style.display = 'none';
-		document.getElementById("div5").style.display = 'none';
+		hideDiv("div3");
+		hideDiv("div4");
+		hideDiv("div5");
 	}
-
+	function showDiv(divId) {
+		document.getElementById(divId).style.display = 'block';
+	}
+	function hideDiv(divId) {
+		document.getElementById(divId).style.display = 'none';
+	}
 	function clean() {
 		var currentDiv = document.getElementById("div2");
 		currentDiv.removeChild(currentDiv.lastChild);
@@ -158,10 +157,14 @@
 		document.getElementById("reinsertNewPassword").value = "";
 		hideDivs();
 	}
-
 	function startup() {
 		loadbar('../sidebar.jsp');
 		getAllUsers();
+		hideDiv("div3");
+		hideDiv("div4");
+		hideDiv("div5");
+		hideDiv("div6");
+		hideDiv("div7");
 	}
 </script>
 </head>
@@ -170,7 +173,6 @@
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
 			style="margin-bottom: 0" id="navigation"> </nav>
-
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
@@ -185,34 +187,37 @@
 							<input type='button' onclick="findUser()" value="find"
 								class="btn btn-default" /> <br>
 						</div>
-						<div id="div3" class="form-group" style="display: none">
+						<div id="div3" class="form-group">
 							<br> <select name="userRole" id="userRole"
 								class="form-control">
 								<option value="Network Management Engineer">Network
 									Management Engineer</option>
 								<option value="Support Engineer">Support Engineer</option>
 								<option value="Customer Service">Customer Sevice</option>
+								<option value="administrator">Administrator</option>
 							</select> <br>
 						</div>
-						<div id="div4" class="form-group" style="display: none">
+						<div id="div4" class="form-group">
 							<label> Fill this forms ONLY if you want change the
-								password </label> <input id="oldPassword" type="password" class="form-control"
-								placeholder="Old Password"></input> <br> <input
-								id="newPassword" type="password" class="form-control" placeholder="New Password"></input>
-							<br> <input id="reinsertNewPassword" type="password" class="form-control"
+								password </label> <input id="oldPassword" type="password"
+								class="form-control" placeholder="Old Password"></input> <br>
+							<input id="newPassword" type="password" class="form-control"
+								placeholder="New Password"></input> <br> <input
+								id="reinsertNewPassword" type="password" class="form-control"
 								placeholder="Re-insert New Password"></input>
 						</div>
-						<div id="div5" class="hidden-div-cri">
+						<div id="div5">
 							<input type='button' onclick="updateUser()" value="update"
 								class="btn btn-default" />
 						</div>
+						<div id="div6" class="success">User updated with success!</div>
+						<div id="div7" class="error">User update failed.</div>
 					</div>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
 		</div>
 		<!-- /#page-wrapper -->
-
 	</div>
 	<!-- /#wrapper -->
 </body>
