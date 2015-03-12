@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
  */
 
 @RunWith(Arquillian.class)
-public class BaseDataRestTest extends RestTest{
+public class SupportEngineerRestServiceTest extends RestTest{
 	
 	private FormAuthConfig fac;
 	private SessionFilter sessionFilter;
@@ -45,7 +45,7 @@ public class BaseDataRestTest extends RestTest{
 		given()
 			.filter(sessionFilter)
 			.when()
-			.get("/protected/rest/tac")			
+			.get("/protected/rest/basedata/tac")			
 			.then()
 			.statusCode(200);
 		
@@ -75,7 +75,7 @@ public class BaseDataRestTest extends RestTest{
 			.statusCode(200)
 			.contentType(ContentType.JSON)
 			.when()
-			.get("/protected/rest/tac");
+			.get("/protected/rest/basedata/tac");
 		
 		toTime = System.currentTimeMillis();
 		
@@ -116,7 +116,7 @@ public class BaseDataRestTest extends RestTest{
 			.expect()
 			.statusCode(403)
 			.when()
-			.get("/protected/rest/tac");
+			.get("/protected/rest/basedata/tac");
 		
 		toTime = System.currentTimeMillis();
 	}

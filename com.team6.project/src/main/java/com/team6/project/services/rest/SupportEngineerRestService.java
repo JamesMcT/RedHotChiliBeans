@@ -20,75 +20,60 @@ import com.team6.project.entities.ReqParam;
 import com.team6.project.entities.Response;
 import com.team6.project.services.QueryServiceLocal;
 
-
-
 /**
  * 
  * @author Sabee D14125306
  *
  */
 
-@Path("/tac")
-public class BaseDataRest {
-	
-	
+@Path("/basedata")
+public class SupportEngineerRestService {
+
 	@Inject
 	QueryServiceLocal queryService;
-	
-	public BaseDataRest() {}
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public long countCallFailureByTac(
-			@QueryParam("tac") Integer tac,
-			@QueryParam("fromDate") long lFromDate,
-			@QueryParam("toDate") long lToDate){
-	
-	
-		Date fromDate = new Date();		
-		Date toDate = new Date();
-		
-		fromDate.setTime(lFromDate);
-		toDate.setTime(lToDate);
-		
-		return queryService.countCallFailureByTac(tac, fromDate, toDate);
+
+	public SupportEngineerRestService() {
 	}
-	
-	
-	
-	@POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response countCallFailureByTac(ReqParam reqParam) {        
-        
-//      String fromDate_s = "2013-01-11 17:15:00";
-//		String toDate_s = "2013-01-11 17:16:00";
-				
-		SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
+
+	@GET
+	@Path("/tac")
+	@Produces(MediaType.APPLICATION_JSON)
+	public long countCallFailureByTac(@QueryParam("tac") Integer tac,
+			@QueryParam("fromDate") long lFromDate,
+			@QueryParam("toDate") long lToDate) {
+
 		Date fromDate = new Date();
 		Date toDate = new Date();
-		
+
+		fromDate.setTime(lFromDate);
+		toDate.setTime(lToDate);
+
+		return queryService.countCallFailureByTac(tac, fromDate, toDate);
+	}
+
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response countCallFailureByTac(ReqParam reqParam) {
+
+		// String fromDate_s = "2013-01-11 17:15:00";
+		// String toDate_s = "2013-01-11 17:16:00";
+
+		SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss");
+		Date fromDate = new Date();
+		Date toDate = new Date();
+
 		try {
 			fromDate = dt.parse(reqParam.getFromDate());
 			toDate = dt.parse(reqParam.getToDate());
 		} catch (ParseException e) {
 			e.printStackTrace();
-		} 
-		
-		Integer tac = new Integer(reqParam.getTac());		
-		
-		
-		//FileIOtxt f = new FileIOtxt("sabee20150307.tmp");
-		//f.saveFile(queryService.countCallFailureByTac(tac, fromDate, toDate).getDescription());
-		
-//		Response response = new Response();
-//		
-//		response.setStatus(Response.Status.OK);
-//		response.setDescription("666666");
-		
-		
+		}
+
+		Integer tac = new Integer(reqParam.getTac());
+
 		return queryService.countCallFailureByTacPOST(tac, fromDate, toDate);
-        
+
 	}
-	
+
 }

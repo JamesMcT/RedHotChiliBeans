@@ -47,7 +47,7 @@
 			var root = "${pageContext.servletContext.contextPath}";
 
 			var root2 = "/com.team6.project-0.0.1-SNAPSHOT";
-			xhr.open("POST", root + "/protected/rest/tac", false);
+			xhr.open("POST", root + "/protected/rest/basedata/tac", false);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify(reqParams));
 			if (xhr.status == 200) {
@@ -87,7 +87,7 @@ function getRecordsByTac() {
 		if (pickedTac && fromDate && toDate) {
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
-			xhr.open("GET", root + "/protected/rest/tac" + "?tac=" + pickedTac + "&fromDate=" + fromDate + "&toDate=" + toDate, true);
+			xhr.open("GET", root + "/protected/rest/basedata/tac" + "?tac=" + pickedTac + "&fromDate=" + fromDate + "&toDate=" + toDate, true);
 			xhr.addEventListener('load', function() {
 				if (xhr.status == 200) {
 					

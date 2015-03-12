@@ -63,7 +63,7 @@
 			<web-resource-name>Support Engineer Constraint</web-resource-name>
 			<url-pattern>/protected/se/*</url-pattern>
 			<url-pattern>/protected/rest/userequipment/*</url-pattern>
-			<url-pattern>/protected/rest/tac/*</url-pattern>
+			<url-pattern>/protected/rest/basedata/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Support Engineer</role-name>
