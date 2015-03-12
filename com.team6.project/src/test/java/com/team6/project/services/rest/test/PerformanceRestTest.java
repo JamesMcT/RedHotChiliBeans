@@ -232,10 +232,10 @@ public class PerformanceRestTest {
         .get("/protected/rest/networkmanagement/failurecountandduration");
     	
     	long endTime = System.currentTimeMillis();
-        long timeTaken = (endTime-beginTime)/1000;
+        double timeTaken = (endTime-beginTime)/1000.0;
         performanceLogger.warn(String
                 .format("NetworkManagment-failurecountandduration : loading in (%s seconds)",
-                        new DecimalFormat("0.00").format(timeTaken)));
+                        new DecimalFormat("0.000").format(timeTaken)));
     }
 
     
