@@ -4,11 +4,14 @@ import java.util.Collection;
 
 import javax.ejb.Local;
 import javax.enterprise.inject.Alternative;
+
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.Record;
+import com.team6.project.entities.Response;
+import com.team6.project.entities.User;
 import com.team6.project.entities.UserEquipment;
 
 @Local
@@ -114,10 +117,22 @@ public class PersistenceServiceFake implements PersistenceServiceLocal{
 	}
 
 	@Override
-	public void persistUserEequipmentCollection(
+	public void persistUserEquipmentCollection(
 			Collection<UserEquipment> userEquipment) {
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public Response addUser(User newUser) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Response updateUser(User newUser) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

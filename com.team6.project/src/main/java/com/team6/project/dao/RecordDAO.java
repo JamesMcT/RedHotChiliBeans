@@ -9,6 +9,7 @@ import com.team6.project.entities.Record;
 /**
  * 
  * @author John O Keeffe
+ * @author Cristiana Conti
  *
  */
 @Local

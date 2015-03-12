@@ -1,12 +1,16 @@
 package com.team6.project.services.rest.test;
 
 import static com.jayway.restassured.RestAssured.config;
-import static com.jayway.restassured.RestAssured.given;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 
+import org.apache.commons.io.FileUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -17,21 +21,38 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.After;
 import org.junit.Before;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.authentication.FormAuthConfig;
 import com.jayway.restassured.config.LogConfig;
-import com.jayway.restassured.filter.session.SessionFilter;
-import com.team6.project.dao.UserDAO;
 import com.team6.project.entities.User;
+import com.team6.project.services.DataImportServiceLocal;
+import com.team6.project.services.PersistenceServiceLocal;
+import com.team6.project.services.QueryServiceLocal;
 
 public abstract class RestTest {
     
     public final static String ARCHIVE_NAME = "test";
     public final static String WEBAPP_SRC = "src/main/webapp/protected";
+    private Path testWatchPath;
+    private static final String INPUT_FILE_NAME = "Dataset_LONG2.xls";
+    private static final String PATH_TO_TEST_INPUT = "src/test/resources/";
+
+    private static final long DELAY_IN_MS = 500;
+    
+    private static volatile boolean importComplete = false;
+    private static volatile boolean usersCreated = false;
+    
     @EJB
-    private UserDAO userDao;
+    DataImportServiceLocal service;
+  
+    @Inject
+    private PersistenceServiceLocal persistence;
+    
+    @Inject
+    private QueryServiceLocal query;
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -72,51 +93,100 @@ public abstract class RestTest {
                 .resolve("commons-logging:commons-logging:1.1.3")
                 .withTransitivity().as(File.class);
         a.addAsLibraries(files);
+        
+        files = Maven.resolver()
+                .resolve("org.glassfish:javax.json:1.0")
+                .withTransitivity().as(File.class);
+        a.addAsLibraries(files);
 
         return a;
     }
     
     @Before
-    public void setUp(){
-        RestAssured.config = config()
-                .logConfig(new LogConfig(System.out, true));
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-        RestAssured.basePath = ARCHIVE_NAME;
-        RestAssured.port = 18080;
+    public void setUp() throws InterruptedException{
+    	if(!importComplete){
+	        importDataTest();
+	        RestAssured.config = config()
+	                .logConfig(new LogConfig(System.out, true));
+	        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+	        RestAssured.basePath = ARCHIVE_NAME;
+	        RestAssured.port = 18080;
+	        importComplete = true;
+    	}
     }
     
     public void createUsers() {
-        
-        User admin = new User();
-        admin.setUserId("admin");
-        admin.setPassword("admin");
-        admin.setRole("administrator");
-        userDao.addUser(admin);
-        
-        User nmEng = new User();
-        nmEng.setUserId("nmEng");
-        nmEng.setPassword("nmEng");
-        nmEng.setRole("Network Management Engineer");
-        userDao.addUser(nmEng);
-        
-        User supEng = new User();
-        supEng.setUserId("supEng");
-        supEng.setPassword("supEng");
-        supEng.setRole("Support Engineer");
-        userDao.addUser(supEng);
-        
-        User cusSer = new User();
-        cusSer.setUserId("cusSer");
-        cusSer.setPassword("cusSer");
-        cusSer.setRole("Customer Service");
-        userDao.addUser(cusSer);
+        if(!usersCreated){
+	        User admin = new User();
+	        admin.setUserId("admin");
+	        admin.setPassword("admin");
+	        admin.setRole("administrator");
+	        persistence.addUser(admin);
+	        
+	        User nmEng = new User();
+	        nmEng.setUserId("nmEng");
+	        nmEng.setPassword("nmEng");
+	        nmEng.setRole("Network Management Engineer");
+	        persistence.addUser(nmEng);
+	        
+	        User supEng = new User();
+	        supEng.setUserId("supEng");
+	        supEng.setPassword("supEng");
+	        supEng.setRole("Support Engineer");
+	        persistence.addUser(supEng);
+	        
+	        User cusSer = new User();
+	        cusSer.setUserId("cusSer");
+	        cusSer.setPassword("cusSer");
+	        cusSer.setRole("Customer Service");
+	        persistence.addUser(cusSer);
+	        
+	        usersCreated = true;
+        }
     }
-    
-   
+       
     public FormAuthConfig getformAuthConfig(){
         return new FormAuthConfig(
                               "protected/j_security_check",
                               "j_username", "j_password");
+    }
+    
+    public void importDataTest() throws InterruptedException {
+        startWatchingFolder();
+        Thread.sleep(DELAY_IN_MS);
+        copyTestSheetIntoWatchDirectory();
+        Thread.sleep((DELAY_IN_MS*2)*5);
+    }
+    
+    private void startWatchingFolder() {
+        try {
+            testWatchPath = Files.createTempDirectory("ArquillanTestDir");
+            service.startDirectoryWatcher(testWatchPath.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void copyTestSheetIntoWatchDirectory() {
+        File sourceFile = new File(PATH_TO_TEST_INPUT + INPUT_FILE_NAME);
+        File destinationFile = new File(testWatchPath.resolve(INPUT_FILE_NAME)
+                .toString());
+        try {
+            FileUtils.copyFile(sourceFile, destinationFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    
+    @After
+    public void cleanTestEnvironment() {
+//        try {
+//            FileUtils.deleteDirectory(testWatchPath.toFile());
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
     }
 
 

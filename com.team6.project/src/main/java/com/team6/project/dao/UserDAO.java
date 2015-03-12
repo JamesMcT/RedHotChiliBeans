@@ -1,14 +1,13 @@
 package com.team6.project.dao;
 
+import java.util.Collection;
+
 import javax.ejb.Local;
 
-import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 
 /**
- * 
- * @author John O Keeffe
- *
+ * @author Cristiana Conti
  */
 @Local
 public interface UserDAO {
@@ -16,16 +15,14 @@ public interface UserDAO {
 	/**
 	 * 
 	 * @param user
-	 * @return
 	 */
-    public Response addUser(User user);
+    public void addUser(User user);
     
     /**
      * 
      * @param user
-     * @return
      */
-    public Response updateUser(User user);
+    public void updateUser(User user);
     
     /**
      * 
@@ -33,6 +30,12 @@ public interface UserDAO {
      * @return
      */
     public User getUserByKey(String userId);
+    
+    /**
+     * 
+     * @return
+     */
+    public Collection<User> getAllUser();
     /*public Response deleteUser(User user);*/
 
 }

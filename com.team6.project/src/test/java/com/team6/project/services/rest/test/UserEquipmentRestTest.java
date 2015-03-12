@@ -22,7 +22,7 @@ public class UserEquipmentRestTest extends RestTest {
     private SessionFilter sessionFilter;
 
     @Before
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         super.setUp();
         createUsers();
         fac = getformAuthConfig();
@@ -45,5 +45,15 @@ public class UserEquipmentRestTest extends RestTest {
 
       
     }
+   
+   @Test
+   public void testGetAll_NotAllowed() {
+
+       given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+               .expect().statusCode(403).when()
+               .get("/protected/rest/userequipment/all");
+
+     
+   }
 
 }

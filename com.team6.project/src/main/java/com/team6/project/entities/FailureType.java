@@ -14,6 +14,7 @@ public class FailureType implements Serializable {
 	@Id
 	private Integer failureCode;
 	private String description;
+	private static final long serialVersionUID = -1420241973884926828L;
 
 	/**
      * 

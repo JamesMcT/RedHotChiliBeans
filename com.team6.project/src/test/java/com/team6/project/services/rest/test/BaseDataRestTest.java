@@ -3,13 +3,13 @@ package com.team6.project.services.rest.test;
 	import static com.jayway.restassured.RestAssured.given;
 
 	import org.jboss.arquillian.junit.Arquillian;
-	import org.junit.Before;
-	import org.junit.Test;
-	import org.junit.runner.RunWith;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 	import com.jayway.restassured.authentication.FormAuthConfig;
-	import com.jayway.restassured.filter.session.SessionFilter;
-	import com.jayway.restassured.http.ContentType;
+import com.jayway.restassured.filter.session.SessionFilter;
+import com.jayway.restassured.http.ContentType;
 
 @RunWith(Arquillian.class)
 public class BaseDataRestTest extends RestTest {
@@ -18,7 +18,7 @@ public class BaseDataRestTest extends RestTest {
 	    private SessionFilter sessionFilter;
 
 	    @Before
-	    public void setUp() {
+	    public void setUp() throws InterruptedException {
 	        super.setUp();
 	        createUsers();
 	        fac = getformAuthConfig();

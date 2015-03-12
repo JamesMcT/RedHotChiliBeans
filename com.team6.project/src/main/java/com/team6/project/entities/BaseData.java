@@ -1,4 +1,3 @@
-
 package com.team6.project.entities;
 
 import java.io.Serializable;
@@ -7,8 +6,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -16,16 +13,16 @@ import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
 /**
- * BaseData table
  * 
- * @author Cristiana Conti
- * @author Eoin Kernan
- * 
+ * @author Cristiana
+ *
  */
 @NamedQueries({
 @NamedQuery(name="baseDataCount", query="SELECT COUNT(b.id) FROM BaseData b"),
-@NamedQuery(name="getImsiByDate", query="from BaseData b where b.date between :firstDate and :secondDate")
-})
+@NamedQuery(name="getImsiByDate", query="from BaseData b where b.date between :firstDate and :secondDate"),
+@NamedQuery(name = "baseDataCount", query = "SELECT COUNT(b.id) FROM BaseData b") ,
+@NamedQuery(name = "eventCauseAndIdByTac", query = "SELECT b.eventCause, COUNT(b) FROM BaseData b where b.userEquipment.tac=:userEquipment GROUP BY b.eventCause"),
+@NamedQuery(name = "failureCountAndDurationPerImsiByDate", query = "SELECT b.imsi, COUNT(b.id), SUM(b.duration) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC")})
 @Entity
 public class BaseData implements Serializable{
  
@@ -56,33 +53,37 @@ public class BaseData implements Serializable{
    @Column(name = "hier321Id", precision=20, scale=0)
    private BigInteger hier321Id;
    
-   public BaseData() { }
+   public BaseData() {}
    
-   
-/**
- * 
- */
-@Override
-public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((cellId == null) ? 0 : cellId.hashCode());
-	result = prime * result + ((date == null) ? 0 : date.hashCode());
-	result = prime * result + ((duration == null) ? 0 : duration.hashCode());
-	result = prime * result
-			+ ((eventCause == null) ? 0 : eventCause.hashCode());
-	result = prime * result + ((failure == null) ? 0 : failure.hashCode());
-	result = prime * result + ((hier321Id == null) ? 0 : hier321Id.hashCode());
-	result = prime * result + ((hier32Id == null) ? 0 : hier32Id.hashCode());
-	result = prime * result + ((hier3Id == null) ? 0 : hier3Id.hashCode());
-	result = prime * result + ((imsi == null) ? 0 : imsi.hashCode());
-	result = prime * result + ((neVersion == null) ? 0 : neVersion.hashCode());
-	result = prime * result
-			+ ((operatorCountry == null) ? 0 : operatorCountry.hashCode());
-	result = prime * result
-			+ ((userEquipment == null) ? 0 : userEquipment.hashCode());
-	return result;
-}
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((cellId == null) ? 0 : cellId.hashCode());
+        result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result
+                + ((duration == null) ? 0 : duration.hashCode());
+        result = prime * result
+                + ((eventCause == null) ? 0 : eventCause.hashCode());
+        result = prime * result + ((failure == null) ? 0 : failure.hashCode());
+        result = prime * result
+                + ((hier321Id == null) ? 0 : hier321Id.hashCode());
+        result = prime * result
+                + ((hier32Id == null) ? 0 : hier32Id.hashCode());
+        result = prime * result + ((hier3Id == null) ? 0 : hier3Id.hashCode());
+        result = prime * result + ((imsi == null) ? 0 : imsi.hashCode());
+        result = prime * result
+                + ((neVersion == null) ? 0 : neVersion.hashCode());
+        result = prime * result
+                + ((operatorCountry == null) ? 0 : operatorCountry.hashCode());
+        result = prime * result
+                + ((userEquipment == null) ? 0 : userEquipment.hashCode());
+        return result;
+    }
+
+
+
 
 
 /**

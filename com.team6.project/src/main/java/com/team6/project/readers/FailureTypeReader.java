@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 
-import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
 import com.team6.project.services.DataImportServiceLocal;
 

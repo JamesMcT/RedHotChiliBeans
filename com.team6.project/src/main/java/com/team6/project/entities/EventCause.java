@@ -10,8 +10,8 @@ import com.team6.project.entities.EventCausePK;
 
 
 /**
- * @author Cristiana 
  * 
+ * @author Cristiana Conti 
  * EventCause table
  */
 @Entity

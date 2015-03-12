@@ -13,13 +13,14 @@ import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.dao.EventCauseDAO;
 import com.team6.project.dao.FailureTypeDAO;
 import com.team6.project.dao.OperatorCountryDAO;
+import com.team6.project.dao.RecordDAO;
 import com.team6.project.dao.UserDAO;
 import com.team6.project.dao.UserEquipmentDAO;
 
 public abstract class JPADAOTest {
     
     @EJB
-    BaseDataDAO baseDataDao;
+    BaseDataDAO baseDataDAO;
     @EJB
     EventCauseDAO eventCauseDAO;
     @EJB
@@ -28,6 +29,8 @@ public abstract class JPADAOTest {
     OperatorCountryDAO operatorCountryDAO;
     @EJB
     UserEquipmentDAO userEquipmentDAO;
+    @EJB
+    RecordDAO recordDAO;
     @EJB
     UserDAO userDAO;
 

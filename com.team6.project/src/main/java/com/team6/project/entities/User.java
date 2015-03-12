@@ -2,26 +2,29 @@ package com.team6.project.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.NamedQuery;
 
 /**
- * @author Cristiana User mapping tables
+ *User mapping tables
+ * @author Cristiana 
  */
+
+@NamedQuery(name="User.allUser", query="from User")
+
 @Entity
 @Table(name = "Principals")
 @SecondaryTable(name = "Roles", pkJoinColumns = @PrimaryKeyJoinColumn(name = "principal_id", referencedColumnName = "principal_id"))
 public class User implements Serializable {
 
+    private static final long serialVersionUID = 3522038156117770929L;
+  
     @Id
     @Column(name = "principal_id")
     private String userId;

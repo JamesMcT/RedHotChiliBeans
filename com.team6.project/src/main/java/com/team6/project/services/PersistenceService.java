@@ -12,12 +12,15 @@ import com.team6.project.dao.EventCauseDAO;
 import com.team6.project.dao.FailureTypeDAO;
 import com.team6.project.dao.OperatorCountryDAO;
 import com.team6.project.dao.RecordDAO;
+import com.team6.project.dao.UserDAO;
 import com.team6.project.dao.UserEquipmentDAO;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.Record;
+import com.team6.project.entities.Response;
+import com.team6.project.entities.User;
 import com.team6.project.entities.UserEquipment;
 
 /**
@@ -50,6 +53,9 @@ public class PersistenceService implements PersistenceServiceLocal{
 	
 	@Inject
 	private RecordDAO record;
+	
+	@Inject
+    private UserDAO user;
 	
 	public PersistenceService(){}
 
@@ -137,9 +143,36 @@ public class PersistenceService implements PersistenceServiceLocal{
 	}
 
 	@Override
-	public void persistUserEequipmentCollection(Collection<UserEquipment> userEquipmentCollection) {
+	public void persistUserEquipmentCollection(Collection<UserEquipment> userEquipmentCollection) {
 		userEquipment.addUserEquipmentCollection(userEquipmentCollection);
 	}
+	
+	
+	@Override
+    public Response addUser(User newUser) {
+        Response response = new Response();
+        if (user.getUserByKey(newUser.getKey()) == null) {
+            user.addUser(newUser);
+            response.setStatus(Response.Status.OK);
+        } else {
+            response.setStatus(Response.Status.ERROR);
+            response.setDescription("User already exists");
+        }
+        return response;
+    }
+
+    @Override
+    public Response updateUser(User newUser) {
+        Response response = new Response();
+        if (user.getUserByKey(newUser.getKey()) != null) {
+            user.updateUser(newUser);
+            response.setStatus(Response.Status.OK);
+        } else {
+            response.setStatus(Response.Status.NOT_FOUND);
+            response.setDescription("User not found");
+        }
+        return response;
+    }
 	
 }
 

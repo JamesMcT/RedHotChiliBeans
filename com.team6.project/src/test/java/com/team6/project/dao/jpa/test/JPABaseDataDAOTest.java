@@ -26,32 +26,38 @@ public class JPABaseDataDAOTest extends JPADAOTest{
     private OperatorCountry operatorCountry;
     private UserEquipment userEquipment;
    
-    
     @Before
-    public void preparePersistenceTest() throws Exception {
-    	createBaseDate();
-    	clear();
-    	insertData();
+    public void populateDB() throws Exception{
+        createBaseDate();
+        clear();
+        insertData();
     }
     
-    
     @Test
-    public void test() {
-        BaseData bd = baseDataDao.getBaseDataByKey(baseData.getId());
+    public void test(){
+        BaseData bd = baseDataDAO.getBaseDataByKey(baseData.getId());
         assertEquals(bd, baseData);	// Real test which should be run.
     }
     
+   /* @Test
+    public void test_getDistinctEventByTac() {
+        List<Object[]> eventCauseCol = (List<Object[]>) baseDataDAO.getDistinctEventByTac(123);
+        System.out.println(eventCauseCol.get(0)[0] +" and ......"+eventCauseCol.get(0)[1]);
+        assertFalse(eventCauseCol.isEmpty());
+    }*/
+    
+        
     private void insertData() throws Exception {
         operatorCountryDAO.addOperatorCountry(operatorCountry);
         eventCauseDAO.addEventCauseData(eventCause);
         failureTypeDAO.addFailureType(failureType);
         userEquipmentDAO.addUserEquipment(userEquipment);
     
-        baseDataDao.addBaseData(baseData);
+        baseDataDAO.addBaseData(baseData);
     }
     
     private void clear() throws Exception {
-        baseDataDao.deleteBaseData(baseData);
+        baseDataDAO.deleteBaseData(baseData);
         operatorCountryDAO.deleteOperatorCountry(operatorCountry);
         eventCauseDAO.deleteEventCause(eventCause);
         failureTypeDAO.deleteFailureType(failureType);
@@ -62,7 +68,6 @@ public class JPABaseDataDAOTest extends JPADAOTest{
     private void createBaseDate(){
         
         Date date = new Date();
-        System.out.println(date);
         BigInteger b = new BigInteger("1234");
         operatorCountry= new OperatorCountry(1, 2, "Country", "Operator");
         eventCause = new EventCause(1, 2, "desc Event Cause");
@@ -83,10 +88,4 @@ public class JPABaseDataDAOTest extends JPADAOTest{
         baseData.setNeVersion("12g");
         baseData.setUserEquipment(userEquipment);
     }
-
-    
-
-
-  
-
 }

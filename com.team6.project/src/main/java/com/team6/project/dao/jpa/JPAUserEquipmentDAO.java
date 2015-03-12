@@ -28,7 +28,6 @@ import com.team6.project.entities.UserEquipment;
 
 @Local
 @Stateless
-@DeclareRoles({ "administrator" })
 public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 
 	@PersistenceContext
