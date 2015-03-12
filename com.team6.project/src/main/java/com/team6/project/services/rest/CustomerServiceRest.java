@@ -24,12 +24,12 @@ import com.team6.project.services.QueryServiceLocal;
  */
 
 @Path("/IMSIEvent")
-public class BaseDataRest {
+public class CustomerServiceRest {
 	
 	@Inject
 	QueryServiceLocal queryService;
 	
-	public BaseDataRest() {
+	public CustomerServiceRest() {
 	}
 	
 	@GET

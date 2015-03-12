@@ -38,12 +38,12 @@ import com.team6.project.entities.EventCause;
  */
 
 @RunWith(Arquillian.class)
-public class BaseDataRestTest extends RestTest {
+public class CustomerServiceRestTest extends RestTest {
 
 	private final static String ARCHIVE_NAME = "test";
 	private final String baseURL = "http://localhost:8080/" + ARCHIVE_NAME;
 
-	public BaseDataRestTest() {
+	public CustomerServiceRestTest() {
 	}
 
 	private FormAuthConfig fac;
