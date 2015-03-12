@@ -1,4 +1,3 @@
-
 <arquillian xmlns="http://jboss.org/schema/arquillian"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
@@ -6,13 +5,12 @@ http://jboss.org/schema/arquillian
 http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 	<container qualifier="jbossas-7-managed" default="true">
 		<configuration>
-
-			<property name="jbossHome">C:\Users\D14125306\jboss-as-7.1.1.Final</property>
-			
-
+			<property name="jbossHome">/home/cristiana/applications/jboss-as-7.1.1.Final</property>
+			<property name="javaVmArguments">-Djava.security.debug=logincontext</property>
+			<property name="serverConfig">standalone-test.xml</property>
+			<property name="managementPort">19999</property>
 		</configuration>
 	</container>
 	<extension qualifier="jacoco">
 	</extension>
 </arquillian>
-
