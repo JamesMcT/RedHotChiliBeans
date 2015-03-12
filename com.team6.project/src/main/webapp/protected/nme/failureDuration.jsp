@@ -195,7 +195,7 @@
 						    </div>
 							
 							<br/> 
-							<input type='button' onclick="getFailureData()"
+							<input type='button' class="btn btn-default" onclick="getFailureData()"
 								value="show data" /> <br>
 							<input type='checkbox' name='validationEnabled' id='validationEnabled' value='JS Validation Enabled'/> JS Validation Enabled<br/>
 						</div>
