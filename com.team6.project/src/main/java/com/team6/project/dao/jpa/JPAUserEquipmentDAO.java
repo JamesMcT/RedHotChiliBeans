@@ -42,9 +42,6 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
     	return em.createNamedQuery("allUserEquipment").getResultList();
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public UserEquipment getUserEquipmentByKey(Integer tac) {
 		Query q = em.createQuery("from UserEquipment where tac = :code");
@@ -52,9 +49,6 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
 		return (UserEquipment) q.getSingleResult();
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public void addUserEquipment(UserEquipment userEquipment) {
 		em.persist(userEquipment);
@@ -72,18 +66,13 @@ public class JPAUserEquipmentDAO implements UserEquipmentDAO {
     	session.getTransaction().commit();
 	}
 	
-	/**
-	 * 
-	 */
 	@Override
 	public void updateUserEquipment(UserEquipment userEquipment) {
 		em.merge(userEquipment);
 
 	}
 
-	/**
-	 * 
-	 */
+
 	@Override
 	public void deleteUserEquipment(UserEquipment userEquipment) {
 		em.remove(userEquipment);

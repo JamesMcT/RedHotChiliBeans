@@ -17,16 +17,22 @@ import com.team6.project.services.QueryServiceLocal;
  * @author Eoin Kernan
  *
  */
-
 @Path("/userequipment")
 public class UserEquipmentRest {
 
 	@Inject
 	QueryServiceLocal queryService;
 	
+	/**
+	 * 
+	 */
 	public UserEquipmentRest()
 	{}
 
+	/**
+	 * 
+	 * @return
+	 */
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)

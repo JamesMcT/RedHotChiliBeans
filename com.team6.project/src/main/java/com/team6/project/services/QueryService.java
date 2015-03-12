@@ -37,6 +37,10 @@ public class QueryService implements QueryServiceLocal{
 
 	@Inject
 	private UserEquipmentDAO userEquipment;
+	
+	/**
+	 * 
+	 */
 	@Inject
     private UserDAO user;
 	@Inject

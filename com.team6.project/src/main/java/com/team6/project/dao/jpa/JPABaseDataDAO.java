@@ -142,12 +142,28 @@ public class JPABaseDataDAO implements BaseDataDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate) {
+		// TODO Auto-generated method stub
+		Query q = em.createNamedQuery("getImsiByDate");
+		q.setParameter("firstDate", firstDate).setParameter("secondDate", secondDate);
+		@SuppressWarnings("unchecked")
+        List<BaseData> result = q.getResultList();
+		
+    	return result;
+	}
+    
 
 	@Override
 	public long getBaseDataCount(){
 		return (long)em.createNamedQuery("baseDataCount").getSingleResult();
 	}
 	
+	/**
+	 * 
+	 * @param record
+	 * @param baseData
+	 */
 	public static void fillData(Record record, BaseData baseData){
         baseData.setCellId(record.getCellId());
         baseData.setDuration(record.getDuration());
@@ -157,6 +173,7 @@ public class JPABaseDataDAO implements BaseDataDAO {
         baseData.setHier32Id(record.getHier32Id());
         baseData.setHier321Id(record.getHier321Id());
     }
+
 
     @Override
     public Collection<Object[]> getDistinctEventByTac(Integer ue) {

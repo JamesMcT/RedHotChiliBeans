@@ -15,18 +15,43 @@ import com.team6.project.entities.FailureType;
 @Local
 public interface FailureTypeDAO {
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Collection<FailureType> getAllFailureTypes();
 
+	/**
+	 * 
+	 * @param failureCode
+	 * @return
+	 */
 	public FailureType getFailureTypeByKey(Integer failureCode);
 
+	/**
+	 * 
+	 * @param failureType
+	 */
 	public void addFailureType(FailureType failureType);
 	
+	/**
+	 * 
+	 * @param failureType
+	 */
 	public void addFailureTypeCollection(Collection<FailureType> failureType);
 
+	/**
+	 * 
+	 * @param failureType
+	 */
 	public void updateFailureType(FailureType failureType);
 
 //	public void deleteFailureType(Integer failureCode);
 
+	/**
+	 * 
+	 * @param failureType
+	 */
 	public void deleteFailureType(FailureType failureType);
 
 	// public void addNewFailureTypeDataSet(FailureType failureType);
