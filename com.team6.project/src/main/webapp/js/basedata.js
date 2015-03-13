@@ -52,13 +52,14 @@ function readDates($scope, $http) {
 						}).success(function(data, status) {
 					$scope.baseDataDate = data;
 				}).error(function(data, status) {
-			          $scope.data = data || "Request failed";
+			          $scope.baseDataDate = data || "Request failed";
 			          $scope.status = status;
-			          document.getElementById('dataTables-example').innerHTML = "<div ng-controller='sheet'>Invalid date</div>";
+			          document.getElementById('dataTables-example').innerHTML = "<div ng-controller='readDates'>Invalid date</div>";
 			          $compile( document.getElementById('dataTables-example') )($scope);
 			      });
 	}
-	// $scope.loadData($scope, $http);
+
+	
 }
 function validateDate(dateString, errorMessage){
 	//yyyy-mm-dd hh-mm-ss
@@ -72,5 +73,3 @@ function validateDate(dateString, errorMessage){
 	}
 	sayHello(firstDate, secondDate);
 }
-
-

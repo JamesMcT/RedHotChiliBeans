@@ -36,7 +36,7 @@
 
 <script type="text/javascript">
 	function startup() {
-		loadbar('../sidebar.jsp');
+		loadbar('sidebar.html');
 
 	}
 </script>
