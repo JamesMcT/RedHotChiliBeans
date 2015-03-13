@@ -45,12 +45,14 @@ import com.team6.project.services.QueryServiceLocal;
 @Path("/basedata")
 public class SupportEngineerRestService {
 
-	@Inject
-	QueryServiceLocal queryService;
-	
+
 	@Inject
 	BaseDataServiceLocal baseDataServiceLocal;
 
+	
+	@Inject
+	QueryServiceLocal queryService;
+	
 
 	public SupportEngineerRestService() {
 	}
