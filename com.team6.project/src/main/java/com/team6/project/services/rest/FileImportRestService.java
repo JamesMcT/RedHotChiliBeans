@@ -26,9 +26,16 @@ public class FileImportRestService {
 	@Inject
 	DataImportServiceLocal importService;
 	
+	/**
+	 * 
+	 */
 	public FileImportRestService()
 	{}
 
+	/**
+	 * 
+	 * @param file
+	 */
 	@POST
 	@Path("/upload")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)

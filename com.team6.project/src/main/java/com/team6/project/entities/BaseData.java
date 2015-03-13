@@ -9,27 +9,43 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
 
 /**
+ * @author Cristiana BaseData table
+ * @author James NamedQueries
  * BaseData table
  * 
- * @author Cristiana Conti
- * @author Eoin Kernan
- * 
+ * @author Cristiana
+ *
  */
+
+
+
+//@NamedQueries({ @NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi") })
+
+
 @NamedQueries({
+@NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi"),
         @NamedQuery(name = "baseDataCount", query = "SELECT COUNT(b.id) FROM BaseData b") ,
+        @NamedQuery(name="getImsiByDate", query="SELECT b.imsi, b.date from BaseData b where b.date between :firstDate and :secondDate"),
         @NamedQuery(name = "eventCauseAndIdByTac", query = "SELECT b.eventCause, COUNT(b) FROM BaseData b where b.userEquipment.tac=:userEquipment GROUP BY b.eventCause"),
         @NamedQuery(name = "failureCountAndDurationPerImsiByDate", query = "SELECT b.imsi, COUNT(b.id), SUM(b.duration) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC")})
+
 @Entity
 public class BaseData implements Serializable {
 
-    private static final long serialVersionUID = 3566051644134070390L;
+    public Integer getId() {
+		return id;
+	}
 
-    // @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Id
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Id
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
@@ -83,91 +99,87 @@ public class BaseData implements Serializable {
         return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        BaseData other = (BaseData) obj;
-        if (cellId == null) {
-            if (other.cellId != null)
-                return false;
-        } else if (!cellId.equals(other.cellId))
-            return false;
-        if (date == null) {
-            if (other.date != null)
-                return false;
-        } else if (date.getTime() != other.date.getTime())
-            return false;
-        if (duration == null) {
-            if (other.duration != null)
-                return false;
-        } else if (!duration.equals(other.duration))
-            return false;
-        if (eventCause == null) {
-            if (other.eventCause != null)
-                return false;
-        } else if (!eventCause.equals(other.eventCause))
-            return false;
-        if (failure == null) {
-            if (other.failure != null)
-                return false;
-        } else if (!failure.equals(other.failure))
-            return false;
-        if (hier321Id == null) {
-            if (other.hier321Id != null)
-                return false;
-        } else if (!hier321Id.equals(other.hier321Id))
-            return false;
-        if (hier32Id == null) {
-            if (other.hier32Id != null)
-                return false;
-        } else if (!hier32Id.equals(other.hier32Id))
-            return false;
-        if (hier3Id == null) {
-            if (other.hier3Id != null)
-                return false;
-        } else if (!hier3Id.equals(other.hier3Id))
-            return false;
-        if (imsi == null) {
-            if (other.imsi != null)
-                return false;
-        } else if (!imsi.equals(other.imsi))
-            return false;
-        if (neVersion == null) {
-            if (other.neVersion != null)
-                return false;
-        } else if (!neVersion.equals(other.neVersion))
-            return false;
-        if (operatorCountry == null) {
-            if (other.operatorCountry != null)
-                return false;
-        } else if (!operatorCountry.equals(other.operatorCountry))
-            return false;
-        if (userEquipment == null) {
-            if (other.userEquipment != null)
-                return false;
-        } else if (!userEquipment.equals(other.userEquipment))
-            return false;
-        return true;
-    }
 
-    public Integer getKey() {
-        return id;
-    }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
-    public Date getDate() {
+/**
+ * 
+ */
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	BaseData other = (BaseData) obj;
+	if (cellId == null) {
+		if (other.cellId != null)
+			return false;
+	} else if (!cellId.equals(other.cellId))
+		return false;
+	if (date == null) {
+		if (other.date != null)
+			return false;
+	} else if (date.getTime() != other.date.getTime())
+		return false;
+	if (duration == null) {
+		if (other.duration != null)
+			return false;
+	} else if (!duration.equals(other.duration))
+		return false;
+	if (eventCause == null) {
+		if (other.eventCause != null)
+			return false;
+	} else if (!eventCause.equals(other.eventCause))
+		return false;
+	if (failure == null) {
+		if (other.failure != null)
+			return false;
+	} else if (!failure.equals(other.failure))
+		return false;
+	if (hier321Id == null) {
+		if (other.hier321Id != null)
+			return false;
+	} else if (!hier321Id.equals(other.hier321Id))
+		return false;
+	if (hier32Id == null) {
+		if (other.hier32Id != null)
+			return false;
+	} else if (!hier32Id.equals(other.hier32Id))
+		return false;
+	if (hier3Id == null) {
+		if (other.hier3Id != null)
+			return false;
+	} else if (!hier3Id.equals(other.hier3Id))
+		return false;
+	if (imsi == null) {
+		if (other.imsi != null)
+			return false;
+	} else if (!imsi.equals(other.imsi))
+		return false;
+	if (neVersion == null) {
+		if (other.neVersion != null)
+			return false;
+	} else if (!neVersion.equals(other.neVersion))
+		return false;
+	if (operatorCountry == null) {
+		if (other.operatorCountry != null)
+			return false;
+	} else if (!operatorCountry.equals(other.operatorCountry))
+		return false;
+	if (userEquipment == null) {
+		if (other.userEquipment != null)
+			return false;
+	} else if (!userEquipment.equals(other.userEquipment))
+		return false;
+	return true;
+}
+	
+	
+	public Date getDate() {
         return date;
     }
 
@@ -263,4 +275,8 @@ public class BaseData implements Serializable {
         this.hier321Id = hier321Id;
     }
 
+
+
+  
 }
+

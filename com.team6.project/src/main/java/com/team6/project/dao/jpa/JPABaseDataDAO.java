@@ -1,5 +1,6 @@
 package com.team6.project.dao.jpa;
 
+
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -16,10 +17,12 @@ import org.hibernate.Session;
 
 import com.team6.project.dao.BaseDataDAO;
 import com.team6.project.entities.BaseData;
+import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.entities.Record;
+import com.team6.project.entities.Response;
 import com.team6.project.entities.UserEquipment;
 
 
@@ -27,6 +30,7 @@ import com.team6.project.entities.UserEquipment;
 /**
  * @author James Mc Ternan
  * @Author Eoin Kernan
+ * @author Sabee D14125306
  *
  */
 @Stateless
@@ -100,11 +104,11 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	}
 
 	@Override
-	public Collection<BaseData> findByImsi(BigInteger imsi) {
-		Query q = em.createQuery("from BaseData where imsi = :code");
-		q.setParameter("code", imsi);
+	public Collection<EventCause> findByImsi(BigInteger imsi) {
+		Query q = em.createNamedQuery("BaseData.findEventCauseByImsi",EventCause.class);
+		q.setParameter("imsi", imsi);
 		@SuppressWarnings("unchecked")
-        List<BaseData> result = q.getResultList();
+        List<EventCause> result = q.getResultList();
 		return result;
 	}
 
@@ -138,12 +142,28 @@ public class JPABaseDataDAO implements BaseDataDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate) {
+		// TODO Auto-generated method stub
+		Query q = em.createNamedQuery("getImsiByDate");
+		q.setParameter("firstDate", firstDate).setParameter("secondDate", secondDate);
+		@SuppressWarnings("unchecked")
+        List<BaseData> result = q.getResultList();
+		
+    	return result;
+	}
+    
 
 	@Override
 	public long getBaseDataCount(){
 		return (long)em.createNamedQuery("baseDataCount").getSingleResult();
 	}
 	
+	/**
+	 * 
+	 * @param record
+	 * @param baseData
+	 */
 	public static void fillData(Record record, BaseData baseData){
         baseData.setCellId(record.getCellId());
         baseData.setDuration(record.getDuration());
@@ -154,6 +174,7 @@ public class JPABaseDataDAO implements BaseDataDAO {
         baseData.setHier321Id(record.getHier321Id());
     }
 
+
     @Override
     public Collection<Object[]> getDistinctEventByTac(Integer ue) {
         Query q = em.createNamedQuery("eventCauseAndIdByTac");
@@ -162,6 +183,44 @@ public class JPABaseDataDAO implements BaseDataDAO {
         
     }
     
+    
+    @Override //S
+	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate) {		
+		Response response = new Response();
+		
+		Query q = em.createQuery("select count(*) from BaseData "
+				+ "where userEquipment = (from UserEquipment where tac = :tac) "
+				+ "and date >= :fromDate "
+				+ "and date <= :toDate")
+				.setParameter("tac", tac)
+				.setParameter("fromDate", fromDate)				
+				.setParameter("toDate", toDate);			
+		
+		return (long) q.getSingleResult();
+	}
+    
+    @Override //S
+	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate) {		
+		Response response = new Response();
+		
+		Query q = em.createQuery("select count(*) from BaseData "
+				+ "where userEquipment = (from UserEquipment where tac = :tac) "
+				+ "and date >= :fromDate "
+				+ "and date <= :toDate")
+				.setParameter("tac", tac)
+				.setParameter("fromDate", fromDate)				
+				.setParameter("toDate", toDate);
+		
+		long l = (long) q.getSingleResult();
+		String s = String.valueOf(l);
+		response.setStatus(Response.Status.OK);
+		response.setDescription(s);
+		
+		return response;		
+	}
+    
+    
+
     @Override
     public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end){
     	
@@ -175,5 +234,6 @@ public class JPABaseDataDAO implements BaseDataDAO {
     	
     	return q.getResultList();
     }
+
     
 }

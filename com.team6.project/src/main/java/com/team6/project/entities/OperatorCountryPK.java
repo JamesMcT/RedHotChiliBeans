@@ -12,14 +12,25 @@ public class OperatorCountryPK implements Serializable {
     private Integer mcc;
     private Integer mnc;
 
+    /**
+     * 
+     */
     public OperatorCountryPK() {
         // TODO Auto-generated constructor stub
     }
     
+    /**
+     * 
+     */
     public String toString() {
         return "MCC : " + mcc + " MNC : " + mnc;
     }
 
+    /**
+     * 
+     * @param mcc
+     * @param mnc
+     */
     public OperatorCountryPK(Integer mcc, Integer mnc) {
         super();
         this.mcc = mcc;
@@ -58,18 +69,34 @@ public class OperatorCountryPK implements Serializable {
         return true;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getMcc() {
         return mcc;
     }
 
+    /**
+     * 
+     * @param mcc
+     */
     public void setMcc(Integer mcc) {
         this.mcc = mcc;
     }
 
+    /**
+     * 
+     * @return
+     */
     public Integer getMnc() {
         return mnc;
     }
 
+    /**
+     * 
+     * @param mnc
+     */
     public void setMnc(Integer mnc) {
         this.mnc = mnc;
     }

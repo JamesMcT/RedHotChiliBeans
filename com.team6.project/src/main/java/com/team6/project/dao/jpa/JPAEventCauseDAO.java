@@ -30,30 +30,21 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 	EntityManager em;
 
 	@PersistenceContext
-    private Session session;
-	
-	/**
-	 * 
-	 */
+	private Session session;
+
 	@SuppressWarnings("unchecked")
-    @Override
+	@Override
 	public Collection<EventCause> getAllEventCauses() {
 		Query q = em.createQuery("from EventCause");
 		List<EventCause> result = q.getResultList();
 		return result;
 	}
 
-	/**
-     * 
-     */
 	@Override
 	public EventCause getEventCauseByKey(EventCausePK eventCausePK) {
 		return em.find(EventCause.class, eventCausePK);
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public void addEventCauseData(EventCause eventCause) {
 		em.persist(eventCause);
@@ -61,31 +52,24 @@ public class JPAEventCauseDAO implements EventCauseDAO {
 
 	@Override
 	public void addEventCauseCollection(Collection<EventCause> eventCause) {
-		
+
 		session.beginTransaction();
-    	
-    	for(EventCause e:eventCause){
+
+		for (EventCause e : eventCause) {
 			em.persist(e);
 		}
-    	
-    	session.getTransaction().commit();
-		
+
+		session.getTransaction().commit();
+
 	}
-	
-	/**
-	 * 
-	 */
+
 	@Override
 	public void updateEventCause(EventCause eventCause) {
 		em.merge(eventCause);
 	}
 
-	/**
-	 * 
-	 */
 	@Override
 	public void deleteEventCause(EventCause eventCause) {
 		em.remove(eventCause);
 	}
 }
-	

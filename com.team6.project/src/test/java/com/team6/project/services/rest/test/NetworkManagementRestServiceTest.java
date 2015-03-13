@@ -34,8 +34,10 @@ public class NetworkManagementRestServiceTest extends RestTest {
         given().filter(sessionFilter).when()
                 .get("/protected/rest/networkmanagement/eventidcausecode/21060800").then()
                 .statusCode(200);
-       
-        given().auth().form("nmEng", "nmEng", fac).filter(sessionFilter)
+
+        long beginTime = System.currentTimeMillis();
+        given().auth().form("admin", "admin", fac).filter(sessionFilter)
+
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
                 .get("/protected/rest/networkmanagement/eventidcausecode/21060800");
         
@@ -93,9 +95,9 @@ public class NetworkManagementRestServiceTest extends RestTest {
     	
     	long beginTime = System.currentTimeMillis();
     	
-    	given().log().all().auth().form("nmEng", "nmEng", fac).queryParam("startDate", startDate).queryParam("endDate", endDate).filter(sessionFilter)
+    	given().auth().form("nmEng", "nmEng", fac).queryParam("startDate", startDate).queryParam("endDate", endDate).filter(sessionFilter)
         .expect().statusCode(200).contentType(ContentType.JSON).when()
-        .get("/protected/rest/networkmanagement/failurecountandduration").then().log().all();
+        .get("/protected/rest/networkmanagement/failurecountandduration");
     	
     	long endTime = System.currentTimeMillis();
         long timeTaken = (endTime-beginTime)/1000;

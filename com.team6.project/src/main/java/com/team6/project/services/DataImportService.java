@@ -86,9 +86,15 @@ public class DataImportService implements DataImportServiceLocal{
 	
 	private Set<String> watchedDirectories = new HashSet<String>();
 	
+	/**
+	 * 
+	 */
 	public DataImportService()
 	{}
 	
+	/**
+	 * 
+	 */
 	@PostConstruct
 	private void atStartup(){
 		
@@ -99,6 +105,9 @@ public class DataImportService implements DataImportServiceLocal{
 		startDirectoryWatcher(WATCH_PATH);
 	}
 	
+	/**
+	 * 
+	 */
 	@SuppressWarnings("unchecked")
     private void initialiseHashMaps(){
 		
@@ -120,6 +129,9 @@ public class DataImportService implements DataImportServiceLocal{
 		{entityMap.get(UserEquipmentReader.getName()).put(u.getKey(), u);}
 	}
 	
+	/**
+	 * 
+	 */
 	private void initialiseReaders(){
 		
 		//create a reader for each sheet in the excel workbook
@@ -132,10 +144,14 @@ public class DataImportService implements DataImportServiceLocal{
 		logger.info("Readers Intialized...");
 	}
 	
-	/* Given that this class is a singleton, and this method is synchronized, only
-	   one file can be processed at any given time. This will stop multiple clients
-	   from attempting to upload data simultaneously. Upload/input is not thought to
-	   be a very frequent activity, so this restriction should not affect throughput.*/
+	/**
+	 *
+	 * Given that this class is a singleton, and this method is synchronized, only
+	 * one file can be processed at any given time. This will stop multiple clients
+	 * from attempting to upload data simultaneously. Upload/input is not thought to
+	 * be a very frequent activity, so this restriction should not affect throughput
+	 *  
+	 */
 	public synchronized void processExcelFile(){
 		
 		logger.info("processExcelFile() running...");
@@ -145,10 +161,17 @@ public class DataImportService implements DataImportServiceLocal{
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public PersistenceServiceLocal getPersistenceService(){
 		return persistenceService;
 	}
 	
+	/**
+	 * 
+	 * @param r
+	 */
 	private void addReader(Reader r){
 		readers.add(r);
 	}
@@ -186,6 +209,11 @@ public class DataImportService implements DataImportServiceLocal{
 		{e.printStackTrace();}
 	}
 	
+	/**
+	 * 
+	 * @param directoryWatcher
+	 * @param folderPath
+	 */
 	@SuppressWarnings("unchecked")
     private void watchDirectory(WatchService directoryWatcher, String folderPath){
 		
@@ -304,6 +332,10 @@ public class DataImportService implements DataImportServiceLocal{
 		}
 	}
 	
+	/**
+	 * 
+	 * @param fullName
+	 */
 	private void renameFileAfterProcessing(String fullName){
 		
 		String proposedName = fullName + PROCESSED_FILE_SUFFIX;
@@ -327,18 +359,30 @@ public class DataImportService implements DataImportServiceLocal{
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	private void incrementFileCount(){
 		logger.info(String.format("Incrementing fileCount from %d to %d", processedFileCount, ++processedFileCount));
 	}
 	
+	/**
+	 * 
+	 */
 	public int getProcessedFileCount(){
 		return processedFileCount;
 	}
 	
+	/**
+	 * 
+	 */
 	public HSSFSheet getSheet(String sheetName) {
 		return workBook.getSheet(sheetName);
 	}
 
+	/**
+	 * 
+	 */
 	@SuppressWarnings("rawtypes")
     public Map getMap(String key) {
 		if(entityMap.containsKey(key)){

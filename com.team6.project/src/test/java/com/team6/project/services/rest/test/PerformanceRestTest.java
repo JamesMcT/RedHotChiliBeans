@@ -33,6 +33,7 @@ public class PerformanceRestTest {
 
     public final static String ARCHIVE_NAME = "test";
     public final static String WEBAPP_SRC = "src/main/webapp/protected";
+    public final static long MAX_QUERY_TIME = 2000;
 
 
     @Deployment
@@ -177,7 +178,65 @@ public class PerformanceRestTest {
                                               new DecimalFormat("0.00").format(timeTaken)));
     }
     
+	// Worst case test. Imsi passed has largest amount of Event Cause data
+	// objects associated with it
+	@Test
+	public void testGetEventCauseByImsiWorstCase() {
+		given().filter(sessionFilter).when()
+				.get("/protected/rest/IMSIEvent/191911000049149").then()
+				.statusCode(200);
+		long beginTime = System.currentTimeMillis();
+		given().auth().form("admin", "admin", fac).filter(sessionFilter)
+				.expect().statusCode(200).contentType(ContentType.JSON).when()
+				.get("/protected/rest/IMSIEvent/191911000049149");
+		long endTime = System.currentTimeMillis();
+		double timeTaken = (endTime - beginTime) / 1000.0;
+		performanceLogger.warn(String.format(
+				"BaseData-GetEventCauseByImsi-24 Records : loading in (%s seconds)",
+				new DecimalFormat("0.00").format(timeTaken)));
+		assert (timeTaken <= MAX_QUERY_TIME);
+	}
+	
+	@Test
+	public void testGetEventCauseByImsi() {
+		given().filter(sessionFilter).when()
+				.get("/protected/rest/IMSIEvent/191911000563489").then()
+				.statusCode(200);
+		long beginTime = System.currentTimeMillis();
+		given().auth().form("admin", "admin", fac).filter(sessionFilter)
+				.expect().statusCode(200).contentType(ContentType.JSON).when()
+				.get("/protected/rest/IMSIEvent/191911000563489");
+		long endTime = System.currentTimeMillis();
+		double timeTaken = (endTime - beginTime) / 1000.0;
+		performanceLogger.warn(String.format(
+				"BaseData-GetEventCauseByImsi-20 Records : loading in (%s seconds)",
+				new DecimalFormat("0.00").format(timeTaken)));
+		assert (timeTaken <= MAX_QUERY_TIME);
+	}
     
+	@Test
+    public void testFailedCallDurationEndpoint(){
+    	
+    	String startDate = "2013-02-01 21:01:00";
+    	String endDate = "2013-03-21 21:01:00";
+    	
+    	//Expect to get the login page if not authenticated first
+    	given().queryParam("startDate", startDate).queryParam("endDate", endDate).filter(sessionFilter).when()
+        .get("/protected/rest/networkmanagement/failurecountandduration").then()
+        .statusCode(200).contentType(ContentType.HTML);
+    	
+    	long beginTime = System.currentTimeMillis();
+    	
+    	given().auth().form("admin", "admin", fac).queryParam("startDate", startDate).queryParam("endDate", endDate).filter(sessionFilter)
+        .expect().statusCode(200).contentType(ContentType.JSON).when()
+        .get("/protected/rest/networkmanagement/failurecountandduration");
+    	
+    	long endTime = System.currentTimeMillis();
+        double timeTaken = (endTime-beginTime)/1000.0;
+        performanceLogger.warn(String
+                .format("NetworkManagment-failurecountandduration : loading in (%s seconds)",
+                        new DecimalFormat("0.000").format(timeTaken)));
+    }
 
     
     
@@ -187,4 +246,5 @@ public class PerformanceRestTest {
                               "protected/j_security_check",
                               "j_username", "j_password");
     }
+
 }

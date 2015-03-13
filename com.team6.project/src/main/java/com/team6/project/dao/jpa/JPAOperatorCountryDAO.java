@@ -32,9 +32,6 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 	@PersistenceContext
     private Session session;
 	
-	/**
-	 * Returns collection of OperatorCountry
-	 */
 	@SuppressWarnings("unchecked")
     @Override
 	public Collection<OperatorCountry> getAllOperatorCountries() {
@@ -43,21 +40,13 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
 		return result;
 	}
 
-	/**
-	 * 
-	 * @param operatorCountryPK
-	 * 
-	 */
+	
 	@Override
 	public OperatorCountry getOperatorCountryByKey(
 			OperatorCountryPK operatorCountryPK) {
 		return em.find(OperatorCountry.class, operatorCountryPK);
 	}
 
-	/**
-	 * 
-	 * @param operatorCountry
-	 */
 	@Override
 	public void addOperatorCountry(OperatorCountry operatorCountry) {
 		em.persist(operatorCountry);
@@ -74,23 +63,12 @@ public class JPAOperatorCountryDAO implements OperatorCountryDAO {
     	session.getTransaction().commit();
 	}
 	
-	/**
-	 * Update existing OperatorCountry, record to be updated returned via PK.
-	 * Updated OperatorCountry also passed.
-	 * 
-	 * @param operatorCountryPK
-	 * @param operatorCountry
-	 */
+	
 	@Override
 	public void updateOperatorCountry(OperatorCountry operatorCountry) {
 		em.merge(operatorCountry);
 	}
 
-	/**
-	 * Delete operatorCountry record by composite key (OperatorCountryPK)
-	 * 
-	 * @param operatorCountryPK
-	 */
 	@Override
 	public void deleteOperatorCountry(OperatorCountry operatorCountry) {
 		em.remove(operatorCountry);
