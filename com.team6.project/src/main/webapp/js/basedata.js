@@ -15,8 +15,12 @@ function readDates($scope, $http) {
 		
 		//if(document.getElementById("validationEnabled").checked){
 			if(!validateDate(firstDate, "Invalid start date") || !validateDate(secondDate, "Invalid end date")){
-				
+				console.log("initial wave");
+		          document.getElementById('errormess').innerHTML = "Invalid date";
+
 				return false;
+		          document.getElementById('errormess').innerHTML = "Invalid date!!!!";
+
 			}
 		
 
@@ -65,11 +69,19 @@ function validateDate(dateString, errorMessage){
 	//yyyy-mm-dd hh-mm-ss
 	regexPattern = /^[0-9]{4}-[0-9]{2}-[0-9]{2}[T][0-9]{2}:[0-9]{2}:[0-9]{2}$/;
 	if(dateString.match(regexPattern)){
+		console.log("pass");
+   //     document.getElementById('dataTables-example').innerHTML = "<div ng-controller='readDates'>Invalid date1</div>";
+
 		return true;
 	}
 	else{
 		showError(errorMessage + ": " + dateString);
+		console.log("fail");
+        document.getElementById('errormess').innerHTML = "Invalid date2";
+
 		return false;
+        document.getElementById('errormess').innerHTML = "Invalid date2..";
+
 	}
 	sayHello(firstDate, secondDate);
 }

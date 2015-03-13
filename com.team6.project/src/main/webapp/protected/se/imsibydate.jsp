@@ -54,6 +54,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">Search IMSI failures by date</h1>
+							<p id="errormess"></p>
 
 
 
@@ -76,8 +77,8 @@
 					</div>
 					<div class="panel-body">
 						<div class="dataTable_wrapper">
-							
-							
+
+
 							<table class="table table-striped table-bordered table-hover"
 								id="dataTables-example">
 								<thead>
@@ -87,23 +88,24 @@
 								</thead>
 								<tbody>
 									<tr class="odd gradeA" ng-repeat="x in baseDataDate">
-									        <td ng-class="{active: active}">{{x}}</td>
-									
+										<td ng-class="{active: active}">{{x}}</td>
+
 									</tr>
 								</tbody>
 							</table>
+
 						</div>
 						<!-- /.table-responsive -->
 
 					</div>
 					<!-- /.panel-body -->
 				</div>
-				
-								<div id="errorDiv">
-								<table class="table table-striped table-bordered table-hover"
-									id="failureDurationTable">
-								</table>
-					</div>
+
+				<div id="errorDiv">
+					<table class="table table-striped table-bordered table-hover"
+						id="failureDurationTable">
+					</table>
+				</div>
 
 
 			</div>
