@@ -5,7 +5,7 @@
     project="com.team6.project" 
     file="/com.team6.project/src/main/java/com/team6/project/services/rest/NetworkManagementRestService.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="267" x="93" y="48"/>    
+    <position height="-1" width="-1" x="667" y="361"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -15,7 +15,7 @@
   <class id="2" language="java" name="com.team6.project.services.rest.UserEquipmentRest" project="com.team6.project" 
     file="/com.team6.project/src/main/java/com/team6/project/services/rest/UserEquipmentRest.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="117" width="266" x="400" y="48"/>    
+    <position height="-1" width="-1" x="768" y="127"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -26,27 +26,28 @@
     project="com.team6.project" 
     file="/com.team6.project/src/main/java/com/team6/project/services/rest/UserManagmentRestService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="189" width="209" x="706" y="48"/>    
+    <position height="-1" width="-1" x="466" y="158"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="com.team6.project.services.rest.FileImportRestService" project="com.team6.project" 
-    file="/com.team6.project/src/main/java/com/team6/project/services/rest/FileImportRestService.java" binary="false" 
+  <class id="4" language="java" name="com.team6.project.services.rest.CustomerServiceRest" project="com.team6.project" 
+    file="/com.team6.project/src/main/java/com/team6/project/services/rest/CustomerServiceRest.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="117" width="212" x="955" y="48"/>    
+    <position height="-1" width="-1" x="201" y="127"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="com.team6.project.services.rest.BaseDataRest" project="com.team6.project" 
-    file="/com.team6.project/src/main/java/com/team6/project/services/rest/BaseDataRest.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="135" width="241" x="1207" y="48"/>    
+  <class id="5" language="java" name="com.team6.project.services.rest.SupportEngineerRestService" 
+    project="com.team6.project" 
+    file="/com.team6.project/src/main/java/com/team6/project/services/rest/SupportEngineerRestService.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="253" y="366"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
