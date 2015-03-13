@@ -86,8 +86,8 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="odd gradeA">
-									        <td ng-class="{active: active}">{{baseDataDate}}</td>
+									<tr class="odd gradeA" ng-repeat="x in baseDataDate">
+									        <td ng-class="{active: active}">{{x}}</td>
 									
 									</tr>
 								</tbody>
