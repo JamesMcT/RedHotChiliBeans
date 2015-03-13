@@ -14,11 +14,11 @@ function readDates($scope, $http) {
 
 		
 		//if(document.getElementById("validationEnabled").checked){
-	//		if(!validateDate(firstDate, "Invalid start date") || !validateDate(secondDate, "Invalid end date")){
+			if(!validateDate(firstDate, "Invalid start date") || !validateDate(secondDate, "Invalid end date")){
 				
-			//	return false;
-		//	}
-		//}
+				return false;
+			}
+		
 
 
 		

@@ -1,3 +1,6 @@
+main INFO  org.xnio - XNIO Version 3.0.0.GA
+main INFO  xnio.nio - XNIO NIO Implementation Version 3.0.0.GA
+main INFO  jboss.remoting - JBoss Remoting version 3.2.3.GA
 main WARN  readers.Reader - In sheet Failure Class Table row number 7 primary key not valued properly
 main WARN  readers.Reader - In sheet MCC - MNC Table row number 4 primary key not valued properly
 main WARN  readers.Reader - In sheet MCC - MNC Table row number 5 primary key not valued properly

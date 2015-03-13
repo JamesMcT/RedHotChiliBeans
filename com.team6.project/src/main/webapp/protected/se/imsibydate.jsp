@@ -76,22 +76,20 @@
 					</div>
 					<div class="panel-body">
 						<div class="dataTable_wrapper">
+							
+							
 							<table class="table table-striped table-bordered table-hover"
 								id="dataTables-example">
 								<thead>
 									<tr>
-										<th>Event ID</th>
 										<th>IMSI</th>
-										<th>Date</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="odd gradeA" ng-repeat="x in baseDataDate">
-										<td>{{ x.eventCause.eventId }}</td>
-										<td>{{ x.imsi }}</td>
-										<td>{{ x.date }}</td>
+									<tr class="odd gradeA">
+									        <td ng-class="{active: active}">{{baseDataDate}}</td>
+									
 									</tr>
-
 								</tbody>
 							</table>
 						</div>
