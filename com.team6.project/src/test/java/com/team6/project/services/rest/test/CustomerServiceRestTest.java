@@ -1,34 +1,16 @@
 package com.team6.project.services.rest.test;
 
-import java.io.File;
-import java.net.URI;
+import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 
-import javax.ws.rs.core.UriBuilder;
-
-import net.sf.ehcache.search.expression.EqualTo;
-
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.jayway.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.*;
-
-import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.authentication.FormAuthConfig;
-import com.jayway.restassured.config.LogConfig;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
-import com.team6.project.entities.EventCause;
 
 /**
  * Test class for all REST services associated with BaseData class.
@@ -142,3 +124,4 @@ public class CustomerServiceRestTest extends RestTest {
 //	}
 
 }
+

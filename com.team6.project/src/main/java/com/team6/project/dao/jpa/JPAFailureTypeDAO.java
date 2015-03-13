@@ -23,7 +23,6 @@ import com.team6.project.entities.FailureType;
  * @author Eoin Kernan
  *
  */
-
 @Stateless
 @Local
 @Default
@@ -35,9 +34,6 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 	@PersistenceContext
     private Session session;
 	
-	/**
-	 * Returns collection of FailureType
-	 */
 
 	@SuppressWarnings("unchecked")
     @Override
@@ -47,22 +43,13 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
 		return result;
 	}
 
-	/**
-	 * Get failure Type by failure code.
-	 * 
-	 * @param failureCode
-	 * @return FailureType
-	 */
 	public FailureType getFailureTypeByKey(Integer failureCode) {
 		Query q = em.createQuery("from FailureType where failureCode = :code");
 		q.setParameter("code", failureCode);
 		return (FailureType) q.getSingleResult();
 	}
 
-	/**
-	 * 
-	 * @param failureType
-	 */
+	
 	public void addFailureType(FailureType failureType) {
 		em.persist(failureType);
 	}
@@ -78,18 +65,11 @@ public class JPAFailureTypeDAO implements FailureTypeDAO {
     	session.getTransaction().commit();
 	}
 	
-	/**
-	 * 
-	 * @param failureType
-	 */
-
+	
 	public void updateFailureType(FailureType failureType) {
 		em.merge(failureType);
 	}
 
-	/**
-	 * Delete passed FailureType
-	 */
 	@Override
 	public void deleteFailureType(FailureType failureType) {
 		em.remove(failureType);
