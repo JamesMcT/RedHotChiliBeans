@@ -1,4 +1,14 @@
-a.logoutbutton: {background-color: transparent; font-size: 300%}
 #errorDiv {
 	color: red;
+}
+
+thead, tbody {
+	display: block;
+}
+
+tbody {
+	height: 200px; /* Just for the demo          */
+	overflow-y: auto; /* Trigger vertical scroll    */
+	
+/* 	overflow-x: hidden; Hide the horizontal scroll */
 }

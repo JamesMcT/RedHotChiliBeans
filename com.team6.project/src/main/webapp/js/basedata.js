@@ -9,7 +9,9 @@ function readDates($scope, $http) {
 		console.log(firstDate);
 //		var dd1 = Date.parseDate(firstDate, "yyyy-MM-ddThh:mm:ss");
 //		var dd2 = Date.parseDate(secondDate, "yyyy-MM-ddThh:mm:ss");
+        document.getElementById('errorDiv').innerHTML = "";
 
+		
 	//	var d = Date.parse(firstDate);
 	if(!firstDate || !secondDate){
 		alert("Fields are mandatory!");
