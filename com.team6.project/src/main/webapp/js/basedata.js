@@ -11,16 +11,16 @@ function readDates($scope, $http) {
 //		var dd2 = Date.parseDate(secondDate, "yyyy-MM-ddThh:mm:ss");
 
 	//	var d = Date.parse(firstDate);
-
+	if(!firstDate || !secondDate){
+		alert("Fields are mandatory!");
+	}
 		
 		//if(document.getElementById("validationEnabled").checked){
 			if(!validateDate(firstDate, "Invalid start date") || !validateDate(secondDate, "Invalid end date")){
 				console.log("initial wave");
-		          document.getElementById('errormess').innerHTML = "Invalid date";
 
 				return false;
-		          document.getElementById('errormess').innerHTML = "Invalid date!!!!";
-
+				
 			}
 		
 
@@ -77,11 +77,12 @@ function validateDate(dateString, errorMessage){
 	else{
 		showError(errorMessage + ": " + dateString);
 		console.log("fail");
-        document.getElementById('errormess').innerHTML = "Invalid date2";
 
 		return false;
-        document.getElementById('errormess').innerHTML = "Invalid date2..";
-
 	}
 	sayHello(firstDate, secondDate);
+}
+function showError(message){
+	var errorDiv = document.getElementById("errorDiv");
+	errorDiv.innerHTML = message;
 }

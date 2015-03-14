@@ -18,9 +18,11 @@
 <link href="../../css/sb-admin-2.css" rel="stylesheet">
 <link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../../css/dataTables.responsive.css" rel="stylesheet">
+
 <!-- <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet"> -->
 <link rel="stylesheet" type="text/css" media="screen"
 	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" type="text/css" href="../../css/se.css">
 
 <!-- Adding functions -->
 <script src="../../js/basedata.js"></script>
@@ -54,24 +56,25 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">Search IMSI failures by date</h1>
-							<p id="errormess"></p>
 
 
 
 					<div id="pickerarea">
 						<div id="datetimepickerbox" class="input-append date">
-							<input type="text" ng-model="firstDate"></input> <span
+							<input type="text" required="required" ng-model="firstDate"></input> <span
 								class="add-on"> <i data-time-icon="icon-time"
 								data-date-icon="icon-calendar"></i>
 							</span>
 						</div>
 
 						<div id="datetimepickerbox" class="input-append date">
-							<input type="text" ng-model="secondDate"></input> <span
+							<input type="text" required="required"  ng-model="secondDate"></input> <span
 								class="add-on"> <i data-time-icon="icon-time"
 								data-date-icon="icon-calendar"></i>
 							</span>
 						</div>
+												<p id="errormess"></p>
+					
 						<button onclick="onSelect()"
 							ng-click='sayHello(firstDate,secondDate)'>search</button>
 					</div>
@@ -93,8 +96,11 @@
 									</tr>
 								</tbody>
 							</table>
+							<p id="errormess"></p>
 
 						</div>
+													<p id="errormess"></p>
+						
 						<!-- /.table-responsive -->
 
 					</div>
