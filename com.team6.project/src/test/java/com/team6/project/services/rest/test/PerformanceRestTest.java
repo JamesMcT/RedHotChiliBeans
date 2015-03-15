@@ -34,7 +34,7 @@ public class PerformanceRestTest {
 
     public final static String ARCHIVE_NAME = "test";
     public final static String WEBAPP_SRC = "src/main/webapp/protected";
-    public final static long MAX_QUERY_TIME = 2000;
+    public final static double MAX_QUERY_TIME = 2.0;
 
     @Deployment
     public static Archive<?> createDeployment() {
