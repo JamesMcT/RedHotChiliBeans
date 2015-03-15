@@ -177,7 +177,7 @@ public class PerformanceRestTest {
         assert (timeTaken <= MAX_QUERY_TIME);
     }
 
-    @Test
+   /* @Test
     public void testFailedCallDurationEndpoint() {
 
         // Expect to get the login page if not authenticated first
@@ -207,7 +207,7 @@ public class PerformanceRestTest {
                 .warn(String
                         .format("NetworkManagment-failurecountandduration : loading in (%s seconds)",
                                 new DecimalFormat("0.000").format(timeTaken)));
-    }
+    }*/
 
     @Test
     public void testCountCallFailureByTac() {
