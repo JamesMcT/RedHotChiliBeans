@@ -38,9 +38,9 @@
 									var response = JSON.parse(xhr.responseText);
 									if (response.description) {
 										document.getElementById("div7").innerHTML = ("Error! - " + response.description);
-										showDiv("div7");
+										showDivInLine("div7");
 									} else {
-										showDiv("div6");
+										showDivInLine("div6");
 									}
 								}
 							}, false);
