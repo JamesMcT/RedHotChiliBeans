@@ -76,7 +76,7 @@
 						</div>
 												<p id="errormess"></p>
 					
-						<button onclick="onSelect()"
+						<button class="btn btn-default" onclick="onSelect()"
 							ng-click='sayHello(firstDate,secondDate)'>search</button>
 					</div>
 					<div class="panel-body">

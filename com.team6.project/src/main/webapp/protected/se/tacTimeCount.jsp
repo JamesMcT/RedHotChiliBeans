@@ -12,14 +12,14 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Adding CSS -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
 <link href="../../css/sb-admin-2.css" rel="stylesheet">
+<link href="../../css/bootstrap-combined.min.cristiana.css" rel="stylesheet">
 <link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../../css/dataTables.responsive.css" rel="stylesheet">
 
-<link
+<!-- <link
 	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"
-	rel="stylesheet">
+	rel="stylesheet"> -->
 <link rel="stylesheet" type="text/css" media="screen"
 	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
