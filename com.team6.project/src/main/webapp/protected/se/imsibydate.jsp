@@ -24,6 +24,7 @@
 	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet" type="text/css" href="../../css/se.css">
 
+
 <!-- Adding functions -->
 <script src="../../js/basedata.js"></script>
 <script src="../../js/common.js"></script>

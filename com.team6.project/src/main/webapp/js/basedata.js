@@ -26,6 +26,15 @@ function readDates($scope, $http) {
 			}
 		
 
+			firstDate  = convertDate(firstDate);
+			secondDate = convertDate(secondDate);
+
+		
+		
+		
+	//	$scope.firstDate = firstDate;
+	//	$scope.secondDate = secondDate;
+	// 	convertDate(firstDate.secondDate);
 
 		
 		console.log("firstdate!!!: " + firstDate);
@@ -35,12 +44,10 @@ function readDates($scope, $http) {
 		console.log("scopeseconddate!!!: " + $scope.secondDate);
 
 		
-		$scope.firstDate = firstDate;
-		$scope.secondDate = secondDate;
-		$scope.loadData($scope, $http);
+		$scope.loadData($scope,firstDate, secondDate, $http);
 
 	};
-	$scope.loadData = function($scope, $http) {
+	$scope.loadData = function($scope, firstDate, secondDate, $http) {
 		console.log("date in load data");
 		
 
@@ -52,8 +59,8 @@ function readDates($scope, $http) {
 						'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/protected/rest/basedata/datequery',
 						{
 							params : {
-								firstDate : $scope.firstDate,
-								secondDate : $scope.secondDate
+								firstDate : firstDate,
+								secondDate : secondDate
 							}
 						}).success(function(data, status) {
 					$scope.baseDataDate = data;
@@ -69,7 +76,7 @@ function readDates($scope, $http) {
 }
 function validateDate(dateString, errorMessage){
 	//yyyy-mm-dd hh-mm-ss
-	regexPattern = /^[0-9]{4}-[0-9]{2}-[0-9]{2}[T][0-9]{2}:[0-9]{2}:[0-9]{2}$/;
+	regexPattern = /^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$/;
 	if(dateString.match(regexPattern)){
 		console.log("pass");
    //     document.getElementById('dataTables-example').innerHTML = "<div ng-controller='readDates'>Invalid date1</div>";
@@ -82,9 +89,18 @@ function validateDate(dateString, errorMessage){
 
 		return false;
 	}
-	sayHello(firstDate, secondDate);
+	//sayHello(firstDate, secondDate);
 }
 function showError(message){
 	var errorDiv = document.getElementById("errorDiv");
 	errorDiv.innerHTML = message;
+}
+function convertDate(predate) {
+	console.log("dates::  " + predate);
+
+	var newdate =  predate.split(" ");
+//	var firstpart = first[0];
+//var secondpart = first[1];
+	var postdate = newdate[0] + 'T' + newdate[1];
+	return postdate;
 }
