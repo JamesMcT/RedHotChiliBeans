@@ -205,7 +205,7 @@ function getRecordsByTac() {
 
 
 							
-							<br> <input id=button1 type='button'
+							<br> <input id=button1 type='button' class="btn btn-default"
 								onclick="getRecordsByTac()" value="Search" /> <br>
 						</div>
 						<!-- /#div1 -->

@@ -187,7 +187,7 @@
 							<input type='button' onclick="findUser()" value="find"
 								class="btn btn-default" /> <br>
 						</div>
-						<div id="div3" class="form-group">
+						<div id="div3" class="form-group" style="display: none;">
 							<br> <select name="userRole" id="userRole"
 								class="form-control">
 								<option value="Network Management Engineer">Network
@@ -197,7 +197,7 @@
 								<option value="administrator">Administrator</option>
 							</select> <br>
 						</div>
-						<div id="div4" class="form-group">
+						<div id="div4" class="form-group" style="display: none;">
 							<label> Fill this forms ONLY if you want change the
 								password </label> <input id="oldPassword" type="password"
 								class="form-control" placeholder="Old Password"></input> <br>
@@ -206,12 +206,12 @@
 								id="reinsertNewPassword" type="password" class="form-control"
 								placeholder="Re-insert New Password"></input>
 						</div>
-						<div id="div5">
+						<div id="div5" style="display: none;">
 							<input type='button' onclick="updateUser()" value="update"
 								class="btn btn-default" />
 						</div>
-						<div id="div6" class="success">User updated with success!</div>
-						<div id="div7" class="error">User update failed.</div>
+						<div id="div6" class="success" style="display: none;">User updated with success!</div>
+						<div id="div7" class="error" style="display: none;">User update failed.</div>
 					</div>
 				</div>
 				<!-- /.col-lg-12 -->

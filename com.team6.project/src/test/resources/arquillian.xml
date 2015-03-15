@@ -5,8 +5,10 @@ http://jboss.org/schema/arquillian
 http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 	<container qualifier="jbossas-7-managed" default="true">
 		<configuration>
-			<property name="jbossHome">E:\jboss-as-7.1.1.Final</property>
-			<property name="javaVmArguments">-Djava.security.debug=logincontext -Xms128m -Xms512m -XX:PermSize=128m -XX:MaxPermSize=512m -XX:+CMSClassUnloadingEnabled -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000</property>
+			<property name="jbossHome">/home/cristiana/applications/jboss-as-7.1.1.Final</property>
+			<property name="javaVmArguments">-Djava.security.debug=logincontext</property>
+			<property name="serverConfig">standalone-test.xml</property>
+			<property name="managementPort">19999</property>
 		</configuration>
 	</container>
 	<extension qualifier="jacoco">
