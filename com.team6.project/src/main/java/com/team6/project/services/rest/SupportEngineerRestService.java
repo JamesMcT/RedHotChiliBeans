@@ -13,7 +13,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.team6.project.entities.BaseData;
-import com.team6.project.services.BaseDataServiceLocal;
 
 
 import java.text.ParseException;
@@ -46,8 +45,6 @@ import com.team6.project.services.QueryServiceLocal;
 public class SupportEngineerRestService {
 
 
-	@Inject
-	BaseDataServiceLocal baseDataServiceLocal;
 
 	
 	@Inject
@@ -110,19 +107,15 @@ public class SupportEngineerRestService {
 			
 			System.out.println("date as long1: "+ firstDate + "date as long2: "+ secondDate);
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
-			// Date first = new Date();
-			// Date second = new Date();
-
-			// first.setTime(firstDate);
-			// second.setTime(secondDate);
+		
 			Date first = null;
 			Date second = null;
 
 			try {
 				first = sdf.parse(firstDate);
-				second = sdf1.parse(secondDate);
+				second = sdf.parse(secondDate);
+				System.out.println("=====>" + first + "====>" + second);
+
 
 			} catch (ParseException | NullPointerException e) {
 				System.out.println("null pointer:::" + e);
@@ -130,15 +123,7 @@ public class SupportEngineerRestService {
 			}
 
 			
-		/*8	
-			Date first = new Date();		
-			Date second = new Date();
-			
-			first.setTime(firstDate);
-			second.setTime(secondDate);
-		*/	
-			System.out.println("1date" + first + "2date" + second);
-			return baseDataServiceLocal.findImsiByDate(first, second);
+			return queryService.findImsiByDate(first, second);
 		}
 	}
 
