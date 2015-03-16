@@ -38,9 +38,9 @@
 									var response = JSON.parse(xhr.responseText);
 									if (response.description) {
 										document.getElementById("div7").innerHTML = ("Error! - " + response.description);
-										showDiv("div7");
+										showDivInLine("div7");
 									} else {
-										showDiv("div6");
+										showDivInLine("div6");
 									}
 								}
 							}, false);
@@ -93,9 +93,9 @@
 							<br> <input type='button' class="btn btn-default"
 								onclick="addUser()" value="submit" />
 						</div>
-						<div id="div6" class="success">New user inserted with
+						<div id="div6" class="success" style="display: none;">New user inserted with
 							success!</div>
-						<div id="div7" class="error"></div>
+						<div id="div7" class="error" style="display: none;"></div> 
 					</div>
 				</div>
 				<!-- /.col-lg-12 -->
