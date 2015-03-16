@@ -10,32 +10,25 @@
 <meta name="author" content="">
 
 <title>SB Admin 2 - Bootstrap Admin Theme</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
 
 <!-- Adding CSS -->
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
 <link href="../../css/sb-admin-2.css" rel="stylesheet">
 <link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../../css/dataTables.responsive.css" rel="stylesheet">
+<link href="../../css/se.css"  rel="stylesheet" >
 
 <!-- <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet"> -->
-<link rel="stylesheet" type="text/css" media="screen"
-	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
-<link rel="stylesheet" type="text/css" href="../../css/se.css">
-
 
 <!-- Adding functions -->
 <script src="../../js/basedata.js"></script>
 <script src="../../js/common.js"></script>
+<script src="../../js/angular.min.js"></script>
+
 <script type="text/javascript"
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript"
 	src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript"
-	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
 
 <script type="text/javascript">
 	function startup() {
@@ -62,23 +55,18 @@
 
 					<div id="pickerarea">
 						<div id="datetimepickerbox" class="input-append date">
-							<input type="text" required="required" ng-model="firstDate"></input> <span
-								class="add-on"> <i data-time-icon="icon-time"
-								data-date-icon="icon-calendar"></i>
+							<input type="text" ng-model="firstDate"></input>
 							</span>
 						</div>
 
 						<div id="datetimepickerbox" class="input-append date">
-							<input type="text" required="required"  ng-model="secondDate"></input> <span
-								class="add-on"> <i data-time-icon="icon-time"
-								data-date-icon="icon-calendar"></i>
-							</span>
+							<input type="text" ng-model="secondDate"></input> 
 						</div>
-												<p id="errormess"></p>
 					
-						<button onclick="onSelect()"
-							ng-click='sayHello(firstDate,secondDate)'>search</button>
+						<button ng-click='sayHello(firstDate,secondDate)'>search</button>
 					</div>
+																		<p id="errormess"> &nbsp;</p>
+					
 					<div class="panel-body">
 						<div class="dataTable_wrapper">
 
@@ -92,15 +80,13 @@
 								</thead>
 								<tbody>
 									<tr class="odd gradeA" ng-repeat="x in baseDataDate">
-										<td ng-class="{active: active}">{{x}}</td>
+										<td>{{x}}</td>
 
 									</tr>
 								</tbody>
 							</table>
-							<p id="errormess"></p>
 
 						</div>
-													<p id="errormess"></p>
 						
 						<!-- /.table-responsive -->
 
@@ -124,8 +110,7 @@
 	<!-- /#wrapper -->
 
 
-	<script type="text/javascript"
-		src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+
 		
 	</script>
 

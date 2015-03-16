@@ -2,9 +2,7 @@
 	color: red;
 }
 
-thead, tbody {
-	display: block;
-}
+
 
 tbody {
 	height: 200px; /* Just for the demo          */
