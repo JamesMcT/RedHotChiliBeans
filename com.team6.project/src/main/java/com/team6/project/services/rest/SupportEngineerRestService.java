@@ -14,7 +14,6 @@ import javax.ws.rs.core.MediaType;
 
 import com.team6.project.entities.BaseData;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,12 +43,8 @@ import com.team6.project.services.QueryServiceLocal;
 @Path("/basedata")
 public class SupportEngineerRestService {
 
-
-
-	
 	@Inject
 	QueryServiceLocal queryService;
-	
 
 	public SupportEngineerRestService() {
 	}
@@ -94,37 +89,27 @@ public class SupportEngineerRestService {
 		return queryService.countCallFailureByTacPOST(tac, fromDate, toDate);
 
 	}
-	
-		
-		@GET
-		@Path("/datequery")
-		@Produces(MediaType.APPLICATION_JSON)
-		public Collection<BaseData> findImsiByDate(
-				@QueryParam("firstDate") String firstDate,
-				@QueryParam("secondDate") String secondDate) {
 
-			
-			
-			System.out.println("date as long1: "+ firstDate + "date as long2: "+ secondDate);
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		
-			Date first = null;
-			Date second = null;
+	@GET
+	@Path("/datequery")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<BaseData> findImsiByDate(
+			@QueryParam("firstDate") String firstDate,
+			@QueryParam("secondDate") String secondDate) {
 
-			try {
-				first = sdf.parse(firstDate);
-				second = sdf.parse(secondDate);
-				System.out.println("=====>" + first + "====>" + second);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
+		Date first = null;
+		Date second = null;
 
-			} catch (ParseException | NullPointerException e) {
-				System.out.println("null pointer:::" + e);
-				e.printStackTrace();
-			}
+		try {
+			first = sdf.parse(firstDate);
+			second = sdf.parse(secondDate);
 
-			
-			return queryService.findImsiByDate(first, second);
+		} catch (ParseException | NullPointerException e) {
+			e.printStackTrace();
 		}
+
+		return queryService.findImsiByDate(first, second);
 	}
-
-
+}

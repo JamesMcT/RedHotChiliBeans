@@ -4,14 +4,16 @@ function readDates($scope, $http) {
 
 	$scope.sayHello = function(firstDate, secondDate) {
 
-        document.getElementById('errorDiv').innerHTML = "";
+        document.getElementById('errorDiv').innerHTML = " ";
 
 		
 	//	var d = Date.parse(firstDate);
 	if(!firstDate || !secondDate){
+
 		alert("Fields are mandatory!");
+
 	}
-		
+
 		//if(document.getElementById("validationEnabled").checked){
 			if(!validateDate(firstDate, "Invalid start date") || !validateDate(secondDate, "Invalid end date")){
 				console.log("initial wave");
@@ -83,7 +85,6 @@ function showError(message){
 	errorDiv.innerHTML = message;
 }
 function convertDate(predate) {
-	console.log("dates::  " + predate);
 
 	var newdate =  predate.split(" ");
 

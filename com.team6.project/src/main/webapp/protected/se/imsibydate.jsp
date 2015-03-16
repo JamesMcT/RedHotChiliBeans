@@ -16,7 +16,7 @@
 <link href="../../css/sb-admin-2.css" rel="stylesheet">
 <link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../../css/dataTables.responsive.css" rel="stylesheet">
-<link href="../../css/se.css"  rel="stylesheet" >
+<link href="../../css/se.css" rel="stylesheet">
 
 <!-- <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet"> -->
 
@@ -24,11 +24,9 @@
 <script src="../../js/basedata.js"></script>
 <script src="../../js/common.js"></script>
 <script src="../../js/angular.min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
 
-<script type="text/javascript"
-	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript"
-	src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+
 
 <script type="text/javascript">
 	function startup() {
@@ -56,49 +54,49 @@
 					<div id="pickerarea">
 						<div id="datetimepickerbox" class="input-append date">
 							<input type="text" ng-model="firstDate"></input>
-							</span>
 						</div>
 
 						<div id="datetimepickerbox" class="input-append date">
-							<input type="text" ng-model="secondDate"></input> 
+							<input type="text" ng-model="secondDate"></input>
 						</div>
-					
+
 						<button ng-click='sayHello(firstDate,secondDate)'>search</button>
 					</div>
-																		<p id="errormess"> &nbsp;</p>
-					
+					<!--  <h1>IMSIs</h1>-->
+					<h3>IMSIs</h3>
 					<div class="panel-body">
-						<div class="dataTable_wrapper">
+						<div class="dataTable_wrapper scrollableContainer">
 
+							<div class="scrollingArea">
 
-							<table class="table table-striped table-bordered table-hover"
-								id="dataTables-example">
-								<thead>
-									<tr>
-										<th>IMSI</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr class="odd gradeA" ng-repeat="x in baseDataDate">
-										<td>{{x}}</td>
+								<table class="table table-striped table-bordered table-hover"
+									id="dataTables-example">
+									<thead>
+										<tr>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="odd gradeA" ng-repeat="x in baseDataDate">
+											<td><div class="imsi">{{x}}</div></td>
 
-									</tr>
-								</tbody>
-							</table>
+										</tr>
+									</tbody>
+								</table>
 
+							</div>
+							<div id="errorDiv">
+								<table class="table table-striped table-bordered table-hover"
+									id="failureDurationTable">
+								</table>
+							</div>
+							<!-- /.table-responsive -->
 						</div>
-						
-						<!-- /.table-responsive -->
-
 					</div>
 					<!-- /.panel-body -->
 				</div>
 
-				<div id="errorDiv">
-					<table class="table table-striped table-bordered table-hover"
-						id="failureDurationTable">
-					</table>
-				</div>
+
 
 
 			</div>
@@ -111,7 +109,7 @@
 
 
 
-		
+
 	</script>
 
 </body>
