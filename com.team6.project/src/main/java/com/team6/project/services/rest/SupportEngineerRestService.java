@@ -13,8 +13,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.team6.project.entities.BaseData;
-import com.team6.project.services.BaseDataServiceLocal;
-
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,14 +43,8 @@ import com.team6.project.services.QueryServiceLocal;
 @Path("/basedata")
 public class SupportEngineerRestService {
 
-
-	@Inject
-	BaseDataServiceLocal baseDataServiceLocal;
-
-	
 	@Inject
 	QueryServiceLocal queryService;
-	
 
 	public SupportEngineerRestService() {
 	}
@@ -97,49 +89,27 @@ public class SupportEngineerRestService {
 		return queryService.countCallFailureByTacPOST(tac, fromDate, toDate);
 
 	}
-	
-		
-		@GET
-		@Path("/datequery")
-		@Produces(MediaType.APPLICATION_JSON)
-		public Collection<BaseData> findImsiByDate(
-				@QueryParam("firstDate") String firstDate,
-				@QueryParam("secondDate") String secondDate) {
 
-			
-			
-			System.out.println("date as long1: "+ firstDate + "date as long2: "+ secondDate);
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	@GET
+	@Path("/datequery")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<BaseData> findImsiByDate(
+			@QueryParam("firstDate") String firstDate,
+			@QueryParam("secondDate") String secondDate) {
 
-			// Date first = new Date();
-			// Date second = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-			// first.setTime(firstDate);
-			// second.setTime(secondDate);
-			Date first = null;
-			Date second = null;
+		Date first = null;
+		Date second = null;
 
-			try {
-				first = sdf.parse(firstDate);
-				second = sdf1.parse(secondDate);
+		try {
+			first = sdf.parse(firstDate);
+			second = sdf.parse(secondDate);
 
-			} catch (ParseException | NullPointerException e) {
-				System.out.println("null pointer:::" + e);
-				e.printStackTrace();
-			}
-
-			
-		/*8	
-			Date first = new Date();		
-			Date second = new Date();
-			
-			first.setTime(firstDate);
-			second.setTime(secondDate);
-		*/	
-			System.out.println("1date" + first + "2date" + second);
-			return baseDataServiceLocal.findImsiByDate(first, second);
+		} catch (ParseException | NullPointerException e) {
+			e.printStackTrace();
 		}
+
+		return queryService.findImsiByDate(first, second);
 	}
-
-
+}
