@@ -107,6 +107,7 @@ public interface BaseDataDAO {
 	 */
 	public long getBaseDataCount();
 	
+	
 	public Collection<Object[]> getDistinctEventByTac(Integer ue);
 	
 	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
@@ -114,6 +115,12 @@ public interface BaseDataDAO {
 	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate);
 
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end);
+	
+	/**
+	 * Return all IMSI values.
+	 * @return
+	 */
+	public Collection<BigInteger> getAllImsi();
 
 	
 //	public void updateBaseData(BaseData baseData);

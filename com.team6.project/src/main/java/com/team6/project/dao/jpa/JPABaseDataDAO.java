@@ -234,5 +234,11 @@ public class JPABaseDataDAO implements BaseDataDAO {
     	return q.getResultList();
     }
 
+	@Override
+	public Collection<BigInteger> getAllImsi() {
+    	Query q = em.createNamedQuery("getAllImsi");
+    	return q.getResultList();
+	}
+
     
 }
