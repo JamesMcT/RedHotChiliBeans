@@ -5,8 +5,11 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
+import javax.inject.Inject;
 import org.apache.log4j.Logger;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -28,6 +31,7 @@ import com.jayway.restassured.authentication.FormAuthConfig;
 import com.jayway.restassured.config.LogConfig;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
+import com.team6.project.dao.BaseDataDAO;
 
 @RunWith(Arquillian.class)
 public class PerformanceRestTest {
@@ -140,42 +144,39 @@ public class PerformanceRestTest {
         
     }
 
-    // Worst case test. Imsi passed has largest amount of Event Cause data
-    // objects associated with it
-    @Test
-    public void testGetEventCauseByImsiWorstCase() {
-        given().filter(sessionFilter).when()
-                .get("/protected/rest/IMSIEvent/191911000049149").then()
-                .statusCode(200);
-        long beginTime = System.currentTimeMillis();
-        given().auth().form("admin", "admin", fac).filter(sessionFilter)
-                .expect().statusCode(200).contentType(ContentType.JSON).when()
-                .get("/protected/rest/IMSIEvent/191911000049149");
-        long endTime = System.currentTimeMillis();
-        double timeTaken = (endTime - beginTime) / 1000.0;
-        performanceLogger
-                .warn(String
-                        .format("BaseData-GetEventCauseByImsi-24 Records : loading in (%s seconds)",
-                                new DecimalFormat("0.00").format(timeTaken)));
-        assert (timeTaken <= MAX_QUERY_TIME);
-    }
 
+    @Inject
+	private BaseDataDAO basedatadao;
     @Test
     public void testGetEventCauseByImsi() {
-        given().filter(sessionFilter).when()
-                .get("/protected/rest/IMSIEvent/191911000563489").then()
-                .statusCode(200);
-        long beginTime = System.currentTimeMillis();
-        given().auth().form("admin", "admin", fac).filter(sessionFilter)
-                .expect().statusCode(200).contentType(ContentType.JSON).when()
-                .get("/protected/rest/IMSIEvent/191911000563489");
-        long endTime = System.currentTimeMillis();
-        double timeTaken = (endTime - beginTime) / 1000.0;
-        performanceLogger
-                .warn(String
-                        .format("BaseData-GetEventCauseByImsi-20 Records : loading in (%s seconds)",
-                                new DecimalFormat("0.00").format(timeTaken)));
-        assert (timeTaken <= MAX_QUERY_TIME);
+
+		ArrayList<BigInteger> allImsi = (ArrayList<BigInteger>) basedatadao.getAllImsi();
+		
+		given().filter(sessionFilter).when()
+		.get("/protected/rest/IMSIEvent/191911000002897").then()
+		.statusCode(200);
+		
+		given().auth().form("admin", "admin", fac).filter(sessionFilter)
+		.expect().statusCode(200).contentType(ContentType.JSON).when()
+		.get("/protected/rest/IMSIEvent/191911000002897");
+		
+		for(int i = 0 ; i<=500; i++){
+
+			String input = allImsi.get(i).toString();
+			
+			long beginTime = System.currentTimeMillis();
+			given().filter(sessionFilter)
+					.expect().statusCode(200).contentType(ContentType.JSON).when()
+					.get("/protected/rest/IMSIEvent/"+input);
+			
+			long endTime = System.currentTimeMillis();
+			double timeTaken = (endTime - beginTime) / 1000.0;
+			
+			assert (timeTaken <= MAX_QUERY_TIME);
+			
+		}
+    	
+    	
     }
 
     @Test
