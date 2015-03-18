@@ -2,13 +2,34 @@
 	color: red;
 }
 
-thead, tbody {
-	display: block;
-}
 
+/*
 tbody {
-	height: 200px; /* Just for the demo          */
-	overflow-y: auto; /* Trigger vertical scroll    */
-	
-/* 	overflow-x: hidden; Hide the horizontal scroll */
+height: 250px; 
+	width: 300%;
+	overflow-y: auto;
+overflow-x: initial;
+	/* 	overflow-x: hidden; Hide the horizontal scroll */
 }
+*/
+
+div.scrollableContainer { 
+    position: relative; 
+    width: 552px; 
+    padding-top: 1.7em; 
+    margin: 40px;    
+    border: 1px solid #999;
+    background: #aab;
+    }
+  div.scrollingArea { 
+    height: 240px; 
+    overflow: auto; 
+    }
+    
+    table.table thead tr {
+    left: 10px; top: 50px;
+    position: absolute;
+    }
+
+  table.table .id     { width: 208px; }
+ 
