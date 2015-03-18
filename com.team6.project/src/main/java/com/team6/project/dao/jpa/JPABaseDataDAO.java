@@ -142,12 +142,11 @@ public class JPABaseDataDAO implements BaseDataDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate) {
-		// TODO Auto-generated method stub
 		Query q = em.createNamedQuery("getImsiByDate");
 		q.setParameter("firstDate", firstDate).setParameter("secondDate", secondDate);
-		@SuppressWarnings("unchecked")
         List<BaseData> result = q.getResultList();
 		
     	return result;

@@ -9,6 +9,9 @@ function loadbar(href) {
 function showDiv(divId) {
 	document.getElementById(divId).style.display = 'block';
 }
+function showDivInLine(divId) {
+	document.getElementById(divId).style.display = 'inline-block';
+}
 function hideDiv(divId) {
 	document.getElementById(divId).style.display = 'none';
 }
