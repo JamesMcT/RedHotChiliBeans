@@ -2,6 +2,7 @@ package com.team6.project.services.rest.test;
 
 import static com.jayway.restassured.RestAssured.config;
 import static com.jayway.restassured.RestAssured.given;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -33,7 +34,7 @@ public class PerformanceRestTest {
 
     public final static String ARCHIVE_NAME = "test";
     public final static String WEBAPP_SRC = "src/main/webapp/protected";
-    public final static long MAX_QUERY_TIME = 2000;
+    public final static double MAX_QUERY_TIME = 2.0;
 
 
     @Deployment
@@ -91,6 +92,7 @@ public class PerformanceRestTest {
             .getLogger(PerformanceRestTest.class);
     private String startDate = "2012-01-01 00:00:00";//"2013-02-01 21:01:00";
     private String endDate = "2015-01-01 00:00:00";//"2013-03-21 21:01:00";
+    private String[] tacs={"100100","101500","102700","103300","103600","104600","105500","106900","108100","21060800","33000153","33000253","33000753","33001235","33001735","33001953","33002135","33002235","33002353","33002535","33002635"};
     
     @Before
     public void setUp() throws InterruptedException {
@@ -104,118 +106,38 @@ public class PerformanceRestTest {
     }
 
     @Test
-    public void testGetDistinctEventByTac_103600() {
-        given().filter(sessionFilter)
-                .when()
-                .get("/protected/rest/networkmanagement/eventidcausecode/103600")
-                .then().statusCode(200);
-        long beginTime = System.currentTimeMillis();
-        given().auth()
-                .form("admin", "admin", fac)
-                .filter(sessionFilter)
-                .expect()
-                .statusCode(200)
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/protected/rest/networkmanagement/eventidcausecode/103600");
-        long endTime = System.currentTimeMillis();
-        double timeTaken = (endTime - beginTime) / 1000.0;
-        performanceLogger
-                .warn(String
-                        .format("NetworkManagment-GetDistinctEventByTac (103600): loading in (%s seconds)",
-                                new DecimalFormat("0.00").format(timeTaken)));
-    }
-
-    @Test
-    public void testGetDistinctEventByTac_100100() {
-        given().filter(sessionFilter)
-                .when()
-                .get("/protected/rest/networkmanagement/eventidcausecode/100100")
-                .then().statusCode(200);
-        long beginTime = System.currentTimeMillis();
-        given().auth()
-                .form("admin", "admin", fac)
-                .filter(sessionFilter)
-                .expect()
-                .statusCode(200)
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/protected/rest/networkmanagement/eventidcausecode/100100");
-        long endTime = System.currentTimeMillis();
-        double timeTaken = (endTime - beginTime) / 1000.0;
-        performanceLogger
-                .warn(String
-                        .format("NetworkManagment-GetDistinctEventByTac (100100): loading in (%s seconds)",
-                                new DecimalFormat("0.00").format(timeTaken)));
-    }
-
-    @Test
-    public void testGetDistinctEventByTac_33002353() {
-        given().filter(sessionFilter)
-                .when()
-                .get("/protected/rest/networkmanagement/eventidcausecode/33002353")
-                .then().statusCode(200);
-        long beginTime = System.currentTimeMillis();
-        given().auth()
-                .form("admin", "admin", fac)
-                .filter(sessionFilter)
-                .expect()
-                .statusCode(200)
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/protected/rest/networkmanagement/eventidcausecode/33002353");
-        long endTime = System.currentTimeMillis();
-        double timeTaken = (endTime - beginTime) / 1000.0;
-        performanceLogger
-                .warn(String
-                        .format("NetworkManagment-GetDistinctEventByTac (33002353): loading in (%s seconds)",
-                                new DecimalFormat("0.00").format(timeTaken)));
-    }
-
-    @Test
-    public void testGetDistinctEventByTac_33002235() {
-        given().filter(sessionFilter)
-                .when()
-                .get("/protected/rest/networkmanagement/eventidcausecode/33002235")
-                .then().statusCode(200);
-        long beginTime = System.currentTimeMillis();
-        given().auth()
-                .form("admin", "admin", fac)
-                .filter(sessionFilter)
-                .expect()
-                .statusCode(200)
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/protected/rest/networkmanagement/eventidcausecode/33002235");
-        long endTime = System.currentTimeMillis();
-        double timeTaken = (endTime - beginTime) / 1000.0;
-        performanceLogger
-                .warn(String
-                        .format("NetworkManagment-GetDistinctEventByTac (33002235): loading in (%s seconds)",
-                                new DecimalFormat("0.00").format(timeTaken)));
-    }
-
-    @Test
-    public void testGetDistinctEventByTac_108100() {
-        given().filter(sessionFilter)
-                .when()
-                .get("/protected/rest/networkmanagement/eventidcausecode/108100")
-                .then().statusCode(200);
-        long beginTime = System.currentTimeMillis();
-        given().auth()
-                .form("admin", "admin", fac)
-                .filter(sessionFilter)
-                .expect()
-                .statusCode(200)
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/protected/rest/networkmanagement/eventidcausecode/108100");
-        long endTime = System.currentTimeMillis();
-        double timeTaken = (endTime - beginTime) / 1000.0;
-        performanceLogger
-                .warn(String
-                        .format("NetworkManagment-GetDistinctEventByTac (108100): loading in (%s seconds)",
-                                new DecimalFormat("0.00").format(timeTaken)));
+    public void testGetDistinctEventByTac() {
+        for(int i = 0 ; i<tacs.length;i++){
+            given().filter(sessionFilter)
+            .when()
+            .get("/protected/rest/networkmanagement/eventidcausecode/"+tacs[i])
+            .then().statusCode(200);
+            
+            long beginTime = System.currentTimeMillis();
+            
+            given().auth()
+                    .form("admin", "admin", fac)
+                    .filter(sessionFilter)
+                    .expect()
+                    .statusCode(200)
+                    .contentType(ContentType.JSON)
+                    .when()
+                    .get("/protected/rest/networkmanagement/eventidcausecode/"+tacs[i]);
+            
+            long endTime = System.currentTimeMillis();
+            
+            double timeTaken = (endTime - beginTime) / 1000.0;
+            
+            assertTrue(timeTaken<MAX_QUERY_TIME);
+            
+            performanceLogger
+                    .warn(String
+                            .format("NetworkManagment-GetDistinctEventByTac: loading in (%s seconds)",
+                                    new DecimalFormat("0.00").format(timeTaken)));
+            
+            sessionFilter = new SessionFilter();
+        }
+        
     }
 
     // Worst case test. Imsi passed has largest amount of Event Cause data
