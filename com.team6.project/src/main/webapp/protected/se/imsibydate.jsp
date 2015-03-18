@@ -9,13 +9,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<<<<<<< HEAD
-<title>SB Admin 2 - Bootstrap Admin Theme</title>
-=======
 <title>Red Hot Chilli Beans</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
->>>>>>> refs/heads/master
 
 <!-- Adding CSS -->
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -65,15 +59,10 @@
 						<div id="datetimepickerbox" class="input-append date">
 							<input type="text" ng-model="secondDate"></input>
 						</div>
-<<<<<<< HEAD
 
 						<button ng-click='sayHello(firstDate,secondDate)'>search</button>
-=======
 												<p id="errormess"></p>
-					
-						<button class="btn btn-default" onclick="onSelect()"
-							ng-click='sayHello(firstDate,secondDate)'>search</button>
->>>>>>> refs/heads/master
+
 					</div>
 					<!--  <h1>IMSIs</h1>-->
 					<h3>IMSIs</h3>
