@@ -160,7 +160,7 @@ public class PerformanceRestTest {
 		.expect().statusCode(200).contentType(ContentType.JSON).when()
 		.get("/protected/rest/IMSIEvent/191911000002897");
 		
-		for(int i = 0 ; i<=500; i++){
+		for(int i = 0 ; i<100; i++){
 
 			String input = allImsi.get(i).toString();
 			
