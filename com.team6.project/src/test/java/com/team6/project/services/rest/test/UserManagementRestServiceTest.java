@@ -24,13 +24,14 @@ public class UserManagementRestServiceTest extends RestTest {
         createUsers();
         fac = getformAuthConfig();
         sessionFilter = new SessionFilter();
+        given().filter(sessionFilter).when().get("protected/index.jsp").then()
+                .statusCode(200);
+        given().auth().form("admin", "admin", fac).filter(sessionFilter).when()
+                .get("protected/index.jsp");
     }
 
     @Test
     public void testGetAllUser() {
-        given().filter(sessionFilter).when()
-                .get("/protected/rest/usermanagement/all").then()
-                .statusCode(200);
 
         given().auth().form("admin", "admin", fac).filter(sessionFilter)
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
@@ -40,9 +41,12 @@ public class UserManagementRestServiceTest extends RestTest {
 
     @Test
     public void testGetAllUser_NotAllowed() {
-        given().filter(sessionFilter).when()
-                .get("/protected/rest/usermanagement/all").then()
-                .statusCode(200);
+        sessionFilter = new SessionFilter();
+
+        given().filter(sessionFilter).when().get("protected/index.jsp");
+
+        given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+                .when().get("protected/index.jsp");
 
         given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
                 .expect().statusCode(403).when()
@@ -52,9 +56,6 @@ public class UserManagementRestServiceTest extends RestTest {
 
     @Test
     public void testGetUserByKey() {
-        given().filter(sessionFilter).when()
-                .get("/protected/rest/usermanagement/admin").then()
-                .statusCode(200);
 
         given().auth().form("admin", "admin", fac).filter(sessionFilter)
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
@@ -65,9 +66,13 @@ public class UserManagementRestServiceTest extends RestTest {
 
     @Test
     public void testGetUserByKey_NotAllowed() {
-        given().filter(sessionFilter).when()
-                .get("/protected/rest/usermanagement/admin").then()
-                .statusCode(200);
+
+        sessionFilter = new SessionFilter();
+
+        given().filter(sessionFilter).when().get("protected/index.jsp");
+
+        given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+                .when().get("protected/index.jsp");
 
         given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
                 .expect().statusCode(403).when()
@@ -75,23 +80,28 @@ public class UserManagementRestServiceTest extends RestTest {
 
     }
 
-
-/*    @Test
+    @Test
     public void testAddNewUser() {
         String myJson = "{\"userId\":\"admin2\",\"password\":\"password\",\"role\":\"administrator\"}";
 
         given().auth().form("admin", "admin", fac).filter(sessionFilter)
                 .contentType(ContentType.JSON).body(myJson).expect()
-                .statusCode(200).when()
+                .statusCode(200).when().with()
+                .header("Origin", "")
                 .post("/protected/rest/usermanagement/add");
-        
-        given().auth().form("admin", "admin", fac).filter(sessionFilter)
-        .contentType(ContentType.JSON).body(myJson).expect()
-        .statusCode(200).when()
-        .post("/protected/rest/usermanagement/add");
 
-    }*/
+    }
     
-   
+    @Test
+    public void testChangeNewUser() {
+        String myJson = "{\"userId\":\"admin3\",\"password\":\"password\",\"role\":\"administrator\"}";
+
+        given().auth().form("admin", "admin", fac).filter(sessionFilter)
+                .contentType(ContentType.JSON).body(myJson).expect()
+                .statusCode(200).when().with()
+                .header("Origin", "")
+                .post("/protected/rest/usermanagement/update");
+
+    }
 
 }
