@@ -72,15 +72,17 @@
 				xhr.setRequestHeader('Content-Type', 'application/json');
 				xhr.addEventListener('load', function() {
 					if (xhr.status == 200) {
-						var response = JSON.parse(xhr.responseText);
+						//var response = JSON.parse(xhr.responseText);
 						clean();
-						if (response.description) {
-							showDivInLine("div7");
-						} else {
+						//if (response.description) {
 							showDivInLine("div6");
-						}
+							
+						//} else {
+							
+						//}
 					} else {
-						alert("error! the response status is : " + xhr.status);
+						showDivInLine("div7");
+						//alert("error! the response status is : " + xhr.status);
 					}
 				}, false);
 				xhr.send(JSON.stringify(u));

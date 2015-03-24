@@ -83,9 +83,9 @@ public class PerformanceRestTest {
                 .withTransitivity().as(File.class);
         a.addAsLibraries(files);
 
-        files = Maven.resolver().resolve("org.glassfish:javax.json:1.0")
+       /* files = Maven.resolver().resolve("org.glassfish:javax.json:1.0")
                 .withTransitivity().as(File.class);
-        a.addAsLibraries(files);
+        a.addAsLibraries(files);*/
 
         return a;
     }
@@ -145,7 +145,7 @@ public class PerformanceRestTest {
     }
 
 
-    @Inject
+   /* @Inject
 	private BaseDataDAO basedatadao;
     @Test
     public void testGetEventCauseByImsi() {
@@ -177,7 +177,7 @@ public class PerformanceRestTest {
 		}
     	
     	
-    }
+    }*/
 
     @Test
     public void testFailedCallDurationEndpoint() {

@@ -19,7 +19,6 @@ import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.Record;
-import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 import com.team6.project.entities.UserEquipment;
 
@@ -149,29 +148,13 @@ public class PersistenceService implements PersistenceServiceLocal{
 	
 	
 	@Override
-    public Response addUser(User newUser) {
-        Response response = new Response();
-        if (user.getUserByKey(newUser.getKey()) == null) {
-            user.addUser(newUser);
-            response.setStatus(Response.Status.OK);
-        } else {
-            response.setStatus(Response.Status.ERROR);
-            response.setDescription("User already exists");
-        }
-        return response;
+    public void addUser(User newUser) {
+	    user.addUser(newUser);
     }
 
     @Override
-    public Response updateUser(User newUser) {
-        Response response = new Response();
-        if (user.getUserByKey(newUser.getKey()) != null) {
-            user.updateUser(newUser);
-            response.setStatus(Response.Status.OK);
-        } else {
-            response.setStatus(Response.Status.NOT_FOUND);
-            response.setDescription("User not found");
-        }
-        return response;
+    public void updateUser(User newUser) {
+        user.updateUser(newUser);
     }
 	
 }

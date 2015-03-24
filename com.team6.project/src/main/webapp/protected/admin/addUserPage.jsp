@@ -35,13 +35,16 @@
 							'load',
 							function() {
 								if (xhr.status == 200) {
-									var response = JSON.parse(xhr.responseText);
-									if (response.description) {
-										document.getElementById("div7").innerHTML = ("Error! - " + response.description);
-										showDivInLine("div7");
-									} else {
+									//var response = JSON.parse(xhr.responseText);
+									//if (response.description) {
 										showDivInLine("div6");
-									}
+										
+									//} else {
+										
+									//}
+								}else{
+									document.getElementById("div7").innerHTML = ("Error! - " + xhr.responseText);
+									showDivInLine("div7");
 								}
 							}, false);
 			xhr.send(JSON.stringify(u));
@@ -93,9 +96,9 @@
 							<br> <input type='button' class="btn btn-default"
 								onclick="addUser()" value="submit" />
 						</div>
-						<div id="div6" class="success" style="display: none;">New user inserted with
-							success!</div>
-						<div id="div7" class="error" style="display: none;"></div> 
+						<div id="div6" class="success" style="display: none;">New
+							user inserted with success!</div>
+						<div id="div7" class="error" style="display: none;"></div>
 					</div>
 				</div>
 				<!-- /.col-lg-12 -->
