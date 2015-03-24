@@ -3,9 +3,6 @@ package com.team6.project.services.rest.test;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +11,6 @@ import org.junit.runner.RunWith;
 import com.jayway.restassured.authentication.FormAuthConfig;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
-import com.team6.project.entities.User;
 
 @RunWith(Arquillian.class)
 public class UserManagementRestServiceTest extends RestTest {

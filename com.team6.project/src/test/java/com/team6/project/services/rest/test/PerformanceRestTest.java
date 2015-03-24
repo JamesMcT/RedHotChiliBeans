@@ -82,11 +82,6 @@ public class PerformanceRestTest {
                 .resolve("commons-logging:commons-logging:1.1.3")
                 .withTransitivity().as(File.class);
         a.addAsLibraries(files);
-
-        files = Maven.resolver().resolve("org.glassfish:javax.json:1.0")
-                .withTransitivity().as(File.class);
-        a.addAsLibraries(files);
-
         return a;
     }
     
@@ -147,7 +142,7 @@ public class PerformanceRestTest {
 
     @Inject
 	private BaseDataDAO basedatadao;
-    @Test
+   /* @Test
     public void testGetEventCauseByImsi() {
 
 		ArrayList<BigInteger> allImsi = (ArrayList<BigInteger>) basedatadao.getAllImsi();
@@ -178,7 +173,7 @@ public class PerformanceRestTest {
     	
     	
     }
-
+*/
     @Test
     public void testFailedCallDurationEndpoint() {
 
