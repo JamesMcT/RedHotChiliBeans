@@ -18,6 +18,7 @@ import com.team6.project.entities.UserEquipment;
  * The QueryService local interface.
  * 
  * @author Eoin Kernan
+ * @author James Mc Ternan
  *
  */
 @Local
@@ -45,5 +46,7 @@ public interface QueryServiceLocal {
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate);
 
 	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate);
+	
+	public long countImsi(BigInteger imsi, Date startDate, Date endDate);
 
 }

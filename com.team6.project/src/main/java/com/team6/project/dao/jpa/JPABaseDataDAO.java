@@ -240,5 +240,16 @@ public class JPABaseDataDAO implements BaseDataDAO {
     	return q.getResultList();
 	}
 
+	
+	
+	@Override
+	public Long countImsi(BigInteger imsi, Date startDate, Date endDate) {
+		Query q = em.createNamedQuery("countImsi");
+		q.setParameter("imsi", imsi);
+		q.setParameter("startDate", startDate);
+		q.setParameter("endDate", endDate);
+		return (Long) q.getSingleResult();
+	}
+
     
 }

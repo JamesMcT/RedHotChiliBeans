@@ -95,4 +95,9 @@ public class QueryService implements QueryServiceLocal{
 		return baseData.findImsiByDate(firstDate, secondDate);
 	}
 
+	@Override
+	public long countImsi(BigInteger imsi, Date startDate, Date endDate) {
+		return baseData.countImsi(imsi, startDate, endDate);
+	}
+
 }

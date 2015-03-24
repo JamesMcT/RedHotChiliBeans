@@ -121,6 +121,9 @@ public interface BaseDataDAO {
 	 * @return
 	 */
 	public Collection<BigInteger> getAllImsi();
+	
+	
+	public Long countImsi(BigInteger imsi, Date startDate, Date endDate);
 
 	
 //	public void updateBaseData(BaseData baseData);
