@@ -195,6 +195,17 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	}
     
     @Override //S
+	public Collection<BaseData> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate) {		
+		
+    	Query q = em.createNamedQuery("getTOP10MarketOperatorCellByDate")    		
+    		.setParameter("fromDate", fromDate)				
+    		.setParameter("toDate", toDate);	
+		
+		return q.getResultList();
+	}
+    
+    
+    @Override //S
 	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate) {		
 		Response response = new Response();
 		

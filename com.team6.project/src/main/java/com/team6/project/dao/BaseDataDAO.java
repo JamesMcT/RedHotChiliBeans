@@ -20,6 +20,7 @@ import com.team6.project.entities.UserEquipment;
  * @author John O Keeffe
  * @author Eoin Kernan
  * @author Cristiana Conti
+ * @author Sabee
  */
 @Local
 public interface BaseDataDAO {
@@ -121,6 +122,8 @@ public interface BaseDataDAO {
 	 * @return
 	 */
 	public Collection<BigInteger> getAllImsi();
+
+	public Collection<BaseData> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate);
 
 	
 //	public void updateBaseData(BaseData baseData);

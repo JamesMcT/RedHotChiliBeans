@@ -65,6 +65,23 @@ public class SupportEngineerRestService {
 		return queryService.countCallFailureByTac(tac, fromDate, toDate);
 	}
 
+	@GET
+	@Path("/top10MOC")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<BaseData> getTOP10MarketOperatorCellByDate(
+			@QueryParam("fromDate") long lFromDate,
+			@QueryParam("toDate") long lToDate) {
+
+		Date fromDate = new Date();
+		Date toDate = new Date();
+
+		fromDate.setTime(lFromDate);
+		toDate.setTime(lToDate);
+
+		return queryService.getTOP10MarketOperatorCellByDate(fromDate, toDate);
+	}
+	
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

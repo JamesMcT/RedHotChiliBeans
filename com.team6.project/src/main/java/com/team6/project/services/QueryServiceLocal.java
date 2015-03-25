@@ -39,11 +39,15 @@ public interface QueryServiceLocal {
 	public Collection<Object[]> getDistinctEventByTac(Integer ue);
 	
 	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
+	
+	public Collection<BaseData> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate);
 			
 	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate);
 	
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate);
 
 	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate);
+
+	
 
 }
