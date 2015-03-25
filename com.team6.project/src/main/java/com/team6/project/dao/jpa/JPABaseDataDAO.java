@@ -218,25 +218,20 @@ public class JPABaseDataDAO implements BaseDataDAO {
 		return response;		
 	}
     
-    
-
     @Override
-    public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end){
-    	
-    	//SimpleDateFormat sdf = new SimpleDateFormat(MYSQL_DATE_FORMAT);
-    	//String d1 = sdf.format(start);
-    	//String d2 = sdf.format(end);
-    	
-    	Query q = em.createNamedQuery("failureCountAndDurationPerImsiByDate");
+	public Collection<BigInteger> getAllImsi() {
+    	Query q = em.createNamedQuery("getAllImsi");
+    	return q.getResultList();
+	}
+
+	@Override
+	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(
+			Date start, Date end, int startIndex, int resultCount) {
+		
+		Query q = em.createNamedQuery("failureCountAndDurationPerImsiByDate").setFirstResult(startIndex).setMaxResults(resultCount);
     	q.setParameter("startDate", start);
     	q.setParameter("endDate", end);
     	
-    	return q.getResultList();
-    }
-
-	@Override
-	public Collection<BigInteger> getAllImsi() {
-    	Query q = em.createNamedQuery("getAllImsi");
     	return q.getResultList();
 	}
 

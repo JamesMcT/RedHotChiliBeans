@@ -114,7 +114,7 @@ public interface BaseDataDAO {
 	
 	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate);
 
-	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end);
+	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end, int startIndex, int resultCount);
 	
 	/**
 	 * Return all IMSI values.

@@ -57,11 +57,26 @@ public class NetworkManagementRestService {
     @Path("/failurecountandduration")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(
-
-    @QueryParam("startDate") String dateString1,
-            @QueryParam("endDate") String dateString2) {
+    							@QueryParam("startDate") String dateString1,
+    							@QueryParam("endDate") String dateString2,
+    							@DefaultValue("0")@QueryParam("beginIndex") int beginIndex,
+    							@DefaultValue("999999")@QueryParam("resultCount") int resultCount) {
         String message = "";
 
+        if (beginIndex<0) {
+            message = String.format("Begin index must be >= 0 (%d)",beginIndex);
+            final Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+        
+        if (resultCount<1) {
+            message = String.format("Result count must be greater than 0 (%d)",resultCount);
+            final Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+        
         if ("".equals(dateString1) || "".equals(dateString2)) {
             message = "Empty date strings not allowed";
             final Response response = Response.status(Status.BAD_REQUEST)
@@ -99,7 +114,7 @@ public class NetworkManagementRestService {
         }
 
         Collection<Object[]> c = queryService
-                .getFailureCountAndDurationPerImsiByDate(d1, d2);
+                .getFailureCountAndDurationPerImsiByDate(d1, d2, beginIndex, resultCount);
 
         if (!(c.size() > 0)) {
             message = String

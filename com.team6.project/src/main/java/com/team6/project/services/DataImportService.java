@@ -87,7 +87,7 @@ public class DataImportService implements DataImportServiceLocal{
 	private Set<String> watchedDirectories = new HashSet<String>();
 	
 	/**
-	 * 
+	 * The empty DataImportService constructor. 
 	 */
 	public DataImportService()
 	{}

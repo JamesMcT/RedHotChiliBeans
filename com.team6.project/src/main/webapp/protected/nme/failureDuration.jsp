@@ -28,7 +28,7 @@
 
 <script>
 
-	function getFailureData() {
+	function getFailureData(beginIndex, resultCount) {
 
 		var startDate = document.getElementById("startDate").value;
 		var endDate = document.getElementById("endDate").value;
@@ -42,7 +42,7 @@
 		var xhr = new XMLHttpRequest();
 		var root = "${pageContext.servletContext.contextPath}";
 		xhr.open("GET", root
-				+ "/protected/rest/networkmanagement/failurecountandduration?startDate="+startDate+"&endDate="+endDate,
+				+ "/protected/rest/networkmanagement/failurecountandduration?startDate="+startDate+"&endDate="+endDate+"&beginIndex="+beginIndex+"&resultCount="+resultCount,
 				true);
 		xhr.addEventListener('load', function() {
 			if (xhr.status == 200) {
@@ -195,7 +195,7 @@
 						    </div>
 							
 							<br/> 
-							<input type='button' class="btn btn-default" onclick="getFailureData()"
+							<input type='button' class="btn btn-default" onclick="getFailureData(0,50)"
 								value="show data" /> <br>
 							<input type='checkbox' name='validationEnabled' id='validationEnabled' value='JS Validation Enabled'/> JS Validation Enabled<br/>
 						</div>

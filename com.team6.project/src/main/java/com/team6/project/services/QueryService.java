@@ -71,8 +71,8 @@ public class QueryService implements QueryServiceLocal{
     }
 
     @Override
-    public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate) {
-    	return baseData.getFailureCountAndDurationPerImsiByDate(startDate, endDate);
+    public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate, int beginIndex, int resultCount) {
+    	return baseData.getFailureCountAndDurationPerImsiByDate(startDate, endDate, beginIndex, resultCount);
     }
 
 	@Override

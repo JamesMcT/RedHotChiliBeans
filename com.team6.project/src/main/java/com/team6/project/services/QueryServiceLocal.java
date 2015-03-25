@@ -42,7 +42,7 @@ public interface QueryServiceLocal {
 			
 	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate);
 	
-	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate);
+	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate, int beginIndex, int resultCount);
 
 	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate);
 
