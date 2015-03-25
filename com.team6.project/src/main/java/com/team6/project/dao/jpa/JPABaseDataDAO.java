@@ -185,15 +185,11 @@ public class JPABaseDataDAO implements BaseDataDAO {
     
     @Override //S
 	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate) {		
-		Response response = new Response();
 		
-		Query q = em.createQuery("select count(*) from BaseData "
-				+ "where userEquipment = (from UserEquipment where tac = :tac) "
-				+ "and date >= :fromDate "
-				+ "and date <= :toDate")
-				.setParameter("tac", tac)
-				.setParameter("fromDate", fromDate)				
-				.setParameter("toDate", toDate);			
+    	Query q = em.createNamedQuery("countCallFailureByTac")
+    		.setParameter("tac", tac)
+    		.setParameter("fromDate", fromDate)				
+    		.setParameter("toDate", toDate);	
 		
 		return (long) q.getSingleResult();
 	}

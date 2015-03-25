@@ -166,22 +166,15 @@ function getRecordsByTac() {
 							</div>
 
 							<script type="text/javascript"
-								src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-								
+								src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">								
 							</script>
 							<script type="text/javascript"
-								src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
-								
+								src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">								
 							</script>
 							<script type="text/javascript"
 								src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-								
-							</script>
-							<script type="text/javascript"
-								src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
-								
-							</script>
-
+							</script>	
+							
 							<script type="text/javascript">
 								$('#datetimepicker').datetimepicker({
 									format : 'yyyy-MM-dd hh:mm:ss',
@@ -189,7 +182,7 @@ function getRecordsByTac() {
 								});
 								$('#datetimepicker').data('datetimepicker')
 										.setLocalDate(
-												new Date(2013, 0, 11, 17, 15));
+												new Date(2013, 1, 19, 19, 35));
 							</script>
 
 
@@ -200,7 +193,7 @@ function getRecordsByTac() {
 								});
 								$('#datetimepicker2').data('datetimepicker')
 										.setLocalDate(
-												new Date(2013, 0, 11, 17, 20));
+												new Date(2013, 1, 19, 19, 40));								
 							</script>
 
 
