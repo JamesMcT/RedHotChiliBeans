@@ -66,7 +66,10 @@ public class FailureTypeReader extends Reader {
         currentRow = FIRSTROW;
 
     }
-
+    /**
+     * returns the name of the excel sheet
+     * @return
+     */
     public static String getName() {
         return NAME;
     }

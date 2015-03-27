@@ -8,9 +8,12 @@ import com.team6.project.services.DataImportServiceLocal;
 
 /**
  * Validates the FailureType to guarantee the FK satisfied
- * 
+ * If the constraint is satisfied the BaseData FailureType property is set with 
+ * the same value of the Record FailureType property. Otherwise a
+ * description of the error is set into the description property of the Record object.
  * @author Cristiana
  */
+
 public class FailureTypeValidator implements IValidator {
 
     @Override
