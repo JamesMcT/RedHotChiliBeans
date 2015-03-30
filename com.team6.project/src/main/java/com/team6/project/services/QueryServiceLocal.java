@@ -5,12 +5,9 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.ejb.Local;
-import javax.persistence.Query;
-
 
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
-
 import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 import com.team6.project.entities.UserEquipment;
@@ -45,5 +42,11 @@ public interface QueryServiceLocal {
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate);
 
 	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate);
-
+	
+	public Collection<BigInteger> getAllImsi();
+	/**
+     * @return All the unique EventCause objects and the 
+     * number of their occurrences associated to a specific imsi. 
+     */
+	public Collection<Object[]> getUniqueEventCauseByImsi(BigInteger imsi);
 }

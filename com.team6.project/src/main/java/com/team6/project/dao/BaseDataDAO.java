@@ -121,6 +121,11 @@ public interface BaseDataDAO {
 	 * @return
 	 */
 	public Collection<BigInteger> getAllImsi();
+	/**
+     * @return All the unique EventCause objects and the 
+     * number of their occurrences associated to a specific imsi. 
+     */
+	public Collection<Object[]> getUniqueEventCauseByImsi(BigInteger imsi);
 
 	
 //	public void updateBaseData(BaseData baseData);

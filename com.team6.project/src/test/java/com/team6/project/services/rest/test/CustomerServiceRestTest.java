@@ -83,7 +83,7 @@ public class CustomerServiceRestTest extends RestTest {
 	public void testGetEventCause() {
 
 		given().filter(sessionFilter).expect().statusCode(200).when()
-				.get("protected/rest/IMSIEvent/191911000423586"); // This IMSI
+				.get("protected/rest/customerservice/191911000423586"); // This IMSI
 																	// value has
 																	// been
 																	// taken
@@ -96,7 +96,7 @@ public class CustomerServiceRestTest extends RestTest {
 
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
 				.expect().statusCode(200).when()
-				.get("protected/rest/IMSIEvent/191911000423586").then()
+				.get("protected/rest/customerservice/191911000423586").then()
 				.contentType(ContentType.JSON);
 
 	}
@@ -109,10 +109,10 @@ public class CustomerServiceRestTest extends RestTest {
 	public void testNoInput() {
 
 		given().filter(sessionFilter).expect().statusCode(200).when()
-				.get("protected/rest/IMSIEvent/191911000423586");
+				.get("protected/rest/customerservice/191911000423586");
 
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
-				.expect().statusCode(404).when().get("procted/rest/IMSIEvent/");
+				.expect().statusCode(404).when().get("procted/rest/customerservice/");
 
 	}
 
@@ -123,11 +123,11 @@ public class CustomerServiceRestTest extends RestTest {
 	public void testInvalidInputType() {
 
 		given().filter(sessionFilter).expect().statusCode(200).when()
-				.get("protected/rest/IMSIEvent/A");
+				.get("protected/rest/customerservice/A");
 
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
 				.expect().statusCode(400).when()
-				.get("protected/rest/IMSIEvent/A");
+				.get("protected/rest/customerservice/A");
 	}
 	
 //	@Test

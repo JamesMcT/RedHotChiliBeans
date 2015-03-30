@@ -240,5 +240,12 @@ public class JPABaseDataDAO implements BaseDataDAO {
     	return q.getResultList();
 	}
 
+    @Override
+    public Collection<Object[]> getUniqueEventCauseByImsi(BigInteger imsi) {
+        Query q = em.createNamedQuery("getUniqueEventCauseByImsi");
+        q.setParameter("imsi", imsi);
+        return q.getResultList();
+    }
+
     
 }
