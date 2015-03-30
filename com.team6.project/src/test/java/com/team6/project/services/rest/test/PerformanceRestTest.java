@@ -184,15 +184,7 @@ public class PerformanceRestTest {
     @Test
     public void testFailedCallDurationEndpoint() {
 
-        // Expect to get the login page if not authenticated first
-      /*  given().queryParam("startDate", startDate)
-                .queryParam("endDate", endDate)
-                .filter(sessionFilter)
-                .when()
-                .get("/protected/rest/networkmanagement/failurecountandduration")
-                .then().statusCode(200).contentType(ContentType.HTML);*/
-
-        long beginTime = System.currentTimeMillis();
+       long beginTime = System.currentTimeMillis();
 
         given().auth()
                 .form("admin", "admin", fac)
@@ -213,15 +205,15 @@ public class PerformanceRestTest {
                                 new DecimalFormat("0.000").format(timeTaken)));
     }
 
-    @Test
+ /*   @Test
     public void testCountCallFailureByTac() {
-       /* given().filter(sessionFilter).when()
-                .get("/protected/rest/basedata/tac").then().statusCode(200);*/
+        given().filter(sessionFilter).when()
+                .get("/protected/rest/basedata/tac").then().statusCode(200);
         long beginTime = System.currentTimeMillis();
 
         given().auth().form("admin", "admin", fac).queryParam("tac", 21060800)
-                .queryParam("fromDate", "2013-01-11 17:15:00")
-                .queryParam("toDate", "2013-01-11 17:34:00")
+                .queryParam("fromDate", startDate)
+                .queryParam("toDate", endDate)
                 .filter(sessionFilter).expect().statusCode(200)
                 .contentType(ContentType.JSON).when()
                 .get("/protected/rest/basedata/tac");
@@ -232,7 +224,7 @@ public class PerformanceRestTest {
                 .warn(String
                         .format("SupportEngineer-CountCallFailureByTac : loading in (%s seconds)",
                                 new DecimalFormat("0.000").format(timeTaken)));
-    }
+    }*/
 
     @Test
     public void testGetAll() {

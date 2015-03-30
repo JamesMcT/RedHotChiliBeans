@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<title>Customer Service Rep</title>
+<title>Red Hot Chilli Beans</title>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html">
 <head>
@@ -29,28 +29,10 @@
 <link href="../../fonts/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 
-
+<script src="../../js/common.js"></script>
+<script src="../../js/customerServiceCommon.js"></script>
 <script lang="JavaScript" type="text/javascript">
-	function validateImsi(imsi) {
-
-		if (isNotEmpty(imsi, "Please Enter an Imsi") == false) {
-			return false;
-		} else if (isNaN(imsi) == true) {
-			alert("IMSI Field should contain numbers only");
-			return false;
-		} else {
-			//alert("True Entered on IMSI...")
-			return true;
-		}
-	}
-
-	function isNotEmpty(imsi, alertMessage) {
-		if (imsi == "") {
-			alert(alertMessage);
-			return false;
-		}
-		return true;
-	}
+	
 
 	function findByImsi() {
 		var imsi = document.getElementById('imsi_attr').value;
@@ -100,7 +82,7 @@
 		}
 	}
 </script>
-<script src="../../js/common.js"></script>
+
 
 </head>
 

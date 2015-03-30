@@ -72,7 +72,7 @@ public class CustomerServiceRestTest extends RestTest {
 
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
 				.when().get("protected/csr/EventCauseSearch.html").then()
-				.body(containsString("<title>Customer Service Rep</title>"));
+				.body(containsString("<title>Red Hot Chilli Beans</title>"));
 
 	}
 
