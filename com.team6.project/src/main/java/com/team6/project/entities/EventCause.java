@@ -8,149 +8,171 @@ import javax.persistence.IdClass;
 
 import com.team6.project.entities.EventCausePK;
 
-
 /**
+ * This class creates an Entity called EventCause which implements Serializable
+ * and uses the composite key called EventCausePK.
+ * <p>
+ * It creates 3 columns called <i> causeCode </i>,<i> eventId </i>, and <i>
+ * description </i>
  * 
- * @author Cristiana Conti 
- * EventCause table
+ * @author Cristiana Conti
+ * 
  */
 @Entity
 @IdClass(EventCausePK.class)
 public class EventCause implements Serializable {
 
-    private static final long serialVersionUID = -7885704687060461631L;
-    @Id
-    private Integer causeCode;
-    @Id
-    private Integer eventId;
-    private String description;
+	private static final long serialVersionUID = -7885704687060461631L;
+	@Id
+	private Integer causeCode;
+	@Id
+	private Integer eventId;
+	private String description;
 
-    /**
-     * 
-     */
-    public EventCause() {
-    }
+	/**
+	 * Empty constuctor for EventCause
+	 * 
+	 */
+	public EventCause() {
+	}
 
-    /**
-     * 
-     * @param eventId
-     * @param causeCode
-     * @param description
-     */
-    public EventCause(Integer eventId, Integer causeCode, String description) {
-        super();
-        this.causeCode = causeCode;
-        this.eventId = eventId;
-        this.description = description;
-    }
+	/**
+	 * The constructor for EventCause
+	 * 
+	 * @param eventId
+	 * @param causeCode
+	 * @param description
+	 */
+	public EventCause(Integer eventId, Integer causeCode, String description) {
+		super();
+		this.causeCode = causeCode;
+		this.eventId = eventId;
+		this.description = description;
+	}
 
-    /**
-     * 
-     * @return
-     */
-    public boolean hasRequiredFields() {
-        if (causeCode != null && eventId != null) {
-            return true;
-        }
-        return false;
-    }
+	/**
+	 * Checks whether causeCode and eventId are present.
+	 * 
+	 * @return true if has required fields. otherwise false
+	 */
+	public boolean hasRequiredFields() {
+		if (causeCode != null && eventId != null) {
+			return true;
+		}
+		return false;
+	}
 
-    /**
-     * 
-     */
-    public String toString() {
-        return "Event Id : " + eventId + " Cause code: " + causeCode
-                + " Description: " + description;
-    }
-    
-    /**
-     * 
-     * @return
-     */
-    public EventCausePK getKey(){
-        return new EventCausePK(eventId, causeCode);
-    }
+	/**
+	 * Overrides the toString() method. It overrides to return the eventID
+	 * causeCode and Description.
+	 * 
+	 */
+	public String toString() {
+		return "Event Id : " + eventId + " Cause code: " + causeCode
+				+ " Description: " + description;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result
-                + ((causeCode == null) ? 0 : causeCode.hashCode());
-        result = prime * result + ((eventId == null) ? 0 : eventId.hashCode());
-        return result;
-    }
+	/**
+	 * Gets the composite key of the EventCausePK
+	 * 
+	 * @return EventCausePK object with eventId and causeCode
+	 */
+	public EventCausePK getKey() {
+		return new EventCausePK(eventId, causeCode);
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        EventCause other = (EventCause) obj;
-        if (causeCode == null) {
-            if (other.causeCode != null)
-                return false;
-        } else if (!causeCode.equals(other.causeCode))
-            return false;
-        if (eventId == null) {
-            if (other.eventId != null)
-                return false;
-        } else if (!eventId.equals(other.eventId))
-            return false;
-        return true;
-    }
+	/**
+	 * This overrides the hashcode() method which uses 31 as a base
+	 * 
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((causeCode == null) ? 0 : causeCode.hashCode());
+		result = prime * result + ((eventId == null) ? 0 : eventId.hashCode());
+		return result;
+	}
 
-    /**
-     * 
-     * @return
-     */
-    public Integer getCauseCode() {
-        return causeCode;
-    }
+	/**
+	 * This overrides the equals method comparing causeCode and eventId
+	 * 
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EventCause other = (EventCause) obj;
+		if (causeCode == null) {
+			if (other.causeCode != null)
+				return false;
+		} else if (!causeCode.equals(other.causeCode))
+			return false;
+		if (eventId == null) {
+			if (other.eventId != null)
+				return false;
+		} else if (!eventId.equals(other.eventId))
+			return false;
+		return true;
+	}
 
-    /**
-     * 
-     * @param causeCode
-     */
-    public void setCauseCode(Integer causeCode) {
-        this.causeCode = causeCode;
-    }
+	/**
+	 * Gets the CauseCode as an Integer
+	 * 
+	 * @return causeCode
+	 */
+	public Integer getCauseCode() {
+		return causeCode;
+	}
 
-    /**
-     * 
-     * @return
-     */
-    public Integer getEventId() {
-        return eventId;
-    }
+	/**
+	 * Sets the CauseCode as an Integer
+	 * 
+	 * @param causeCode
+	 */
+	public void setCauseCode(Integer causeCode) {
+		this.causeCode = causeCode;
+	}
 
-    /**
-     * 
-     * @param eventId
-     */
-    public void setEventId(Integer eventId) {
-        this.eventId = eventId;
-    }
+	/**
+	 * Gets the EventId as an Integer
+	 * 
+	 * @return eventId
+	 */
+	public Integer getEventId() {
+		return eventId;
+	}
 
-    /**
-     * 
-     * @return
-     */
-    public String getDescription() {
-        return description;
-    }
+	/**
+	 * Sets the EventId as an Integer
+	 * 
+	 * @param eventId
+	 */
+	public void setEventId(Integer eventId) {
+		this.eventId = eventId;
+	}
 
-    /**
-     * 
-     * @param description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    
-    
+	/**
+	 * Gets the description as a String
+	 * 
+	 * @return description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * Sets the description as a String
+	 * 
+	 * @param description
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 }
