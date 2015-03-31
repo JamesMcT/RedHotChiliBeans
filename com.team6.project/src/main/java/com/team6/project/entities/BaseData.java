@@ -25,7 +25,7 @@ import javax.persistence.NamedQuery;
 		@NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi"),
 		@NamedQuery(name = "baseDataCount", query = "SELECT COUNT(b.id) FROM BaseData b"),
 		@NamedQuery(name = "getImsiByDate", query = "SELECT distinct(b.imsi) from BaseData b where b.date between :firstDate and :secondDate"),
-		@NamedQuery(name = "eventCauseAndIdByTac", query = "SELECT b.eventCause, COUNT(b) FROM BaseData b where b.userEquipment.tac=:userEquipment GROUP BY b.eventCause"),
+		@NamedQuery(name = "eventCauseAndIdByTac", query = "SELECT b.eventCause, COUNT(b) FROM BaseData b where b.userEquipment.tac=:userEquipment GROUP BY b.eventCause ORDER BY COUNT(b) DESC"),
 		@NamedQuery(name = "getAllImsi", query = "SELECT distinct(b.imsi) FROM BaseData b"),	// Query needed for performance tests.
 		@NamedQuery(name = "failureCountAndDurationPerImsiByDate", query = "SELECT b.imsi, COUNT(b.id), SUM(b.duration) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY COUNT(b.id) DESC"),
 		@NamedQuery(name = "getUniqueEventCauseByImsi", query ="SELECT b.eventCause, COUNT(b) FROM BaseData b where b.imsi = :imsi GROUP BY b.eventCause")})

@@ -1,17 +1,3 @@
-function createTableHead(tableId, titles) {
-	var table = document.getElementById(tableId);
-	var thead = document.createElement("thead");
-	thead.id = "tableHead";
-	var tr = document.createElement("tr");
-	for (var i = 0; i < titles.length; i++) {
-		var th1 = document.createElement("th");
-		th1.appendChild(document.createTextNode(titles[i]));
-		tr.appendChild(th1);
-	}
-	thead.appendChild(tr);
-	table.appendChild(thead);
-}
-
 function createTableCauseCodeEventIdOccurrenceBody(tableId, response) {
 	var table = document.getElementById(tableId);
 	var tbody = document.createElement("tbody");
