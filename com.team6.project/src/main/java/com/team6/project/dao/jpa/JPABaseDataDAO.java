@@ -202,28 +202,7 @@ public class JPABaseDataDAO implements BaseDataDAO {
     		.setParameter("toDate", toDate);	
 		
 		return q.getResultList();
-	}
-    
-    
-    @Override //S
-	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate) {		
-		Response response = new Response();
-		
-		Query q = em.createQuery("select count(*) from BaseData "
-				+ "where userEquipment = (from UserEquipment where tac = :tac) "
-				+ "and date >= :fromDate "
-				+ "and date <= :toDate")
-				.setParameter("tac", tac)
-				.setParameter("fromDate", fromDate)				
-				.setParameter("toDate", toDate);
-		
-		long l = (long) q.getSingleResult();
-		String s = String.valueOf(l);
-		response.setStatus(Response.Status.OK);
-		response.setDescription(s);
-		
-		return response;		
-	}
+	}    
     
     
 

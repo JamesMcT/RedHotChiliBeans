@@ -88,13 +88,7 @@ public class QueryService implements QueryServiceLocal{
 		
 		return baseData.getTOP10MarketOperatorCellByDate(fromDate, toDate);
 	}
-	
-	@Override
-	public Response countCallFailureByTacPOST(Integer tac, Date fromDate,
-			Date toDate) {
 		
-		return baseData.countCallFailureByTacPOST(tac, fromDate, toDate);
-	}
 	
 	@Override
 	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate) {

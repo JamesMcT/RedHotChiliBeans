@@ -7,7 +7,6 @@ import java.util.Date;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -20,6 +19,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.team6.project.dao.jpa.JPABaseDataDAO;
+import com.team6.project.entities.BaseData;
 import com.team6.project.services.QueryServiceLocal;
 
 /**
@@ -52,7 +52,7 @@ public class NetworkManagementRestService {
         }
 
     }
-
+    
     @GET
     @Path("/failurecountandduration")
     @Produces(MediaType.APPLICATION_JSON)
@@ -113,5 +113,21 @@ public class NetworkManagementRestService {
         return c;
 
     }
+        
+    @GET
+	@Path("/top10MOC")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<BaseData> getTOP10MarketOperatorCellByDate(
+			@QueryParam("fromDate") long lFromDate,
+			@QueryParam("toDate") long lToDate) {
+
+		Date fromDate = new Date();
+		Date toDate = new Date();
+
+		fromDate.setTime(lFromDate);
+		toDate.setTime(lToDate);
+
+		return queryService.getTOP10MarketOperatorCellByDate(fromDate, toDate);
+	}
 
 }

@@ -111,9 +111,18 @@ public interface BaseDataDAO {
 	
 	public Collection<Object[]> getDistinctEventByTac(Integer ue);
 	
+	
+	/**
+	 * @param tac
+	 * @param fromDate
+	 * @param toDate
+	 * 
+	 * @return long
+	 * Return number of failure caused by tac in a given time period
+	 */
+	
 	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
 	
-	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate);
 
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end);
 	
@@ -123,6 +132,15 @@ public interface BaseDataDAO {
 	 */
 	public Collection<BigInteger> getAllImsi();
 
+	
+	/**
+	 * @param fromDate
+	 * @param toDate
+	 * 
+	 * @return Collection<BaseData>
+	 * Return the top 10 Market/Operator/Cell ID cause the failure in a given time period 
+	 */
+	
 	public Collection<BaseData> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate);
 
 	

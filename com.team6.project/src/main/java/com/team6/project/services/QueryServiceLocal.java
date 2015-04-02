@@ -5,13 +5,11 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.ejb.Local;
-import javax.persistence.Query;
 
 
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
 
-import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 import com.team6.project.entities.UserEquipment;
 /**
@@ -41,8 +39,6 @@ public interface QueryServiceLocal {
 	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
 	
 	public Collection<BaseData> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate);
-			
-	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate);
 	
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate);
 

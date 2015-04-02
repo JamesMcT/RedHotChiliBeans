@@ -50,7 +50,7 @@ function getTOP10MarketOperatorCellByDate() {
 		if (fromDate && toDate) {
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
-			xhr.open("GET", root + "/protected/rest/basedata/top10MOC" + "?fromDate=" + fromDate + "&toDate=" + toDate, true);
+			xhr.open("GET", root + "/protected/rest/networkmanagement/top10MOC" + "?fromDate=" + fromDate + "&toDate=" + toDate, true);
 			xhr.addEventListener('load', function() {
 				if (xhr.status == 200) {
 					cleanTable();
