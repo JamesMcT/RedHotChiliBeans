@@ -3,7 +3,10 @@ package com.team6.project.dao.jpa.test;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
+
+import javax.validation.constraints.AssertTrue;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Before;
@@ -46,7 +49,38 @@ public class JPABaseDataDAOTest extends JPADAOTest{
         assertFalse(eventCauseCol.isEmpty());
     }*/
     
-        
+    
+    @Test //S
+    public void countCallFailureByTacTest(){
+    	Date fromDate = new Date();    	
+    	Date toDate = new Date();
+    	// set the time period +- 10 sec from now
+    	fromDate.setTime(fromDate.getTime() - 10000); 
+    	toDate.setTime(toDate.getTime() + 10000);
+    	int tac = 123;
+    	
+    	long l_num = baseDataDAO.countCallFailureByTac(tac, fromDate, toDate);
+    	
+    	assertEquals(1, l_num);    	
+    }
+    
+    @Test //S
+    public void getTOP10MarketOperatorCellByDateTest(){
+    	Date fromDate = new Date();    	
+    	Date toDate = new Date();
+    	// set the time period +- 10 sec from now
+    	fromDate.setTime(fromDate.getTime() - 10000); 
+    	toDate.setTime(toDate.getTime() + 10000);
+    	
+    	Collection<BaseData> resultSet =  baseDataDAO.getTOP10MarketOperatorCellByDate(fromDate, toDate);
+    	
+    	
+    	assertEquals(true, resultSet.contains(baseData));
+    	//assertEquals resultSet.contains(baseData));
+    	
+    }
+    
+    
     private void insertData() throws Exception {
         operatorCountryDAO.addOperatorCountry(operatorCountry);
         eventCauseDAO.addEventCauseData(eventCause);

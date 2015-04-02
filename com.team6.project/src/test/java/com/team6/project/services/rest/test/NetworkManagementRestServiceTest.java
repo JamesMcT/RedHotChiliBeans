@@ -1,6 +1,7 @@
 package com.team6.project.services.rest.test;
 
 import static com.jayway.restassured.RestAssured.given;
+import static org.junit.Assert.assertTrue;
 
 import java.text.DecimalFormat;
 
@@ -19,6 +20,8 @@ public class NetworkManagementRestServiceTest extends RestTest {
     private FormAuthConfig fac;
     private SessionFilter sessionFilter;
     private Logger networkManagementLogger = org.apache.log4j.Logger.getLogger(NetworkManagementRestServiceTest.class);
+    private long fromTime;
+	private long toTime;
 
     @Before
     public void setUp() throws InterruptedException {
@@ -168,4 +171,59 @@ public class NetworkManagementRestServiceTest extends RestTest {
         .expect().statusCode(400).contentType(ContentType.JSON).when()
         .get("/protected/rest/networkmanagement/failurecountandduration").then().log().all();
     }
+    
+    @Test //S
+	public void testGetTOP10MarketOperatorCellByDate() {
+		
+		fromTime = System.currentTimeMillis();	
+		given()
+			.auth()
+			.form("nmEng", "nmEng", fac)			
+			.queryParam("fromDate", "1357924500000")
+			.queryParam("toDate", "1357924560000")			
+			.filter(sessionFilter)
+			.expect()
+			.statusCode(200)
+			.contentType(ContentType.JSON)
+			.when()
+			.get("/protected/rest/networkmanagement/top10MOC");
+		
+		toTime = System.currentTimeMillis();
+		
+	}	
+	
+	@Test //S
+	public void responseTestGetTOP10MarketOperatorCellByDate() {
+		// Checking the previous request is less then 2 second
+		assertTrue((toTime-fromTime) < 2000);
+	}
+	
+    
+	@Test //S
+	public void testGetTOP10MarketOperatorCellByDate_NoPermission(){
+		
+		fromTime = System.currentTimeMillis();	
+		given()
+			.auth()
+			.form("cusSer", "cusSer", fac)			
+			.queryParam("fromDate", "1357924500000")
+			.queryParam("toDate", "1357924560000")			
+			.filter(sessionFilter)
+			.expect()
+			.statusCode(403)
+			.contentType(ContentType.JSON)
+			.when()
+			.get("/protected/rest/networkmanagement/top10MOC");
+		
+		toTime = System.currentTimeMillis();
+		
+	}
+		
+	@Test //S
+	public void responseTestGetTOP10MarketOperatorCellByDate_NoPermission(){
+		// Checking the previous request is less then 2 second
+		assertTrue((toTime-fromTime) < 2000);
+	}
+    
+        
 }
