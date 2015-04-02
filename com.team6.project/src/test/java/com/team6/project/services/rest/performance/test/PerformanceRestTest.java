@@ -1,4 +1,4 @@
-package com.team6.project.services.rest.test;
+package com.team6.project.services.rest.performance.test;
 
 import static com.jayway.restassured.RestAssured.config;
 import static com.jayway.restassured.RestAssured.given;
