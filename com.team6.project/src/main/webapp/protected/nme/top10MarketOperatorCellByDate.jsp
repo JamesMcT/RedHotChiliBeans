@@ -148,7 +148,7 @@ function getTOP10MarketOperatorCellByDate() {
 						<div class="panel-heading">Search Result</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
-								<div id="searchResult">waiting for search result...</div>
+								<div id="searchResult">waiting for search request...</div>
 							</div>
 							<!-- /#dataTable_wrapper -->
 						</div>
