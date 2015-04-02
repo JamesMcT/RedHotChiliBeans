@@ -31,7 +31,7 @@ import javax.persistence.NamedQuery;
 		@NamedQuery(name = "getAllImsi", query = "SELECT distinct(b.imsi) FROM BaseData b"),	// Query needed for performance tests.
 		//@NamedQuery(name = "countCallFailureByTac", query = "select count(b) from BaseData b where b.userEquipment = (from UserEquipment where tac = :tac) and b.date >= :fromDate and b.date <= :toDate"),
 		@NamedQuery(name = "countCallFailureByTac", query = "select count(b) from BaseData b where b.userEquipment.tac = :tac and b.date >= :fromDate and b.date <= :toDate"),
-		@NamedQuery(name = "getTOP10MarketOperatorCellByDate", query = "select b.operatorCountry.mcc, b.operatorCountry.mnc, b.cellId, count(b) from BaseData b where b.date >= :fromDate and b.date <= :toDate group by b.operatorCountry.mcc, b.operatorCountry.mnc, b.cellId order by count(b) desc" ),				
+		@NamedQuery(name = "getTOP10MarketOperatorCellByDate", query = "select b.operatorCountry.mcc, b.operatorCountry.country, b.operatorCountry.mnc, b.operatorCountry.operator, b.cellId, count(b) from BaseData b where b.date >= :fromDate and b.date <= :toDate group by b.operatorCountry.mcc, b.operatorCountry.mnc, b.cellId order by count(b) desc" ),				
 		@NamedQuery(name = "failureCountAndDurationPerImsiByDate", query = "SELECT b.imsi, COUNT(b.id), SUM(b.duration) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY COUNT(b) DESC") })
 
 
