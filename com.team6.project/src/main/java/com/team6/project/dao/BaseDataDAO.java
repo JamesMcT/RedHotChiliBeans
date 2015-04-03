@@ -6,7 +6,6 @@ import java.util.Date;
 
 import javax.ejb.Local;
 
-import com.team6.project.entities.Response;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
