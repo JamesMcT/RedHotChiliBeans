@@ -72,13 +72,33 @@ public class JPABaseDataDAOTest extends JPADAOTest{
     	fromDate.setTime(fromDate.getTime() - 10000); 
     	toDate.setTime(toDate.getTime() + 10000);
     	
-    	Collection<BaseData> resultSet =  baseDataDAO.getTOP10MarketOperatorCellByDate(fromDate, toDate);
+    	Collection<Object[]> resultSet =  baseDataDAO.getTOP10MarketOperatorCellByDate(fromDate, toDate);
     	
     	
     	assertEquals(true, resultSet.contains(baseData));
     	//assertEquals resultSet.contains(baseData));
     	
     }
+    
+//    @Test   -  from Cristiana 2015.04.03. 19:25
+//    // S
+//    public void getTOP10MarketOperatorCellByDateTest() {
+//        Date fromDate = new Date();
+//        Date toDate = new Date(); // set the time period +- 10 sec from now
+//        fromDate.setTime(fromDate.getTime() - 10000);
+//        toDate.setTime(toDate.getTime() + 10000);
+//
+//        Collection<BaseData> resultSet = baseDataDAO
+//                .getTOP10MarketOperatorCellByDate(fromDate, toDate);
+//        System.err.println("the size is "+resultSet.isEmpty());
+//        for(BaseData b : resultSet){
+//            System.err.println("The record is..."+b.toString());
+//        }
+//        assertEquals(true, resultSet.contains(baseData));
+//
+//    }
+    
+    
     
     
     private void insertData() throws Exception {
