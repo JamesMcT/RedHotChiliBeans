@@ -115,6 +115,7 @@ function createTableBody() {
 		tr.appendChild(td3);
 		tr.appendChild(td4);
 		tbody.appendChild(tr);
+		i += 1;
 	}
 	table.appendChild(tbody);
 }
