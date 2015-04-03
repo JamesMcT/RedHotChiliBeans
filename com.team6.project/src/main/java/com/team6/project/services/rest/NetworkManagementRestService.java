@@ -117,7 +117,7 @@ public class NetworkManagementRestService {
     @GET
 	@Path("/top10MOC")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<BaseData> getTOP10MarketOperatorCellByDate(
+	public Collection<Object[]> getTOP10MarketOperatorCellByDate(
 			@QueryParam("fromDate") long lFromDate,
 			@QueryParam("toDate") long lToDate) {
 

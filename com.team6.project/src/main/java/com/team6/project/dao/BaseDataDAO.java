@@ -140,7 +140,7 @@ public interface BaseDataDAO {
 	 * Return the top 10 Market/Operator/Cell ID cause the failure in a given time period 
 	 */
 	
-	public Collection<BaseData> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate);
+	public Collection<Object[]> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate);
 
 	
 //	public void updateBaseData(BaseData baseData);
