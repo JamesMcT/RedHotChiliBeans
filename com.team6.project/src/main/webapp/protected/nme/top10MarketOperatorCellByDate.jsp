@@ -90,8 +90,11 @@ function createTableBody() {
 	var table = document.getElementById("top_10_MOC_Table");
 	var tbody = document.createElement("tbody");
 	tbody.id = "tableBody";
-	for (var i = 0; i < response.length; i++) {
+	var i = 0;
+	while (i < response.length && i < 10) {
 		var singleResponse = response[i];
+		var baseDataRow = singleResponse[0];
+		var summa = singleResponse[1];		
 		var tr = document.createElement("tr");
 		if (i % 2) {
 			tr.className = "even gradeA";
@@ -99,13 +102,13 @@ function createTableBody() {
 			tr.className = "odd gradeA";
 		}
 		var td1 = document.createElement("td");
-		td1.appendChild(document.createTextNode(singleResponse[0] + " (" + singleResponse[1] + ")"));
+		td1.appendChild(document.createTextNode(baseDataRow.operatorCountry.mcc + " (" + baseDataRow.operatorCountry.country + ")"));
 		var td2 = document.createElement("td");
-		td2.appendChild(document.createTextNode(singleResponse[2] + " (" + singleResponse[3] + ")"));
+		td2.appendChild(document.createTextNode(baseDataRow.operatorCountry.mnc + " (" + baseDataRow.operatorCountry.operator + ")"));
 		var td3 = document.createElement("td");
-		td3.appendChild(document.createTextNode(singleResponse[4]));
+		td3.appendChild(document.createTextNode(baseDataRow.cellId));
 		var td4 = document.createElement("td");
-		td4.appendChild(document.createTextNode(singleResponse[5]));
+		td4.appendChild(document.createTextNode(summa));
 		
 		tr.appendChild(td1);
 		tr.appendChild(td2);

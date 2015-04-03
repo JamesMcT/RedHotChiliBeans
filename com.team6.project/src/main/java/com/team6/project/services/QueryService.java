@@ -84,7 +84,7 @@ public class QueryService implements QueryServiceLocal{
 	
 	
 	@Override
-	public Collection<BaseData> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate) {
+	public Collection<Object[]> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate) {
 		
 		return baseData.getTOP10MarketOperatorCellByDate(fromDate, toDate);
 	}

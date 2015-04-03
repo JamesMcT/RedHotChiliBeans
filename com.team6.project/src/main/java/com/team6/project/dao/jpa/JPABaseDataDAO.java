@@ -195,7 +195,7 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	}
     
     @Override //S
-	public Collection<BaseData> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate) {		
+	public Collection<Object[]> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate) {		
 		
     	Query q = em.createNamedQuery("getTOP10MarketOperatorCellByDate")    		
     		.setParameter("fromDate", fromDate)				
