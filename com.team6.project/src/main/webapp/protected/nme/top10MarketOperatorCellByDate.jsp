@@ -21,18 +21,18 @@
 	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
 <!-- jQuery -->
-	<script src="../../js/jquery.min.js"></script>
+<script src="../../js/jquery.min.js"></script>
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="../../js/bootstrap.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="../../js/bootstrap.min.js"></script>
 
-	<!-- Flot Charts JavaScript -->
-	<script src="../../bower_components/flot/excanvas.min.js"></script>
-	<script src="../../bower_components/flot/jquery.flot.js"></script>
-	<script src="../../bower_components/flot/jquery.flot.resize.js"></script>
-	<script src="../../bower_components/flot/jquery.flot.time.js"></script>
-	<script
-		src="../../bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+<!-- Flot Charts JavaScript -->
+<script src="../../bower_components/flot/excanvas.min.js"></script>
+<script src="../../bower_components/flot/jquery.flot.js"></script>
+<script src="../../bower_components/flot/jquery.flot.resize.js"></script>
+<script src="../../bower_components/flot/jquery.flot.time.js"></script>
+<script
+	src="../../bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
 
 <!-- Adding functions -->
 <script src="../../js/common.js"></script>
@@ -72,52 +72,61 @@
 		}
 	}
 
-	function createBarChart(response){
-		var tot = 0.0;
-		var baseData = [];
-		var occurrence = [];
-		var barDataArray = [];
-		for (var i = 0; i < response.length; i++) {
-			var singleResponse = response[i];
-			baseData[i] = singleResponse[0];
-			occurence[i] = singleResponse[1];
-			tot = tot + occurence;
+	function createBarChart(response) {
+		  var tot = 0;
+		  var baseData = [
+		  ];
+		  var occurrence = [
+		  ];
+		  var barDataArray = [
+		  ];
+		  var max = 10;
+		  for (var i = 0; i < response.length; i++) {
+		    var singleResponse = response[i];
+		    baseData[i] = singleResponse[0];
+		    occurrence[i] = singleResponse[1];
+		    tot = tot + occurrence[i];
+		  }
+		  if (baseData.length < 10) {
+		    max = baseData.length;
+		  }
+		  for (var i = 0; i < max; i++) {
+		    var percentage = ((occurrence[i] / tot) * 100).toFixed(2);
+		    barDataArray[i] = {
+		      label: 'Country: ' + baseData[i].operatorCountry.mcc
+		      + ' Operator: ' + baseData[i].operatorCountry.mnc
+		      + ' Node: ' + baseData[i].cellId + ' - ' + percentage
+		      + '%',
+		      data: [
+		        [(i + 1),
+		        occurrence[i]]
+		      ]
+		    }
+		  }
+		  var barOptions = {
+		    series: {
+		      bars: {
+		        show: true,
+		        barWidth: 0.8
+		      }
+		    },
+		    xaxis: {
+		      show: false
+		    },
+		    grid: {
+		      hoverable: true
+		    },
+		    legend: {
+		      show: false
+		    },
+		    tooltip: true,
+		    tooltipOpts: {
+		      content: '%s'
+		    }
+		  };
+		  $.plot($('#flot-bar-chart'), barDataArray, barOptions);
 		}
-		if(baseData.length < 10){
-			max = baseData.length;
-		}
-		for (var i = 0; i < max; i++) {
-			var percentage = (occurence[i]/tot)*100;
-			barDataArray[i] = {
-					label: "Country: "+baseData[i].operatorCountry.mcc+" Operator: "+baseData[i].operatorCountry.mnc+" Node: "+baseData[i].cellId+" "+percentage+"%",
-			        data: [
-			            [(i+1), occurence[i]]
-			        ]
-			}
-		}
-				
-		var barOptions = {
-		        series: {
-		            bars: {
-		                show: true,
-		                barWidth: 0.5
-		            }
-		        },
-		        grid: {
-		            hoverable: true
-		        },
-		        legend: {
-		            show: true
-		        },
-		        tooltip: true,
-		        tooltipOpts: {
-		            content: "x: %x, y: %y"
-		        }
-		    };
-		    $.plot($("#flot-bar-chart"), barDataArray, barOptions);
-		
-	}
-	
+
 	function createTableHead() {
 		var table = document.getElementById("top_10_MOC_Table");
 		var thead = document.createElement("thead");
@@ -225,15 +234,6 @@
 									data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
 								</span>
 							</div>
-
-							<script type="text/javascript"
-								src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-								
-							</script>
-							<script type="text/javascript"
-								src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
-								
-							</script>
 							<script type="text/javascript"
 								src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
 								
