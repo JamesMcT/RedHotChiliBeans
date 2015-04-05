@@ -17,9 +17,6 @@
 <link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../../css/dataTables.responsive.css" rel="stylesheet">
 
-<!-- <link
-	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"
-	rel="stylesheet"> -->
 <link rel="stylesheet" type="text/css" media="screen"
 	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
@@ -65,7 +62,6 @@
 
 		}
 	}
-
 	
 function getRecordsByTac() {
 		var pickedTac = document.getElementById("tacs").value;
@@ -79,10 +75,6 @@ function getRecordsByTac() {
 		var picker2 = $('#datetimepicker2').data('datetimepicker');
 		date = picker2.getDate();
 		var toDate = date.valueOf();
-		
-		//var fromDate = 1357924500000;
-		//var toDate = 1357924560000;
-			
 		
 		if (pickedTac && fromDate && toDate) {
 			var xhr = new XMLHttpRequest();
