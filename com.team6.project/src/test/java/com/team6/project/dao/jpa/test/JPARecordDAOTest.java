@@ -28,7 +28,6 @@ public class JPARecordDAOTest extends JPADAOTest{
     public void test() {
         Record rec = recordDAO.getRecordByKey(record.getKey());
         assertEquals(rec, record);
-
     }
 
     private void insertData() throws Exception {
