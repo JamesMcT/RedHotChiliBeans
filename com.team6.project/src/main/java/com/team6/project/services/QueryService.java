@@ -96,8 +96,8 @@ public class QueryService implements QueryServiceLocal{
 	}
 
 	@Override
-	public long countImsi(BigInteger imsi, Date startDate, Date endDate) {
-		return baseData.countImsi(imsi, startDate, endDate);
+	public long countCallFailurePerImsiByDate(BigInteger imsi, Date startDate, Date endDate) {
+		return baseData.countCallFailurePerImsiByDate(imsi, startDate, endDate);
 	}
 
 }

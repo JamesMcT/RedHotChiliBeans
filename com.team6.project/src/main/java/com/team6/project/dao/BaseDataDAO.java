@@ -123,7 +123,7 @@ public interface BaseDataDAO {
 	public Collection<BigInteger> getAllImsi();
 	
 	
-	public Long countImsi(BigInteger imsi, Date startDate, Date endDate);
+	public Long countCallFailurePerImsiByDate(BigInteger imsi, Date startDate, Date endDate);
 
 	
 //	public void updateBaseData(BaseData baseData);

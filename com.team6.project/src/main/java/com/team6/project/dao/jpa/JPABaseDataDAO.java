@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -241,14 +242,14 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	}
 
 	
-	
+
 	@Override
-	public Long countImsi(BigInteger imsi, Date startDate, Date endDate) {
+	public Long countCallFailurePerImsiByDate(BigInteger imsi, Date startDate, Date endDate) {
 		Query q = em.createNamedQuery("countImsi");
 		q.setParameter("imsi", imsi);
 		q.setParameter("startDate", startDate);
 		q.setParameter("endDate", endDate);
-		return (Long) q.getSingleResult();
+		return (long) q.getSingleResult();
 	}
 
     

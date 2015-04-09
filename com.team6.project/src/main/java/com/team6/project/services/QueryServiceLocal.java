@@ -47,6 +47,6 @@ public interface QueryServiceLocal {
 
 	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate);
 	
-	public long countImsi(BigInteger imsi, Date startDate, Date endDate);
+	public long countCallFailurePerImsiByDate(BigInteger imsi, Date startDate, Date endDate);
 
 }

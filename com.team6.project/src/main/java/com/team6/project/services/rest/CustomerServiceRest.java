@@ -15,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.team6.project.dao.jpa.JPABaseDataDAO;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.Record;
@@ -50,6 +51,11 @@ public class CustomerServiceRest {
 		
 	}
 	
+    SimpleDateFormat sdf = new SimpleDateFormat(
+            JPABaseDataDAO.MYSQL_DATE_FORMAT);
+Date d1 = new Date();
+Date d2 = new Date();
+	
 	/**
 	 * 
 	 * @param imsi
@@ -58,17 +64,15 @@ public class CustomerServiceRest {
 	 * @return
 	 */
 	@GET
-	@Path("/countImsi")
+	@Path("/countImsi/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public long countImsi(
 			@QueryParam("imsi") BigInteger imsi,
 			@QueryParam("startDate") String startDate,
 			@QueryParam("endDate") String endDate){
 				
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
+		SimpleDateFormat sdf = new SimpleDateFormat(JPABaseDataDAO.MYSQL_DATE_FORMAT);		
 		Date start = null,end = null;
-		
 			try {
 				start = sdf.parse(startDate);
 				end= sdf.parse(endDate);
@@ -76,8 +80,7 @@ public class CustomerServiceRest {
 				
 				e.printStackTrace();
 			}
-			
-		return queryService.countImsi(imsi, start, end);
+		return queryService.countCallFailurePerImsiByDate(imsi, start, end);
 			
 	}
 
