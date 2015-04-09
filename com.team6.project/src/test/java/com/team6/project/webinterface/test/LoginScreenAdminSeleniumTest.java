@@ -42,7 +42,7 @@ public class LoginScreenAdminSeleniumTest {
                     driver.findElement(By.cssSelector("h1.page-header"))
                             .getText());
             assertEquals(
-                    "http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/protected/admin/index.html",
+                    "http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/protected/admin/index.jsp",
                     driver.getCurrentUrl());
         } catch (Error e) {
             verificationErrors.append(e.toString());
