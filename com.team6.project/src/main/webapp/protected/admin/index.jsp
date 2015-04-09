@@ -12,11 +12,11 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Bootstrap Core CSS -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
-<script src="../../js/common.js"></script>
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
 </head>
 
 <body onload="loadbar('../sidebar.jsp')">

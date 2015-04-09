@@ -9,14 +9,18 @@
 <meta name="author" content="Cristiana">
 <title>Red Hot Chilli Beans</title>
 <!-- Adding CSS -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
+<!-- DataTables CSS -->
+<link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css" rel="stylesheet">
+<!-- DataTables Responsive CSS -->
+<link href="${pageContext.request.contextPath}/css/dataTables.responsive.css" rel="stylesheet">
 <!-- Custom Fonts -->
-<link href="../../fonts/font-awesome.min.css" rel="stylesheet"
+<link href="${pageContext.request.contextPath}/fonts/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 <!-- Adding functions -->
-<script src="../../js/common.js"></script>
-<script src="../../js/customerServiceCommon.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/customerServiceCommon.js"></script>
 <script>
 	function getEventIdCauseCode() {
 		var imsi = document.getElementById("imsi").value;
@@ -50,13 +54,15 @@
 					<h1 class="page-header">Unique Cause Code per IMSI</h1>
 					<div class="panel-heading">Please type the IMSI you want to
 						analyze</div>
-					<div class="form-group input-group col-lg-6">
+					<form class="form-inline">
+					<div class="form-group">
 						<input id="imsi" class="form-control" type="text"
-							placeholder="IMSI"> <span class="input-group-btn"><button
+							placeholder="IMSI"> 
+							</div><!-- <span class="input-group-btn"> --><button
 								onclick="getEventIdCauseCode()" class="btn btn-default" type="button">
 								<i class="fa fa-search"></i>
-							</button></span>
-					</div>
+							</button>
+					</form>
 					<div class="panel panel-default">
 						<div class="panel-heading">Table: Event Id Cause Code and
 							Occurrence for selected IMSI</div>

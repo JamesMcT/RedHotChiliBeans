@@ -12,14 +12,18 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Bootstrap Core CSS -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
-<script src="../../js/common.js"></script>
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
+
+
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
+
+
 </head>
 
-<body onload="loadbar('../sidebar.jsp')">
+<body onload="loadbar('sidebar.html')">
 
 	<div id="wrapper">
 
@@ -31,7 +35,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">Welcome!</h1>
-					<p>Your are logged as a Customer Service Representative</p>
+					<p>Your are logged as Support Engineer</p>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>

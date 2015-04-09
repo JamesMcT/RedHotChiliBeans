@@ -103,14 +103,14 @@ public class PerformanceRestTestImsi {
         given().auth().form("admin", "admin", fac).filter(sessionFilter).when()
                 .get("protected/index.jsp");
     }
-    /*
+
     @Test
     public void getUniqueEventCauseByImsi_1() throws InterruptedException {
         ArrayList<BigInteger> allImsi = (ArrayList<BigInteger>) queryService
                 .getAllImsi();
         int j = 0;
         while (j < allImsi.size()) {
-            for (int i = 0; i < 200; i++) {
+            for (int i = 0; i < 10; i++) {
                 long beginTime = System.currentTimeMillis();
                 given().auth()
                         .form("admin", "admin", fac)
@@ -126,58 +126,13 @@ public class PerformanceRestTestImsi {
                 assertTrue(timeTaken < MAX_QUERY_TIME);
 
             }
-            j = j+200;
+            j = j + 200;
             Thread.sleep(50);
 
         }
     }
-*/
-    /*
-     * @Test public void getUniqueEventCauseByImsi_2() { ArrayList<BigInteger>
-     * allImsi = (ArrayList<BigInteger>) queryService .getAllImsi(); for (int i
-     * = 150; i < 1000; i++) { long beginTime = System.currentTimeMillis();
-     * given().auth() .form("admin", "admin", fac) .filter(sessionFilter)
-     * .when() .get("/protected/rest/customerservice/uniqueec/" +
-     * allImsi.get(i)); long endTime = System.currentTimeMillis(); double
-     * timeTaken = (endTime - beginTime) / 1000.0; assertTrue(timeTaken <
-     * MAX_QUERY_TIME); } }
-     * 
-     * @Test public void getUniqueEventCauseByImsi_3() { ArrayList<BigInteger>
-     * allImsi = (ArrayList<BigInteger>) queryService .getAllImsi(); for (int i
-     * = 1000; i < 2000; i++) { long beginTime = System.currentTimeMillis();
-     * given().auth() .form("admin", "admin", fac) .filter(sessionFilter)
-     * .expect() .statusCode(200) .contentType(ContentType.JSON) .when()
-     * .get("/protected/rest/customerservice/uniqueec/" + allImsi.get(i)); long
-     * endTime = System.currentTimeMillis(); double timeTaken = (endTime -
-     * beginTime) / 1000.0; assertTrue(timeTaken < MAX_QUERY_TIME); } }
-     * 
-     * @Test public void getUniqueEventCauseByImsi_4() { ArrayList<BigInteger>
-     * allImsi = (ArrayList<BigInteger>) queryService .getAllImsi(); for (int i
-     * = 2000; i < 3000; i++) { long beginTime = System.currentTimeMillis();
-     * given().auth() .form("admin", "admin", fac) .filter(sessionFilter)
-     * .expect() .statusCode(200) .contentType(ContentType.JSON) .when()
-     * .get("/protected/rest/customerservice/uniqueec/" + allImsi.get(i)); long
-     * endTime = System.currentTimeMillis(); double timeTaken = (endTime -
-     * beginTime) / 1000.0; assertTrue(timeTaken < MAX_QUERY_TIME); } }
-     * 
-     * @Test public void getUniqueEventCauseByImsi_5() { ArrayList<BigInteger>
-     * allImsi = (ArrayList<BigInteger>) queryService .getAllImsi(); for (int i
-     * = 3000; i < 4000; i++) { long beginTime = System.currentTimeMillis();
-     * given().auth() .form("admin", "admin", fac) .filter(sessionFilter)
-     * .expect() .statusCode(200) .contentType(ContentType.JSON) .when()
-     * .get("/protected/rest/customerservice/uniqueec/" + allImsi.get(i)); long
-     * endTime = System.currentTimeMillis(); double timeTaken = (endTime -
-     * beginTime) / 1000.0; assertTrue(timeTaken < MAX_QUERY_TIME); } }
-     * 
-     * @Test public void getUniqueEventCauseByImsi_6() { ArrayList<BigInteger>
-     * allImsi = (ArrayList<BigInteger>) queryService .getAllImsi(); for (int i
-     * = 4000; i < 5000; i++) { long beginTime = System.currentTimeMillis();
-     * given().auth() .form("admin", "admin", fac) .filter(sessionFilter)
-     * .expect() .statusCode(200) .contentType(ContentType.JSON) .when()
-     * .get("/protected/rest/customerservice/uniqueec/" + allImsi.get(i)); long
-     * endTime = System.currentTimeMillis(); double timeTaken = (endTime -
-     * beginTime) / 1000.0; assertTrue(timeTaken < MAX_QUERY_TIME); } }
-     */
+
+  
     public FormAuthConfig getformAuthConfig() {
         return new FormAuthConfig("protected/j_security_check", "j_username",
                                   "j_password");

@@ -13,7 +13,7 @@
 	%>
 	<%
 	    // New location to be redirected
-	        String site = new String("admin/index.html");
+	        String site = new String("admin/index.jsp");
 	        response.setStatus(response.SC_MOVED_TEMPORARILY);
 	        response.setHeader("Location", site);
 	%>
@@ -25,7 +25,7 @@
 	%>
 	<%
 	    	// New location to be redirected
-	        String site = new String("nme/index.html");
+	        String site = new String("nme/index.jsp");
 	        response.setStatus(response.SC_MOVED_TEMPORARILY);
 	        response.setHeader("Location", site);
 	%>
@@ -37,7 +37,7 @@
 	%>
 	<%
 	    	// New location to be redirected
-	        String site = new String("se/index.html");
+	        String site = new String("se/index.jsp");
 	        response.setStatus(response.SC_MOVED_TEMPORARILY);
 	        response.setHeader("Location", site);
 	%>
@@ -49,7 +49,7 @@
 	%>
 	<%
 	    	// New location to be redirected
-	        String site = new String("csr/index.html");
+	        String site = new String("csr/index.jsp");
 	        response.setStatus(response.SC_MOVED_TEMPORARILY);
 	        response.setHeader("Location", site);
 	%>
