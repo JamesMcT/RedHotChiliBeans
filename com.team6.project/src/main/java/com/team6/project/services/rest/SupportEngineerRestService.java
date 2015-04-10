@@ -1,7 +1,7 @@
 package com.team6.project.services.rest;
 
-import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.team6.project.dao.jpa.JPABaseDataDAO;
 import com.team6.project.entities.BaseData;
 import com.team6.project.services.QueryServiceLocal;
 
@@ -21,7 +22,7 @@ import com.team6.project.services.QueryServiceLocal;
  *
  */
 
-@Path("/basedata")
+@Path("/supportengineer")
 public class SupportEngineerRestService {
 
 	@Inject
@@ -51,22 +52,17 @@ public class SupportEngineerRestService {
 	@Path("/datequery")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<BaseData> findImsiByDate(
-			@QueryParam("firstDate") String firstDate,
-			@QueryParam("secondDate") String secondDate) {
+			@QueryParam("firstDate") long lfirstDate,
+			@QueryParam("secondDate") long lsecondDate) {
+	    
+	    System.err.println("the first param is.."+lfirstDate);
+	    Date fromDate = new Date();
+        Date toDate = new Date();
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
-		Date first = null;
-		Date second = null;
-
-		try {
-			first = sdf.parse(firstDate);
-			second = sdf.parse(secondDate);
-
-		} catch (ParseException | NullPointerException e) {
-			e.printStackTrace();
-		}
-
-		return queryService.findImsiByDate(first, second);
+        fromDate.setTime(lfirstDate);
+        toDate.setTime(lsecondDate);
+        System.err.println("the first data is.."+fromDate.toString());
+        System.err.println("the second data is.."+toDate.toString());
+		return queryService.findImsiByDate(fromDate, toDate);
 	}
 }

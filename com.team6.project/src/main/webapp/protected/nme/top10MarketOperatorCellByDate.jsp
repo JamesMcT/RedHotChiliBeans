@@ -12,33 +12,33 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Adding CSS -->
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
-<link href="../../css/bootstrap-combined.min.cristiana.css"
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap-combined.min.cristiana.css"
 	rel="stylesheet">
-<link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="../../css/dataTables.responsive.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/dataTables.responsive.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
-href="../../css/bootstrap-datetimepicker.min.css">
+href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
 
 <!-- jQuery -->
-<script src="../../js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="../../js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 <!-- Flot Charts JavaScript -->
-<script src="../../bower_components/flot/excanvas.min.js"></script>
-<script src="../../bower_components/flot/jquery.flot.js"></script>
-<script src="../../bower_components/flot/jquery.flot.resize.js"></script>
-<script src="../../bower_components/flot/jquery.flot.time.js"></script>
+<script src="${pageContext.request.contextPath}/bower_components/flot/excanvas.min.js"></script>
+<script src="${pageContext.request.contextPath}./bower_components/flot/jquery.flot.js"></script>
+<script src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.resize.js"></script>
+<script src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.time.js"></script>
 <script
-	src="../../bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+	src="${pageContext.request.contextPath}/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
 
 <!-- Adding functions -->
-<script src="../../js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
 
 <script type="text/javascript"
-src="../../js/bootstrap-datetimepicker.min.js">
+src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 </script>
 
 <script>
@@ -287,7 +287,7 @@ src="../../js/bootstrap-datetimepicker.min.js">
 				<!-- /.col-lg-6 -->
 				<div class="col-lg-6">
 					<div class="panel panel-default">
-						<div class="panel-heading">Bar Chart Example</div>
+						<div class="panel-heading">Top Ten Bar Chart</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body">
 							<div class="flot-chart">

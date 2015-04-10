@@ -25,12 +25,12 @@ public class FailureType implements Serializable {
 	/**
 	 * 
 	 * @param failureCode
-	 * @param descrption
+	 * @param description
 	 */
-	public FailureType(Integer failureCode, String descrption) {
+	public FailureType(Integer failureCode, String description) {
 		super();
 		this.failureCode = failureCode;
-		this.description = descrption;
+		this.description = description;
 	}
 
 	/**

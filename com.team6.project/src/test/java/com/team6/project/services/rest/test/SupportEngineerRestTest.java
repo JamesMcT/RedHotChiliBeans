@@ -27,7 +27,7 @@ public class SupportEngineerRestTest extends RestTest  {
 	        createUsers();
 	        fac = getformAuthConfig();
 	        sessionFilter = new SessionFilter();
-	        given().filter(sessionFilter).when().get("/protected/rest/basedata/datequery").then()
+	        given().filter(sessionFilter).when().get("/protected/rest/supportengineer/datequery").then()
 	        .statusCode(200);
 	    }
 

@@ -42,12 +42,10 @@ public class SupportEngineerRestServiceTest extends RestTest{
 		createUsers();
 		fac = getformAuthConfig();
 		sessionFilter = new SessionFilter();
-		given()
-			.filter(sessionFilter)
-			.when()
-			.get("/protected/rest/basedata/tac")			
-			.then()
-			.statusCode(200);
+		given().filter(sessionFilter).when().get("protected/index.jsp").then()
+        .statusCode(200);
+		given().auth().form("supEng", "supEng", fac).filter(sessionFilter).when()
+        .get("protected/index.jsp");
 		
 	};
 	
@@ -63,7 +61,6 @@ public class SupportEngineerRestServiceTest extends RestTest{
 	@Test
 	public void testCountCallFailureByTac() {
 		
-		fromTime = System.currentTimeMillis();	
 		given()
 			.auth()
 			.form("supEng", "supEng", fac)
@@ -75,25 +72,12 @@ public class SupportEngineerRestServiceTest extends RestTest{
 			.statusCode(200)
 			.contentType(ContentType.JSON)
 			.when()
-			.get("/protected/rest/basedata/tac");
+			.get("/protected/rest/supportengineer/tac");
 		
-		toTime = System.currentTimeMillis();
 		
 	}
 	
-	/**
-	 * 
-	 * Checking the previous request is less then 2 second
-	 * 
-	 */
-	
-	@Test
-	public void responseTestCountCallFailureByTac() {
-		//less than 2 sec for the request
-		assertTrue((toTime-fromTime) < 2000);
-	}
-	
-	
+
 	/**
 	 * 
 	 * Testing the large database (60 thousand records) with the given tac, fromDate, toDate parameters
@@ -104,8 +88,14 @@ public class SupportEngineerRestServiceTest extends RestTest{
 	
 	@Test
 	public void testCountCallFailureByTac_NoPermission() {
+	    
+	    sessionFilter = new SessionFilter();
+
+        given().filter(sessionFilter).when().get("protected/index.jsp");
+
+        given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+                .when().get("protected/index.jsp");
 		
-		fromTime = System.currentTimeMillis();	
 		given()
 			.auth()
 			.form("cusSer", "cusSer", fac)
@@ -116,23 +106,9 @@ public class SupportEngineerRestServiceTest extends RestTest{
 			.expect()
 			.statusCode(403)
 			.when()
-			.get("/protected/rest/basedata/tac");
+			.get("/protected/rest/supportengineer/tac");
 		
-		toTime = System.currentTimeMillis();
 	}
-	
-	/**
-	 * 
-	 * Checking the previous request is less then 2 second
-	 * 
-	 */
-	
-	@Test
-	public void responseTestCountCallFailureByTac_NoPermission() {
-		//less than 2 sec for the request
-		assertTrue((toTime-fromTime) < 2000);
-	}
-	
 	
 	
 }

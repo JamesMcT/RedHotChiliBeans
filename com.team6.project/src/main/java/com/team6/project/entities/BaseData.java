@@ -15,12 +15,7 @@ import javax.persistence.NamedQuery;
 /**
  * @author Cristiana BaseData table
  * @author James NamedQueries BaseData table
-<<<<<<< HEAD
-=======
  * @author Sabee
- * @author Cristiana
->>>>>>> refs/heads/US_13_Cris
- *
  */
 
 // @NamedQueries({ @NamedQuery(name = "BaseData.findEventCauseByImsi", query =
@@ -29,7 +24,8 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
 		@NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi"),
 		@NamedQuery(name = "baseDataCount", query = "SELECT COUNT(b.id) FROM BaseData b"),
-		@NamedQuery(name = "getImsiByDate", query = "SELECT distinct(b.imsi) from BaseData b where b.date between :firstDate and :secondDate"),
+		//@NamedQuery(name = "getImsiByDate", query = "SELECT distinct(b.imsi) from BaseData b where b.date between :firstDate and :secondDate"),
+		@NamedQuery(name = "getImsiByDate", query = "SELECT distinct(b) from BaseData b where b.date between :firstDate and :secondDate  group by b.date, b.imsi ORDER BY b.date DESC"),
 		@NamedQuery(name = "eventCauseAndIdByTac", query = "SELECT b.eventCause, COUNT(b) FROM BaseData b where b.userEquipment.tac=:userEquipment GROUP BY b.eventCause"),
 		@NamedQuery(name = "getAllImsi", query = "SELECT distinct(b.imsi) FROM BaseData b"),	// Query needed for performance tests.		
 		@NamedQuery(name = "countCallFailureByTac", query = "select count(b) from BaseData b where b.userEquipment.tac = :tac and b.date >= :fromDate and b.date <= :toDate"),
