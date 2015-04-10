@@ -74,6 +74,12 @@ public class QueryService implements QueryServiceLocal{
     public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate) {
     	return baseData.getFailureCountAndDurationPerImsiByDate(startDate, endDate);
     }
+    
+	public Collection<Object[]> getTopTenFailuresByDate(Date start, Date end){
+		return baseData.getTopTenFailuresByDate(start, end);
+	}
+	
+
 
 	@Override
 	public long countCallFailureByTac(Integer tac, Date fromDate,
@@ -94,5 +100,9 @@ public class QueryService implements QueryServiceLocal{
 		
 		return baseData.findImsiByDate(firstDate, secondDate);
 	}
+	@Override
+    public Collection<BaseData> getImsiByFailureCode(Integer fc) {
 
+return baseData.getImsiByFailureCode(fc);
+    }
 }

@@ -112,4 +112,16 @@ public class SupportEngineerRestService {
 
 		return queryService.findImsiByDate(first, second);
 	}
+	
+	
+	@GET
+	@Path("/failurecode")
+	@Produces(MediaType.APPLICATION_JSON)
+	  public Collection<BaseData>  getImsiByFailureCode(@QueryParam("failureCode") Integer failureCode) {
+
+		
+
+		return queryService.getImsiByFailureCode(failureCode);
+	}
+
 }

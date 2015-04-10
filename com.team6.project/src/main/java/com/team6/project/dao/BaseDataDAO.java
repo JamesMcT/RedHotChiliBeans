@@ -116,6 +116,11 @@ public interface BaseDataDAO {
 
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end);
 	
+	
+	public Collection<Object[]> getTopTenFailuresByDate(Date start, Date end);
+
+    public Collection<BaseData> getImsiByFailureCode(Integer fc);
+
 	/**
 	 * Return all IMSI values.
 	 * @return

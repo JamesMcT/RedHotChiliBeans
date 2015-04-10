@@ -114,4 +114,66 @@ public class NetworkManagementRestService {
 
     }
 
+    
+    
+    @GET
+    @Path("/toptenimsifailures")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Object[]> getTopTenFailuresByDate(
+
+    @QueryParam("start") String dateString1,
+            @QueryParam("end") String dateString2) {
+        String message = "";
+
+        if ("".equals(dateString1) || "".equals(dateString2)) {
+            message = "Empty date strings not allowed";
+            final Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat(
+                                                    JPABaseDataDAO.MYSQL_DATE_FORMAT);
+        Date d1 = new Date();
+        Date d2 = new Date();
+
+        try {
+            d1 = sdf.parse(dateString1);
+            d2 = sdf.parse(dateString2);
+        } catch (ParseException pe) {
+            message = pe.getMessage();
+            final Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+
+        if (d1.after(d2)) {
+            message = "Start-date can not be after end-date";
+            final Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+
+        if (d1.after(new Date(System.currentTimeMillis()))) {
+            message = "Start-date can not be in the future";
+            final Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+
+        Collection<Object[]> c = queryService
+                .getTopTenFailuresByDate(d1, d2);
+
+        if (!(c.size() > 0)) {
+            message = String
+                    .format("No results for given date range '%s'->'%s'.",
+                            dateString1, dateString2);
+            final Response response = Response.status(Status.NOT_FOUND)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+
+        return c;
+
+    }
 }
