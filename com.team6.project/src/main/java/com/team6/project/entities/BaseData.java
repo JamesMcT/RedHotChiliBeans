@@ -15,11 +15,7 @@ import javax.persistence.NamedQuery;
 /**
  * @author Cristiana BaseData table
  * @author James NamedQueries BaseData table
-<<<<<<< HEAD
-=======
  * @author Sabee
- * @author Cristiana
->>>>>>> refs/heads/US_13_Cris
  *
  */
 
