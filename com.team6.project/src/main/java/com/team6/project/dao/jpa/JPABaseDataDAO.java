@@ -186,9 +186,9 @@ public class JPABaseDataDAO implements BaseDataDAO {
     public Collection<BaseData> getImsiByFailureCode(Integer fc) {
         Query q = em.createNamedQuery("imsiByFailureCode");
         q.setParameter("failureCode", fc);
-        List<BaseData> result = q.getResultList();
+     //   List<BaseData> result = q.getResultList();
 
-        return result;
+        return q.getResultList();
         
     }
     
