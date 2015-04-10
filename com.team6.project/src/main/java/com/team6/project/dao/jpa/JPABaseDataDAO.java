@@ -244,12 +244,12 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	
 
 	@Override
-	public Long countCallFailurePerImsiByDate(BigInteger imsi, Date startDate, Date endDate) {
+	public Collection<BaseData> countCallFailurePerImsiByDate(BigInteger imsi, Date startDate, Date endDate) {
 		Query q = em.createNamedQuery("countImsi");
 		q.setParameter("imsi", imsi);
 		q.setParameter("startDate", startDate);
 		q.setParameter("endDate", endDate);
-		return (long) q.getSingleResult();
+		return q.getResultList();
 	}
 
     

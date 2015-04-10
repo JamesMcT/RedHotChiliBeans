@@ -66,7 +66,7 @@ Date d2 = new Date();
 	@GET
 	@Path("/countImsi/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public long countImsi(
+	public Collection<BaseData> countImsi(
 			@QueryParam("imsi") BigInteger imsi,
 			@QueryParam("startDate") String startDate,
 			@QueryParam("endDate") String endDate){
