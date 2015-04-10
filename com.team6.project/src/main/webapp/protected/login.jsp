@@ -7,12 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Login Form</title>
 	<!-- Bootstrap core CSS -->
-	<link href="../css/bootstrap.min.css" rel="stylesheet">
-	<link href="../../css/bootstrap.min.css" rel="stylesheet">
-
+	<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom styles for this template -->
-	<link href="../css/signin.css" rel="stylesheet">
-	<link href="../../css/signin.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/signin.css" rel="stylesheet">
 </h:head>
 <h:body>
 	<div class="container">
