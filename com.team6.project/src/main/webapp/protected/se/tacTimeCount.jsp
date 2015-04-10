@@ -17,9 +17,6 @@
 <link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../../css/dataTables.responsive.css" rel="stylesheet">
 
-<!-- <link
-	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"
-	rel="stylesheet"> -->
 <link rel="stylesheet" type="text/css" media="screen"
 	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
@@ -65,7 +62,6 @@
 
 		}
 	}
-
 	
 function getRecordsByTac() {
 		var pickedTac = document.getElementById("tacs").value;
@@ -79,10 +75,6 @@ function getRecordsByTac() {
 		var picker2 = $('#datetimepicker2').data('datetimepicker');
 		date = picker2.getDate();
 		var toDate = date.valueOf();
-		
-		//var fromDate = 1357924500000;
-		//var toDate = 1357924560000;
-			
 		
 		if (pickedTac && fromDate && toDate) {
 			var xhr = new XMLHttpRequest();
@@ -126,7 +118,7 @@ function getRecordsByTac() {
 	}
 
 	function startup() {
-		loadbar('sidebar.html');
+		loadbar('../sidebar.jsp');
 		getAllTacs();
 	}
 </script>
@@ -166,22 +158,15 @@ function getRecordsByTac() {
 							</div>
 
 							<script type="text/javascript"
-								src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-								
+								src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">								
 							</script>
 							<script type="text/javascript"
-								src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
-								
+								src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">								
 							</script>
 							<script type="text/javascript"
 								src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-								
-							</script>
-							<script type="text/javascript"
-								src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
-								
-							</script>
-
+							</script>	
+							
 							<script type="text/javascript">
 								$('#datetimepicker').datetimepicker({
 									format : 'yyyy-MM-dd hh:mm:ss',
@@ -189,7 +174,7 @@ function getRecordsByTac() {
 								});
 								$('#datetimepicker').data('datetimepicker')
 										.setLocalDate(
-												new Date(2013, 0, 11, 17, 15));
+												new Date(2013, 1, 19, 19, 35));
 							</script>
 
 
@@ -200,7 +185,7 @@ function getRecordsByTac() {
 								});
 								$('#datetimepicker2').data('datetimepicker')
 										.setLocalDate(
-												new Date(2013, 0, 11, 17, 20));
+												new Date(2013, 1, 19, 19, 40));								
 							</script>
 
 

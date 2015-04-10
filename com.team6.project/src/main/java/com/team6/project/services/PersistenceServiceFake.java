@@ -10,7 +10,6 @@ import com.team6.project.entities.EventCause;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.Record;
-import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 import com.team6.project.entities.UserEquipment;
 
@@ -124,15 +123,11 @@ public class PersistenceServiceFake implements PersistenceServiceLocal{
 	}
 
     @Override
-    public Response addUser(User newUser) {
-        // TODO Auto-generated method stub
-        return null;
+    public void addUser(User newUser) {
     }
 
     @Override
-    public Response updateUser(User newUser) {
-        // TODO Auto-generated method stub
-        return null;
+    public void updateUser(User newUser) {
     }
 
 }

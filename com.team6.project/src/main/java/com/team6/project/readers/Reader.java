@@ -26,22 +26,24 @@ public abstract class Reader {
     protected static int FIRSTROW = 1;
 
     /**
-     * 
+     * Initializes the current row as FIRSTROW
      */
     public Reader() {
         currentRow = FIRSTROW;
     }
 
     /**
-     * 
-     * @param service
+     * Process the excel file reading the appropiated sheet and filling the related map
+     * of the DataImportServiceLocal object
+     * @param DataImportServiceLocal object contains the HSSFWorkbook and the maps with the
+     * data already stored in the DB
      */
     public abstract void processExcelFile(DataImportServiceLocal service);
 
     /**
-     * 
-     * @param cell
-     * @return
+     * Checks that the value in the cell is an integer
+     * @param cell of the excel sheet
+     * @return the integer contained in the cell or a null value if the cell doesn't contain an integer
      */
     public Integer getIntegerFromCell(HSSFCell cell) {
         if (!(cell == null) && !(cell.getCellType() == Cell.CELL_TYPE_BLANK)) {
@@ -53,9 +55,9 @@ public abstract class Reader {
     }
 
     /**
-     * 
-     * @param cell
-     * @return
+     * Checks that the value in the cell is a date
+     * @param cell of the excel sheet
+     * @return the date contained in the cell or a null value if the cell doesn't contain a date
      */
     public Date getDateFromCell(HSSFCell cell) {
         if (!(cell == null) && !(cell.getCellType() == Cell.CELL_TYPE_BLANK)) {
@@ -70,9 +72,9 @@ public abstract class Reader {
     }
 
     /**
-     * 
-     * @param cell
-     * @return
+     * Checks that the value in the cell is a String
+     * @param cell of the excel sheet
+     * @return String contained in the cell or a null value if the cell doesn't contain a String
      */
     public String getStringFromCell(HSSFCell cell) {
         if (!(cell == null) && !(cell.getCellType() == Cell.CELL_TYPE_BLANK)) {
@@ -84,9 +86,9 @@ public abstract class Reader {
     }
 
     /**
-     * 
-     * @param cell
-     * @return
+     * Checks that the value in the cell is a BigInteger
+     * @param cell of the excel sheet
+     * @return BigInteger contained in the cell or a null value if the cell doesn't contain a BigInteger
      */
     public BigInteger getBigIntFromCell(HSSFCell cell) {
         if (!(cell == null) && !(cell.getCellType() == Cell.CELL_TYPE_BLANK)) {
@@ -99,7 +101,7 @@ public abstract class Reader {
     }
 
     /**
-     * 
+     * get the value of the currentRow
      * @return
      */
     public int getCurrentRow() {
@@ -107,28 +109,28 @@ public abstract class Reader {
     }
 
     /**
-     * 
+     * set the value of the currentRow
      * @param currentRow
      */
     public void setCurrentRow(int currentRow) {
         this.currentRow = currentRow;
     }
 
-    /**
-     * 
+/*    *//**
+     * get the value of the FIRSTROW
      * @return
-     */
+     *//*
     public static int getFIRSTROW() {
         return FIRSTROW;
     }
 
-    /**
+    *//**
      * 
      * @param fIRSTROW
-     */
+     *//*
     public static void setFIRSTROW(int fIRSTROW) {
         FIRSTROW = fIRSTROW;
-    }
+    }*/
     
     
     

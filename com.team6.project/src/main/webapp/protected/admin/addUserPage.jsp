@@ -9,11 +9,11 @@
 <meta name="author" content="Cristiana">
 <title>Red Hot Chilli Beans</title>
 <!-- Adding CSS -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
-<link href="../../css/text-box.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/text-box.css" rel="stylesheet">
 <!-- Adding functions -->
-<script src="../../js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
 <script>
 	function addUser() {
 		var username = document.getElementById("username").value;
@@ -35,13 +35,16 @@
 							'load',
 							function() {
 								if (xhr.status == 200) {
-									var response = JSON.parse(xhr.responseText);
-									if (response.description) {
-										document.getElementById("div7").innerHTML = ("Error! - " + response.description);
-										showDivInLine("div7");
-									} else {
+									//var response = JSON.parse(xhr.responseText);
+									//if (response.description) {
 										showDivInLine("div6");
-									}
+										
+									//} else {
+										
+									//}
+								}else{
+									document.getElementById("div7").innerHTML = ("Error! - " + xhr.responseText);
+									showDivInLine("div7");
 								}
 							}, false);
 			xhr.send(JSON.stringify(u));
@@ -93,9 +96,9 @@
 							<br> <input type='button' class="btn btn-default"
 								onclick="addUser()" value="submit" />
 						</div>
-						<div id="div6" class="success" style="display: none;">New user inserted with
-							success!</div>
-						<div id="div7" class="error" style="display: none;"></div> 
+						<div id="div6" class="success" style="display: none;">New
+							user inserted with success!</div>
+						<div id="div7" class="error" style="display: none;"></div>
 					</div>
 				</div>
 				<!-- /.col-lg-12 -->

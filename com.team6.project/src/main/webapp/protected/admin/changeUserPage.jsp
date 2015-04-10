@@ -9,11 +9,11 @@
 <meta name="author" content="Cristiana">
 <title>Red Hot Chilli Beans</title>
 <!-- Adding CSS -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
-<link href="../../css/text-box.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/text-box.css" rel="stylesheet">
 <!-- Adding functions -->
-<script src="../../js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
 <script>
 	var user;
 	function findUser() {
@@ -72,15 +72,17 @@
 				xhr.setRequestHeader('Content-Type', 'application/json');
 				xhr.addEventListener('load', function() {
 					if (xhr.status == 200) {
-						var response = JSON.parse(xhr.responseText);
+						//var response = JSON.parse(xhr.responseText);
 						clean();
-						if (response.description) {
-							showDivInLine("div7");
-						} else {
+						//if (response.description) {
 							showDivInLine("div6");
-						}
+							
+						//} else {
+							
+						//}
 					} else {
-						alert("error! the response status is : " + xhr.status);
+						showDivInLine("div7");
+						//alert("error! the response status is : " + xhr.status);
 					}
 				}, false);
 				xhr.send(JSON.stringify(u));

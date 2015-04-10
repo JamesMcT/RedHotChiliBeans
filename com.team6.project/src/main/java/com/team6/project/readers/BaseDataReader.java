@@ -23,9 +23,7 @@ import com.team6.project.validators.OperatorCountryValidator;
 import com.team6.project.validators.UserEquipmentValidator;
 
 /**
- * Reads rows in sheet called UE Table. Create the UserEquipment object. If the
- * object is not already in the appropriated map it is added and written to the
- * DB
+ * Reads rows in sheet called Base Data. Create the Record object. 
  * 
  * @author Cristiana Conti
  * @Author Eoin Kernan
@@ -87,9 +85,9 @@ public class BaseDataReader extends Reader {
 	}
 
 	/**
-	 * 
+	 * Creates a Record object from a line of the excel sheet
 	 * @param sheet
-	 * @return
+	 * @return Record valued with the excel content
 	 */
 	public Record read(HSSFSheet sheet) {
 
@@ -120,10 +118,11 @@ public class BaseDataReader extends Reader {
 	}
 
 	/**
-	 * 
+	 * If the cell doesn't contain an Integer, a description of the error 
+	 * is set into the description property of the Record object.
 	 * @param cell
 	 * @param record
-	 * @return
+	 * @return Integer or null value if the cell doesn't contain a integer value
 	 */
 	public Integer getIntegerFromCellAndSetDesc(HSSFCell cell,
 			IDescription record) {
@@ -136,11 +135,12 @@ public class BaseDataReader extends Reader {
 	}
 
 	/**
-	 * 
-	 * @param cell
-	 * @param record
-	 * @return
-	 */
+	 * If the cell doesn't contain a Date, a description of the error 
+     * is set into the description property of the Record object.
+     * @param cell
+     * @param record
+     * @return Date or null value if the cell doesn't contain a Date value
+     */
 	public Date getDateFromCellAndSetDesc(HSSFCell cell, IDescription record) {
 		Date date = getDateFromCell(cell);
 		if (date == null) {
@@ -150,12 +150,13 @@ public class BaseDataReader extends Reader {
 		return date;
 	}
 
-	/**
-	 * 
-	 * @param cell
-	 * @param record
-	 * @return
-	 */
+    /**
+     * If the cell doesn't contain a String, a description of the error 
+     * is set into the description property of the Record object.
+     * @param cell
+     * @param record
+     * @return String or null value if the cell doesn't contain a String value
+     */
 	public String getStringFromCellAndSetDesc(HSSFCell cell, IDescription record) {
 		String string = getStringFromCell(cell);
 		if (string == null) {
@@ -165,12 +166,13 @@ public class BaseDataReader extends Reader {
 		return string;
 	}
 
-	/**
-	 * 
-	 * @param cell
-	 * @param record
-	 * @return
-	 */
+    /**
+     * If the cell doesn't contain a BigInteger, a description of the error 
+     * is set into the description property of the Record object.
+     * @param cell
+     * @param record
+     * @return BigInteger or null value if the cell doesn't contain a BigInteger value
+     */
 	public BigInteger getBigIntFromCellAndSetDesc(HSSFCell cell,
 			IDescription record) {
 		BigInteger bigInt = getBigIntFromCell(cell);
@@ -182,7 +184,9 @@ public class BaseDataReader extends Reader {
 	}
 
 	/**
-	 * 
+	 * Creates a AllTrueCompositeValidator object and adds all the required
+	 * IValidator objects: DateValidator, EventCauseValidator, FailureTypeValidator,
+	 * OperatorCountryValidator, UserEquipmentValidator
 	 * @return
 	 */
 	public static IValidator createValidator() {
@@ -196,7 +200,7 @@ public class BaseDataReader extends Reader {
 	}
 
 	/**
-	 * 
+	 * returns the name of the excel sheet
 	 * @return
 	 */
 	public static String getName() {

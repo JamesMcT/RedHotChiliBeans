@@ -3,7 +3,10 @@ package com.team6.project.dao.jpa.test;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.Date;
+
+import javax.validation.constraints.AssertTrue;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Before;
@@ -16,64 +19,101 @@ import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.UserEquipment;
 
-
 @RunWith(Arquillian.class)
-public class JPABaseDataDAOTest extends JPADAOTest{
+public class JPABaseDataDAOTest extends JPADAOTest {
 
-    private BaseData baseData;
-    private EventCause eventCause;
-    private FailureType failureType;
-    private OperatorCountry operatorCountry;
-    private UserEquipment userEquipment;
-   
+    private static BaseData baseData;
+    private static EventCause eventCause;
+    private static FailureType failureType;
+    private static OperatorCountry operatorCountry;
+    private static UserEquipment userEquipment;
+    private static boolean isPopulated = false;
+
     @Before
-    public void populateDB() throws Exception{
-        createBaseDate();
-        clear();
-        insertData();
+    public void populateDB() throws Exception {
+        if (!isPopulated) {
+            createBaseDate();
+            clear();
+            insertData();
+            isPopulated = true;
+        }
     }
-    
+
     @Test
-    public void test(){
+    public void test() {
         BaseData bd = baseDataDAO.getBaseDataByKey(baseData.getId());
-        assertEquals(bd, baseData);	// Real test which should be run.
+        assertEquals(bd, baseData); // Real test which should be run.
     }
-    
-   /* @Test
-    public void test_getDistinctEventByTac() {
-        List<Object[]> eventCauseCol = (List<Object[]>) baseDataDAO.getDistinctEventByTac(123);
-        System.out.println(eventCauseCol.get(0)[0] +" and ......"+eventCauseCol.get(0)[1]);
-        assertFalse(eventCauseCol.isEmpty());
-    }*/
-    
-        
+
+    /*
+     * @Test public void test_getDistinctEventByTac() { List<Object[]>
+     * eventCauseCol = (List<Object[]>) baseDataDAO.getDistinctEventByTac(123);
+     * System.out.println(eventCauseCol.get(0)[0]
+     * +" and ......"+eventCauseCol.get(0)[1]);
+     * assertFalse(eventCauseCol.isEmpty()); }
+     */
+
+    @Test
+    // S
+    public void countCallFailureByTacTest() {
+        Date fromDate = new Date();
+        Date toDate = new Date();
+        // set the time period +- 10 sec from now
+        fromDate.setTime(fromDate.getTime() - 10000);
+        toDate.setTime(toDate.getTime() + 10000);
+        int tac = 123;
+
+        long l_num = baseDataDAO.countCallFailureByTac(tac, fromDate, toDate);
+
+        assertEquals(1, l_num);
+    }
+
+    @Test
+    // S
+    public void getTOP10MarketOperatorCellByDateTest() {
+        Date fromDate = new Date();
+        Date toDate = new Date();
+        // set the time period +- 10 sec from now
+        fromDate.setTime(fromDate.getTime() - 10000);
+        toDate.setTime(toDate.getTime() + 10000);
+
+        Collection<Object[]> resultSet = baseDataDAO
+                .getTOP10MarketOperatorCellByDate(fromDate, toDate);
+        for(Object[] o : resultSet){
+            System.err.println("BaseData is ..." + o[0].toString());
+        }
+        assertEquals(1, resultSet.size());
+
+    }
+
     private void insertData() throws Exception {
         operatorCountryDAO.addOperatorCountry(operatorCountry);
         eventCauseDAO.addEventCauseData(eventCause);
         failureTypeDAO.addFailureType(failureType);
         userEquipmentDAO.addUserEquipment(userEquipment);
-    
+
         baseDataDAO.addBaseData(baseData);
     }
-    
+
     private void clear() throws Exception {
         baseDataDAO.deleteBaseData(baseData);
         operatorCountryDAO.deleteOperatorCountry(operatorCountry);
         eventCauseDAO.deleteEventCause(eventCause);
         failureTypeDAO.deleteFailureType(failureType);
         userEquipmentDAO.deleteUserEquipment(userEquipment);
-      
+
     }
-    
-    private void createBaseDate(){
-        
+
+    private void createBaseDate() {
+
         Date date = new Date();
         BigInteger b = new BigInteger("1234");
-        operatorCountry= new OperatorCountry(1, 2, "Country", "Operator");
+        operatorCountry = new OperatorCountry(1, 2, "Country", "Operator");
         eventCause = new EventCause(1, 2, "desc Event Cause");
         failureType = new FailureType(1, "desc Failure Type");
-        userEquipment = new UserEquipment(123, "a", "a", "a", "a", "a", "a", "a", "a");
-        
+        userEquipment = new UserEquipment(123, "a", "a", "a", "a", "a", "a",
+                                          "a", "a");
+
         baseData = new BaseData();
         baseData.setDate(date);
         baseData.setEventCause(eventCause);

@@ -8,8 +8,12 @@ import com.team6.project.services.DataImportServiceLocal;
 
 /**
  * Validates the UserEquipment to guarantee the FK satisfied
- * @author Cristiana 
+ * If the constraint is satisfied the BaseData UserEquipment property is set with 
+ * the same value of the Record UserEquipment property. Otherwise a
+ * description of the error is set into the description property of the Record object.
+ * @author Cristiana
  */
+
 public class UserEquipmentValidator implements IValidator {
 
     @Override
