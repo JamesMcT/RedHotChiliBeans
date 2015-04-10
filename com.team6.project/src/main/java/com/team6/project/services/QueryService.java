@@ -12,7 +12,6 @@ import com.team6.project.dao.UserDAO;
 import com.team6.project.dao.UserEquipmentDAO;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
-import com.team6.project.entities.Response;
 import com.team6.project.entities.User;
 import com.team6.project.entities.UserEquipment;
 
@@ -72,18 +71,6 @@ public class QueryService implements QueryServiceLocal {
                 endDate);
     }
 
-    @Override
-    public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate) {
-
-        return baseData.countCallFailureByTac(tac, fromDate, toDate);
-    }
-
-    @Override
-    public Response countCallFailureByTacPOST(Integer tac, Date fromDate,
-            Date toDate) {
-
-        return baseData.countCallFailureByTacPOST(tac, fromDate, toDate);
-    }
 
     @Override
     public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate) {
@@ -100,5 +87,20 @@ public class QueryService implements QueryServiceLocal {
     public Collection<Object[]> getUniqueEventCauseByImsi(BigInteger imsi) {
         return baseData.getUniqueEventCauseByImsi(imsi);
     }
+
+	@Override
+	public long countCallFailureByTac(Integer tac, Date fromDate,
+			Date toDate) {
+		
+		return baseData.countCallFailureByTac(tac, fromDate, toDate);
+	}
+	
+	
+	@Override
+	public Collection<Object[]> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate) {
+		
+		return baseData.getTOP10MarketOperatorCellByDate(fromDate, toDate);
+	}
+
 
 }

@@ -149,7 +149,7 @@ public class PersistenceService implements PersistenceServiceLocal{
 	
 	@Override
     public void addUser(User newUser) {
-	    user.addUser(newUser);
+        user.addUser(newUser);
     }
 
     @Override

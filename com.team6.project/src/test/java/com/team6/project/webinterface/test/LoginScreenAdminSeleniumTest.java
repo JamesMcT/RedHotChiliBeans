@@ -24,7 +24,6 @@ public class LoginScreenAdminSeleniumTest {
     @Before
     public void setUp() throws Exception {
         driver = new HtmlUnitDriver();
-        System.err.println(driver);
         baseUrl = "http://localhost:8080/";
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
@@ -92,3 +91,4 @@ public class LoginScreenAdminSeleniumTest {
         }
     }
 }
+
