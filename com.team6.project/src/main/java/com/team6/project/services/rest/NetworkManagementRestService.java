@@ -58,31 +58,34 @@ public class NetworkManagementRestService {
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(
 
-    @QueryParam("startDate") String dateString1,
-            @QueryParam("endDate") String dateString2) {
+    @QueryParam("startDate") long dateString1,
+            @QueryParam("endDate") long dateString2) {
         String message = "";
 
-        if ("".equals(dateString1) || "".equals(dateString2)) {
-            message = "Empty date strings not allowed";
-            final Response response = Response.status(Status.BAD_REQUEST)
-                    .entity(message).build();
-            throw new WebApplicationException(response);
-        }
+//        if ("".equals(dateString1) || "".equals(dateString2)) {
+//            message = "Empty date strings not allowed";
+//            final Response response = Response.status(Status.BAD_REQUEST)
+//                    .entity(message).build();
+//            throw new WebApplicationException(response);
+//        }
 
-        SimpleDateFormat sdf = new SimpleDateFormat(
-                                                    JPABaseDataDAO.MYSQL_DATE_FORMAT);
+//        SimpleDateFormat sdf = new SimpleDateFormat(
+//                                                    JPABaseDataDAO.MYSQL_DATE_FORMAT);
         Date d1 = new Date();
         Date d2 = new Date();
+        
+        d1.setTime(dateString1);
+        d2.setTime(dateString2);
 
-        try {
-            d1 = sdf.parse(dateString1);
-            d2 = sdf.parse(dateString2);
-        } catch (ParseException pe) {
-            message = pe.getMessage();
-            final Response response = Response.status(Status.BAD_REQUEST)
-                    .entity(message).build();
-            throw new WebApplicationException(response);
-        }
+//        try {
+////            d1 = sdf.parse(dateString1);
+////            d2 = sdf.parse(dateString2);
+//        } catch (ParseException pe) {
+//            message = pe.getMessage();
+//            final Response response = Response.status(Status.BAD_REQUEST)
+//                    .entity(message).build();
+//            throw new WebApplicationException(response);
+//        }
 
         if (d1.after(d2)) {
             message = "Start-date can not be after end-date";
