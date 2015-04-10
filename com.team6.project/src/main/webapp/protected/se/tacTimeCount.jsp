@@ -44,7 +44,7 @@
 			var root = "${pageContext.servletContext.contextPath}";
 
 			var root2 = "/com.team6.project-0.0.1-SNAPSHOT";
-			xhr.open("POST", root + "/protected/rest/basedata/tac", false);
+			xhr.open("POST", root + "/protected/rest/supportengineer/tac", false);
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify(reqParams));
 			if (xhr.status == 200) {

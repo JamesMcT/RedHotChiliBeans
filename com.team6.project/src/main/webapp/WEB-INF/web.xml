@@ -31,6 +31,7 @@
 			<url-pattern>/protected/rest/usermanagement/*</url-pattern>
 			<url-pattern>/protected/rest/userequipment/*</url-pattern>
 			<url-pattern>/protected/rest/networkmanagement/*</url-pattern>
+			<url-pattern>/protected/rest/supportengineer/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>administrator</role-name>
@@ -47,6 +48,7 @@
 			<url-pattern>/protected/nme/*</url-pattern>
 			<url-pattern>/protected/rest/userequipment/*</url-pattern>
 			<url-pattern>/protected/rest/networkmanagement/*</url-pattern>
+			<url-pattern>/protected/rest/supportengineer/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Network Management Engineer</role-name>
@@ -64,6 +66,7 @@
 			<url-pattern>/protected/se/*</url-pattern>
 			<url-pattern>/protected/rest/userequipment/*</url-pattern>
 			<url-pattern>/protected/rest/basedata/*</url-pattern>
+			<url-pattern>/protected/rest/supportengineer/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Support Engineer</role-name>

@@ -229,7 +229,7 @@ public class PerformanceRestTest {
     @Test
     public void testGetAll() {
         given().filter(sessionFilter).when()
-                .get("/protected/rest/basedata/datequery").then()
+                .get("/protected/rest/supportengineer/datequery").then()
                 .statusCode(200);
 
         long beginTime = System.currentTimeMillis();
@@ -238,7 +238,7 @@ public class PerformanceRestTest {
                 .queryParam("firstDate", startDate)
                 .queryParam("secondDate", endDate).filter(sessionFilter)
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
-                .get("/protected/rest/basedata/datequery");
+                .get("/protected/rest/supportengineer/datequery");
         long endTime = System.currentTimeMillis();
         double timeTaken = (endTime - beginTime) / 1000.0;
         performanceLogger

@@ -145,8 +145,7 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate) {
 		Query q = em.createNamedQuery("getImsiByDate");
 		q.setParameter("firstDate", firstDate).setParameter("secondDate", secondDate);
-        List<BaseData> result = q.getResultList();
-		
+        List<BaseData> result = q.getResultList();	
     	return result;
 	}
     
