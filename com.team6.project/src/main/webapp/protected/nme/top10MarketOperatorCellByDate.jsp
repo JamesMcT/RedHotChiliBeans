@@ -224,8 +224,6 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 					<p>Please give a time period</p>
 					<div>
 						<div id="div1">
-
-
 							<div id="datetimepicker" class="input-append date">
 								<input type="text"></input> <span class="add-on"> <i
 									data-time-icon="icon-time" data-date-icon="icon-calendar"></i>

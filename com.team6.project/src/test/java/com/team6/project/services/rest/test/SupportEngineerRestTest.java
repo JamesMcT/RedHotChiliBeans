@@ -41,7 +41,7 @@ public class SupportEngineerRestTest extends RestTest  {
 
 	        given().auth().form("admin", "admin", fac).filter(sessionFilter)
 	                .expect().statusCode(200).contentType(ContentType.JSON).when()
-	                .get("/protected/rest/basedata/datequery");
+	                .get("/protected/rest/supportengineer/datequery");
 
 	      
 	    }
@@ -51,7 +51,7 @@ public class SupportEngineerRestTest extends RestTest  {
 
 	       given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
 	               .expect().statusCode(403).when()
-	               .get("/protected/rest/basedata/datequery");
+	               .get("/protected/rest/supportengineer/datequery");
 
 	     
 	   }

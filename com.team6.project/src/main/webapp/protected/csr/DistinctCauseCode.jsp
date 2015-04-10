@@ -63,9 +63,10 @@
 								<i class="fa fa-search"></i>
 							</button>
 					</form>
+					<br>
 					<div class="panel panel-default">
-						<div class="panel-heading">Table: Event Id Cause Code and
-							Occurrence for selected IMSI</div>
+						<div class="panel-heading">Event Id, Cause Code and
+							Occurrence for the selected IMSI</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
 								<table class="table table-striped table-bordered table-hover"
