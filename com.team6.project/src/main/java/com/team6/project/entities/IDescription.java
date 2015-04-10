@@ -2,14 +2,18 @@ package com.team6.project.entities;
 
 /**
  * 
- * @author administrator
+ * Interface for the ID decription
+ * 
+ * @author Cristiana
  *
  */
 public interface IDescription {
-	
+
 	/**
+	 * 
+	 * Sets the Description string
 	 * 
 	 * @param string
 	 */
-    public void setDescription(String string);
+	public void setDescription(String string);
 }

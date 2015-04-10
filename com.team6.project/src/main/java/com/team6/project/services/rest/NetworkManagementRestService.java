@@ -130,4 +130,21 @@ public class NetworkManagementRestService {
 		return queryService.getTOP10MarketOperatorCellByDate(fromDate, toDate);
 	}
 
+    
+    
+    @GET
+    @Path("/toptenimsifailures")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Object[]> getTopTenFailuresByDate(
+
+    @QueryParam("start") long lFromDate,
+            @QueryParam("end") long lToDate) {
+    	Date fromDate = new Date();
+		Date toDate = new Date();
+
+		fromDate.setTime(lFromDate);
+		toDate.setTime(lToDate);
+        return queryService.getTopTenFailuresByDate(fromDate, toDate);
+
+    }
 }

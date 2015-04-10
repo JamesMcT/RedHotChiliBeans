@@ -13,16 +13,36 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
+ * This class is for the entity called BaseData and implements Serializable.
+ *
+ * <p>
+ * There are many to one relationshisp with the
+ * <i>EventCase</i>,<i>FailureType</i>,<i>OperatorCountry</i> and
+ * <i>UserEquipment</i> tables.
+ *
+ * <p>
+ * The BaseData entity creates id, CellID, a date object, duration, hier321ID,
+ * hier21Id, hier3Id, imsi, neVersion and EventCause object, FailureCode object,
+ * OperatorCountry object and UserEquipment object.
+ * 
+ * <p>
+ * There are 6 named queries: BaseData.findEventCauseByImsi, baseDataCount,
+ * getImsiByDate, eventCauseAndIdByTac, getAllImsi and
+ * failureCountAndDurationPerImsiByDate
+ * 
+ * 
  * @author Cristiana BaseData table
  * @author James NamedQueries BaseData table
+<<<<<<< HEAD
  * @author Sabee
+=======
+ * @author John O Keeffe
+>>>>>>> refs/heads/javadocs_unittest_johnbranch
  */
-
-// @NamedQueries({ @NamedQuery(name = "BaseData.findEventCauseByImsi", query =
-// "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi") })
-
 @NamedQueries({
 		@NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi"),
+		@NamedQuery(name = "imsiByFailureCode", query = "SELECT b.imsi FROM BaseData b WHERE b.failure.failureCode = :failureCode"),
+
 		@NamedQuery(name = "baseDataCount", query = "SELECT COUNT(b.id) FROM BaseData b"),
 		//@NamedQuery(name = "getImsiByDate", query = "SELECT distinct(b.imsi) from BaseData b where b.date between :firstDate and :secondDate"),
 		@NamedQuery(name = "getImsiByDate", query = "SELECT distinct(b) from BaseData b where b.date between :firstDate and :secondDate  group by b.date, b.imsi ORDER BY b.date DESC"),
@@ -30,16 +50,29 @@ import javax.persistence.NamedQuery;
 		@NamedQuery(name = "getAllImsi", query = "SELECT distinct(b.imsi) FROM BaseData b"),	// Query needed for performance tests.		
 		@NamedQuery(name = "countCallFailureByTac", query = "select count(b) from BaseData b where b.userEquipment.tac = :tac and b.date >= :fromDate and b.date <= :toDate"),
 		@NamedQuery(name = "getTOP10MarketOperatorCellByDate", query = "select b, count(b) from BaseData b where b.date >= :fromDate and b.date <= :toDate group by b.operatorCountry.mcc, b.operatorCountry.mnc, b.cellId order by count(b) desc" ),				
-		@NamedQuery(name = "failureCountAndDurationPerImsiByDate", query = "SELECT b.imsi, COUNT(b.id), SUM(b.duration) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY COUNT(b) DESC"),
-		@NamedQuery(name = "getUniqueEventCauseByImsi", query ="SELECT b.eventCause, COUNT(b) FROM BaseData b where b.imsi = :imsi GROUP BY b.eventCause")})
+		@NamedQuery(name = "getUniqueEventCauseByImsi", query ="SELECT b.eventCause, COUNT(b) FROM BaseData b where b.imsi = :imsi GROUP BY b.eventCause"),
 
+		@NamedQuery(name = "failureCountAndDurationPerImsiByDate", query = "SELECT b.imsi, COUNT(b.id), SUM(b.duration) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC"),
+		@NamedQuery(name = "topTenFailuresByDate", query = "SELECT b.imsi, COUNT(b.id) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC")
+
+})
 @Entity
 public class BaseData implements Serializable {
 
+	/**
+	 * Gets the id of the BaseData table as an Integer
+	 * 
+	 * @return id
+	 */
 	public Integer getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the id of the BaseData table as an Integer
+	 * 
+	 * @param id
+	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -69,9 +102,15 @@ public class BaseData implements Serializable {
 	@Column(name = "hier321Id", precision = 20, scale = 0)
 	private BigInteger hier321Id;
 
+	/**
+	 * Empty BaseData constructor
+	 */
 	public BaseData() {
 	}
 
+	/**
+	 * Overrides the hashcode method using 31 as a base prime.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,8 +138,9 @@ public class BaseData implements Serializable {
 	}
 
 	/**
- * 
- */
+	 * Overrides the equals method which compares each of the BaseData entities
+	 * instead.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -173,98 +213,218 @@ public class BaseData implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Gets the date from the BaseData entity as a Date object.
+	 * 
+	 * @return date
+	 */
 	public Date getDate() {
 		return date;
 	}
 
+	/**
+	 * Sets the date of the BaseData entity as a Date object.
+	 * 
+	 * @param date
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
 
+	/**
+	 * Gets the EventCause Object
+	 * 
+	 * @return eventCause
+	 */
 	public EventCause getEventCause() {
 		return eventCause;
 	}
 
+	/**
+	 * Sets the EventCause Object
+	 * 
+	 * @param eventCause
+	 */
 	public void setEventCause(EventCause eventCause) {
 		this.eventCause = eventCause;
 	}
 
+	/**
+	 * Gets the FailureType object
+	 * 
+	 * @return failure
+	 */
 	public FailureType getFailure() {
 		return failure;
 	}
 
+	/**
+	 * Sets the FailureType object
+	 * 
+	 * @param failure
+	 */
 	public void setFailure(FailureType failure) {
 		this.failure = failure;
 	}
 
+	/**
+	 * Gets the UserEquipment object
+	 * 
+	 * @return userEquipment
+	 */
 	public UserEquipment getUserEquipment() {
 		return userEquipment;
 	}
 
+	/**
+	 * Sets the UserEquipment object
+	 * 
+	 * @param userEquipment
+	 */
 	public void setUserEquipment(UserEquipment userEquipment) {
 		this.userEquipment = userEquipment;
 	}
 
+	/**
+	 * Gets the OperatorCountry object
+	 * 
+	 * @return operatorCountry
+	 */
 	public OperatorCountry getOperatorCountry() {
 		return operatorCountry;
 	}
 
+	/**
+	 * Sets the OperatorCountry object
+	 * 
+	 * @param operatorCountry
+	 */
 	public void setOperatorCountry(OperatorCountry operatorCountry) {
 		this.operatorCountry = operatorCountry;
 	}
 
+	/**
+	 * Gets the CellId as an Integer
+	 * 
+	 * @return cellId
+	 */
 	public Integer getCellId() {
 		return cellId;
 	}
 
+	/**
+	 * Sets the CellId as an Integer
+	 * 
+	 * @param cellId
+	 */
 	public void setCellId(Integer cellId) {
 		this.cellId = cellId;
 	}
 
+	/**
+	 * Gets the call Duration as an Integer
+	 * 
+	 * @return duration
+	 */
 	public Integer getDuration() {
 		return duration;
 	}
 
+	/**
+	 * Sets the call Duration as an Integer
+	 * 
+	 * @param duration
+	 */
 	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
 
+	/**
+	 * Gets the neVersion as a String
+	 * 
+	 * @return neVersion
+	 */
 	public String getNeVersion() {
 		return neVersion;
 	}
 
+	/**
+	 * Sets the neVersion as a String
+	 * 
+	 * @param neVersion
+	 */
 	public void setNeVersion(String neVersion) {
 		this.neVersion = neVersion;
 	}
 
+	/**
+	 * Gets the imsi as a BigInteger
+	 * 
+	 * @return imsi
+	 */
 	public BigInteger getImsi() {
 		return imsi;
 	}
 
+	/**
+	 * Sets the imsi as a BigInteger
+	 * 
+	 * @param imsi
+	 */
 	public void setImsi(BigInteger imsi) {
 		this.imsi = imsi;
 	}
 
+	/**
+	 * Gets the hier3id as a BigInteger
+	 * 
+	 * @return hier3Id
+	 */
 	public BigInteger getHier3Id() {
 		return hier3Id;
 	}
 
+	/**
+	 * Sets the hier3id as a BigInteger
+	 * 
+	 * @param hier3Id
+	 */
 	public void setHier3Id(BigInteger hier3Id) {
 		this.hier3Id = hier3Id;
 	}
 
+	/**
+	 * Gets the hier32id as a BigInteger
+	 * 
+	 * @return hier32Id
+	 */
 	public BigInteger getHier32Id() {
 		return hier32Id;
 	}
 
+	/**
+	 * Sets the hier32id as a BigInteger
+	 * 
+	 * @param hier32Id
+	 */
 	public void setHier32Id(BigInteger hier32Id) {
 		this.hier32Id = hier32Id;
 	}
 
+	/**
+	 * Gets the hier321id as a BigInteger
+	 * 
+	 * @return hier321Id
+	 */
 	public BigInteger getHier321Id() {
 		return hier321Id;
 	}
 
+	/**
+	 * Sets the hier321id as a BigInteger
+	 * 
+	 * @param hier321Id
+	 */
 	public void setHier321Id(BigInteger hier321Id) {
 		this.hier321Id = hier321Id;
 	}

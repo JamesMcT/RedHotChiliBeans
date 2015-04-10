@@ -1,0 +1,10 @@
+<<<<<<< HEAD
+=======
+main WARN  readers.Reader - In sheet Failure Class Table row number 7 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 4 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 5 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 6 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 7 primary key not valued properly
+main WARN  readers.Reader - In sheet UE Table row number 3 primary key not valued properly
+main WARN  readers.Reader - In sheet UE Table row number 4 primary key not valued properly
+>>>>>>> refs/heads/javadocs_unittest_johnbranch

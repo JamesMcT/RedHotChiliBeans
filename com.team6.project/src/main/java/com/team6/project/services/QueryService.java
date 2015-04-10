@@ -25,82 +25,88 @@ import com.team6.project.entities.UserEquipment;
 @Local(QueryServiceLocal.class)
 public class QueryService implements QueryServiceLocal {
 
-    @Inject
-    private UserEquipmentDAO userEquipment;
+	@Inject
+	private UserEquipmentDAO userEquipment;
 
-    /**
+	/**
 	 * 
 	 */
-    @Inject
-    private UserDAO user;
-    @Inject
-    private BaseDataDAO baseData;
+	@Inject
+	private UserDAO user;
+	@Inject
+	private BaseDataDAO baseData;
 
-    public QueryService() {
-    }
-
-    @Override
-    public Collection<UserEquipment> getAllUserEquipment() {
-        return userEquipment.getAllUserEquipment();
-    }
-
-    @Override
-    public Collection<EventCause> findByIMSI(BigInteger IMSI) {
-        return baseData.findByImsi(IMSI);
-    }
-
-    @Override
-    public User getUserByKey(String newUserId) {
-        return user.getUserByKey(newUserId);
-    }
-
-    @Override
-    public Collection<User> getAllUser() {
-        return user.getAllUser();
-    }
-
-    @Override
-    public Collection<Object[]> getDistinctEventByTac(Integer ue) {
-        return baseData.getDistinctEventByTac(ue);
-    }
-
-    @Override
-    public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(
-            Date startDate, Date endDate) {
-        return baseData.getFailureCountAndDurationPerImsiByDate(startDate,
-                endDate);
-    }
-
-
-    @Override
-    public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate) {
-
-        return baseData.findImsiByDate(firstDate, secondDate);
-    }
-
-    @Override
-    public Collection<BigInteger> getAllImsi() {
-        return baseData.getAllImsi();
-    }
-
-    @Override
-    public Collection<Object[]> getUniqueEventCauseByImsi(BigInteger imsi) {
-        return baseData.getUniqueEventCauseByImsi(imsi);
-    }
+	public QueryService() {
+	}
 
 	@Override
-	public long countCallFailureByTac(Integer tac, Date fromDate,
-			Date toDate) {
-		
+	public Collection<UserEquipment> getAllUserEquipment() {
+		return userEquipment.getAllUserEquipment();
+	}
+
+	@Override
+	public Collection<EventCause> findByIMSI(BigInteger IMSI) {
+		return baseData.findByImsi(IMSI);
+	}
+
+	@Override
+	public User getUserByKey(String newUserId) {
+		return user.getUserByKey(newUserId);
+	}
+
+	@Override
+	public Collection<User> getAllUser() {
+		return user.getAllUser();
+	}
+
+	@Override
+	public Collection<Object[]> getDistinctEventByTac(Integer ue) {
+		return baseData.getDistinctEventByTac(ue);
+	}
+
+	@Override
+	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(
+			Date startDate, Date endDate) {
+		return baseData.getFailureCountAndDurationPerImsiByDate(startDate,
+				endDate);
+	}
+
+	@Override
+	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate) {
+
+		return baseData.findImsiByDate(firstDate, secondDate);
+	}
+
+	@Override
+	public Collection<BigInteger> getAllImsi() {
+		return baseData.getAllImsi();
+	}
+
+	@Override
+	public Collection<Object[]> getUniqueEventCauseByImsi(BigInteger imsi) {
+		return baseData.getUniqueEventCauseByImsi(imsi);
+	}
+
+	public Collection<Object[]> getTopTenFailuresByDate(Date start, Date end) {
+		return baseData.getTopTenFailuresByDate(start, end);
+	}
+
+	@Override
+	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate) {
+
 		return baseData.countCallFailureByTac(tac, fromDate, toDate);
 	}
-	
-	
+
 	@Override
-	public Collection<Object[]> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate) {
-		
+	public Collection<Object[]> getTOP10MarketOperatorCellByDate(Date fromDate,
+			Date toDate) {
+
 		return baseData.getTOP10MarketOperatorCellByDate(fromDate, toDate);
 	}
 
+	@Override
+	public Collection<BaseData> getImsiByFailureCode(Integer fc) {
 
+		return baseData.getImsiByFailureCode(fc);
+	}
 }

@@ -6,7 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * @author Cristiana FailureType table
+ * This class creates an Entity called FailureType which implements
+ * Serializable.
+ * 
+ * <p>
+ * It creates 2 columns called <i> failureCode </i> and <i>description </i>.
+ * 
+ * @author Cristiana
  */
 @Entity
 public class FailureType implements Serializable {
@@ -17,12 +23,14 @@ public class FailureType implements Serializable {
 	private static final long serialVersionUID = -1420241973884926828L;
 
 	/**
-     * 
-     */
+	 * Empty constructor
+	 * 
+	 */
 	public FailureType() {
 	}
 
 	/**
+	 * Constructor for FailureType
 	 * 
 	 * @param failureCode
 	 * @param description
@@ -34,16 +42,19 @@ public class FailureType implements Serializable {
 	}
 
 	/**
- * 
- */
+	 * Overrides the toString() method. It overrides to return the failureCode
+	 * and description.
+	 * 
+	 */
 	public String toString() {
 		return "Failure Code : " + failureCode + " Description : "
 				+ description;
 	}
 
 	/**
+	 * Checks whether failureCode is present.
 	 * 
-	 * @return
+	 * @return true if has required field. otherwise false
 	 */
 	public boolean hasRequiredFields() {
 		if (failureCode != null) {
@@ -53,13 +64,18 @@ public class FailureType implements Serializable {
 	}
 
 	/**
+	 * Gets the key as an Integer
 	 * 
-	 * @return
+	 * @return failureCode
 	 */
 	public Integer getKey() {
 		return failureCode;
 	}
 
+	/**
+	 * This overrides the hashcode() method which uses 31 as a base
+	 * 
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,6 +85,10 @@ public class FailureType implements Serializable {
 		return result;
 	}
 
+	/**
+	 * This overrides the equals method to compare failureCode
+	 * 
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -87,14 +107,16 @@ public class FailureType implements Serializable {
 	}
 
 	/**
+	 * Gets the failureCode as an Integer
 	 * 
-	 * @return
+	 * @return failureCode
 	 */
 	public Integer getFailureCode() {
 		return failureCode;
 	}
 
 	/**
+	 * Sets the failureCode as an Integer
 	 * 
 	 * @param failureCode
 	 */
@@ -103,14 +125,16 @@ public class FailureType implements Serializable {
 	}
 
 	/**
+	 * Gets the description as a String
 	 * 
-	 * @return
+	 * @return description
 	 */
 	public String getDescrption() {
 		return description;
 	}
 
 	/**
+	 * Sets the description as a String
 	 * 
 	 * @param descrption
 	 */

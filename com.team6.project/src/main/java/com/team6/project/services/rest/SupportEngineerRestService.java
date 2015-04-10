@@ -65,4 +65,16 @@ public class SupportEngineerRestService {
         System.err.println("the second data is.."+toDate.toString());
 		return queryService.findImsiByDate(fromDate, toDate);
 	}
+	
+	
+	@GET
+	@Path("/failurecode")
+	@Produces(MediaType.APPLICATION_JSON)
+	  public Collection<BaseData>  getImsiByFailureCode(@QueryParam("failureCode") Integer failureCode) {
+
+		
+
+		return queryService.getImsiByFailureCode(failureCode);
+	}
+
 }

@@ -179,6 +179,15 @@ public class JPABaseDataDAO implements BaseDataDAO {
         
     }
     
+    @Override
+    public Collection<BaseData> getImsiByFailureCode(Integer fc) {
+        Query q = em.createNamedQuery("imsiByFailureCode");
+        q.setParameter("failureCode", fc);
+     //   List<BaseData> result = q.getResultList();
+
+        return q.getResultList();
+        
+    }
     
     @Override //S
 	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate) {		
@@ -216,6 +225,18 @@ public class JPABaseDataDAO implements BaseDataDAO {
     	
     	return q.getResultList();
     }
+
+	public Collection<Object[]> getTopTenFailuresByDate(Date start, Date end){
+		
+		
+		Query q = em.createNamedQuery("topTenFailuresByDate");
+    	q.setParameter("startDate", start);
+    	q.setParameter("endDate", end);
+    	
+    	return q.getResultList();
+		
+		
+	}
 
 	@Override
 	public Collection<BigInteger> getAllImsi() {
