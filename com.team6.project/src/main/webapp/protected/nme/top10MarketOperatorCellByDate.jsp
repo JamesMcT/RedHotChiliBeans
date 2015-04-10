@@ -18,7 +18,7 @@
 <link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../../css/dataTables.responsive.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
-	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+href="../../css/bootstrap-datetimepicker.min.css">
 
 <!-- jQuery -->
 <script src="../../js/jquery.min.js"></script>
@@ -37,6 +37,9 @@
 <!-- Adding functions -->
 <script src="../../js/common.js"></script>
 
+<script type="text/javascript"
+src="../../js/bootstrap-datetimepicker.min.js">
+</script>
 
 <script>
 	//rework this
@@ -234,11 +237,6 @@
 									data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
 								</span>
 							</div>
-							<script type="text/javascript"
-								src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-								
-							</script>
-
 							<script type="text/javascript">
 								$('#datetimepicker').datetimepicker({
 									format : 'yyyy-MM-dd hh:mm:ss',
