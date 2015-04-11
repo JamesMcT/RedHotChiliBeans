@@ -12,13 +12,19 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Adding CSS -->
-<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/bootstrap-combined.min.cristiana.css"
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css"
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/dataTables.responsive.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/bootstrap-combined.min.cristiana.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.responsive.css"
+	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
-href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
+	href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
 
 <!-- jQuery -->
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
@@ -27,10 +33,14 @@ href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 <!-- Flot Charts JavaScript -->
-<script src="${pageContext.request.contextPath}/bower_components/flot/excanvas.min.js"></script>
-<script src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.js"></script>
-<script src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.resize.js"></script>
-<script src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.time.js"></script>
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot/excanvas.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.js"></script>
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.resize.js"></script>
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.time.js"></script>
 <script
 	src="${pageContext.request.contextPath}/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
 
@@ -38,7 +48,8 @@ href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
 <script src="${pageContext.request.contextPath}/js/common.js"></script>
 
 <script type="text/javascript"
-src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
+	src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
+	
 </script>
 
 <script>
@@ -66,90 +77,88 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 					cleanTable();
 					cleanError();
 					var response = JSON.parse(xhr.responseText);
-					createTableHead("top_10_MOC_Table",["Market","Operator","Cell","Occurence"]);
+					createTableHead("top_10_MOC_Table", [ "Market", "Operator",
+							"Cell", "Occurence" ]);
 					createTableBody(response);
 					createBarChart(response);
 					showDiv("panelChart");
-				}
-				else{
+				} else {
 					cleanTable();
 					hideDiv("panelChart");
-					var message = 'Error ' + xhr.status + ': ' + xhr.responseText;
+					var message = 'Error ' + xhr.status + ': '
+							+ xhr.responseText;
 					showError(message);
 				}
 			}, false);
 			xhr.send();
-		}
-		else{
+		} else {
 			alert("Please select a value for both dates");
 		}
 	}
 
 	function createBarChart(response) {
-		  var tot = 0;
-		  var baseData = [
-		  ];
-		  var occurrence = [
-		  ];
-		  var barDataArray = [
-		  ];
-		  var max = 10;
-		  for (var i = 0; i < response.length; i++) {
-		    var singleResponse = response[i];
-		    baseData[i] = singleResponse[0];
-		    occurrence[i] = singleResponse[1];
-		    tot = tot + occurrence[i];
-		  }
-		  if (baseData.length < 10) {
-		    max = baseData.length;
-		  }
-		  for (var i = 0; i < max; i++) {
-		    var percentage = ((occurrence[i] / tot) * 100).toFixed(2);
-		    barDataArray[i] = {
-		      label: 'Country: ' + baseData[i].operatorCountry.mcc
-		      + ' Operator: ' + baseData[i].operatorCountry.mnc
-		      + ' Node: ' + baseData[i].cellId + ' - ' + percentage
-		      + '%',
-		      data: [
-		        [(i + 1),
-		        occurrence[i]]
-		      ]
-		    }
-		  }
-		  var barOptions = {
-		    series: {
-		      bars: {
-		        show: true,
-		        barWidth: 0.8
-		      }
-		    },
-		    xaxis: {
-		      show: false
-		    },
-		    grid: {
-		      hoverable: true
-		    },
-		    legend: {
-		      show: false
-		    },
-		    tooltip: true,
-		    tooltipOpts: {
-		      content: '%s'
-		    }
-		  };
-		  $.plot($('#flot-bar-chart'), barDataArray, barOptions);
+		var tot = 0;
+		var operatorCountry = [];
+		var cellID = [];
+		var occurrence = [];
+		var barDataArray = [];
+		var max = 10;
+		for (var i = 0; i < response.length; i++) {
+			var singleResponse = response[i];
+			operatorCountry[i] = singleResponse[0];
+			cellID[i] = singleResponse[1];
+			occurrence[i] = singleResponse[2];
+			tot = tot + occurrence[i];
 		}
-
+		if (response.length < 10) {
+			max = response.length;
+		}
+		for (var i = 0; i < max; i++) {
+			var percentage = ((occurrence[i] / tot) * 100).toFixed(2);
+			barDataArray[i] = {
+				label : 'Country: ' + operatorCountry[i].mcc + ' Operator: '
+						+ operatorCountry[i].mnc + ' Node: ' + cellID[i]
+						+ ' - ' + percentage + '%',
+				data : [ [ (i + 1), occurrence[i] ] ]
+			}
+		}
+		var barOptions = {
+			series : {
+				bars : {
+					show : true,
+					barWidth : 0.8
+				}
+			},
+			xaxis : {
+				show : false
+			},
+			grid : {
+				hoverable : true
+			},
+			legend : {
+				show : false
+			},
+			tooltip : true,
+			tooltipOpts : {
+				content : '%s'
+			}
+		};
+		$.plot($('#flot-bar-chart'), barDataArray, barOptions);
+	}
 
 	function createTableBody(response) {
 		var table = document.getElementById("top_10_MOC_Table");
 		var tbody = document.createElement("tbody");
 		tbody.id = "tableBody";
-		var i = 0;
-		while (i < response.length && i < 10) {
+		var max = 10;
+		if (response.length < 10) {
+			max = response.length;
+		}
+		for (var i = 0; i < max; i++) {
 			var singleResponse = response[i];
-			var baseDataRow = singleResponse[0];
-			var summa = singleResponse[1];
+			var operatorCountry = singleResponse[0];
+			var cellID = singleResponse[1];
+			var occurrence = singleResponse[2];
 			var tr = document.createElement("tr");
 			if (i % 2) {
 				tr.className = "even gradeA";
@@ -157,24 +166,21 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 				tr.className = "odd gradeA";
 			}
 			var td1 = document.createElement("td");
-			td1.appendChild(document
-					.createTextNode(baseDataRow.operatorCountry.mcc + " ("
-							+ baseDataRow.operatorCountry.country + ")"));
+			td1.appendChild(document.createTextNode(operatorCountry.mcc + " ("
+					+ operatorCountry.country + ")"));
 			var td2 = document.createElement("td");
-			td2.appendChild(document
-					.createTextNode(baseDataRow.operatorCountry.mnc + " ("
-							+ baseDataRow.operatorCountry.operator + ")"));
+			td2.appendChild(document.createTextNode(operatorCountry.mnc + " ("
+					+ operatorCountry.operator + ")"));
 			var td3 = document.createElement("td");
-			td3.appendChild(document.createTextNode(baseDataRow.cellId));
+			td3.appendChild(document.createTextNode(cellID));
 			var td4 = document.createElement("td");
-			td4.appendChild(document.createTextNode(summa));
+			td4.appendChild(document.createTextNode(occurrence));
 
 			tr.appendChild(td1);
 			tr.appendChild(td2);
 			tr.appendChild(td3);
 			tr.appendChild(td4);
 			tbody.appendChild(tr);
-			i += 1;
 		}
 		table.appendChild(tbody);
 	}
@@ -250,7 +256,7 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 							Market/Operator/Cell failure</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
-							<div id="errorDiv"></div>
+								<div id="errorDiv"></div>
 								<table class="table table-striped table-bordered table-hover"
 									id="top_10_MOC_Table">
 								</table>
@@ -262,7 +268,8 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 				</div>
 				<!-- /.col-lg-6 -->
 				<div class="col-lg-6">
-					<div id="panelChart" class="panel panel-default" style="display: none;">
+					<div id="panelChart" class="panel panel-default"
+						style="display: none;">
 						<div class="panel-heading">Top Ten Bar Chart</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body">

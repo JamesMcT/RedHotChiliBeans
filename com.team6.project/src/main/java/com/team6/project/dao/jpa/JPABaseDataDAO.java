@@ -28,6 +28,7 @@ import com.team6.project.entities.UserEquipment;
 /**
  * @author James Mc Ternan
  * @Author Eoin Kernan
+ * @author Cristiana
  * @author Sabee D14125306
  *
  */

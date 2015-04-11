@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * 
- * testing the BaseDataRest functions
+ * testing the Support Engineer Rest functions
  *
  */
 
@@ -33,8 +33,7 @@ public class SupportEngineerRestServiceTest extends RestTest{
 	
 	private FormAuthConfig fac;
 	private SessionFilter sessionFilter;
-	private long fromTime;
-	private long toTime;
+
 	
 	@Before
 	public void setUp() throws InterruptedException {
@@ -52,7 +51,7 @@ public class SupportEngineerRestServiceTest extends RestTest{
 	
 	/**
 	 * 
-	 * Testing the large database (60 thousand records) with the given tac, fromDate, toDate parameters
+	 * With the given tac, fromDate, toDate parameters
 	 * logging in with Support Engineer (supEng) will able to process the request
 	 * and checking the request conentType and the status code as expected
 	 */
@@ -80,7 +79,7 @@ public class SupportEngineerRestServiceTest extends RestTest{
 
 	/**
 	 * 
-	 * Testing the large database (60 thousand records) with the given tac, fromDate, toDate parameters
+	 * With the given tac, fromDate, toDate parameters
 	 * logging in with a user (Customer Service Rep. (cusSer)) who has NO PERMISSION
 	 * not to be able to reach this request 
 	 * and get a 403 authentication error code as the status code
@@ -110,5 +109,38 @@ public class SupportEngineerRestServiceTest extends RestTest{
 		
 	}
 	
+	 /**
+     * This test will simply make sure the RESTfull endpoint can be reached and
+     * that it is returning JSON even if there are no records in the database.
+     */
+   @Test
+    public void testGetAll() {
+       
+       long startDate = NetworkManagementRestServiceTest
+               .dateConvert("2013-02-21 21:01:00");
+       long endDate = NetworkManagementRestServiceTest
+               .dateConvert("2013-02-21 21:01:00");
+        given().auth().form("supEng", "supEng", fac).queryParam("firstDate", startDate)
+        .queryParam("secondDate", endDate).filter(sessionFilter)
+                .expect().statusCode(200).contentType(ContentType.JSON).when()
+                .get("/protected/rest/supportengineer/datequery"); 
+    }
+   
+   @Test
+   public void testGetAll_NotAllowed() {
+       sessionFilter = new SessionFilter();
+
+        given().filter(sessionFilter).when().get("protected/index.jsp");
+
+        given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+                .when().get("protected/index.jsp");
+
+       given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+               .expect().statusCode(403).when()
+               .get("/protected/rest/supportengineer/datequery");
+
+     
+   }
+
 	
 }
