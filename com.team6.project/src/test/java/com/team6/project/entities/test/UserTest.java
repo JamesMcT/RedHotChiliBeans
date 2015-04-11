@@ -30,13 +30,37 @@ public class UserTest {
     }
     
     @Test
+    public void hashCodeTest_Equal(){
+        User other = new User("user1", "password", "administrator");
+        assertEquals(other.hashCode(), user1.hashCode());
+    }
+    @Test
+    public void hashCodeTest_NotEqual(){
+        User other = new User("user2", "password", "administrator");
+        assertFalse(other.hashCode() == user1.hashCode());
+    }
+    
+    
+    @Test
     public void equalsTrueTest() {
         User other = new User("user1", "password", "administrator");
         assertTrue(user1.equals(other));
     }
     @Test
-    public void equalsFalseTest_NoMCC() {
+    public void equalsFalseTest_1() {
         User other = new User("user2", "password", "administrator");
+        assertFalse(user1.equals(other));
+    }
+    
+    @Test
+    public void equalsFalseTest_2() {
+        User other = new User(null, "password", "administrator");
+        assertFalse(other.equals(user1));
+    }
+    
+    @Test
+    public void equalsFalseTest_3() {
+        User other = null;
         assertFalse(user1.equals(other));
     }
       

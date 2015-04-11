@@ -38,6 +38,10 @@ public class RecordTest {
     public void getKeyTest_False() {
         assertNotEquals(new Integer(rec1.getKey()), new Integer(4));
     }
+    @Test
+    public void toStringTest(){
+        assertEquals(rec1.toString(), "Id : 1 Date : "+rec1.getDate().getTime()+" Cause Code : 100 Event Id : 200 Failure Type : 10 User Equipment : 12345678 MCC : 123 MNC : 321 Cell Id : 4 Duration : 1000 NetworkElement Version : 12g Imsi : 1234567890 Hier3Id : 1234567890 Hier32Id : 1234567890 Hier321Id : 1234567890 Description : ");
+    }
 
     @Test
     public void equalsTrueTest() {
@@ -53,7 +57,16 @@ public class RecordTest {
         rec2.setEventId(0);
         assertFalse(rec1.equals(rec2));
     }
-    
+    @Test
+    public void equalsFalseTest_EventIdNull() {
+        rec2.setEventId(null);
+        assertFalse(rec2.equals(rec1));
+    }
+    @Test
+    public void equalsFalseTest_CauseCodeNull() {
+        rec2.setCauseCode(null);
+        assertFalse(rec2.equals(rec1));
+    }
     @Test
     public void equalsFalseTest_CauseCode() {
         rec2.setCauseCode(0);
@@ -63,7 +76,12 @@ public class RecordTest {
     @Test
     public void equalsFalseTest_CellID() {
         rec2.setCellId(0);
-        assertFalse(rec1.equals(rec2));
+        assertFalse(rec2.equals(rec1));
+    }
+    @Test
+    public void equalsFalseTest_CellIDNull() {
+        rec2.setCellId(null);
+        assertFalse(rec2.equals(rec1));
     }
     
     @Test
@@ -73,10 +91,16 @@ public class RecordTest {
         assertFalse(rec1.equals(rec2));
     }
     
+    
     @Test
     public void equalsFalseTest_Duration() {
         rec2.setDuration(10);
-        assertFalse(rec1.equals(rec2));
+        assertFalse(rec2.equals(rec1));
+    }
+    @Test
+    public void equalsFalseTest_DurationNull() {
+        rec2.setDuration(null);
+        assertFalse(rec2.equals(rec1));
     }
     
     @Test
@@ -84,11 +108,21 @@ public class RecordTest {
         rec2.setFailureType(0);
         assertFalse(rec1.equals(rec2));
     }
+    @Test
+    public void equalsFalseTest_FailureTypeNull() {
+        rec2.setFailureType(null);
+        assertFalse(rec2.equals(rec1));
+    }
     
     @Test
     public void equalsFalseTest_Hier321Id() {
         rec2.setHier321Id(new BigInteger("0987654321"));
         assertFalse(rec1.equals(rec2));
+    }
+    @Test
+    public void equalsFalseTest_Hier321IdNull() {
+        rec2.setHier321Id(null);
+        assertFalse(rec2.equals(rec1));
     }
     
     @Test
@@ -96,11 +130,21 @@ public class RecordTest {
         rec2.setHier32Id(new BigInteger("0987654321"));
         assertFalse(rec1.equals(rec2));
     }
+    @Test
+    public void equalsFalseTest_Hier32IdNull() {
+        rec2.setHier32Id(null);
+        assertFalse(rec2.equals(rec1));
+    }
     
     @Test
     public void equalsFalseTest_Hier3Id() {
         rec2.setHier3Id(new BigInteger("0987654321"));
         assertFalse(rec1.equals(rec2));
+    }
+    @Test
+    public void equalsFalseTest_Hier3IdNull() {
+        rec2.setHier3Id(null);
+        assertFalse(rec2.equals(rec1));
     }
     
     @Test
@@ -108,11 +152,21 @@ public class RecordTest {
         rec2.setImsi(new BigInteger("0987654321"));
         assertFalse(rec1.equals(rec2));
     }
+    @Test
+    public void equalsFalseTest_ImsiNull() {
+        rec2.setImsi(null);
+        assertFalse(rec2.equals(rec1));
+    }
     
     @Test
     public void equalsFalseTest_Mcc() {
         rec2.setMcc(1);
         assertFalse(rec1.equals(rec2));
+    }
+    @Test
+    public void equalsFalseTest_MccNull() {
+        rec2.setMcc(null);
+        assertFalse(rec2.equals(rec1));
     }
     
     @Test
@@ -120,17 +174,32 @@ public class RecordTest {
         rec2.setMnc(1);
         assertFalse(rec1.equals(rec2));
     }
+    @Test
+    public void equalsFalseTest_MncNull() {
+        rec2.setMnc(null);
+        assertFalse(rec2.equals(rec1));
+    }
     
     @Test
     public void equalsFalseTest_UserEquipment() {
         rec2.setUserEquipment(1);
         assertFalse(rec1.equals(rec2));
     }
-    
+    @Test
+    public void equalsFalseTest_UserEquipmentNull() {
+        rec2.setUserEquipment(null);
+        assertFalse(rec2.equals(rec1));
+    }
+
     @Test
     public void equalsFalseTest_NeV() {
         rec2.setNeVersion("1");
         assertFalse(rec1.equals(rec2));
+    }
+    @Test
+    public void equalsFalseTest_NeVNull() {
+        rec2.setNeVersion(null);
+        assertFalse(rec2.equals(rec1));
     }
     
     @Test

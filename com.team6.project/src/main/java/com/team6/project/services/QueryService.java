@@ -76,7 +76,7 @@ public class QueryService implements QueryServiceLocal {
 	}
 
 	@Override
-	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate) {
+	public Collection<Object[]> findImsiByDate(Date firstDate, Date secondDate) {
 
 		return baseData.findImsiByDate(firstDate, secondDate);
 	}

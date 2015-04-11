@@ -28,6 +28,7 @@ import com.team6.project.entities.UserEquipment;
 /**
  * @author James Mc Ternan
  * @Author Eoin Kernan
+ * @author Cristiana
  * @author Sabee D14125306
  *
  */
@@ -142,10 +143,10 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate) {
+	public Collection<Object[]> findImsiByDate(Date firstDate, Date secondDate) {
 		Query q = em.createNamedQuery("getImsiByDate");
 		q.setParameter("firstDate", firstDate).setParameter("secondDate", secondDate);
-        List<BaseData> result = q.getResultList();	
+        List<Object[]> result = q.getResultList();	
     	return result;
 	}
     

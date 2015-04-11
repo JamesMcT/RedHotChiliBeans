@@ -43,17 +43,9 @@
 <script>
 	//rework this
 	function getImsiByDate() {
-
-		var date = new Date();
-
-		var picker = $('#datetimepicker').data('datetimepicker');
-		date = picker.getDate();
-
-		var fromDate = date.valueOf();
-
-		var picker2 = $('#datetimepicker2').data('datetimepicker');
-		date = picker2.getDate();
-		var toDate = date.valueOf();
+		var dates = getDatesFromDatePicker();
+		var fromDate = dates[0];
+		var toDate = dates[1];
 
 		if (fromDate && toDate) {
 			var xhr = new XMLHttpRequest();
@@ -63,12 +55,25 @@
 			xhr.addEventListener('load', function() {
 				if (xhr.status == 200) {
 					cleanTable();
+					cleanError();
 					response = JSON.parse(xhr.responseText);
-					createTableHead("ImsiFailureTable", [ "Imsi", "Date", "Failure Type" ]);
-					createTableBody("ImsiFailureTable",response);
+					createTableHead("ImsiFailureTable", [ "Imsi", "Failure Type",
+							"Occurrence" ]);
+					createTableBody("ImsiFailureTable", response);
+				} else {
+					cleanTable();
+					cleanError();
+					var message = 'Error ' + xhr.status + ': '
+							+ xhr.responseText;
+					showError(message);
 				}
 			}, false);
 			xhr.send();
+		} else {
+			cleanTable();
+			cleanError();
+			var message = 'Error : Please select a value for both dates';
+			showError(message);
 		}
 	}
 
@@ -77,7 +82,9 @@
 		var tbody = document.createElement("tbody");
 		tbody.id = "tableBody";
 		for (var i = 0; i < response.length; i++) {
-			var baseData = response[i];
+			var imsi = response[i][0];
+			var failure = response[i][1];
+			var occurrence = response[i][2];
 			var tr = document.createElement("tr");
 			if (i % 2) {
 				tr.className = "even gradeA";
@@ -87,12 +94,11 @@
 			var td1 = document.createElement("td");
 			var td2 = document.createElement("td");
 			var td3 = document.createElement("td");
-			td1.appendChild(document.createTextNode(baseData.imsi));
+			td1.appendChild(document.createTextNode(imsi));
 			tr.appendChild(td1);
-			td2.appendChild(document.createTextNode(Date(baseData.date)));
+			td2.appendChild(document.createTextNode(failure.descrption));
 			tr.appendChild(td2);
-			var failure = baseData.failure
-			td3.appendChild(document.createTextNode(failure.descrption));
+			td3.appendChild(document.createTextNode(occurrence));
 			tr.appendChild(td3);
 			tbody.appendChild(tr);
 		}
@@ -171,6 +177,7 @@
 						<div class="panel-heading">Imsi affected by call failures</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
+								<div id="errorDiv"></div>
 								<table class="table table-striped table-bordered table-hover"
 									id="ImsiFailureTable">
 								</table>

@@ -33,8 +33,9 @@ public class UserManagementRestServiceTest extends RestTest {
     @Test
     public void testGetAllUser() {
 
-        given().auth().form("admin", "admin", fac).filter(sessionFilter)
-                .expect().statusCode(200).contentType(ContentType.JSON).when()
+        given().auth().form("admin", "admin", fac)
+                .filter(sessionFilter).expect()
+                .statusCode(200).contentType(ContentType.JSON).when()
                 .get("/protected/rest/usermanagement/all");
 
     }
@@ -86,20 +87,40 @@ public class UserManagementRestServiceTest extends RestTest {
 
         given().auth().form("admin", "admin", fac).filter(sessionFilter)
                 .contentType(ContentType.JSON).body(myJson).expect()
-                .statusCode(200).when().with()
-                .header("Origin", "")
+                .statusCode(200).when().with().header("Origin", "")
                 .post("/protected/rest/usermanagement/add");
 
     }
     
+    @Test
+    public void testAddNewUser_AlreadyExists() {
+        String myJson = "{\"userId\":\"admin\",\"password\":\"password\",\"role\":\"administrator\"}";
+
+        given().auth().form("admin", "admin", fac).filter(sessionFilter)
+                .contentType(ContentType.JSON).body(myJson).expect()
+                .statusCode(400).when().with().header("Origin", "")
+                .post("/protected/rest/usermanagement/add");
+
+    }
+
     @Test
     public void testChangeNewUser() {
         String myJson = "{\"userId\":\"cusSer\",\"password\":\"cusSer\",\"role\":\"Support Engineer\"}";
 
         given().auth().form("admin", "admin", fac).filter(sessionFilter)
                 .contentType(ContentType.JSON).body(myJson).expect()
-                .statusCode(200).when().with()
-                .header("Origin", "")
+                .statusCode(200).when().with().header("Origin", "")
+                .post("/protected/rest/usermanagement/update");
+
+    }
+    
+    @Test
+    public void testChangeNewUser_NofFound() {
+        String myJson = "{\"userId\":\"cusSer234\",\"password\":\"cusSer\",\"role\":\"Support Engineer\"}";
+
+        given().auth().form("admin", "admin", fac).filter(sessionFilter)
+                .contentType(ContentType.JSON).body(myJson).expect()
+                .statusCode(404).when().with().header("Origin", "")
                 .post("/protected/rest/usermanagement/update");
 
     }

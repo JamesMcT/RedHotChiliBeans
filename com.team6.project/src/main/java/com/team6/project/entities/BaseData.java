@@ -31,48 +31,29 @@ import javax.persistence.NamedQuery;
  * failureCountAndDurationPerImsiByDate
  * 
  * 
- * @author Cristiana BaseData table
- * @author James NamedQueries BaseData table
+ * @author Cristiana
+ * @author James 
  * @author Sabee
  * @author John O Keeffe
  */
 @NamedQueries({
 		@NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi"),
-		@NamedQuery(name = "imsiByFailureCode", query = "SELECT b.imsi, b.date, b.failure FROM BaseData b WHERE b.failure.failureCode = :failureCode"),
+		@NamedQuery(name = "imsiByFailureCode", query = "SELECT b.imsi, b.date FROM BaseData b WHERE b.failure.failureCode = :failureCode group by b.imsi, b.date"),
 
 		@NamedQuery(name = "baseDataCount", query = "SELECT COUNT(b.id) FROM BaseData b"),
 		//@NamedQuery(name = "getImsiByDate", query = "SELECT distinct(b.imsi) from BaseData b where b.date between :firstDate and :secondDate"),
-		@NamedQuery(name = "getImsiByDate", query = "SELECT distinct(b) from BaseData b where b.date between :firstDate and :secondDate  group by b.date, b.imsi ORDER BY b.date DESC"),
+		@NamedQuery(name = "getImsiByDate", query = "SELECT b.imsi, b.failure, count(b.imsi) from BaseData b where b.date between :firstDate and :secondDate  group by b.imsi, b.failure ORDER BY count(b.imsi) DESC"),
 		@NamedQuery(name = "eventCauseAndIdByTac", query = "SELECT b.eventCause, COUNT(b) FROM BaseData b where b.userEquipment.tac=:userEquipment GROUP BY b.eventCause"),
 		@NamedQuery(name = "getAllImsi", query = "SELECT distinct(b.imsi) FROM BaseData b"),	// Query needed for performance tests.		
 		@NamedQuery(name = "countCallFailureByTac", query = "select count(b) from BaseData b where b.userEquipment.tac = :tac and b.date >= :fromDate and b.date <= :toDate"),
-		@NamedQuery(name = "getTOP10MarketOperatorCellByDate", query = "select b, count(b) from BaseData b where b.date >= :fromDate and b.date <= :toDate group by b.operatorCountry.mcc, b.operatorCountry.mnc, b.cellId order by count(b) desc" ),				
+		@NamedQuery(name = "getTOP10MarketOperatorCellByDate", query = "select b.operatorCountry, b.cellId, count(b) from BaseData b where b.date >= :fromDate and b.date <= :toDate group by b.operatorCountry.mcc, b.operatorCountry.mnc, b.cellId order by count(b) desc" ),				
 		@NamedQuery(name = "getUniqueEventCauseByImsi", query ="SELECT b.eventCause, COUNT(b) FROM BaseData b where b.imsi = :imsi GROUP BY b.eventCause"),
-
 		@NamedQuery(name = "failureCountAndDurationPerImsiByDate", query = "SELECT b.imsi, COUNT(b.id), SUM(b.duration) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC"),
-		@NamedQuery(name = "topTenFailuresByDate", query = "SELECT b, COUNT(b.id) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC")
+		@NamedQuery(name = "topTenFailuresByDate", query = "SELECT b.imsi, COUNT(b.id) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC")
 
 })
 @Entity
 public class BaseData implements Serializable {
-
-	/**
-	 * Gets the id of the BaseData table as an Integer
-	 * 
-	 * @return id
-	 */
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	 * Sets the id of the BaseData table as an Integer
-	 * 
-	 * @param id
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -209,6 +190,24 @@ public class BaseData implements Serializable {
 			return false;
 		return true;
 	}
+	/**
+     * Gets the id of the BaseData table as an Integer
+     * 
+     * @return id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * Sets the id of the BaseData table as an Integer
+     * 
+     * @param id
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 
 	/**
 	 * Gets the date from the BaseData entity as a Date object.

@@ -1,4 +1,83 @@
-MSC service thread 1-3 INFO  services.DataImportService - atStartUp() running...
-MSC service thread 1-3 INFO  services.DataImportService - Readers Intialized...
-MSC service thread 1-3 INFO  services.DataImportService - startDirectoryWatcher() watching...
-Thread-70 INFOmain INFO  jmx.ArquillianServiceDeployer - Undeploy arquillian service: arquillian-service: 1069 assets
+MSC service thread 1-7 INFO  services.DataImportService - atStartUp() running...
+MSC service thread 1-7 INFO  services.DataImportService - Readers Intialized...
+MSC service thread 1-7 INFO  services.DataImportService - startDirectoryWatcher() watching...
+Thread-70 INFOmain WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [1499:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [1681:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [1817:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [1824:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [1831:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [2065:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [2276:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [2487:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [2824:15] Error in @media rule. (Invalid token "and". Was expecting one of: <S>, <LBRACE>, <COMMA>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS warning: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [2824:15] Ignoring the whole rule.
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [2977:15] Error in @media rule. (Invalid token "and". Was expecting one of: <S>, <LBRACE>, <COMMA>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS warning: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [2977:15] Ignoring the whole rule.
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [3266:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [3338:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [3351:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [3358:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [3761:15] Error in expression; ':' found after identifier "progid".
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [3817:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4243:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4264:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4320:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4345:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4380:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4387:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4408:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4439:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4451:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4464:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4478:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4512:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4547:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4564:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4590:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4619:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4676:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4687:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4735:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4744:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4818:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [4918:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [5270:15] Error in @media rule. (Invalid token "and". Was expecting one of: <S>, <LBRACE>, <COMMA>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS warning: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [5270:15] Ignoring the whole rule.
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6262:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6279:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6567:12] Error in @media rule. (Invalid token "and". Was expecting one of: <S>, <LBRACE>, <COMMA>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS warning: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6567:12] Ignoring the whole rule.
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6651:15] Error in expression; ':' found after identifier "progid".
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6662:15] Error in expression; ':' found after identifier "progid".
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6756:15] Error in @media rule. (Invalid token "and". Was expecting one of: <S>, <LBRACE>, <COMMA>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS warning: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6756:15] Ignoring the whole rule.
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6848:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6867:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6874:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6881:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6888:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6907:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6914:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6921:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6928:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6947:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6954:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6961:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6968:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6987:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [6994:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [7001:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [7008:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [7015:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [7022:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [7029:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/sb-admin-2.css' [26:7] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/sb-admin-2.css' [135:7] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 4 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 5 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 6 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 7 primary key not valued properly
+main WARN  readers.Reader - In sheet UE Table row number 3 primary key not valued properly
+main WARN  readers.Reader - In sheet UE Table row number 4 primary key not valued properly
+main WARN  readers.Reader - In sheet Failure Class Table row number 7 primary key not valued properly
+main INFO  jmx.ArquillianServiceDeployer - Undeploy arquillian service: arquillian-service: 1069 assets

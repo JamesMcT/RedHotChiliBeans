@@ -19,8 +19,8 @@
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
 		var userRole = document.getElementById("userRole").value;
-		hideDiv("div6");
-		hideDiv("div7");
+		hideDiv("divSuccess");
+		hideDiv("divError");
 		if (username && password && userRole) {
 			var u = {};
 			u.userId = username;
@@ -37,14 +37,14 @@
 								if (xhr.status == 200) {
 									//var response = JSON.parse(xhr.responseText);
 									//if (response.description) {
-										showDivInLine("div6");
+										showDivInLine("divSuccess");
 										
 									//} else {
 										
 									//}
 								}else{
-									document.getElementById("div7").innerHTML = ("Error! - " + xhr.responseText);
-									showDivInLine("div7");
+									document.getElementById("divError").innerHTML = ("Error! - " + xhr.responseText);
+									showDivInLine("divError");
 								}
 							}, false);
 			xhr.send(JSON.stringify(u));
@@ -59,8 +59,8 @@
 	}
 	function startup() {
 		loadbar('../sidebar.jsp');
-		hideDiv("div6");
-		hideDiv("div7");
+		hideDiv("divSuccess");
+		hideDiv("divError");
 	}
 </script>
 <head>
@@ -96,9 +96,9 @@
 							<br> <input type='button' class="btn btn-default"
 								onclick="addUser()" value="submit" />
 						</div>
-						<div id="div6" class="success" style="display: none;">New
+						<div id="divSuccess" class="success" style="display: none;">New
 							user inserted with success!</div>
-						<div id="div7" class="error" style="display: none;"></div>
+						<div id="divError" class="error" style="display: none;"></div>
 					</div>
 				</div>
 				<!-- /.col-lg-12 -->

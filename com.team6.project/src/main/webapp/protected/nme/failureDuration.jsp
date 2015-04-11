@@ -12,75 +12,68 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Adding CSS -->
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
-<link href="../../css/bootstrap-combined.min.cristiana.css"
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap-combined.min.cristiana.css"
 	rel="stylesheet">
-<link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="../../css/dataTables.responsive.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/dataTables.responsive.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
-	href="../../css/bootstrap-datetimepicker.min.css">
+	href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
+
+<!-- jQuery -->
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<!-- Adding functions -->
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 <!-- Adding functions -->
-<script src="../../js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
+
 <script type="text/javascript"
-	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript"
-	src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript"
-	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
+src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
+</script>
 
 
 
 <script>
-	function getFailureData() {
-		console.log("Search Clicked!!")
-		var date = new Date();
-
-		var picker = $('#datetimepicker').data('datetimepicker');
-		date = picker.getDate();
-
-		var startDate = date.valueOf()
-
-		var picker2 = $('#datetimepicker2').data('datetimepicker');
-		date = picker2.getDate();
-
-		var endDate = date.valueOf();
-
-// 				if (document.getElementById("validationEnabled").checked) {
-// 					if (!validateDate(startDate, "Invalid start date")
-// 							|| !validateDate(endDate, "Invalid end date")) {
-// 						return false;
-// 					}
-// 				}
-
-		var xhr = new XMLHttpRequest();
-		var root = "${pageContext.servletContext.contextPath}";
-		xhr
-				.open(
-						"GET",
-						root
-								+ "/protected/rest/networkmanagement/failurecountandduration?startDate="
-								+ startDate + "&endDate=" + endDate, true);
-				
-		xhr.addEventListener('load', function() {
-			if (xhr.status == 200) {
-				cleanTable();
-				var response = JSON.parse(xhr.responseText);
-				console.log("Got here");
-				createTableHead();
-				createTableBody(response);
-			} else {
-				//bad request, dates could not be parsed. Or no results
-				console.log("Bad Request dates could not be parsed.. ")
-				cleanTable();
-				var message = 'Error ' + xhr.status + ': ' + xhr.responseText;
-				showError(message);
-			}
-		}, false);
-		xhr.send();
+function getFailureData() {
+	var dates = getDatesFromDatePicker();
+	var startDate = dates[0];
+	var endDate = dates[1];
+	if (startDate && endDate) {
+	var xhr = new XMLHttpRequest();
+	var root = "${pageContext.servletContext.contextPath}";
+	xhr
+			.open(
+					"GET",
+					root
+							+ "/protected/rest/networkmanagement/failurecountandduration?startDate="
+							+ startDate + "&endDate=" + endDate, true);
+			
+	xhr.addEventListener('load', function() {
+		if (xhr.status == 200) {
+			cleanTable();
+			cleanError();
+			var response = JSON.parse(xhr.responseText);
+			console.log("Got here");
+			createTableHead("failureDurationTable",["IMSI","Failure Count","Total Duration"]);
+			createTableBody(response);
+		} else {
+			cleanTable();
+			cleanError();
+			var message = 'Error ' + xhr.status + ': ' + xhr.responseText;
+			showError(message);
+		}
+	}, false);
+	xhr.send();
 	}
+	else{
+		cleanTable();
+		cleanError();
+		var message = 'Error : Please select a value for both dates';
+		showError(message);
+	}
+}
+
 
 	function validateDate(dateString, errorMessage) {
 		//yyyy-mm-dd hh-mm-ss
@@ -91,30 +84,6 @@
 			showError(errorMessage + ": " + dateString);
 			return false;
 		}
-	}
-
-	function showError(message) {
-		var errorDiv = document.getElementById("errorDiv");
-		errorDiv.innerHTML = message;
-	}
-
-	function createTableHead() {
-		console.log("Create Table Head Entered..")
-		var table = document.getElementById("failureDurationTable");
-		var thead = document.createElement("thead");
-		thead.id = "tableHead";
-		var tr = document.createElement("tr");
-		var th1 = document.createElement("th");
-		th1.appendChild(document.createTextNode("IMSI"));
-		var th2 = document.createElement("th");
-		th2.appendChild(document.createTextNode("Failure Count"));
-		var th3 = document.createElement("th");
-		th3.appendChild(document.createTextNode("Total Duration"));
-		tr.appendChild(th1);
-		tr.appendChild(th2);
-		tr.appendChild(th3);
-		thead.appendChild(tr);
-		table.appendChild(thead);
 	}
 
 	function createTableBody(response) {
@@ -149,22 +118,6 @@
 		table.appendChild(tbody);
 	}
 
-	function cleanTable() {
-		var tableBody = document.getElementById("tableBody");
-		var tableHead = document.getElementById("tableHead");
-
-		var errorDiv = document.getElementById("errorDiv");
-		errorDiv.innerHTML = '';
-
-		if (tableHead) {
-			console.log("removing head");
-			tableHead.parentNode.removeChild(tableHead);
-		}
-		if (tableBody) {
-			console.log("removing body");
-			tableBody.parentNode.removeChild(tableBody);
-		}
-	}
 
 	function startup() {
 		loadbar('../sidebar.jsp');
@@ -205,7 +158,7 @@
 							language : 'en'
 						});
 						$('#datetimepicker').data('datetimepicker')
-								.setLocalDate(new Date(2013, 0, 11, 17, 15));
+								.setLocalDate(new Date(2013, 1, 20, 17, 15));
 					</script>
 
 
@@ -215,7 +168,7 @@
 							language : 'en'
 						});
 						$('#datetimepicker2').data('datetimepicker')
-								.setLocalDate(new Date(2013, 0, 11, 17, 20));
+								.setLocalDate(new Date(2013, 1, 20, 17, 20));
 					</script>
 
 					<br> <input id=button1 type='button' class="btn btn-default"

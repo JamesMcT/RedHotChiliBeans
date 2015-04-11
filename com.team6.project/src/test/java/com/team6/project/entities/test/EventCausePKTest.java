@@ -26,18 +26,21 @@ public class EventCausePKTest {
     @Test
     public void equalsTrueTest() {
         EventCausePK ecOther = new EventCausePK(1, 2);
+        assertTrue(ecPK.hashCode() == ecOther.hashCode());
         assertTrue(ecPK.equals(ecOther));
     }
 
     @Test
     public void equalsFalseTest_EventId() {
         EventCausePK ecOther = new EventCausePK(null, 2);
+        assertFalse(ecPK.hashCode() == ecOther.hashCode());
         assertFalse(ecPK.equals(ecOther));
     }
 
     @Test
     public void equalsFalseTest_CauseCode() {
         EventCausePK ecOther = new EventCausePK(1, null);
+        assertFalse(ecPK.hashCode() == ecOther.hashCode());
         assertFalse(ecPK.equals(ecOther));
     }
 
