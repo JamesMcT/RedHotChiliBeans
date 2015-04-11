@@ -30,10 +30,16 @@
 	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript"
 	src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js"></script>
+<script src="../../js/jquery.dataTables.min.js"></script>
+<script src="../../js/dataTables.bootstrap.min.js"></script>
 
 
 
 <script>
+
+var response;
+var t;
+
 	function getFailureData() {
 		console.log("Search Clicked!!")
 		var date = new Date();
@@ -67,10 +73,15 @@
 		xhr.addEventListener('load', function() {
 			if (xhr.status == 200) {
 				cleanTable();
-				var response = JSON.parse(xhr.responseText);
+				response = JSON.parse(xhr.responseText);
+				formatTable();
+// 				populateTable();
 				console.log("Got here");
-				createTableHead();
-				createTableBody(response);
+				
+				//createTableHead();
+//				createTableBody(response);
+//				reloadTable();
+				//t.draw();
 			} else {
 				//bad request, dates could not be parsed. Or no results
 				console.log("Bad Request dates could not be parsed.. ")
@@ -174,7 +185,7 @@
 </head>
 
 <body onload="startup()">
-
+	
 	<div id="wrapper">
 
 		<!-- Navigation -->
@@ -245,5 +256,101 @@
 
 	<!-- /#wrapper -->
 </body>
+
+
+
+<!-- 		var table = document.getElementById("failureDurationTable"); -->
+<!-- 		var thead = document.createElement("thead"); -->
+<!-- 		thead.id = "tableHead"; -->
+<!-- 		var tr = document.createElement("tr"); -->
+<!-- 		var th1 = document.createElement("th"); -->
+<!-- 		th1.appendChild(document.createTextNode("IMSI")); -->
+<!-- 		var th2 = document.createElement("th"); -->
+<!-- 		th2.appendChild(document.createTextNode("Failure Count")); -->
+<!-- 		var th3 = document.createElement("th"); -->
+<!-- 		th3.appendChild(document.createTextNode("Total Duration")); -->
+
+
+	<script>
+// 	$(document).ready(function() {	
+// 		$('#failureDurationTable').DataTable({
+//  	        "aaData": response,
+// 	        "columns": [
+// 	            { "title": "IMSI" },
+// 	            { "title": "FAILURE COUNT" },
+// 	            { "title": "DURATION" }],
+// 	        "bScrollInfinite": true,
+// 	        "bScrollCollapse": true,
+// 	        "sScrollY": "200px"
+// 	});
+// 	});
+
+	 	$(document).ready(function() {	
+		//t = $dataTable = $('#failureDurationTable').DataTable({
+			t = $dataTable = $('#failureDurationTable').DataTable({
+				"bScrollInfinite": true,
+        		"bScrollCollapse": true,
+       			"scrollY": "200px",
+				"aaData": response,
+		        "columns": [
+		            { "title": "IMSI" },
+		            { "title": "FAILURE COUNT" },
+		            { "title": "DURATION" }],
+// 		            "bDeferRender": true,
+ 		         "bProcessing" : true,
+
+// 				responsive : true,
+ 				"ordering" : false,
+// 				"info" : false,
+ 				"searching" : false,
+
+ 
+		});
+		
+
+			
+ 		
+		});
+	
+	function formatTable(){
+	     if (t) {
+     t.destroy();
+ 			}
+ //		$(document).ready(function() {	
+		//t = $dataTable = $('#failureDurationTable').DataTable({
+			t = $dataTable = $('#failureDurationTable').DataTable({
+				//"paging" : false,
+// 				"bScrollInfinite": true,
+//         		"bScrollCollapse": true,
+       			"scrollY": "200px",
+				"aaData": response,
+		        "columns": [
+		            { "title": "IMSI" },
+		            { "title": "FAILURE COUNT" },
+		            { "title": "DURATION" }],
+// 		            "bDeferRender": true,
+ 		         "bProcessing" : true,
+
+// 				responsive : true,
+ 				"ordering" : false,
+// 				"info" : false,
+ 				"searching" : false,
+// 				// 			      "scrollY":        "200px",
+// 				"scrollCollapse" : true,
+ //				"paging" : false
+ 
+//		});
+		
+// 		        $("#button1").click(function(){
+// 		        	t.draw();
+// 		            t.fnReloadAjax("process.php?txtId=" + $("txtId").val());
+// 		        });
+			
+ 		
+		});
+	}
+
+
+	</script>
 
 </html>
