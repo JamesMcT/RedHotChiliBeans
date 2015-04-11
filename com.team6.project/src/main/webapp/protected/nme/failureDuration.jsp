@@ -218,8 +218,6 @@ var t;
 						$('#datetimepicker').data('datetimepicker')
 								.setLocalDate(new Date(2013, 0, 11, 17, 15));
 					</script>
-
-
 					<script type="text/javascript">
 						$('#datetimepicker2').datetimepicker({
 							format : 'yyyy-MM-dd hh:mm:ss',
@@ -248,8 +246,6 @@ var t;
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 
 	</div>
@@ -257,94 +253,49 @@ var t;
 	<!-- /#wrapper -->
 </body>
 
-
-
-<!-- 		var table = document.getElementById("failureDurationTable"); -->
-<!-- 		var thead = document.createElement("thead"); -->
-<!-- 		thead.id = "tableHead"; -->
-<!-- 		var tr = document.createElement("tr"); -->
-<!-- 		var th1 = document.createElement("th"); -->
-<!-- 		th1.appendChild(document.createTextNode("IMSI")); -->
-<!-- 		var th2 = document.createElement("th"); -->
-<!-- 		th2.appendChild(document.createTextNode("Failure Count")); -->
-<!-- 		var th3 = document.createElement("th"); -->
-<!-- 		th3.appendChild(document.createTextNode("Total Duration")); -->
-
-
 	<script>
-// 	$(document).ready(function() {	
-// 		$('#failureDurationTable').DataTable({
-//  	        "aaData": response,
-// 	        "columns": [
-// 	            { "title": "IMSI" },
-// 	            { "title": "FAILURE COUNT" },
-// 	            { "title": "DURATION" }],
-// 	        "bScrollInfinite": true,
-// 	        "bScrollCollapse": true,
-// 	        "sScrollY": "200px"
-// 	});
-// 	});
 
 	 	$(document).ready(function() {	
-		//t = $dataTable = $('#failureDurationTable').DataTable({
 			t = $dataTable = $('#failureDurationTable').DataTable({
-				"bScrollInfinite": true,
-        		"bScrollCollapse": true,
-       			"scrollY": "200px",
+
+				"paging" : true,
+				"scrollCollapse": true,
 				"aaData": response,
 		        "columns": [
 		            { "title": "IMSI" },
 		            { "title": "FAILURE COUNT" },
 		            { "title": "DURATION" }],
-// 		            "bDeferRender": true,
  		         "bProcessing" : true,
 
-// 				responsive : true,
+ 				"responsive" : true,
  				"ordering" : false,
-// 				"info" : false,
  				"searching" : false,
 
  
 		});
 		
-
-			
- 		
 		});
 	
 	function formatTable(){
 	     if (t) {
      t.destroy();
  			}
- //		$(document).ready(function() {	
-		//t = $dataTable = $('#failureDurationTable').DataTable({
 			t = $dataTable = $('#failureDurationTable').DataTable({
-				//"paging" : false,
-// 				"bScrollInfinite": true,
-//         		"bScrollCollapse": true,
-       			"scrollY": "200px",
+				"paging" : true,
+         		"scrollCollapse": true,
 				"aaData": response,
 		        "columns": [
 		            { "title": "IMSI" },
 		            { "title": "FAILURE COUNT" },
 		            { "title": "DURATION" }],
-// 		            "bDeferRender": true,
  		         "bProcessing" : true,
 
-// 				responsive : true,
- 				"ordering" : false,
-// 				"info" : false,
+ 				"responsive" : true,
+ 				"ordering" : true,
  				"searching" : false,
-// 				// 			      "scrollY":        "200px",
-// 				"scrollCollapse" : true,
- //				"paging" : false
  
 //		});
 		
-// 		        $("#button1").click(function(){
-// 		        	t.draw();
-// 		            t.fnReloadAjax("process.php?txtId=" + $("txtId").val());
-// 		        });
 			
  		
 		});
