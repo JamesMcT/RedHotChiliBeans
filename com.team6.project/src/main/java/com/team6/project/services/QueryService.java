@@ -8,10 +8,12 @@ import javax.ejb.Local;
 import javax.inject.Inject;
 
 import com.team6.project.dao.BaseDataDAO;
+import com.team6.project.dao.FailureTypeDAO;
 import com.team6.project.dao.UserDAO;
 import com.team6.project.dao.UserEquipmentDAO;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
+import com.team6.project.entities.FailureType;
 import com.team6.project.entities.User;
 import com.team6.project.entities.UserEquipment;
 
@@ -28,6 +30,8 @@ public class QueryService implements QueryServiceLocal {
 	@Inject
 	private UserEquipmentDAO userEquipment;
 
+	@Inject
+	private FailureTypeDAO failureType;
 	/**
 	 * 
 	 */
@@ -105,8 +109,13 @@ public class QueryService implements QueryServiceLocal {
 	}
 
 	@Override
-	public Collection<BaseData> getImsiByFailureCode(Integer fc) {
+	public Collection<Object[]> getImsiByFailureCode(Integer fc) {
 
 		return baseData.getImsiByFailureCode(fc);
+	}
+	
+	
+	public Collection<FailureType> getAllFailureTypes() {
+		return failureType.getAllFailureTypes();
 	}
 }

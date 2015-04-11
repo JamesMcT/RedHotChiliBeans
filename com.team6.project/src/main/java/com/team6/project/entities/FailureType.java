@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.NamedQuery;
+
 /**
  * This class creates an Entity called FailureType which implements
  * Serializable.
@@ -14,6 +16,7 @@ import javax.persistence.Id;
  * 
  * @author Cristiana
  */
+@NamedQuery(name = "allFailureTypes", query = "from FailureType")
 @Entity
 public class FailureType implements Serializable {
 

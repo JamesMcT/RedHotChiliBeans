@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.team6.project.dao.jpa.JPABaseDataDAO;
 import com.team6.project.entities.BaseData;
+import com.team6.project.entities.FailureType;
 import com.team6.project.services.QueryServiceLocal;
 
 /**
@@ -70,11 +71,21 @@ public class SupportEngineerRestService {
 	@GET
 	@Path("/failurecode")
 	@Produces(MediaType.APPLICATION_JSON)
-	  public Collection<BaseData>  getImsiByFailureCode(@QueryParam("failureCode") Integer failureCode) {
+	  public Collection<Object[]>  getImsiByFailureCode(@QueryParam("failureCode") Integer failureCode) {
 
 		
 
 		return queryService.getImsiByFailureCode(failureCode);
 	}
+	  
+	  @GET
+		@Path("/failuretype")
+		@Produces(MediaType.APPLICATION_JSON)
+		  public Collection<FailureType>  getAllFailureTypes() {
+
+			
+
+			return queryService.getAllFailureTypes();
+		} 
 
 }
