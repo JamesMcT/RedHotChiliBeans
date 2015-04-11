@@ -12,13 +12,13 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Adding CSS -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
-<link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="../../css/dataTables.responsive.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/dataTables.responsive.css" rel="stylesheet">
 
 <!-- Adding functions -->
-<script src="../../js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
 
 <script>
 	function getAllTacs() {

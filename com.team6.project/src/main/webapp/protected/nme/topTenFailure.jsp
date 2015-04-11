@@ -11,13 +11,19 @@
 
 <title>Red Hot Chilli Beans</title>
 
-<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/bootstrap-combined.min.cristiana.css"
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css"
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/dataTables.responsive.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/bootstrap-combined.min.cristiana.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.responsive.css"
+	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
-href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
+	href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
 
 <!-- jQuery -->
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
@@ -29,10 +35,10 @@ href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
 <script src="${pageContext.request.contextPath}/js/common.js"></script>
 
 <script type="text/javascript"
-src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
+	src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
+	
 </script>
 <script>
-
 	function getFailureData() {
 
 		var date = new Date();
@@ -42,64 +48,62 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 		var picker2 = $('#datetimepicker2').data('datetimepicker');
 		date = picker2.getDate();
 		var endDate = date.valueOf();
-		
 
-	
-		
-		var xhr = new XMLHttpRequest();
-		var root = "${pageContext.servletContext.contextPath}";
-		xhr.open("GET", root
-				+ "/protected/rest/networkmanagement/toptenimsifailures?start="+startDate+"&end="+endDate,
-				true);
-		xhr.addEventListener('load', function() {
-			if (xhr.status == 200) {
-				cleanTable();
-				var response = JSON.parse(xhr.responseText);
-				createTableHead("failureDurationTable", ["IMSI","Failure Count"]);
-				createTableBody(response);
-			}
-			else{
-				//bad request, dates could not be parsed. Or no results
-				cleanTable();
-				var message = 'Error '+xhr.status+': ' + xhr.responseText;
-				showError(message);
-			}
-		}, false);
-		xhr.send();
-	}
-
-	
-	
-	function showError(message){
-		var errorDiv = document.getElementById("errorDiv");
-		errorDiv.innerHTML = message;
+		if (startDate && endDate) {
+			var xhr = new XMLHttpRequest();
+			var root = "${pageContext.servletContext.contextPath}";
+			xhr
+					.open(
+							"GET",
+							root
+									+ "/protected/rest/networkmanagement/toptenimsifailures?start="
+									+ startDate + "&end=" + endDate, true);
+			xhr.addEventListener('load', function() {
+				if (xhr.status == 200) {
+					cleanTable();
+					cleanError();
+					var response = JSON.parse(xhr.responseText);
+					createTableHead("failureDurationTable", [ "IMSI",
+							"Failure Count" ]);
+					createTableBody(response);
+				} else {
+					//bad request, dates could not be parsed. Or no results
+					cleanTable();
+					var message = 'Error ' + xhr.status + ': '
+							+ xhr.responseText;
+					showError(message);
+				}
+			}, false);
+			xhr.send();
+		} else {
+			alert("Please select a value for both dates");
+		}
 	}
 
 	function createTableBody(response) {
 		var table = document.getElementById("failureDurationTable");
 		var tbody = document.createElement("tbody");
 		var max = 10;
-		if(response.length < 10){
+		if (response.length < 10) {
 			max = response.length;
 		}
 		tbody.id = "tableBody";
 		for (var i = 0; i < max; i++) {
-			
+
 			var singleResponse = response[i];
 
 			var tr = document.createElement("tr");
-			
+
 			if (i % 2) {
 				tr.className = "even gradeA";
 			} else {
 				tr.className = "odd gradeA";
 			}
-			
+
 			var td1 = document.createElement("td");
 			td1.appendChild(document.createTextNode(singleResponse[0].imsi));
 			var td2 = document.createElement("td");
 			td2.appendChild(document.createTextNode(singleResponse[1]));
-
 
 			tr.appendChild(td1);
 			tr.appendChild(td2);
@@ -143,8 +147,8 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 									data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
 								</span>
 							</div>
-							
-									<script type="text/javascript">
+
+							<script type="text/javascript">
 								$('#datetimepicker').datetimepicker({
 									format : 'yyyy-MM-dd hh:mm:ss',
 									language : 'en'
@@ -164,11 +168,10 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 										.setLocalDate(
 												new Date(2013, 1, 19, 19, 40));
 							</script>
-							
-							
-							<br/> 
-							<input type='button' class="btn btn-default" onclick="getFailureData()"
-								value="show data" /> <br>
+
+
+							<br /> <input type='button' class="btn btn-default"
+								onclick="getFailureData()" value="show data" /> <br>
 						</div>
 						<!-- /#div1 -->
 					</div>
@@ -176,7 +179,8 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 				</div>
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Table: IMSI, failure count, total duration.</div>
+						<div class="panel-heading">Table: IMSI, failure count, total
+							duration.</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper" id="dataTableDiv">
 								<div id="errorDiv"></div>

@@ -12,56 +12,35 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Adding CSS -->
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
-<link href="../../css/bootstrap-combined.min.cristiana.css" rel="stylesheet">
-<link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="../../css/dataTables.responsive.css" rel="stylesheet">
-
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/bootstrap-combined.min.cristiana.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.responsive.css"
+	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
-	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+	href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
+
+<!-- jQuery -->
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 <!-- Adding functions -->
-<script src="../../js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
+
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
+</script>
 
 
 <script>
-	function getRecordsByTacPOST() {
-		var pickedTac = document.getElementById("tacs").value;
-		var fromDate = document.getElementById("fromDate").value;
-		var toDate = document.getElementById("toDate").value;
-		var picker = $('#datetimepicker').data('datetimepicker');
-		var picker2 = $('#datetimepicker2').data('datetimepicker');
-				
-		
-		if (pickedTac && fromDate && toDate) {
-
-			var reqParams = {};
-			reqParams.tac = pickedTac;
-			reqParams.fromDate = picker.getDate();
-			reqParams.toDate = tpicker2.getDate();
-
-			var xhr = new XMLHttpRequest();
-			var root = "${pageContext.servletContext.contextPath}";
-
-			var root2 = "/com.team6.project-0.0.1-SNAPSHOT";
-			xhr.open("POST", root + "/protected/rest/supportengineer/tac", false);
-			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.send(JSON.stringify(reqParams));
-			if (xhr.status == 200) {
-				var response = JSON.parse(xhr.responseText);
-				if (response.description) {
-
-					document.getElementById("searchResult").innerHTML = response.description;
-				} else {
-					alert("Status : " + response.status);
-				}
-			} else {
-				var response = xhr.response;
-				document.getElementById("mainPage").innerHTML = response;
-			}
-
-		}
-	}
 	
 function getRecordsByTac() {
 		var pickedTac = document.getElementById("tacs").value;
@@ -79,15 +58,18 @@ function getRecordsByTac() {
 		if (pickedTac && fromDate && toDate) {
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
-			xhr.open("GET", root + "/protected/rest/basedata/tac" + "?tac=" + pickedTac + "&fromDate=" + fromDate + "&toDate=" + toDate, true);
+			xhr.open("GET", root + "/protected/rest/supportengineer/tac" + "?tac=" + pickedTac + "&fromDate=" + fromDate + "&toDate=" + toDate, true);
 			xhr.addEventListener('load', function() {
 				if (xhr.status == 200) {
-					
 					var response = JSON.parse(xhr.responseText);
 					document.getElementById("searchResult").innerHTML = response;
+				}else{
+					document.getElementById("searchResult").innerHTML = 'Error ' + xhr.status + ': ' + xhr.responseText;
 				}
 			}, false);
 			xhr.send();
+		}else{
+			alert("Please select a value for both dates");
 		}
 	}
 	
@@ -136,8 +118,8 @@ function getRecordsByTac() {
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Tac Time Count</h1>
-					<p>Please give a tac and time period</p>
+					<h1 class="page-header">User Equipment Time Count</h1>
+					<p>Please select a user equipment code and a time period</p>
 					<div>
 						<div id="div1">
 							<div>
@@ -156,16 +138,6 @@ function getRecordsByTac() {
 									data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
 								</span>
 							</div>
-
-							<script type="text/javascript"
-								src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">								
-							</script>
-							<script type="text/javascript"
-								src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">								
-							</script>
-							<script type="text/javascript"
-								src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-							</script>	
 							
 							<script type="text/javascript">
 								$('#datetimepicker').datetimepicker({

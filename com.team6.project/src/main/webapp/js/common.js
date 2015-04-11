@@ -42,3 +42,13 @@ function cleanTable() {
 		tableBody.parentNode.removeChild(tableBody);
 	}
 }
+
+function showError(message) {
+	var errorDiv = document.getElementById("errorDiv");
+	errorDiv.innerHTML = message;
+}
+
+function cleanError() {
+	var errorDiv = document.getElementById("errorDiv");
+	errorDiv.innerHTML = "";
+}

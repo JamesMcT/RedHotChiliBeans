@@ -64,14 +64,24 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 			xhr.addEventListener('load', function() {
 				if (xhr.status == 200) {
 					cleanTable();
+					cleanError();
 					var response = JSON.parse(xhr.responseText);
-					//document.getElementById("searchResult").innerHTML = response;
-					createTableHead();
+					createTableHead("top_10_MOC_Table",["Market","Operator","Cell","Occurence"]);
 					createTableBody(response);
 					createBarChart(response);
+					showDiv("panelChart");
+				}
+				else{
+					cleanTable();
+					hideDiv("panelChart");
+					var message = 'Error ' + xhr.status + ': ' + xhr.responseText;
+					showError(message);
 				}
 			}, false);
 			xhr.send();
+		}
+		else{
+			alert("Please select a value for both dates");
 		}
 	}
 
@@ -130,26 +140,6 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 		  $.plot($('#flot-bar-chart'), barDataArray, barOptions);
 		}
 
-	function createTableHead() {
-		var table = document.getElementById("top_10_MOC_Table");
-		var thead = document.createElement("thead");
-		thead.id = "tableHead";
-		var tr = document.createElement("tr");
-		var th1 = document.createElement("th");
-		th1.appendChild(document.createTextNode("Market"));
-		var th2 = document.createElement("th");
-		th2.appendChild(document.createTextNode("Operator"));
-		var th3 = document.createElement("th");
-		th3.appendChild(document.createTextNode("Cell"));
-		var th4 = document.createElement("th");
-		th4.appendChild(document.createTextNode("Occurence"));
-		tr.appendChild(th1);
-		tr.appendChild(th2);
-		tr.appendChild(th3);
-		tr.appendChild(th4);
-		thead.appendChild(tr);
-		table.appendChild(thead);
-	}
 
 	function createTableBody(response) {
 		var table = document.getElementById("top_10_MOC_Table");
@@ -187,19 +177,6 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 			i += 1;
 		}
 		table.appendChild(tbody);
-	}
-
-	function cleanTable() {
-		var tableBody = document.getElementById("tableBody");
-		var tableHead = document.getElementById("tableHead");
-		if (tableHead) {
-			console.log("removing head");
-			tableHead.parentNode.removeChild(tableHead);
-		}
-		if (tableBody) {
-			console.log("removing body");
-			tableBody.parentNode.removeChild(tableBody);
-		}
 	}
 
 	function startup() {
@@ -273,6 +250,7 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 							Market/Operator/Cell failure</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
+							<div id="errorDiv"></div>
 								<table class="table table-striped table-bordered table-hover"
 									id="top_10_MOC_Table">
 								</table>
@@ -284,7 +262,7 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 				</div>
 				<!-- /.col-lg-6 -->
 				<div class="col-lg-6">
-					<div class="panel panel-default">
+					<div id="panelChart" class="panel panel-default" style="display: none;">
 						<div class="panel-heading">Top Ten Bar Chart</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body">

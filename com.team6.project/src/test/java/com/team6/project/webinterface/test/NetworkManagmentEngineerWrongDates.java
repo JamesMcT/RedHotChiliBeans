@@ -1,18 +1,23 @@
 package com.team6.project.webinterface.test;
 
-import java.util.regex.Pattern;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.concurrent.TimeUnit;
 
-import org.junit.*;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-
-import org.openqa.selenium.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
-public class NetworkManagmentEngineerTop10Page {
+public class NetworkManagmentEngineerWrongDates {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
@@ -27,7 +32,11 @@ public class NetworkManagmentEngineerTop10Page {
     }
 
     @Test
-    public void testNetworkManagmentEngineerTop10Page() throws Exception {
+    public void testNetworkManagmentEngineer() throws Exception {
+        Boolean isPresent = false;
+        long time1 = 0;
+        long time2 = 0;
+        long timeTaken;
         driver.get(baseUrl + "com.team6.project-0.0.1-SNAPSHOT/protected/");
         driver.findElement(By.id("inputusername")).clear();
         driver.findElement(By.id("inputusername")).sendKeys("admin");
@@ -48,6 +57,28 @@ public class NetworkManagmentEngineerTop10Page {
             if (second >= 60)
                 fail("timeout");
             try {
+                if (isElementPresent(By.linkText("Call failure durations")))
+                    break;
+            } catch (Exception e) {
+            }
+            Thread.sleep(1000);
+        }
+        driver.findElement(By.linkText("Call failure durations")).click();
+        
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys("2013-02-20 19:35:00");
+                
+        driver.findElement(By.id("button1")).click();
+        time1 = System.currentTimeMillis();
+        assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
+        time2 = System.currentTimeMillis();
+        timeTaken = time2-time1;
+        assertTrue(timeTaken<TIME);
+      
+        for (int second = 0;; second++) {
+            if (second >= 60)
+                fail("timeout");
+            try {
                 if (isElementPresent(By
                         .linkText("TOP 10 Market/Operator/Cell By Date")))
                     break;
@@ -57,13 +88,39 @@ public class NetworkManagmentEngineerTop10Page {
         }
         driver.findElement(By.linkText("TOP 10 Market/Operator/Cell By Date"))
                 .click();
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys("2013-02-20 19:35:00");
         driver.findElement(By.id("button1")).click();
-        long time1 = System.currentTimeMillis();
-        Boolean isPresent = driver.findElements(By.id("tableBody")).isEmpty();
-        long time2 = System.currentTimeMillis();
-        assertFalse(isPresent);
-        long timeTaken = time2-time1;
+        time1 = System.currentTimeMillis();
+        assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
+        time2 = System.currentTimeMillis();
+        timeTaken = time2-time1;
         assertTrue(timeTaken<TIME);
+        
+        for (int second = 0;; second++) {
+            if (second >= 60)
+                fail("timeout");
+            try {
+                if (isElementPresent(By
+                        .linkText("TOP 10 IMSI Failures")))
+                    break;
+            } catch (Exception e) {
+            }
+            Thread.sleep(1000);
+        }
+        driver.findElement(By.linkText("TOP 10 IMSI Failures"))
+                .click();
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys("2013-02-20 19:35:00");
+        driver.findElement(By.cssSelector("input.btn.btn-default")).click();
+        time1 = System.currentTimeMillis();
+        assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
+        time2 = System.currentTimeMillis();
+        assertFalse(isPresent);
+        timeTaken = time2-time1;
+        assertTrue(timeTaken<TIME);
+        
+        driver.findElement(By.linkText("Logout")).click();
     }
 
     @After
