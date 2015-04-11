@@ -5,11 +5,11 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.ejb.Local;
-
 import javax.persistence.Query;
 
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
+import com.team6.project.entities.FailureType;
 import com.team6.project.entities.User;
 import com.team6.project.entities.UserEquipment;
 /**
@@ -54,6 +54,9 @@ public interface QueryServiceLocal {
 	public Collection<Object[]> getUniqueEventCauseByImsi(BigInteger imsi);
 	public Collection<Object[]> getTopTenFailuresByDate(Date start, Date end);
 	
-    public Collection<BaseData> getImsiByFailureCode(Integer fc);
+    public Collection<Object[]> getImsiByFailureCode(Integer fc);
+    
+	public Collection<FailureType> getAllFailureTypes();
+
 
 }

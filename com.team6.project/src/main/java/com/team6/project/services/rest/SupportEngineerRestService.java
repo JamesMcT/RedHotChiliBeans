@@ -14,8 +14,13 @@ import javax.ws.rs.core.MediaType;
 
 import com.team6.project.dao.jpa.JPABaseDataDAO;
 import com.team6.project.entities.BaseData;
+import com.team6.project.entities.FailureType;
 import com.team6.project.services.QueryServiceLocal;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 /**
  * 
  * @author Sabee D14125306
@@ -45,8 +50,7 @@ public class SupportEngineerRestService {
 		toDate.setTime(lToDate);
 
 		return queryService.countCallFailureByTac(tac, fromDate, toDate);
-	}	
-		
+	}
 
 	@GET
 	@Path("/datequery")
@@ -54,27 +58,44 @@ public class SupportEngineerRestService {
 	public Collection<BaseData> findImsiByDate(
 			@QueryParam("firstDate") long lfirstDate,
 			@QueryParam("secondDate") long lsecondDate) {
-	    
-	    System.err.println("the first param is.."+lfirstDate);
-	    Date fromDate = new Date();
-        Date toDate = new Date();
 
-        fromDate.setTime(lfirstDate);
-        toDate.setTime(lsecondDate);
-        System.err.println("the first data is.."+fromDate.toString());
-        System.err.println("the second data is.."+toDate.toString());
+		System.err.println("the first param is.." + lfirstDate);
+		Date fromDate = new Date();
+		Date toDate = new Date();
+
+		fromDate.setTime(lfirstDate);
+		toDate.setTime(lsecondDate);
+		System.err.println("the first data is.." + fromDate.toString());
+		System.err.println("the second data is.." + toDate.toString());
 		return queryService.findImsiByDate(fromDate, toDate);
 	}
-	
-	
+
 	@GET
 	@Path("/failurecode")
 	@Produces(MediaType.APPLICATION_JSON)
-	  public Collection<BaseData>  getImsiByFailureCode(@QueryParam("failureCode") Integer failureCode) {
+	public Collection<Object[]> getImsiByFailureCode(
+			@QueryParam("failureCode") Integer failureCode) {
 
-		
+		String message = "";
 
-		return queryService.getImsiByFailureCode(failureCode);
+		Collection<Object[]> failuretypequery = queryService.getImsiByFailureCode(failureCode);
+
+		if (!(failuretypequery.size() > 0)) {
+			message = String.format("No results for this failure code");
+			final Response response = Response.status(Status.NOT_FOUND)
+					.entity(message).build();
+			throw new WebApplicationException(response);
+		}
+
+		return failuretypequery;
+	}
+
+	@GET
+	@Path("/failuretype")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<FailureType> getAllFailureTypes() {
+
+		return queryService.getAllFailureTypes();
 	}
 
 }

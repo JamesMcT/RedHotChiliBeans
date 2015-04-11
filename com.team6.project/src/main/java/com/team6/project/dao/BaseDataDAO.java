@@ -128,7 +128,7 @@ public interface BaseDataDAO {
 	
 	public Collection<Object[]> getTopTenFailuresByDate(Date start, Date end);
 
-    public Collection<BaseData> getImsiByFailureCode(Integer fc);
+    public Collection<Object[]> getImsiByFailureCode(Integer fc);
 
 	/**
 	 * Return all IMSI values.

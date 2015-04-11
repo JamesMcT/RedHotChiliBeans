@@ -180,7 +180,7 @@ public class JPABaseDataDAO implements BaseDataDAO {
     }
     
     @Override
-    public Collection<BaseData> getImsiByFailureCode(Integer fc) {
+    public Collection<Object[]> getImsiByFailureCode(Integer fc) {
         Query q = em.createNamedQuery("imsiByFailureCode");
         q.setParameter("failureCode", fc);
      //   List<BaseData> result = q.getResultList();
