@@ -38,7 +38,7 @@ import javax.persistence.NamedQuery;
  */
 @NamedQueries({
 		@NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi"),
-		@NamedQuery(name = "imsiByFailureCode", query = "SELECT b.imsi, b.failure FROM BaseData b WHERE b.failure.failureCode = :failureCode"),
+		@NamedQuery(name = "imsiByFailureCode", query = "SELECT b.imsi, b.date, b.failure FROM BaseData b WHERE b.failure.failureCode = :failureCode"),
 
 		@NamedQuery(name = "baseDataCount", query = "SELECT COUNT(b.id) FROM BaseData b"),
 		//@NamedQuery(name = "getImsiByDate", query = "SELECT distinct(b.imsi) from BaseData b where b.date between :firstDate and :secondDate"),
