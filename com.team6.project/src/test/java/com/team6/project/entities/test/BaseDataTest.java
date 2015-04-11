@@ -60,6 +60,11 @@ public class BaseDataTest {
     	bd1.setEventCause(ec);
     	assertFalse(bd1.equals(bd2));
     }
+    @Test
+    public void equalsFalseTest_EventCauseNull(){
+        bd1.setEventCause(null);
+        assertFalse(bd1.equals(bd2));
+    }
     
     @Test
     public void equalsFalseTest_OperatorCountry(){
@@ -69,10 +74,21 @@ public class BaseDataTest {
     }
     
     @Test
+    public void equalsFalseTest_OperatorCountryNull(){
+        bd1.setOperatorCountry(null);
+        assertFalse(bd1.equals(bd2));
+    }
+    
+    @Test
     public void equalsFalseTest_FailureType(){
     	FailureType ft = new FailureType(2, "desc Failure Type");
     	bd1.setFailure(ft);
     	assertFalse(bd1.equals(bd2));
+    }
+    @Test
+    public void equalsFalseTest_FailureTypeNull(){
+        bd1.setFailure(null);
+        assertFalse(bd1.equals(bd2));
     }
     
     @Test
@@ -81,11 +97,21 @@ public class BaseDataTest {
     	bd1.setUserEquipment(ue);
     	assertFalse(bd1.equals(bd2));
     }
+    @Test
+    public void equalsFalseTest_UserEquipmentNull(){
+        bd1.setUserEquipment(null);
+        assertFalse(bd1.equals(bd2));
+    }
     
     @Test
     public void equalsFalseTest_Duration(){
     	bd1.setDuration(1001);
     	assertFalse(bd1.equals(bd2));
+    }
+    @Test
+    public void equalsFalseTest_DurationNull(){
+        bd1.setDuration(null);
+        assertFalse(bd1.equals(bd2));
     }
     
     @Test
@@ -94,12 +120,22 @@ public class BaseDataTest {
     	bd1.setImsi(bi);
     	assertFalse(bd1.equals(bd2));
     }
+    @Test
+    public void equalsFalseTest_ImsiNull(){
+        bd1.setImsi(null);
+        assertFalse(bd1.equals(bd2));
+    }
     
     @Test
     public void equalsFalseTest_Hier321Id(){
     	BigInteger bi = new BigInteger("99");
     	bd1.setHier321Id(bi);
     	assertFalse(bd1.equals(bd2));
+    }
+    @Test
+    public void equalsFalseTest_Hier321IdNull(){
+        bd1.setHier321Id(null);
+        assertFalse(bd1.equals(bd2));
     }
     
     @Test
@@ -108,6 +144,11 @@ public class BaseDataTest {
     	bd1.setHier32Id(bi);
     	assertFalse(bd1.equals(bd2));
     }
+    @Test
+    public void equalsFalseTest_Hier32IdNull(){
+        bd1.setHier32Id(null);
+        assertFalse(bd1.equals(bd2));
+    }
     
     @Test
     public void equalsFalseTest_Hier3Id(){
@@ -115,11 +156,21 @@ public class BaseDataTest {
     	bd1.setHier3Id(bi);
     	assertFalse(bd1.equals(bd2));
     }
+    @Test
+    public void equalsFalseTest_Hier3IdNull(){
+        bd1.setHier3Id(null);
+        assertFalse(bd1.equals(bd2));
+    }
     
     @Test
     public void equalsFalseTest_NeVersion(){
     	bd1.setNeVersion("3G");
     	assertFalse(bd1.equals(bd2));
+    }
+    @Test
+    public void equalsFalseTest_NeVersionNull(){
+        bd1.setNeVersion(null);
+        assertFalse(bd1.equals(bd2));
     }
     
     @Test

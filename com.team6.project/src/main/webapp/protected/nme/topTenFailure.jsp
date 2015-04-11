@@ -100,7 +100,7 @@
 			}
 
 			var td1 = document.createElement("td");
-			td1.appendChild(document.createTextNode(singleResponse[0].imsi));
+			td1.appendChild(document.createTextNode(singleResponse[0]));
 			var td2 = document.createElement("td");
 			td2.appendChild(document.createTextNode(singleResponse[1]));
 
@@ -178,8 +178,7 @@
 				</div>
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Table: IMSI, failure count, total
-							duration.</div>
+						<div class="panel-heading">IMSI and failure count.</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper" id="dataTableDiv">
 								<div id="errorDiv"></div>

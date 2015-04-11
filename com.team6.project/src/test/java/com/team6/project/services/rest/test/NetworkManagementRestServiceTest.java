@@ -35,8 +35,7 @@ public class NetworkManagementRestServiceTest extends RestTest {
         given().filter(sessionFilter).when().get("protected/index.jsp").then()
                 .statusCode(200);
         given().auth().form("nmEng", "nmEng", fac).filter(sessionFilter).when()
-                .get("protected/index.jsp").then()
-                .statusCode(200);
+                .get("protected/index.jsp").then().statusCode(200);
 
     }
 
@@ -54,21 +53,19 @@ public class NetworkManagementRestServiceTest extends RestTest {
 
     @Test
     public void testGetDistinctEventByTac_NotValidTac() {
-        given().filter(sessionFilter)
-                .expect().statusCode(400).when()
+        given().filter(sessionFilter).expect().statusCode(400).when()
                 .get("/protected/rest/networkmanagement/eventidcausecode/ciao");
 
     }
 
     @Test
-    public void testGetAllUser_NotAllowed() {
+    public void testGetDistinctEventByTac_NotAllowed() {
         sessionFilter = new SessionFilter();
 
         given().filter(sessionFilter).when().get("protected/index.jsp");
 
         given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
-                .expect()
-                .statusCode(200).when().get("protected/index.jsp");
+                .expect().statusCode(200).when().get("protected/index.jsp");
 
         given().filter(sessionFilter)
                 .expect()
@@ -80,8 +77,7 @@ public class NetworkManagementRestServiceTest extends RestTest {
 
     @Test
     public void testFailedCallDurationEndpointUnauthorized() {
-        // String startDate = "2013-02-19 21:01:00";
-        // String endDate = "2013-02-21 21:01:00";
+
         long startDate = dateConvert("2013-02-19 21:01:00");
         long endDate = dateConvert("2013-02-21 21:01:00");
 
@@ -89,8 +85,8 @@ public class NetworkManagementRestServiceTest extends RestTest {
 
         given().filter(sessionFilter).when().get("protected/index.jsp");
 
-        given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter).expect()
-        .statusCode(200).when().get("protected/index.jsp");
+        given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+                .expect().statusCode(200).when().get("protected/index.jsp");
 
         given().queryParam("startDate", startDate)
                 .queryParam("endDate", endDate)
@@ -107,8 +103,6 @@ public class NetworkManagementRestServiceTest extends RestTest {
         long startDate = dateConvert("2013-02-19 21:01:00");
         long endDate = dateConvert("2013-02-21 21:01:00");
 
-        long beginTime = System.currentTimeMillis();
-
         given().queryParam("startDate", startDate)
                 .queryParam("endDate", endDate)
                 .filter(sessionFilter)
@@ -118,27 +112,7 @@ public class NetworkManagementRestServiceTest extends RestTest {
                 .when()
                 .get("/protected/rest/networkmanagement/failurecountandduration");
 
-        long endTime = System.currentTimeMillis();
-        long timeTaken = (endTime - beginTime) / 1000;
-        networkManagementLogger
-                .warn(String
-                        .format("NetworkManagment-failurecountandduration : loading in (%s seconds)",
-                                new DecimalFormat("0.00").format(timeTaken)));
     }
-    @Test
-    // S
-    public void testGetTOP10MarketOperatorCellByDate() {
-
-        long startDate = dateConvert("2013-02-20 21:01:00");
-        long endDate = dateConvert("2013-02-21 21:01:00");
-
-        given().queryParam("fromDate", startDate)
-                .queryParam("toDate", endDate).filter(sessionFilter).expect()
-                .statusCode(200).contentType(ContentType.JSON).when()
-                .get("/protected/rest/networkmanagement/top10MOC");
-
-    }
-
 
     // @Test
     // public void testFailedCallDurationEndpointEmptyDates(){
@@ -169,9 +143,6 @@ public class NetworkManagementRestServiceTest extends RestTest {
     public void testFailedCallDurationEndpointInvalidDates() {
 
         long endDate = dateConvert("2013-02-21 21:01:00");
-
-        // startDate = dateConvert("Bad Date");
-        // endDate = dateConvert("Bad Date");
 
         // Test bad/good dates
         given().queryParam("startDate", "Bad Date")
@@ -225,9 +196,46 @@ public class NetworkManagementRestServiceTest extends RestTest {
                 .get("/protected/rest/networkmanagement/failurecountandduration");
     }
 
-   
     @Test
-    // S
+    public void testGetTOP10MarketOperatorCellByDate() {
+
+        long startDate = dateConvert("2013-02-20 21:01:00");
+        long endDate = dateConvert("2013-02-21 21:01:00");
+
+        given().queryParam("fromDate", startDate).queryParam("toDate", endDate)
+                .filter(sessionFilter).expect().statusCode(200)
+                .contentType(ContentType.JSON).when()
+                .get("/protected/rest/networkmanagement/top10MOC");
+
+    }
+
+    @Test
+    public void testGetTOP10MarketOperatorCellByDate_WrongDates() {
+
+        long startDate = dateConvert("2013-02-20 21:01:00");
+        long endDate = dateConvert("2013-02-21 21:01:00");
+
+        given().queryParam("fromDate", endDate).queryParam("toDate", startDate)
+                .filter(sessionFilter).expect().statusCode(400).when()
+                .get("/protected/rest/networkmanagement/top10MOC");
+
+        startDate = dateConvert("2018-02-20 21:01:00");
+        endDate = dateConvert("2019-02-21 21:01:00");
+
+        given().queryParam("fromDate", startDate).queryParam("toDate", endDate)
+                .filter(sessionFilter).expect().statusCode(400).when()
+                .get("/protected/rest/networkmanagement/top10MOC");
+
+        startDate = dateConvert("2008-02-20 21:01:00");
+        endDate = dateConvert("2009-02-21 21:01:00");
+
+        given().queryParam("fromDate", startDate).queryParam("toDate", endDate)
+                .filter(sessionFilter).expect().statusCode(404).when()
+                .get("/protected/rest/networkmanagement/top10MOC");
+
+    }
+
+    @Test
     public void testGetTOP10MarketOperatorCellByDate_NoPermission() {
 
         long startDate = dateConvert("2013-02-20 21:01:00");
@@ -237,13 +245,70 @@ public class NetworkManagementRestServiceTest extends RestTest {
 
         given().filter(sessionFilter).when().get("protected/index.jsp");
 
-        given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter).expect()
-        .statusCode(200).when().get("protected/index.jsp");
+        given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+                .expect().statusCode(200).when().get("protected/index.jsp");
 
-        given().queryParam("fromDate", startDate)
-                .queryParam("toDate", endDate).filter(sessionFilter).expect()
-                .statusCode(403).when()
+        given().queryParam("fromDate", startDate).queryParam("toDate", endDate)
+                .filter(sessionFilter).expect().statusCode(403).when()
                 .get("/protected/rest/networkmanagement/top10MOC");
+
+    }
+
+    @Test
+    public void testGetTopTenFailuresByDate() {
+
+        long startDate = dateConvert("2013-02-20 21:01:00");
+        long endDate = dateConvert("2013-02-21 21:01:00");
+
+        given().queryParam("start", startDate).queryParam("end", endDate)
+                .filter(sessionFilter).expect().statusCode(200)
+                .contentType(ContentType.JSON).when()
+                .get("/protected/rest/networkmanagement/toptenimsifailures");
+
+    }
+
+    @Test
+    public void testGetTopTenFailuresByDate_WrongDates() {
+
+        long startDate = dateConvert("2013-02-20 21:01:00");
+        long endDate = dateConvert("2013-02-21 21:01:00");
+
+        given().queryParam("start", endDate).queryParam("end", startDate)
+                .filter(sessionFilter).expect().statusCode(400).when()
+                .get("/protected/rest/networkmanagement/toptenimsifailures");
+
+        startDate = dateConvert("2018-02-20 21:01:00");
+        endDate = dateConvert("2019-02-21 21:01:00");
+
+        given().queryParam("start", startDate).queryParam("end", endDate)
+                .filter(sessionFilter).expect().statusCode(400).when()
+                .get("/protected/rest/networkmanagement/toptenimsifailures");
+
+        startDate = dateConvert("2008-02-20 21:01:00");
+        endDate = dateConvert("2009-02-21 21:01:00");
+
+        given().queryParam("start", startDate).queryParam("end", endDate)
+                .filter(sessionFilter).expect().statusCode(404).when()
+                .get("/protected/rest/networkmanagement/toptenimsifailures");
+
+    }
+
+    @Test
+    public void testGetTopTenFailuresByDate_NoPermission() {
+
+        long startDate = dateConvert("2013-02-20 21:01:00");
+        long endDate = dateConvert("2013-02-21 21:01:00");
+
+        sessionFilter = new SessionFilter();
+
+        given().filter(sessionFilter).when().get("protected/index.jsp");
+
+        given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+                .expect().statusCode(200).when().get("protected/index.jsp");
+        
+        given().queryParam("start", startDate).queryParam("end", endDate)
+                .filter(sessionFilter).expect().statusCode(403).when()
+                .get("/protected/rest/networkmanagement/toptenimsifailures");
 
     }
 

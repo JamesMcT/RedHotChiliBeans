@@ -59,7 +59,8 @@ public class SupportEngineerRestService {
         }
 
         Long count = queryService.countCallFailureByTac(tac, fromDate, toDate);
-        if (count == null) {
+        System.err.println("The value of count is..."+count);
+        if (count == null || count == 0) {
             message = String.format(
                     "No results for given date range '%s'->'%s'.",
                     fromDate.toString(), toDate.toString());

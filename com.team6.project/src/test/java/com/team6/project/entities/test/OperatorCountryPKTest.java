@@ -34,12 +34,12 @@ public class OperatorCountryPKTest {
     @Test
     public void equalsFalseTest_NoMCC() {
         OperatorCountryPK other = new OperatorCountryPK(null, 2);
-        assertFalse(ocPK.equals(other));
+        assertFalse(other.equals(ocPK));
     }
     @Test
     public void equalsFalseTest_NoMNC() {
         OperatorCountryPK other = new OperatorCountryPK(1, null);
-        assertFalse(ocPK.equals(other));
+        assertFalse(other.equals(ocPK));
     }
     
     

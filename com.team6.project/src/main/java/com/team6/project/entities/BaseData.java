@@ -49,7 +49,7 @@ import javax.persistence.NamedQuery;
 		@NamedQuery(name = "getTOP10MarketOperatorCellByDate", query = "select b.operatorCountry, b.cellId, count(b) from BaseData b where b.date >= :fromDate and b.date <= :toDate group by b.operatorCountry.mcc, b.operatorCountry.mnc, b.cellId order by count(b) desc" ),				
 		@NamedQuery(name = "getUniqueEventCauseByImsi", query ="SELECT b.eventCause, COUNT(b) FROM BaseData b where b.imsi = :imsi GROUP BY b.eventCause"),
 		@NamedQuery(name = "failureCountAndDurationPerImsiByDate", query = "SELECT b.imsi, COUNT(b.id), SUM(b.duration) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC"),
-		@NamedQuery(name = "topTenFailuresByDate", query = "SELECT b, COUNT(b.id) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC")
+		@NamedQuery(name = "topTenFailuresByDate", query = "SELECT b.imsi, COUNT(b.id) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC")
 
 })
 @Entity
