@@ -35,52 +35,45 @@ src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 
 
 <script>
-	function getFailureData() {
-		console.log("Search Clicked!!")
-		var date = new Date();
-
-		var picker = $('#datetimepicker').data('datetimepicker');
-		date = picker.getDate();
-
-		var startDate = date.valueOf()
-
-		var picker2 = $('#datetimepicker2').data('datetimepicker');
-		date = picker2.getDate();
-
-		var endDate = date.valueOf();
-
-		if (startDate && endDate) {
-		var xhr = new XMLHttpRequest();
-		var root = "${pageContext.servletContext.contextPath}";
-		xhr
-				.open(
-						"GET",
-						root
-								+ "/protected/rest/networkmanagement/failurecountandduration?startDate="
-								+ startDate + "&endDate=" + endDate, true);
-				
-		xhr.addEventListener('load', function() {
-			if (xhr.status == 200) {
-				cleanTable();
-				cleanError();
-				var response = JSON.parse(xhr.responseText);
-				console.log("Got here");
-				createTableHead("failureDurationTable",["IMSI","Failure Count","Total Duration"]);
-				createTableBody(response);
-			} else {
-				//bad request, dates could not be parsed. Or no results
-				console.log("Bad Request dates could not be parsed.. ")
-				cleanTable();
-				var message = 'Error ' + xhr.status + ': ' + xhr.responseText;
-				showError(message);
-			}
-		}, false);
-		xhr.send();
+function getFailureData() {
+	var dates = getDatesFromDatePicker();
+	var startDate = dates[0];
+	var endDate = dates[1];
+	if (startDate && endDate) {
+	var xhr = new XMLHttpRequest();
+	var root = "${pageContext.servletContext.contextPath}";
+	xhr
+			.open(
+					"GET",
+					root
+							+ "/protected/rest/networkmanagement/failurecountandduration?startDate="
+							+ startDate + "&endDate=" + endDate, true);
+			
+	xhr.addEventListener('load', function() {
+		if (xhr.status == 200) {
+			cleanTable();
+			cleanError();
+			var response = JSON.parse(xhr.responseText);
+			console.log("Got here");
+			createTableHead("failureDurationTable",["IMSI","Failure Count","Total Duration"]);
+			createTableBody(response);
+		} else {
+			cleanTable();
+			cleanError();
+			var message = 'Error ' + xhr.status + ': ' + xhr.responseText;
+			showError(message);
 		}
-		else{
-			alert("Please select a value for both dates");
-		}
+	}, false);
+	xhr.send();
 	}
+	else{
+		cleanTable();
+		cleanError();
+		var message = 'Error : Please select a value for both dates';
+		showError(message);
+	}
+}
+
 
 	function validateDate(dateString, errorMessage) {
 		//yyyy-mm-dd hh-mm-ss

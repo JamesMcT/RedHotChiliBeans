@@ -44,16 +44,9 @@
 	
 function getRecordsByTac() {
 		var pickedTac = document.getElementById("tacs").value;
-		var date = new Date();
-		
-		var picker = $('#datetimepicker').data('datetimepicker');				
-		date = picker.getDate();
-		
-		var fromDate = date.valueOf();
-		
-		var picker2 = $('#datetimepicker2').data('datetimepicker');
-		date = picker2.getDate();
-		var toDate = date.valueOf();
+		var dates = getDatesFromDatePicker();
+		var fromDate = dates[0];
+		var toDate = dates[1];
 		
 		if (pickedTac && fromDate && toDate) {
 			var xhr = new XMLHttpRequest();
@@ -69,7 +62,8 @@ function getRecordsByTac() {
 			}, false);
 			xhr.send();
 		}else{
-			alert("Please select a value for both dates");
+			cleanTable();
+			document.getElementById("searchResult").innerHTML = 'Error : Please select a value for both dates';
 		}
 	}
 	

@@ -40,14 +40,9 @@
 </script>
 <script>
 	function getFailureData() {
-
-		var date = new Date();
-		var picker = $('#datetimepicker').data('datetimepicker');
-		date = picker.getDate();
-		var startDate = date.valueOf();
-		var picker2 = $('#datetimepicker2').data('datetimepicker');
-		date = picker2.getDate();
-		var endDate = date.valueOf();
+		var dates = getDatesFromDatePicker(); 
+		var startDate = dates[0];
+		var endDate = dates[1];
 
 		if (startDate && endDate) {
 			var xhr = new XMLHttpRequest();
@@ -69,6 +64,7 @@
 				} else {
 					//bad request, dates could not be parsed. Or no results
 					cleanTable();
+					cleanError();
 					var message = 'Error ' + xhr.status + ': '
 							+ xhr.responseText;
 					showError(message);
@@ -76,7 +72,10 @@
 			}, false);
 			xhr.send();
 		} else {
-			alert("Please select a value for both dates");
+			cleanTable();
+			cleanError();
+			var message = 'Error : Please select a value for both dates';
+			showError(message);
 		}
 	}
 

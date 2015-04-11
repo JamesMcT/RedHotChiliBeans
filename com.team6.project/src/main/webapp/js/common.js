@@ -52,3 +52,22 @@ function cleanError() {
 	var errorDiv = document.getElementById("errorDiv");
 	errorDiv.innerHTML = "";
 }
+
+function getDatesFromDatePicker(){
+	var startDate = null;
+	var endDate = null;
+	
+	var date = new Date();
+	var picker = $('#datetimepicker').data('datetimepicker');
+	date = picker.getDate();
+	if(date != null && date != ""){
+		startDate = date.valueOf()
+	}	
+
+	var picker2 = $('#datetimepicker2').data('datetimepicker');
+	date = picker2.getDate();
+	if(date != null && date != ""){
+		endDate = date.valueOf();
+	}
+	return [startDate, endDate];
+}

@@ -55,18 +55,9 @@
 <script>
 	//rework this
 	function getTOP10MarketOperatorCellByDate() {
-
-		var date = new Date();
-
-		var picker = $('#datetimepicker').data('datetimepicker');
-		date = picker.getDate();
-
-		var fromDate = date.valueOf();
-
-		var picker2 = $('#datetimepicker2').data('datetimepicker');
-		date = picker2.getDate();
-		var toDate = date.valueOf();
-
+		var dates = getDatesFromDatePicker();
+		var fromDate = dates[0];
+		var toDate = dates[1];
 		if (fromDate && toDate) {
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
@@ -84,6 +75,7 @@
 					showDiv("panelChart");
 				} else {
 					cleanTable();
+					cleanError();
 					hideDiv("panelChart");
 					var message = 'Error ' + xhr.status + ': '
 							+ xhr.responseText;
@@ -92,7 +84,11 @@
 			}, false);
 			xhr.send();
 		} else {
-			alert("Please select a value for both dates");
+			cleanTable();
+			cleanError();
+			hideDiv("panelChart");
+			var message = 'Error : Please select a value for both dates';
+			showError(message);
 		}
 	}
 

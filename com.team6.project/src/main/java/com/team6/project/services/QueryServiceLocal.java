@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.ejb.Local;
-
 import javax.persistence.Query;
 
 import com.team6.project.entities.BaseData;
@@ -42,7 +41,7 @@ public interface QueryServiceLocal {
 	
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate);
 
-	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate);
+	public Collection<Object[]> findImsiByDate(Date firstDate, Date secondDate);
 
 
 	

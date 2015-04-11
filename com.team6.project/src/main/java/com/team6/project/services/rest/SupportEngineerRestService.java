@@ -74,7 +74,7 @@ public class SupportEngineerRestService {
     @GET
     @Path("/datequery")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<BaseData> findImsiByDate(
+    public Collection<Object[]> findImsiByDate(
             @QueryParam("firstDate") long lfirstDate,
             @QueryParam("secondDate") long lsecondDate) {
 
@@ -100,7 +100,7 @@ public class SupportEngineerRestService {
             throw new WebApplicationException(response);
         }
 
-        Collection<BaseData> c = queryService.findImsiByDate(fromDate, toDate);
+        Collection<Object[]> c = queryService.findImsiByDate(fromDate, toDate);
         if (!(c.size() > 0)) {
             message = String.format(
                     "No results for given date range '%s'->'%s'.",

@@ -68,7 +68,7 @@ public interface BaseDataDAO {
 	 * @param secondDate
 	 * @return
 	 */
-	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate);
+	public Collection<Object[]> findImsiByDate(Date firstDate, Date secondDate);
 	
 	/**
 	 * 
