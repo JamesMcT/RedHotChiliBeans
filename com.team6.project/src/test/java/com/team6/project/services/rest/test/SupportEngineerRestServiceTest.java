@@ -52,11 +52,14 @@ public class SupportEngineerRestServiceTest extends RestTest {
 
     @Test
     public void testCountCallFailureUsingTac() {
-
-        given().auth().form("supEng", "supEng", fac)
-                .queryParam("tac", 21060800)
-                .queryParam("fromDate", "1357924500000")
-                .queryParam("toDate", "1357924560000").filter(sessionFilter)
+        long startDate = NetworkManagementRestServiceTest
+                .dateConvert("2013-02-22 19:36:00");
+        long endDate = NetworkManagementRestServiceTest
+                .dateConvert("2013-02-22 19:37:00");
+        
+        given().queryParam("tac", 33001735)
+                .queryParam("fromDate", startDate)
+                .queryParam("toDate", endDate).filter(sessionFilter)
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
                 .get("/protected/rest/supportengineer/tac");
 
@@ -70,7 +73,7 @@ public class SupportEngineerRestServiceTest extends RestTest {
         long endDate = NetworkManagementRestServiceTest
                 .dateConvert("2013-02-21 21:01:00");
 
-        given().queryParam("fromDate", endDate).queryParam("toDate", startDate)
+        given().queryParam("tac", 21060800).queryParam("fromDate", endDate).queryParam("toDate", startDate)
                 .filter(sessionFilter).expect().statusCode(400).when()
                 .get("/protected/rest/supportengineer/tac");
 
@@ -79,7 +82,7 @@ public class SupportEngineerRestServiceTest extends RestTest {
         endDate = NetworkManagementRestServiceTest
                 .dateConvert("2019-02-21 21:01:00");
 
-        given().queryParam("fromDate", startDate).queryParam("toDate", endDate)
+        given().queryParam("tac", 21060800).queryParam("fromDate", startDate).queryParam("toDate", endDate)
                 .filter(sessionFilter).expect().statusCode(400).when()
                 .get("/protected/rest/supportengineer/tac");
 
@@ -88,7 +91,7 @@ public class SupportEngineerRestServiceTest extends RestTest {
         endDate = NetworkManagementRestServiceTest
                 .dateConvert("2009-02-21 21:01:00");
 
-        given().queryParam("fromDate", startDate).queryParam("toDate", endDate)
+        given().queryParam("tac", 21060800).queryParam("fromDate", startDate).queryParam("toDate", endDate)
                 .filter(sessionFilter).expect().statusCode(404).when()
                 .get("/protected/rest/supportengineer/tac");
 
