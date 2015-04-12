@@ -17,13 +17,16 @@
 	rel="stylesheet">
 <link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../../css/dataTables.responsive.css" rel="stylesheet">
-
+<!--  href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css" -->
 <link rel="stylesheet" type="text/css" media="screen"
-	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+	href="../../css/bootstrap-datetimepicker.min.css">
 
 <!-- Adding functions -->
 <script src="../../js/common.js"></script>
-
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="../../js/bootstrap-datetimepicker.pt-BR.js"></script>
 
 <script>
 	function getRecordsByIMSI() {
@@ -39,8 +42,6 @@
 		date = picker2.getDate();
 		var endDate = date.valueOf();
 
-		// 		console.log("Start Date is : " + startDate + " End Date is : "
-		// 				+ endDate);
 		if (validateImsi(imsi) == true) {
 			var xmlhttp;
 			window.crossDomain = true;
@@ -67,11 +68,11 @@
 						var cellId = response[i].cellId;
 						var date = response[i].date;
 						var duration = response[i].duration;
-						
+
 						var d = new Date(date);
-						
-						myTable += "<tr> <td>" + cellId + "<td>" + d
-								+ "<td>" + duration + "<td> </tr>";
+
+						myTable += "<tr> <td>" + cellId + "<td>" + d + "<td>"
+								+ duration + "<td> </tr>";
 
 					}
 					myTable += "</tbody></table>"
@@ -84,7 +85,7 @@
 
 			}
 		} else {
-			alert("Imsi Validation has failed.")
+			console.log("Imsi Validation has failed.")
 		}
 	}
 	/*
@@ -151,22 +152,23 @@
 								</span>
 							</div>
 
-							<script type="text/javascript"
-								src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+<!-- 							<script type="text/javascript" src="../../js/jquery.min.js"> -->
 								
-							</script>
-							<script type="text/javascript"
-								src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+<!-- 							</script> -->
+
+
+<!-- 							<script type="text/javascript" src="../../js/bootstrap.min.js"> -->
 								
-							</script>
-							<script type="text/javascript"
-								src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+<!-- 							</script> -->
+
+<!-- 							<script type="text/javascript" -->
+<!-- 								src="../../js/bootstrap-datetimepicker.min.js"> -->
 								
-							</script>
-							<script type="text/javascript"
-								src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+<!-- 							</script> -->
+<!-- 							<script type="text/javascript" -->
+<!-- 								src="../../js/bootstrap-datetimepicker.pt-BR.js"> -->
 								
-							</script>
+<!-- 							</script> -->
 
 							<script type="text/javascript">
 								$('#datetimepicker').datetimepicker({
