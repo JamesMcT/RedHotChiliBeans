@@ -46,10 +46,10 @@
 			var xmlhttp;
 			window.crossDomain = true;
 			xmlhttp = new XMLHttpRequest();
-
+			console.log("Start Date is : " + startDate + " EndDate is : " + endDate + " Imsi is : " + imsi);
 			var root = "${pageContext.servletContext.contextPath}";
 			xmlhttp.open("GET", root
-					+ "/protected/rest/IMSIEvent/countImsi?imsi=" + imsi
+					+ "/protected/rest/customerservice/countImsi?imsi=" + imsi
 					+ "&startDate=" + startDate + "&endDate=" + endDate, true);
 			xmlhttp.send();
 
@@ -151,24 +151,6 @@
 									data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
 								</span>
 							</div>
-
-<!-- 							<script type="text/javascript" src="../../js/jquery.min.js"> -->
-								
-<!-- 							</script> -->
-
-
-<!-- 							<script type="text/javascript" src="../../js/bootstrap.min.js"> -->
-								
-<!-- 							</script> -->
-
-<!-- 							<script type="text/javascript" -->
-<!-- 								src="../../js/bootstrap-datetimepicker.min.js"> -->
-								
-<!-- 							</script> -->
-<!-- 							<script type="text/javascript" -->
-<!-- 								src="../../js/bootstrap-datetimepicker.pt-BR.js"> -->
-								
-<!-- 							</script> -->
 
 							<script type="text/javascript">
 								$('#datetimepicker').datetimepicker({
