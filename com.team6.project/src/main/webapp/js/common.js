@@ -12,8 +12,16 @@ function showDiv(divId) {
 function showDivInLine(divId) {
 	document.getElementById(divId).style.display = 'inline-block';
 }
+function showInLine(divId) {
+	document.getElementById(divId).style.display = 'inline';
+}
 function hideDiv(divId) {
 	document.getElementById(divId).style.display = 'none';
+}
+function cleanTablePagination(){
+	tablepagination.tablepage = 0;
+	tablepagination.maxpage = 0;
+	tablepagination.data = [];
 }
 
 function createTableHead(tableId, titles) {
