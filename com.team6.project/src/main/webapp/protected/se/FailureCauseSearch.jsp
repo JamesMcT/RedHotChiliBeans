@@ -40,7 +40,6 @@
 			for (var i = 0; i < types.length; i++) {
 				var type = types[i].failureCode;
 				var descrption = types[i].descrption;
-
 				var opt = document.createElement("option");
 				opt.text = type + " - " + descrption;
 				opt.value = type;
@@ -49,15 +48,10 @@
 		} else {
 			alert("error! the response status is : " + xhr.status);
 		}
-
 	}
-
 	function getFailureData() {
-
 		var failureCode = document.getElementById("failureCode").value;
-
 		if (validateFailureCode(failureCode) == true) {
-
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
 			xhr
@@ -82,54 +76,38 @@
 				}
 			}, false);
 			xhr.send();
-
 		} else {
 			//	alert("Error: Validation failed Found");
-
 		}
 	}
-
 	function showError(message) {
 		var errorDiv = document.getElementById("errorDiv");
 		errorDiv.innerHTML = message;
 	}
-
 	
-
 	function createTableBody(response) {
 		var table = document.getElementById("failureDurationTable");
 		var tbody = document.createElement("tbody");
 		tbody.id = "tableBody";
-
 		for (var i = 0; i < response.length; i++) {
-
 			var singleResponse = response[i];
-
 			var tr = document.createElement("tr");
-
 			if (i % 2) {
 				tr.className = "even gradeA";
 			} else {
 				tr.className = "odd gradeA";
 			}
-
 			var td1 = document.createElement("td");
 			var td2 = document.createElement("td");
-
 			td1.appendChild(document.createTextNode(singleResponse[0]));
 			td2.appendChild(document.createTextNode(new Date(singleResponse[1])));
-
 			tr.appendChild(td1);
 			tr.appendChild(td2);
-
 			tbody.appendChild(tr);
 		}
 		table.appendChild(tbody);
 	}
-
-
 	function validateFailureCode(failureCode) {
-
 		if (isNotEmpty(failureCode, "Please Enter a Failure Code") == false) {
 			return false;
 		} else if (isNaN(failureCode) == true) {
@@ -140,7 +118,6 @@
 			return true;
 		}
 	}
-
 	function isNotEmpty(failureCode, alertMessage) {
 		if (failureCode == "") {
 			alert(alertMessage);
@@ -148,7 +125,6 @@
 		}
 		return true;
 	}
-
 	function startup() {
 		loadbar('../sidebar.jsp');
 		getAllFailureTypes();
