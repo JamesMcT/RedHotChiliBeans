@@ -22,21 +22,22 @@ import com.team6.project.entities.Record;
 import com.team6.project.services.QueryServiceLocal;
 
 /**
- * First attempt at REST query. Basic hard-coded query "working" when URL is entered in browser.
- * Work in progress. 
+ * First attempt at REST query. Basic hard-coded query "working" when URL is
+ * entered in browser. Work in progress.
+ * 
  * @author James
  *
  */
 
 @Path("/IMSIEvent")
 public class CustomerServiceRest {
-	
+
 	@Inject
 	QueryServiceLocal queryService;
-	
+
 	public CustomerServiceRest() {
 	}
-	
+
 	/**
 	 * 
 	 * @param imsi
@@ -45,17 +46,17 @@ public class CustomerServiceRest {
 	@GET
 	@Path("/{imsi}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<EventCause> findByImsi(@PathParam("imsi") BigInteger imsi){
-		
-		return  queryService.findByIMSI(imsi);
-		
+	public Collection<EventCause> findByImsi(@PathParam("imsi") BigInteger imsi) {
+
+		return queryService.findByIMSI(imsi);
+
 	}
-	
-    SimpleDateFormat sdf = new SimpleDateFormat(
-            JPABaseDataDAO.MYSQL_DATE_FORMAT);
-Date d1 = new Date();
-Date d2 = new Date();
-	
+
+	SimpleDateFormat sdf = new SimpleDateFormat(
+			JPABaseDataDAO.MYSQL_DATE_FORMAT);
+	Date d1 = new Date();
+	Date d2 = new Date();
+
 	/**
 	 * 
 	 * @param imsi
@@ -66,25 +67,19 @@ Date d2 = new Date();
 	@GET
 	@Path("/countImsi/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<BaseData> countImsi(
-			@QueryParam("imsi") BigInteger imsi,
-			@QueryParam("startDate") String startDate,
-			@QueryParam("endDate") String endDate){
-				
-		SimpleDateFormat sdf = new SimpleDateFormat(JPABaseDataDAO.MYSQL_DATE_FORMAT);		
-		Date start = null,end = null;
-			try {
-				start = sdf.parse(startDate);
-				end= sdf.parse(endDate);
-			} catch (ParseException e) {
-				
-				e.printStackTrace();
-			}
-		return queryService.countCallFailurePerImsiByDate(imsi, start, end);
-			
-	}
+	public Collection<BaseData> countImsi(@QueryParam("imsi") BigInteger imsi,
+			@QueryParam("startDate") long startDate, @QueryParam("endDate") long endDate) {
+		System.out.println("Hello countImsi Entered..");
+		
+		Date start = new Date();
+		Date end = new Date();
 
-	
-	
+		start.setTime(startDate);
+		end.setTime(endDate);
+
+		return queryService.countCallFailurePerImsiByDate(imsi, start,
+				end);
+
+	}
 
 }

@@ -13,13 +13,11 @@
 
 <!-- Adding CSS -->
 <link href="../../css/sb-admin-2.css" rel="stylesheet">
-<link href="../../css/bootstrap-combined.min.cristiana.css" rel="stylesheet">
+<link href="../../css/bootstrap-combined.min.cristiana.css"
+	rel="stylesheet">
 <link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../../css/dataTables.responsive.css" rel="stylesheet">
 
-<!-- <link
-	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"
-	rel="stylesheet"> -->
 <link rel="stylesheet" type="text/css" media="screen"
 	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 
@@ -28,114 +26,53 @@
 
 
 <script>
-// 	function getRecordsByTacPOST() {
-// 		var imsi = document.getElementById("tacs").value;
-// 		var startDate = document.getElementById("startDate").value;
-// 		var endDate = document.getElementById("endDate").value;
-// 		var picker = $('#datetimepicker').data('datetimepicker');
-// 		var picker2 = $('#datetimepicker2').data('datetimepicker');
-				
-		
-// 		if (pickedTac && fromDate && toDate) {
+	function getRecordsByIMSI() {
 
-// 			var reqParams = {};
-// 			reqParams.tac = pickedTac;
-// 			reqParams.fromDate = picker.getDate();
-// 			reqParams.toDate = tpicker2.getDate();
-
-// 			var xhr = new XMLHttpRequest();
-// 			var root = "${pageContext.servletContext.contextPath}";
-
-// 			var root2 = "/com.team6.project-0.0.1-SNAPSHOT";
-// 			xhr.open("POST", root + "/protected/rest/basedata/tac", false);
-// 			xhr.setRequestHeader('Content-Type', 'application/json');
-// 			xhr.send(JSON.stringify(reqParams));
-// 			if (xhr.status == 200) {
-// 				var response = JSON.parse(xhr.responseText);
-// 				if (response.description) {
-
-// 					document.getElementById("searchResult").innerHTML = response.description;
-// 				} else {
-// 					alert("Status : " + response.status);
-// 				}
-// 			} else {
-// 				var response = xhr.response;
-// 				document.getElementById("mainPage").innerHTML = response;
-// 			}
-
-// 		}
-// 	}
-function getRecordsByIMSI() {
-		
 		var imsi = document.getElementById("imsi").value;
 		var date = new Date();
-		
+
 		var picker = $('#datetimepicker').data('datetimepicker');
 		date = picker.getDate();
-		
-		var t = date.valueOf();
-		
-		var startDay = date.getUTCDate();
-		var startMonth = date.getMonth() + 1;
-		var startYear = date.getFullYear();
-		
-		var startHour = date.getHours();
-		var startMin = date.getMinutes();
-		var startSec = date.getSeconds();
-		
-		var startDate = startYear + "-" + startMonth + "-" + startDay + " " + startHour + ":" + startMin + ":" + startSec;
-		
+		var startDate = date.valueOf()
+
 		var picker2 = $('#datetimepicker2').data('datetimepicker');
 		date = picker2.getDate();
-		
-		var endDay = date.getUTCDate();
-		var endMonth = date.getMonth() + 1;
-		var endYear = date.getFullYear();
-		
-		var endHour = date.getHours();
-		var endMin = date.getMinutes();
-		var endSec = date.getSeconds();
-		
-		var endDate = endYear + "-" + endMonth + "-" + endDay + " " + endHour + ":" + endMin + ":" + endSec;
+		var endDate = date.valueOf();
 
-		console.log("Start Date is : " + startDate + " End Date is : " + endDate + " UTC Date is " + t);
-//		if (validateImsi(imsi) == true) {
-		var xmlhttp;
-		window.crossDomain = true;
-		xmlhttp = new XMLHttpRequest();
+		// 		console.log("Start Date is : " + startDate + " End Date is : "
+		// 				+ endDate);
+		if (validateImsi(imsi) == true) {
+			var xmlhttp;
+			window.crossDomain = true;
+			xmlhttp = new XMLHttpRequest();
 
-// 			if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-// 				window.crossDomain = true;
-// 				xmlhttp = new XMLHttpRequest();
-// 			} else {// code for IE6, IE5
-// 				alert("IE5/ IE6 etc")
-// 				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-// 			}
 			var root = "${pageContext.servletContext.contextPath}";
-			xmlhttp.open("GET", root + "/protected/rest/IMSIEvent/countImsi?imsi=" + imsi + "&startDate=" + startDate + "&endDate=" + endDate, true);
+			xmlhttp.open("GET", root
+					+ "/protected/rest/IMSIEvent/countImsi?imsi=" + imsi
+					+ "&startDate=" + startDate + "&endDate=" + endDate, true);
 			xmlhttp.send();
 
 			xmlhttp.onreadystatechange = function() {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 					var response = JSON.parse(xmlhttp.responseText);
-					var count = response.length;			
+					var count = response.length;
 					document.getElementById("countResult").innerHTML = count;
-					
-					var myTable = "<table id = 'eventCauseTable' class = 'table table-striped table-bordered table-hover'> ";
-					
-					myTable += "<thead><tr><th>cellId</th><th>Date</th><th>duration</th></tr></thead><tfoot><tr><th>cellId</th><th>Date</th><th>duration</th></tr></tfoot><tbody>";
 
-					for( var i in response){
-						
+					var myTable = "<table id = 'eventCauseTable' class = 'table table-striped table-bordered table-hover'> ";
+
+					myTable += "<thead><tr><th>Cell Id</th><th>Date</th><th>Failure Duration</th></tr></thead><tfoot><tr><th>Cell Id</th><th>Date</th><th>Failure Duration</th></tr></tfoot><tbody>";
+
+					for ( var i in response) {
+
 						var cellId = response[i].cellId;
 						var date = response[i].date;
 						var duration = response[i].duration;
-						//var UETac = response[i].userEquipment.marketingName;	// Maybe add this is if current code is working..
 						
-						myTable += "<tr> <td>" + cellId + "<td>" + date
-						+ "<td>" + duration + "<td> </tr>";
+						var d = new Date(date);
 						
-						
+						myTable += "<tr> <td>" + cellId + "<td>" + d
+								+ "<td>" + duration + "<td> </tr>";
+
 					}
 					myTable += "</tbody></table>"
 					document.getElementById("ImisCountResults").innerHTML = myTable;
@@ -146,16 +83,37 @@ function getRecordsByIMSI() {
 				}
 
 			}
-//		} else {
-			//alert("Imsi Validation has failed.....")
-//		}
+		} else {
+			alert("Imsi Validation has failed.")
+		}
+	}
+	/*
+		Maybe these functions should be moved into Commons.js - Will leave here for now to 
+		prevent Merge issues.
+	 */
+
+	function validateImsi(imsi) {
+
+		if (isNotEmpty(imsi, "Please Enter an Imsi") == false) {
+			return false;
+		} else if (isNaN(imsi) == true) {
+			alert("IMSI Field should contain numbers only [0-9]");
+			return false;
+		} else {
+			return true;
+		}
 	}
 
-
+	function isNotEmpty(imsi, alertMessage) {
+		if (imsi == "") {
+			alert(alertMessage);
+			return false;
+		}
+		return true;
+	}
 
 	function startup() {
 		loadbar('sidebar.html');
-		//getAllTacs();
 	}
 </script>
 
@@ -176,10 +134,9 @@ function getRecordsByIMSI() {
 					<p>Please enter an IMSI and time period</p>
 					<div>
 						<div id="div1">
-							
-							
-							<input
-								type="text" class="form-control-inline" id="imsi"
+
+
+							<input type="text" class="form-control-inline" id="imsi"
 								placeholder="IMSI">
 
 							<div id="datetimepicker" class="input-append date">
@@ -233,7 +190,7 @@ function getRecordsByIMSI() {
 							</script>
 
 
-							
+
 							<br> <input id=button1 type='button' class="btn btn-default"
 								onclick="getRecordsByIMSI()" value="Search" /> <br>
 						</div>
@@ -260,7 +217,7 @@ function getRecordsByIMSI() {
 										<tr>
 											<th>Cell Id</th>
 											<th>Date</th>
-											<th>Duration</th>
+											<th>Failure Duration</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -277,7 +234,6 @@ function getRecordsByIMSI() {
 		</div>
 	</div>
 
-	
 	<!-- /#wrapper -->
 </body>
 
