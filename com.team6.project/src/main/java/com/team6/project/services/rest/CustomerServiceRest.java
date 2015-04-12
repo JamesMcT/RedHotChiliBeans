@@ -64,25 +64,7 @@ public class CustomerServiceRest {
 	 * @param endDate
 	 * @return
 	 */
-//	@GET
-//	@Path("/countImsi/")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Collection<BaseData> countImsi(@QueryParam("imsi") BigInteger imsi,
-//			@QueryParam("startDate") long startDate, @QueryParam("endDate") long endDate) {
-//		System.out.println("Hello countImsi Entered..");
-//		
-//		Date start = new Date();
-//		Date end = new Date();
-//
-//		start.setTime(startDate);
-//		end.setTime(endDate);
-//
-//		return queryService.countCallFailurePerImsiByDate(imsi, start,
-//				end);
-//
-//	}
-	
-	
+
 	@GET
 	@Path("/countImsi/")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -102,9 +84,6 @@ public class CustomerServiceRest {
 	}
 
 	
-	
-	
-
     @GET
     @Path("/uniqueec/{imsi}")
     @Produces(MediaType.APPLICATION_JSON)

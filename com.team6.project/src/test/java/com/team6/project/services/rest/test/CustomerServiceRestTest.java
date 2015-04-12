@@ -3,14 +3,22 @@ package com.team6.project.services.rest.test;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
+
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.google.inject.Inject;
 import com.jayway.restassured.authentication.FormAuthConfig;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
+import com.team6.project.services.QueryServiceLocal;
+import com.team6.project.services.rest.performance.test.PerformanceRestTestImsi;
 
 /**
  * Test class for all REST services associated with Customer Service Rep class.
@@ -22,12 +30,14 @@ import com.jayway.restassured.http.ContentType;
 @RunWith(Arquillian.class)
 public class CustomerServiceRestTest extends RestTest {
 
-
 	public CustomerServiceRestTest() {
 	}
 
 	private FormAuthConfig fac;
 	private SessionFilter sessionFilter;
+
+	@Inject
+	private QueryServiceLocal queryService;
 
 	@Before
 	public void setUp() throws InterruptedException {
@@ -35,10 +45,10 @@ public class CustomerServiceRestTest extends RestTest {
 		createUsers();
 		fac = getformAuthConfig();
 		sessionFilter = new SessionFilter();
-		   given().filter(sessionFilter).when().get("protected/index.jsp").then()
-           .statusCode(200);
-		   given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter).when()
-           .get("protected/index.jsp");
+		given().filter(sessionFilter).when().get("protected/index.jsp").then()
+				.statusCode(200);
+		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+				.when().get("protected/index.jsp");
 
 	}
 
@@ -74,7 +84,8 @@ public class CustomerServiceRestTest extends RestTest {
 	@Test
 	public void testNoInput() {
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
-				.expect().statusCode(404).when().get("procted/rest/customerservice/");
+				.expect().statusCode(404).when()
+				.get("procted/rest/customerservice/");
 
 	}
 
@@ -87,20 +98,66 @@ public class CustomerServiceRestTest extends RestTest {
 				.expect().statusCode(400).when()
 				.get("protected/rest/customerservice/A");
 	}
-	
+
 	/**
-     * Test valid IMSI for UniqueCauseCodePage
-     */
-	@Test 
-	public void testUniqueCauseCodePage(){
-	     given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
-        .expect().statusCode(200).when()
-        .get("protected/rest/customerservice/uniqueec/191911000423586").then()
-        .contentType(ContentType.JSON);
+	 * Test valid IMSI for UniqueCauseCodePage
+	 */
+	@Test
+	public void testUniqueCauseCodePage() {
+		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+				.expect().statusCode(200).when()
+				.get("protected/rest/customerservice/uniqueec/191911000423586")
+				.then().contentType(ContentType.JSON);
 
 	}
-	
 
+	/**
+	 * Test that FailureCount.jsp page can be accessed successfully by Customer
+	 * Service Representative.
+	 */
+	@Test
+	public void testFailureCountPage() {
+		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+				.when().get("protected/csr/FailureCount.jsp").then()
+				.body(containsString("<title>Red Hot Chilli Beans</title>"));
 
+	}
+
+	/**
+	 * Test FailureCount Query returns valid status code and JSON response with
+	 * a valid input. The date range has been set to 2010-05-30 to systems current date.
+	 */
+	@Test
+	public void testFailureCount() {
+
+		Date d = new Date();
+		long endDate = d.getTime();
+
+		given().auth()
+				.form("cusSer", "cusSer", fac)
+				.filter(sessionFilter)
+				.expect()
+				.statusCode(200)
+				.when()
+				.get("protected/rest/customerservice/countImsi?imsi=191911000001049"
+						+ "&startDate=1275239700000&endDate="+endDate).then()
+				.contentType(ContentType.JSON);
+	}
+
+	/**
+	 * Test that invalid data will return the correct HTTP status code (400 =
+	 * Bad Request)
+	 */
+	@Test
+	public void testfailureCountInvalidInput() {
+		given().auth()
+				.form("cusSer", "cusSer", fac)
+				.filter(sessionFilter)
+				.expect()
+				.statusCode(400)
+				.when()
+				.get("protected/rest/customerservice/count?imsi=&startDate=1361207700000&endDate=1361207700000");
+
+	}
 
 }
