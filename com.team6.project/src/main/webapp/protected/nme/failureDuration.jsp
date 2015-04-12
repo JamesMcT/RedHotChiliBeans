@@ -30,7 +30,6 @@
 
 <!-- jQuery -->
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <!-- Adding functions -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
@@ -40,10 +39,6 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 </script>
-<script src="paging.js"></script> 
-
-
-
 <script>
 	var tablepagination = {
 			"tablepage" : 0,
