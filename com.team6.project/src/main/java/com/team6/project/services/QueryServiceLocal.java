@@ -42,7 +42,7 @@ public interface QueryServiceLocal {
 	
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate);
 
-	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate);
+	public Collection<Object[]> findImsiByDate(Date firstDate, Date secondDate);
 
 
 	

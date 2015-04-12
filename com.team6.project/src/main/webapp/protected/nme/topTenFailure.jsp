@@ -11,107 +11,98 @@
 
 <title>Red Hot Chilli Beans</title>
 
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
-<link href="../../css/bootstrap-combined.min.cristiana.css"
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css"
 	rel="stylesheet">
-<link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="../../css/dataTables.responsive.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/bootstrap-combined.min.cristiana.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.responsive.css"
+	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
-href="../../css/bootstrap-datetimepicker.min.css">
+	href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
 
 <!-- jQuery -->
-<script src="../../js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <!-- Adding functions -->
-<script src="../../js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 
 <!-- Adding functions -->
-<script src="../../js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
 
 <script type="text/javascript"
-src="../../js/bootstrap-datetimepicker.min.js">
+	src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
+	
 </script>
 <script>
-
 	function getFailureData() {
+		var dates = getDatesFromDatePicker(); 
+		var startDate = dates[0];
+		var endDate = dates[1];
 
-		var date = new Date();
-		var picker = $('#datetimepicker').data('datetimepicker');
-		date = picker.getDate();
-		var startDate = date.valueOf();
-		var picker2 = $('#datetimepicker2').data('datetimepicker');
-		date = picker2.getDate();
-		var endDate = date.valueOf();
-		
-
-	
-		
-		var xhr = new XMLHttpRequest();
-		var root = "${pageContext.servletContext.contextPath}";
-		xhr.open("GET", root
-				+ "/protected/rest/networkmanagement/toptenimsifailures?start="+startDate+"&end="+endDate,
-				true);
-		xhr.addEventListener('load', function() {
-			if (xhr.status == 200) {
-				cleanTable();
-				response = JSON.parse(xhr.responseText);
-				createTableHead();
-				createTableBody();
-			}
-			else{
-				//bad request, dates could not be parsed. Or no results
-				cleanTable();
-				var message = 'Error '+xhr.status+': ' + xhr.responseText;
-				showError(message);
-			}
-		}, false);
-		xhr.send();
+		if (startDate && endDate) {
+			var xhr = new XMLHttpRequest();
+			var root = "${pageContext.servletContext.contextPath}";
+			xhr
+					.open(
+							"GET",
+							root
+									+ "/protected/rest/networkmanagement/toptenimsifailures?start="
+									+ startDate + "&end=" + endDate, true);
+			xhr.addEventListener('load', function() {
+				if (xhr.status == 200) {
+					cleanTable();
+					cleanError();
+					var response = JSON.parse(xhr.responseText);
+					createTableHead("failureDurationTable", [ "IMSI",
+							"Failure Count" ]);
+					createTableBody(response);
+				} else {
+					//bad request, dates could not be parsed. Or no results
+					cleanTable();
+					cleanError();
+					var message = 'Error ' + xhr.status + ': '
+							+ xhr.responseText;
+					showError(message);
+				}
+			}, false);
+			xhr.send();
+		} else {
+			cleanTable();
+			cleanError();
+			var message = 'Error : Please select a value for both dates';
+			showError(message);
+		}
 	}
 
-	
-	
-	function showError(message){
-		var errorDiv = document.getElementById("errorDiv");
-		errorDiv.innerHTML = message;
-	}
-
-	function createTableHead() {
-		var table = document.getElementById("failureDurationTable");
-		var thead = document.createElement("thead");
-		thead.id = "tableHead";
-		var tr = document.createElement("tr");
-		var th1 = document.createElement("th");
-		th1.appendChild(document.createTextNode("IMSI"));
-		var th2 = document.createElement("th");
-		th2.appendChild(document.createTextNode("Failure Count"));
-		
-		tr.appendChild(th1);
-		tr.appendChild(th2);
-		thead.appendChild(tr);
-		table.appendChild(thead);
-	}
-
-	function createTableBody() {
+	function createTableBody(response) {
 		var table = document.getElementById("failureDurationTable");
 		var tbody = document.createElement("tbody");
+		var max = 10;
+		if (response.length < 10) {
+			max = response.length;
+		}
 		tbody.id = "tableBody";
-		for (var i = 0; i < response.length; i++) {
-			
+		for (var i = 0; i < max; i++) {
+
 			var singleResponse = response[i];
 
 			var tr = document.createElement("tr");
-			
+
 			if (i % 2) {
 				tr.className = "even gradeA";
 			} else {
 				tr.className = "odd gradeA";
 			}
-			
+
 			var td1 = document.createElement("td");
 			td1.appendChild(document.createTextNode(singleResponse[0]));
 			var td2 = document.createElement("td");
 			td2.appendChild(document.createTextNode(singleResponse[1]));
-
 
 			tr.appendChild(td1);
 			tr.appendChild(td2);
@@ -121,37 +112,9 @@ src="../../js/bootstrap-datetimepicker.min.js">
 		table.appendChild(tbody);
 	}
 
-	function cleanTable() {
-		var tableBody = document.getElementById("tableBody");
-		var tableHead = document.getElementById("tableHead");
-		
-		var errorDiv = document.getElementById("errorDiv");
-		errorDiv.innerHTML = '';
-		
-		if (tableHead) {
-			console.log("removing head");
-			tableHead.parentNode.removeChild(tableHead);
-		}
-		if (tableBody) {
-			console.log("removing body");
-			tableBody.parentNode.removeChild(tableBody);
-		}
-	}
-
 	function startup() {
 		loadbar('../sidebar.jsp');
-		
-		//$('#datetimepicker').datetimepicker({
-		    //format: 'yyyy-MM-dd hh:mm:ss',
-		    //language: 'en'
-		  //});
-		//$('#datetimepicker').data('datetimepicker').setLocalDate(new Date(2013, 0, 11, 17, 15));
 
-		//$('#datetimepicker2').datetimepicker({
-		        //format: 'yyyy-MM-dd hh:mm:ss',
-		        //language: 'en'
-		      //});
-		//$('#datetimepicker2').data('datetimepicker').setLocalDate(new Date(2013, 0, 11, 17, 20));
 	}
 </script>
 
@@ -173,21 +136,18 @@ src="../../js/bootstrap-datetimepicker.min.js">
 					<div>
 						<div id="div1">
 							<div id="datetimepicker" class="input-append date">
-						      <label>Start date: </label><input type="text"></input>
-						      <span class="add-on">
-						        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-						      </span>
-						    </div>
+								<input type="text"></input> <span class="add-on"> <i
+									data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+								</span>
+							</div>
 
-							<br/>
 							<div id="datetimepicker2" class="input-append date">
-						      <label>End date: </label><input type="text"></input>
-						      <span class="add-on">
-						        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-						      </span>
-						    </div>
-							
-									<script type="text/javascript">
+								<input type="text"></input> <span class="add-on"> <i
+									data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+								</span>
+							</div>
+
+							<script type="text/javascript">
 								$('#datetimepicker').datetimepicker({
 									format : 'yyyy-MM-dd hh:mm:ss',
 									language : 'en'
@@ -207,11 +167,10 @@ src="../../js/bootstrap-datetimepicker.min.js">
 										.setLocalDate(
 												new Date(2013, 1, 19, 19, 40));
 							</script>
-							
-							
-							<br/> 
-							<input type='button' class="btn btn-default" onclick="getFailureData()"
-								value="show data" /> <br>
+
+
+							<br /> <input type='button' class="btn btn-default"
+								onclick="getFailureData()" value="show data" /> <br>
 						</div>
 						<!-- /#div1 -->
 					</div>
@@ -219,7 +178,7 @@ src="../../js/bootstrap-datetimepicker.min.js">
 				</div>
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Table: IMSI, failure count, total duration.</div>
+						<div class="panel-heading">IMSI and failure count.</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper" id="dataTableDiv">
 								<div id="errorDiv"></div>
