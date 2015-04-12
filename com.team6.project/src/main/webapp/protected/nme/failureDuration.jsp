@@ -12,11 +12,17 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Adding CSS -->
-<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/bootstrap-combined.min.cristiana.css"
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css"
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/dataTables.responsive.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/bootstrap-combined.min.cristiana.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.responsive.css"
+	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
 
@@ -29,51 +35,52 @@
 <script src="${pageContext.request.contextPath}/js/common.js"></script>
 
 <script type="text/javascript"
-src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
+	src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
+	
 </script>
 
 
 
 <script>
-function getFailureData() {
-	var dates = getDatesFromDatePicker();
-	var startDate = dates[0];
-	var endDate = dates[1];
-	if (startDate && endDate) {
-	var xhr = new XMLHttpRequest();
-	var root = "${pageContext.servletContext.contextPath}";
-	xhr
-			.open(
-					"GET",
-					root
-							+ "/protected/rest/networkmanagement/failurecountandduration?startDate="
-							+ startDate + "&endDate=" + endDate, true);
-			
-	xhr.addEventListener('load', function() {
-		if (xhr.status == 200) {
-			cleanTable();
-			cleanError();
-			var response = JSON.parse(xhr.responseText);
-			console.log("Got here");
-			createTableHead("failureDurationTable",["IMSI","Failure Count","Total Duration"]);
-			createTableBody(response);
+	function getFailureData() {
+		var dates = getDatesFromDatePicker();
+		var startDate = dates[0];
+		var endDate = dates[1];
+		if (startDate && endDate) {
+			var xhr = new XMLHttpRequest();
+			var root = "${pageContext.servletContext.contextPath}";
+			xhr
+					.open(
+							"GET",
+							root
+									+ "/protected/rest/networkmanagement/failurecountandduration?startDate="
+									+ startDate + "&endDate=" + endDate, true);
+
+			xhr.addEventListener('load', function() {
+				if (xhr.status == 200) {
+					cleanTable();
+					cleanError();
+					var response = JSON.parse(xhr.responseText);
+					console.log("Got here");
+					createTableHead("failureDurationTable", [ "IMSI",
+							"Failure Count", "Total Duration" ]);
+					createTableBody(response);
+				} else {
+					cleanTable();
+					cleanError();
+					var message = 'Error ' + xhr.status + ': '
+							+ xhr.responseText;
+					showError(message);
+				}
+			}, false);
+			xhr.send();
 		} else {
 			cleanTable();
 			cleanError();
-			var message = 'Error ' + xhr.status + ': ' + xhr.responseText;
+			var message = 'Error : Please select a value for both dates';
 			showError(message);
 		}
-	}, false);
-	xhr.send();
 	}
-	else{
-		cleanTable();
-		cleanError();
-		var message = 'Error : Please select a value for both dates';
-		showError(message);
-	}
-}
-
 
 	function validateDate(dateString, errorMessage) {
 		//yyyy-mm-dd hh-mm-ss
@@ -117,7 +124,6 @@ function getFailureData() {
 		}
 		table.appendChild(tbody);
 	}
-
 
 	function startup() {
 		loadbar('../sidebar.jsp');
@@ -172,19 +178,19 @@ function getFailureData() {
 					</script>
 
 					<br> <input id=button1 type='button' class="btn btn-default"
-						onclick="getFailureData()" value="Search" /> <br>
-					<br>
+						onclick="getFailureData()" value="Search" /> <br> <br>
 					<div class="panel panel-default">
 						<div class="panel-heading">Table: IMSI, failure count, total
 							duration.</div>
-							
+
 						<div class="panel-body">
 							<div class="dataTable_wrapper" id="dataTableDiv">
 								<div id="errorDiv"></div>
+
+								<table class="table table-striped table-bordered table-hover"
+									id="failureDurationTable">
+								</table>
 							</div>
-							<table class="table table-striped table-bordered table-hover"
-								id="failureDurationTable">
-							</table>
 						</div>
 						<!-- /#div1 -->
 					</div>

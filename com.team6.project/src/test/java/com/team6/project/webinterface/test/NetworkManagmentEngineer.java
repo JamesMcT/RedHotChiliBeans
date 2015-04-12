@@ -16,6 +16,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class NetworkManagmentEngineer {
     private WebDriver driver;
@@ -40,49 +41,33 @@ public class NetworkManagmentEngineer {
         long timeTaken;
         driver.get(baseUrl + "com.team6.project-0.0.1-SNAPSHOT/protected/");
         driver.findElement(By.id("inputusername")).clear();
-        driver.findElement(By.id("inputusername")).sendKeys("admin");
+        driver.findElement(By.id("inputusername")).sendKeys("netEng");
         driver.findElement(By.id("inputpassword")).clear();
-        driver.findElement(By.id("inputpassword")).sendKeys("admin");
+        driver.findElement(By.id("inputpassword")).sendKeys("netEng");
         driver.findElement(By.xpath("//input[@value='Submit']")).click();
         try {
             assertEquals("Welcome!",
                     driver.findElement(By.cssSelector("h1.page-header"))
                             .getText());
             assertEquals(
-                    "http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/protected/admin/index.jsp",
+                    "http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/protected/nme/index.jsp",
                     driver.getCurrentUrl());
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
-       for (int second = 0;; second++) {
-            if (second >= 60)
-                fail("timeout");
-            try {
-                if (isElementPresent(By.linkText("Event Analysis")))
-                    break;
-            } catch (Exception e) {
-            }
-            Thread.sleep(1000);
-        }
+        waitForElement(By.linkText("Event Analysis"));
         driver.findElement(By.linkText("Event Analysis")).click();
-        driver.findElement(By.cssSelector("input.btn.btn-default")).click();
+        new Select(driver.findElement(By.id("tacs")))
+                .selectByVisibleText("100100");
+        driver.findElement(By.xpath("//input[@value='show data']")).click();
         time1 = System.currentTimeMillis();
         isPresent = driver.findElements(By.id("tableBody")).isEmpty();
         time2 = System.currentTimeMillis();
         assertFalse(isPresent);
         timeTaken = time2 - time1;
         assertTrue(timeTaken < TIME);
-        
-        for (int second = 0;; second++) {
-            if (second >= 60)
-                fail("timeout");
-            try {
-                if (isElementPresent(By.linkText("Call failure durations")))
-                    break;
-            } catch (Exception e) {
-            }
-            Thread.sleep(1000);
-        }
+
+        waitForElement(By.linkText("Call failure durations"));
         driver.findElement(By.linkText("Call failure durations")).click();
         driver.findElement(By.id("button1")).click();
         time1 = System.currentTimeMillis();
@@ -91,39 +76,27 @@ public class NetworkManagmentEngineer {
         assertFalse(isPresent);
         timeTaken = time2 - time1;
         assertTrue(timeTaken < TIME);
-        
+
         driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
-        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys("2013-02-20 19:35:00");
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys(
+                "2013-02-20 19:35:00");
         driver.findElement(By.id("button1")).click();
         time1 = System.currentTimeMillis();
         assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
         time2 = System.currentTimeMillis();
-        timeTaken = time2-time1;
-        assertTrue(timeTaken<TIME);
-        
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
         driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
         driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys("");
         driver.findElement(By.id("button1")).click();
         time1 = System.currentTimeMillis();
         assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
         time2 = System.currentTimeMillis();
-        timeTaken = time2-time1;
-        assertTrue(timeTaken<TIME);
-      
-      
-        
-      
-        for (int second = 0;; second++) {
-            if (second >= 60)
-                fail("timeout");
-            try {
-                if (isElementPresent(By
-                        .linkText("TOP 10 Market/Operator/Cell By Date")))
-                    break;
-            } catch (Exception e) {
-            }
-            Thread.sleep(1000);
-        }
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
+        waitForElement(By.linkText("TOP 10 Market/Operator/Cell By Date"));
         driver.findElement(By.linkText("TOP 10 Market/Operator/Cell By Date"))
                 .click();
         driver.findElement(By.id("button1")).click();
@@ -131,58 +104,49 @@ public class NetworkManagmentEngineer {
         isPresent = driver.findElements(By.id("tableBody")).isEmpty();
         time2 = System.currentTimeMillis();
         assertFalse(isPresent);
-        timeTaken = time2-time1;
-        assertTrue(timeTaken<TIME);
-        
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
         driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
-        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys("2013-02-20 19:35:00");
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys(
+                "2013-02-20 19:35:00");
         driver.findElement(By.id("button1")).click();
         time1 = System.currentTimeMillis();
         assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
         time2 = System.currentTimeMillis();
-        timeTaken = time2-time1;
-        assertTrue(timeTaken<TIME);
-        
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
         driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
         driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys("");
         driver.findElement(By.id("button1")).click();
         time1 = System.currentTimeMillis();
         assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
         time2 = System.currentTimeMillis();
-        timeTaken = time2-time1;
-        assertTrue(timeTaken<TIME);
-        
-        for (int second = 0;; second++) {
-            if (second >= 60)
-                fail("timeout");
-            try {
-                if (isElementPresent(By
-                        .linkText("TOP 10 IMSI Failures")))
-                    break;
-            } catch (Exception e) {
-            }
-            Thread.sleep(1000);
-        }
-        driver.findElement(By.linkText("TOP 10 IMSI Failures"))
-                .click();
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
+        waitForElement(By.linkText("TOP 10 IMSI Failures"));
+        driver.findElement(By.linkText("TOP 10 IMSI Failures")).click();
         driver.findElement(By.cssSelector("input.btn.btn-default")).click();
         time1 = System.currentTimeMillis();
         isPresent = driver.findElements(By.id("tableBody")).isEmpty();
         time2 = System.currentTimeMillis();
         assertFalse(isPresent);
-        timeTaken = time2-time1;
-        assertTrue(timeTaken<TIME);
-        
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
         driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
-        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys("2013-02-20 19:35:00");
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys(
+                "2013-02-20 19:35:00");
         driver.findElement(By.cssSelector("input.btn.btn-default")).click();
         time1 = System.currentTimeMillis();
         assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
         time2 = System.currentTimeMillis();
         assertFalse(isPresent);
-        timeTaken = time2-time1;
-        assertTrue(timeTaken<TIME);
-        
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
         driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
         driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys("");
         driver.findElement(By.cssSelector("input.btn.btn-default")).click();
@@ -190,9 +154,120 @@ public class NetworkManagmentEngineer {
         assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
         time2 = System.currentTimeMillis();
         assertFalse(isPresent);
-        timeTaken = time2-time1;
-        assertTrue(timeTaken<TIME);
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
         
+        waitForElement(By.linkText("Tac Time Count"));
+        driver.findElement(By.linkText("Tac Time Count")).click();
+        new Select(driver.findElement(By.id("tacs")))
+                .selectByVisibleText("100100");
+        driver.findElement(By.id("button1")).click();
+        time1 = System.currentTimeMillis();
+        assertFalse(driver.findElements(By.id("searchResult")).isEmpty());
+        time2 = System.currentTimeMillis();
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys("");
+        driver.findElement(By.id("button1")).click();
+        time1 = System.currentTimeMillis();
+        assertFalse(driver.findElements(By.id("searchResult")).isEmpty());
+        time2 = System.currentTimeMillis();
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys(
+                "2013-02-19 19:45:00");
+        driver.findElement(By.id("button1")).click();
+        time1 = System.currentTimeMillis();
+        assertFalse(driver.findElements(By.id("searchResult")).isEmpty());
+        time2 = System.currentTimeMillis();
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
+        waitForElement(By.linkText("Search IMSI by Date"));
+        driver.findElement(By.linkText("Search IMSI by Date")).click();
+        driver.findElement(By.id("button1")).click();
+        time1 = System.currentTimeMillis();
+        isPresent = driver.findElements(By.id("tableBody")).isEmpty();
+        time2 = System.currentTimeMillis();
+        assertFalse(isPresent);
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys(
+                "2013-02-19 19:45:00");
+        driver.findElement(By.id("button1")).click();
+        time1 = System.currentTimeMillis();
+        assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
+        time2 = System.currentTimeMillis();
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
+        driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys("");
+        driver.findElement(By.id("button1")).click();
+        time1 = System.currentTimeMillis();
+        assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
+        time2 = System.currentTimeMillis();
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
+        waitForElement(By.linkText("Event Cause Search"));
+        driver.findElement(By.linkText("Event Cause Search")).click();
+        driver.findElement(By.id("imsi_attr")).clear();
+        driver.findElement(By.id("imsi_attr")).sendKeys("191911000570809");
+        driver.findElement(By.cssSelector("button.btn.btn-default")).click();
+        time1 = System.currentTimeMillis();
+        isPresent = driver.findElements(By.id("tableBody")).isEmpty();
+        time2 = System.currentTimeMillis();
+        assertFalse(isPresent);
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
+        driver.findElement(By.id("imsi_attr")).clear();
+        driver.findElement(By.id("imsi_attr")).sendKeys("");
+        driver.findElement(By.cssSelector("button.btn.btn-default")).click();
+        time1 = System.currentTimeMillis();
+        assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
+        time2 = System.currentTimeMillis();
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
+        waitForElement(By.linkText("Cause Code Search"));
+        driver.findElement(By.linkText("Cause Code Search")).click();
+        driver.findElement(By.cssSelector("button.btn.btn-default")).click();
+        time1 = System.currentTimeMillis();
+        assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
+        time2 = System.currentTimeMillis();
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
+        driver.findElement(By.id("imsi")).clear();
+        driver.findElement(By.id("imsi")).sendKeys("191911000570809");
+        driver.findElement(By.cssSelector("button.btn.btn-default")).click();
+        time1 = System.currentTimeMillis();
+        isPresent = driver.findElements(By.id("tableBody")).isEmpty();
+        time2 = System.currentTimeMillis();
+        assertFalse(isPresent);
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
+        waitForElement(By.linkText("Call Failure Search"));
+        driver.findElement(By.linkText("Call Failure Search")).click();
+        new Select(driver.findElement(By.id("failureCode")))
+                .selectByVisibleText("1 - HIGH PRIORITY ACCESS");
+        driver.findElement(By.cssSelector("input.btn.btn-default")).click();
+        time1 = System.currentTimeMillis();
+        isPresent = driver.findElements(By.id("tableBody")).isEmpty();
+        time2 = System.currentTimeMillis();
+        assertFalse(isPresent);
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+
         driver.findElement(By.linkText("Logout")).click();
     }
 
@@ -235,6 +310,18 @@ public class NetworkManagmentEngineer {
             return alertText;
         } finally {
             acceptNextAlert = true;
+        }
+    }
+    private void waitForElement(By element) throws InterruptedException {
+        for (int second = 0;; second++) {
+            if (second >= 60)
+                fail("timeout");
+            try {
+                if (isElementPresent(element))
+                    break;
+            } catch (Exception e) {
+            }
+            Thread.sleep(1000);
         }
     }
 }

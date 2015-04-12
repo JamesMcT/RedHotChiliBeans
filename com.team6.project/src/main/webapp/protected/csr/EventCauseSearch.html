@@ -33,6 +33,7 @@
 <script src="../../js/customerServiceCommon.js"></script>
 <script lang="JavaScript" type="text/javascript">
 	function findByImsi() {
+		cleanTable();
 		var imsi = document.getElementById('imsi_attr').value;
 		if (validateImsi(imsi) == true) {
 			var xmlhttp;
@@ -53,22 +54,10 @@
 
 			xmlhttp.onreadystatechange = function() {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
 					var eventCause = JSON.parse(xmlhttp.responseText);
-					var myTable = "<table id = 'eventCauseTable' class = 'table table-striped table-bordered table-hover'> ";
-					myTable += "<thead><tr><th>Cause Code</th><th>Event Id</th><th>Description</th></tr></thead><tfoot><tr><th>Cause Code</th><th>Event Id</th><th>Description</th></tr></tfoot><tbody>";
-					for ( var i in eventCause) {
-
-						var causeCode = eventCause[i].causeCode;
-						var eventId = eventCause[i].eventId;
-						var description = eventCause[i].description;
-						myTable += "<tr> <td>" + causeCode + "<td>" + eventId
-								+ "<td>" + description + "<td> </tr>";
-
-					}
-					myTable += "</tbody></table>"
-					document.getElementById("dataTables-example").innerHTML = myTable;
-
+					createTableHead("eventCauseTable", [ "Cause Code",
+					         							"Event ID", "Description"]);
+					createTableCauseCodeEventIdBody("eventCauseTable", eventCause);
 				}
 				if (xmlhttp.status == 404) {
 					alert("Error: No Page Found");
@@ -119,17 +108,9 @@
 					<div class="panel-heading">Event Id Cause Code for the selected IMSI</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
-								<table class="table table-striped table-bordered table-hover"
-									id="dataTables-example">
-									<thead>
-										<tr>
-											<th>Cause Code</th>
-											<th>Event Id</th>
-											<th>Description</th>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
+							<div id="errorDiv"></div>
+							<table class="table table-striped table-bordered table-hover"
+									id="eventCauseTable">
 								</table>
 							</div>
 							<!-- /.table-responsive -->

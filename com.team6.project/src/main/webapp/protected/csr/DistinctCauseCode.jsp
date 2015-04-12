@@ -23,6 +23,7 @@
 <script src="${pageContext.request.contextPath}/js/customerServiceCommon.js"></script>
 <script>
 	function getEventIdCauseCode() {
+		cleanTable();
 		var imsi = document.getElementById("imsi").value;
 		if (validateImsi(imsi) == true) {
 			var xhr = new XMLHttpRequest();
@@ -69,6 +70,7 @@
 							Occurrence for the selected IMSI</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
+							<div id="errorDiv"></div>
 								<table class="table table-striped table-bordered table-hover"
 									id="eventcauseTable">
 								</table>
