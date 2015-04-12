@@ -87,7 +87,7 @@ public class SupportEngineer {
         time2 = System.currentTimeMillis();
         assertFalse(isPresent);
         timeTaken = time2 - time1;
-        assertTrue(timeTaken < TIME);
+        assertTrue(timeTaken < TIME+2000);
 
         driver.findElement(By.cssSelector("input[type=\"text\"]")).clear();
         driver.findElement(By.cssSelector("input[type=\"text\"]")).sendKeys(
