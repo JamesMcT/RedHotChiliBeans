@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -245,6 +246,15 @@ public class JPABaseDataDAO implements BaseDataDAO {
     	return q.getResultList();
 	}
 
+	@Override
+	public Collection<BaseData> countCallFailurePerImsiByDate(BigInteger imsi, Date startDate, Date endDate) {
+		Query q = em.createNamedQuery("countImsi");
+		q.setParameter("imsi", imsi);
+		q.setParameter("startDate", startDate);
+		q.setParameter("endDate", endDate);
+		return q.getResultList();
+	}
+
     @Override
     public Collection<Object[]> getUniqueEventCauseByImsi(BigInteger imsi) {
         Query q = em.createNamedQuery("getUniqueEventCauseByImsi");
@@ -252,5 +262,5 @@ public class JPABaseDataDAO implements BaseDataDAO {
         return q.getResultList();
     }
 
-    
+   
 }

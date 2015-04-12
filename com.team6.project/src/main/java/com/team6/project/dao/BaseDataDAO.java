@@ -135,6 +135,11 @@ public interface BaseDataDAO {
 	 * @return
 	 */
 	public Collection<BigInteger> getAllImsi();
+
+	
+	
+	public Collection<BaseData> countCallFailurePerImsiByDate(BigInteger imsi, Date startDate, Date endDate);
+
 	/**
      * @return All the unique EventCause objects and the 
      * number of their occurrences associated to a specific imsi. 
@@ -151,6 +156,7 @@ public interface BaseDataDAO {
 	 */
 	
 	public Collection<Object[]> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate);
+
 
 	
 //	public void updateBaseData(BaseData baseData);

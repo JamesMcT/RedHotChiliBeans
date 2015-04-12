@@ -39,11 +39,10 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
 		@NamedQuery(name = "BaseData.findEventCauseByImsi", query = "SELECT b.eventCause FROM BaseData b WHERE b.imsi = :imsi"),
 		@NamedQuery(name = "imsiByFailureCode", query = "SELECT b.imsi, b.date FROM BaseData b WHERE b.failure.failureCode = :failureCode group by b.imsi, b.date"),
-
 		@NamedQuery(name = "baseDataCount", query = "SELECT COUNT(b.id) FROM BaseData b"),
-		//@NamedQuery(name = "getImsiByDate", query = "SELECT distinct(b.imsi) from BaseData b where b.date between :firstDate and :secondDate"),
 		@NamedQuery(name = "getImsiByDate", query = "SELECT b.imsi, b.failure, count(b.imsi) from BaseData b where b.date between :firstDate and :secondDate  group by b.imsi, b.failure ORDER BY count(b.imsi) DESC"),
 		@NamedQuery(name = "eventCauseAndIdByTac", query = "SELECT b.eventCause, COUNT(b) FROM BaseData b where b.userEquipment.tac=:userEquipment GROUP BY b.eventCause"),
+		@NamedQuery(name = "countImsi", query = "Select b from BaseData b WHERE b.imsi =:imsi and b.date between :startDate and :endDate"),
 		@NamedQuery(name = "getAllImsi", query = "SELECT distinct(b.imsi) FROM BaseData b"),	// Query needed for performance tests.		
 		@NamedQuery(name = "countCallFailureByTac", query = "select count(b) from BaseData b where b.userEquipment.tac = :tac and b.date >= :fromDate and b.date <= :toDate"),
 		@NamedQuery(name = "getTOP10MarketOperatorCellByDate", query = "select b.operatorCountry, b.cellId, count(b) from BaseData b where b.date >= :fromDate and b.date <= :toDate group by b.operatorCountry.mcc, b.operatorCountry.mnc, b.cellId order by count(b) desc" ),				
@@ -52,6 +51,7 @@ import javax.persistence.NamedQuery;
 		@NamedQuery(name = "topTenFailuresByDate", query = "SELECT b.imsi, COUNT(b.id) FROM BaseData b WHERE b.date >=:startDate AND b.date <=:endDate GROUP BY b.imsi ORDER BY count(b.id) DESC")
 
 })
+
 @Entity
 public class BaseData implements Serializable {
 

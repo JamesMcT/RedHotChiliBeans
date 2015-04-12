@@ -75,13 +75,18 @@ public class QueryService implements QueryServiceLocal {
 				endDate);
 	}
 
-	@Override
-	public Collection<Object[]> findImsiByDate(Date firstDate, Date secondDate) {
+//	@Override
+//	public Collection<Object[]> findImsiByDate(Date firstDate, Date secondDate) {
+//
+//		return baseData.findImsiByDate(firstDate, secondDate);
+//	}
 
-		return baseData.findImsiByDate(firstDate, secondDate);
+	@Override
+
+	public Collection<BaseData> countCallFailurePerImsiByDate(BigInteger imsi, Date startDate, Date endDate) {
+		return baseData.countCallFailurePerImsiByDate(imsi, startDate, endDate);
 	}
 
-	@Override
 	public Collection<BigInteger> getAllImsi() {
 		return baseData.getAllImsi();
 	}
@@ -118,4 +123,12 @@ public class QueryService implements QueryServiceLocal {
 	public Collection<FailureType> getAllFailureTypes() {
 		return failureType.getAllFailureTypes();
 	}
+
+	@Override
+	public Collection<Object[]> findImsiByDate(Date firstDate, Date secondDate) {
+		return baseData.findImsiByDate(firstDate, secondDate);
+	}
+
+
+
 }

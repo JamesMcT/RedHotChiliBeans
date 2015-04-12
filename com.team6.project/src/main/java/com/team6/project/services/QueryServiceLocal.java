@@ -16,6 +16,7 @@ import com.team6.project.entities.UserEquipment;
  * The QueryService local interface.
  * 
  * @author Eoin Kernan
+ * @author James Mc Ternan
  *
  */
 @Local
@@ -42,6 +43,11 @@ public interface QueryServiceLocal {
 	
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date startDate, Date endDate);
 
+
+//	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate);
+	
+	public Collection<BaseData> countCallFailurePerImsiByDate(BigInteger imsi, Date startDate, Date endDate);
+
 	public Collection<Object[]> findImsiByDate(Date firstDate, Date secondDate);
 
 
@@ -57,6 +63,7 @@ public interface QueryServiceLocal {
     public Collection<Object[]> getImsiByFailureCode(Integer fc);
     
 	public Collection<FailureType> getAllFailureTypes();
+
 
 
 }
