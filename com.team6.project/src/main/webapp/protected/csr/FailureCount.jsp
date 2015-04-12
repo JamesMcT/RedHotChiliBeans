@@ -114,7 +114,7 @@
 	}
 
 	function startup() {
-		loadbar('sidebar.html');
+		loadbar('../sidebar.jsp');
 	}
 </script>
 
