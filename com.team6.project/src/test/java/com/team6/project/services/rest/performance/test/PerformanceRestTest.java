@@ -5,9 +5,7 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.math.BigInteger;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -33,6 +31,7 @@ import com.jayway.restassured.config.LogConfig;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.team6.project.services.QueryServiceLocal;
+import com.team6.project.services.rest.test.NetworkManagementRestServiceTest;
 
 @RunWith(Arquillian.class)
 public class PerformanceRestTest {
@@ -114,16 +113,9 @@ public class PerformanceRestTest {
     @Test
     public void testGetDistinctEventByTac() {
         for (int i = 0; i < tacs.length; i++) {
-            given().filter(sessionFilter)
-                    .when()
-                    .get("/protected/rest/networkmanagement/eventidcausecode/"
-                            + tacs[i]).then().statusCode(200);
-
             long beginTime = System.currentTimeMillis();
 
-            given().auth()
-                    .form("admin", "admin", fac)
-                    .filter(sessionFilter)
+            given().filter(sessionFilter)
                     .expect()
                     .statusCode(200)
                     .contentType(ContentType.JSON)
@@ -142,7 +134,6 @@ public class PerformanceRestTest {
                             .format("NetworkManagment-GetDistinctEventByTac: loading in (%s seconds)",
                                     new DecimalFormat("0.00").format(timeTaken)));
 
-            sessionFilter = new SessionFilter();
         }
 
     }
@@ -183,13 +174,14 @@ public class PerformanceRestTest {
 
     @Test
     public void testFailedCallDurationEndpoint() {
+        
+      long startDateL = NetworkManagementRestServiceTest.dateConvert(startDate);
+      long endDateL = NetworkManagementRestServiceTest.dateConvert(endDate);
 
        long beginTime = System.currentTimeMillis();
 
-        given().auth()
-                .form("admin", "admin", fac)
-                .queryParam("startDate", startDate)
-                .queryParam("endDate", endDate)
+        given().queryParam("startDate", startDateL)
+                .queryParam("endDate", endDateL)
                 .filter(sessionFilter)
                 .expect()
                 .statusCode(200)
@@ -228,15 +220,13 @@ public class PerformanceRestTest {
 
     @Test
     public void testGetAll() {
-        given().filter(sessionFilter).when()
-                .get("/protected/rest/supportengineer/datequery").then()
-                .statusCode(200);
-
+        
+        long startDateL = NetworkManagementRestServiceTest.dateConvert(startDate);
+        long endDateL = NetworkManagementRestServiceTest.dateConvert(endDate);
+        
         long beginTime = System.currentTimeMillis();
-
-        given().auth().form("admin", "admin", fac)
-                .queryParam("firstDate", startDate)
-                .queryParam("secondDate", endDate).filter(sessionFilter)
+        given().queryParam("firstDate", startDateL)
+                .queryParam("secondDate", endDateL).filter(sessionFilter)
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
                 .get("/protected/rest/supportengineer/datequery");
         long endTime = System.currentTimeMillis();

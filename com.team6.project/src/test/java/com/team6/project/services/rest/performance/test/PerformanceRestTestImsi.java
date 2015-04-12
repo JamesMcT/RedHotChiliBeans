@@ -109,7 +109,7 @@ public class PerformanceRestTestImsi {
         ArrayList<BigInteger> allImsi = (ArrayList<BigInteger>) queryService
                 .getAllImsi();
         int j = 0;
-       // while (j < allImsi.size()) {
+        while (j < allImsi.size()) {
             for (int i = 0; i < 10; i++) {
                 long beginTime = System.currentTimeMillis();
                 given().auth()
@@ -126,9 +126,9 @@ public class PerformanceRestTestImsi {
                 assertTrue(timeTaken < MAX_QUERY_TIME);
 
             }
-            //j = j + 200;
-            //Thread.sleep(50);
-        //}
+            j = j + 2000;
+            Thread.sleep(50);
+        }
     }
 
   

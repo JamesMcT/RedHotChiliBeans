@@ -19,8 +19,8 @@
 	function findUser() {
 		var username = document.getElementById("users").value;
 		var currentDiv = document.getElementById("div2");
-		hideDiv("div6");
-		hideDiv("div7");
+		hideDiv("divSuccess");
+		hideDiv("divError");
 		if (username) {
 			var xhr = new XMLHttpRequest();
 			var root = "${pageContext.servletContext.contextPath}";
@@ -72,17 +72,11 @@
 				xhr.setRequestHeader('Content-Type', 'application/json');
 				xhr.addEventListener('load', function() {
 					if (xhr.status == 200) {
-						//var response = JSON.parse(xhr.responseText);
 						clean();
-						//if (response.description) {
-							showDivInLine("div6");
+							showDivInLine("divSuccess");
 							
-						//} else {
-							
-						//}
 					} else {
-						showDivInLine("div7");
-						//alert("error! the response status is : " + xhr.status);
+						showDivInLine("divError");
 					}
 				}, false);
 				xhr.send(JSON.stringify(u));
@@ -165,8 +159,8 @@
 		hideDiv("div3");
 		hideDiv("div4");
 		hideDiv("div5");
-		hideDiv("div6");
-		hideDiv("div7");
+		hideDiv("divSuccess");
+		hideDiv("divError");
 	}
 </script>
 </head>
@@ -212,8 +206,8 @@
 							<input type='button' onclick="updateUser()" value="update"
 								class="btn btn-default" />
 						</div>
-						<div id="div6" class="success" style="display: none;">User updated with success!</div>
-						<div id="div7" class="error" style="display: none;">User update failed.</div>
+						<div id="divSuccess" class="success" style="display: none;">User updated with success!</div>
+						<div id="divError" class="error" style="display: none;">User update failed.</div>
 					</div>
 				</div>
 				<!-- /.col-lg-12 -->

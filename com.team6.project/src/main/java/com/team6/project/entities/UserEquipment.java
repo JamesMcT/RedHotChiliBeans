@@ -79,7 +79,7 @@ public class UserEquipment implements Serializable {
 	public String toString() {
 		return "Tac : " + tac + " Marketing Name : " + marketingName
 				+ " Manufacturer : " + manufacturer + " Access Capability : "
-				+ accessCapability + " Model : " + accessCapability
+				+ accessCapability + " Model : " + model
 				+ " Vendor Name : " + vendorName + " Type : " + type
 				+ " Operating System : " + os + " Input Mode : " + inputMode;
 	}
