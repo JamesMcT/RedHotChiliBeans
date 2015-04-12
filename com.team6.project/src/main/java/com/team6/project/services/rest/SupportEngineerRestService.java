@@ -1,7 +1,5 @@
 package com.team6.project.services.rest;
 
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
 import java.util.Collection;
 import java.util.Date;
 
@@ -10,29 +8,19 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.team6.project.entities.BaseData;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.imageio.stream.FileImageOutputStream;
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import javax.xml.ws.soap.AddressingFeature.Responses;
-
-import com.team6.project.entities.ReqParam;
-import com.team6.project.entities.Response;
+import com.team6.project.entities.FailureType;
 import com.team6.project.services.QueryServiceLocal;
+
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 /**
  * 
@@ -40,76 +28,108 @@ import com.team6.project.services.QueryServiceLocal;
  *
  */
 
-@Path("/basedata")
+@Path("/supportengineer")
 public class SupportEngineerRestService {
+    @Inject
+    QueryServiceLocal queryService;
 
-	@Inject
-	QueryServiceLocal queryService;
+    public SupportEngineerRestService() {
+    }
 
-	public SupportEngineerRestService() {
-	}
+    @GET
+    @Path("/tac")
+    @Produces(MediaType.APPLICATION_JSON)
+    public long countCallFailureByTac(@QueryParam("tac") Integer tac,
+            @QueryParam("fromDate") long lFromDate,
+            @QueryParam("toDate") long lToDate) {
+        Date fromDate = new Date();
+        Date toDate = new Date();
+        String message = "";
+        fromDate.setTime(lFromDate);
+        toDate.setTime(lToDate);
+        if (fromDate.after(toDate)) {
+            message = "Start-date can not be after end-date";
+            final Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+        if (fromDate.after(new Date(System.currentTimeMillis()))) {
+            message = "Start-date can not be in the future";
+            final Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+        Long count = queryService.countCallFailureByTac(tac, fromDate, toDate);
+        System.err.println("The value of count is..." + count);
+        if (count == null || count == 0) {
+            message = String.format(
+                    "No results for given date range '%s'->'%s'.",
+                    fromDate.toString(), toDate.toString());
+            final Response response = Response.status(Status.NOT_FOUND)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+        return count;
+    }
 
-	@GET
-	@Path("/tac")
-	@Produces(MediaType.APPLICATION_JSON)
-	public long countCallFailureByTac(@QueryParam("tac") Integer tac,
-			@QueryParam("fromDate") long lFromDate,
-			@QueryParam("toDate") long lToDate) {
+    @GET
+    @Path("/datequery")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Object[]> findImsiByDate(
+            @QueryParam("firstDate") long lfirstDate,
+            @QueryParam("secondDate") long lsecondDate) {
+        System.err.println("the first param is.." + lfirstDate);
+        Date fromDate = new Date();
+        Date toDate = new Date();
+        String message = "";
+        fromDate.setTime(lfirstDate);
+        toDate.setTime(lsecondDate);
+        if (fromDate.after(toDate)) {
+            message = "Start-date can not be after end-date";
+            final Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+        if (fromDate.after(new Date(System.currentTimeMillis()))) {
+            message = "Start-date can not be in the future";
+            final Response response = Response.status(Status.BAD_REQUEST)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+        Collection<Object[]> c = queryService.findImsiByDate(fromDate, toDate);
+        if (!(c.size() > 0)) {
+            message = String.format(
+                    "No results for given date range '%s'->'%s'.",
+                    fromDate.toString(), toDate.toString());
+            final Response response = Response.status(Status.NOT_FOUND)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+        return c;
+    }
 
-		Date fromDate = new Date();
-		Date toDate = new Date();
+    @GET
+    @Path("/failurecode")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Object[]> getImsiByFailureCode(
+            @QueryParam("failureCode") Integer failureCode) {
+        String message = "";
+        Collection<Object[]> failuretypequery = queryService
+                .getImsiByFailureCode(failureCode);
+        if (!(failuretypequery.size() > 0)) {
+            message = String.format("No results for this failure code");
+            final Response response = Response.status(Status.NOT_FOUND)
+                    .entity(message).build();
+            throw new WebApplicationException(response);
+        }
+        return failuretypequery;
+    }
 
-		fromDate.setTime(lFromDate);
-		toDate.setTime(lToDate);
+    @GET
+    @Path("/failuretype")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<FailureType> getAllFailureTypes() {
+        return queryService.getAllFailureTypes();
+    }
 
-		return queryService.countCallFailureByTac(tac, fromDate, toDate);
-	}
-
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response countCallFailureByTac(ReqParam reqParam) {
-
-		// String fromDate_s = "2013-01-11 17:15:00";
-		// String toDate_s = "2013-01-11 17:16:00";
-
-		SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss");
-		Date fromDate = new Date();
-		Date toDate = new Date();
-
-		try {
-			fromDate = dt.parse(reqParam.getFromDate());
-			toDate = dt.parse(reqParam.getToDate());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		Integer tac = new Integer(reqParam.getTac());
-
-		return queryService.countCallFailureByTacPOST(tac, fromDate, toDate);
-
-	}
-
-	@GET
-	@Path("/datequery")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<BaseData> findImsiByDate(
-			@QueryParam("firstDate") String firstDate,
-			@QueryParam("secondDate") String secondDate) {
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
-		Date first = null;
-		Date second = null;
-
-		try {
-			first = sdf.parse(firstDate);
-			second = sdf.parse(secondDate);
-
-		} catch (ParseException | NullPointerException e) {
-			e.printStackTrace();
-		}
-
-		return queryService.findImsiByDate(first, second);
-	}
 }

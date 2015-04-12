@@ -1,37 +1,19 @@
 package com.team6.project.services.rest.test;
 
-import java.io.File;
-import java.net.URI;
+import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
 
-import javax.ws.rs.core.UriBuilder;
-
-import net.sf.ehcache.search.expression.EqualTo;
-
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.jayway.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.*;
-
-import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.authentication.FormAuthConfig;
-import com.jayway.restassured.config.LogConfig;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
-import com.team6.project.entities.EventCause;
 
 /**
- * Test class for all REST services associated with BaseData class.
+ * Test class for all REST services associated with Customer Service Rep class.
  * 
  * @author James
  *
@@ -40,8 +22,6 @@ import com.team6.project.entities.EventCause;
 @RunWith(Arquillian.class)
 public class CustomerServiceRestTest extends RestTest {
 
-	private final static String ARCHIVE_NAME = "test";
-	private final String baseURL = "http://localhost:8080/" + ARCHIVE_NAME;
 
 	public CustomerServiceRestTest() {
 	}
@@ -55,6 +35,10 @@ public class CustomerServiceRestTest extends RestTest {
 		createUsers();
 		fac = getformAuthConfig();
 		sessionFilter = new SessionFilter();
+		   given().filter(sessionFilter).when().get("protected/index.jsp").then()
+           .statusCode(200);
+		   given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter).when()
+           .get("protected/index.jsp");
 
 	}
 
@@ -65,14 +49,9 @@ public class CustomerServiceRestTest extends RestTest {
 	 */
 	@Test
 	public void testEventCausePage() {
-
-		given().filter(sessionFilter).when()
-				.get("/protected/csr/EventCauseSearch.html").then()
-				.statusCode(200);
-
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
 				.when().get("protected/csr/EventCauseSearch.html").then()
-				.body(containsString("<title>Customer Service Rep</title>"));
+				.body(containsString("<title>Red Hot Chilli Beans</title>"));
 
 	}
 
@@ -81,22 +60,9 @@ public class CustomerServiceRestTest extends RestTest {
 	 */
 	@Test
 	public void testGetEventCause() {
-
-		given().filter(sessionFilter).expect().statusCode(200).when()
-				.get("protected/rest/IMSIEvent/191911000423586"); // This IMSI
-																	// value has
-																	// been
-																	// taken
-																	// from Test
-																	// Data
-																	// which is
-																	// loaded
-																	// into test
-																	// database.
-
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
 				.expect().statusCode(200).when()
-				.get("protected/rest/IMSIEvent/191911000423586").then()
+				.get("protected/rest/customerservice/191911000423586").then()
 				.contentType(ContentType.JSON);
 
 	}
@@ -107,12 +73,8 @@ public class CustomerServiceRestTest extends RestTest {
 
 	@Test
 	public void testNoInput() {
-
-		given().filter(sessionFilter).expect().statusCode(200).when()
-				.get("protected/rest/IMSIEvent/191911000423586");
-
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
-				.expect().statusCode(404).when().get("procted/rest/IMSIEvent/");
+				.expect().statusCode(404).when().get("procted/rest/customerservice/");
 
 	}
 
@@ -121,24 +83,24 @@ public class CustomerServiceRestTest extends RestTest {
 	 */
 	@Test
 	public void testInvalidInputType() {
-
-		given().filter(sessionFilter).expect().statusCode(200).when()
-				.get("protected/rest/IMSIEvent/A");
-
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
 				.expect().statusCode(400).when()
-				.get("protected/rest/IMSIEvent/A");
+				.get("protected/rest/customerservice/A");
 	}
 	
-//	@Test
-//	public void testInvalidUserType() {
-//
-//		given().filter(sessionFilter).expect().statusCode(200).when()
-//				.get("/protected/csr/EventCauseSearch.html");
-//
-//		given().auth().form("aaa", "aaa", fac).filter(sessionFilter)
-//				.expect().when()
-//				.get("/protected/csr/EventCauseSearch.html").then().body(containsString("Invalid user name or password"));
-//	}
+	/**
+     * Test valid IMSI for UniqueCauseCodePage
+     */
+	@Test 
+	public void testUniqueCauseCodePage(){
+	     given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+        .expect().statusCode(200).when()
+        .get("protected/rest/customerservice/uniqueec/191911000423586").then()
+        .contentType(ContentType.JSON);
+
+	}
+	
+
+
 
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en">
 
 <head>
 
@@ -12,33 +12,110 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Adding CSS -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
-<link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="../../css/dataTables.responsive.css" rel="stylesheet">
-<link href="../../css/se.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/bootstrap-combined.min.cristiana.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.responsive.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
 
-<!-- <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet"> -->
+<!-- jQuery -->
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 <!-- Adding functions -->
-<script src="../../js/basedata.js"></script>
-<script src="../../js/common.js"></script>
-<script src="../../js/angular.min.js"></script>
-<script src="../../js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
 
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
+	
+</script>
 
+<script>
+	//rework this
+	function getImsiByDate() {
+		var dates = getDatesFromDatePicker();
+		var fromDate = dates[0];
+		var toDate = dates[1];
 
-<script type="text/javascript">
-	function startup() {
-		loadbar('sidebar.html');
+		if (fromDate && toDate) {
+			var xhr = new XMLHttpRequest();
+			var root = "${pageContext.servletContext.contextPath}";
+			xhr.open("GET", root + "/protected/rest/supportengineer/datequery"
+					+ "?firstDate=" + fromDate + "&secondDate=" + toDate, true);
+			xhr.addEventListener('load', function() {
+				if (xhr.status == 200) {
+					cleanTable();
+					cleanError();
+					response = JSON.parse(xhr.responseText);
+					createTableHead("ImsiFailureTable", [ "Imsi", "Failure Type",
+							"Occurrence" ]);
+					createTableBody("ImsiFailureTable", response);
+				} else {
+					cleanTable();
+					cleanError();
+					var message = 'Error ' + xhr.status + ': '
+							+ xhr.responseText;
+					showError(message);
+				}
+			}, false);
+			xhr.send();
+		} else {
+			cleanTable();
+			cleanError();
+			var message = 'Error : Please select a value for both dates';
+			showError(message);
+		}
+	}
+
+	function createTableBody(tableId, response) {
+		var table = document.getElementById(tableId);
+		var tbody = document.createElement("tbody");
+		tbody.id = "tableBody";
+		for (var i = 0; i < response.length; i++) {
+			var imsi = response[i][0];
+			var failure = response[i][1];
+			var occurrence = response[i][2];
+			var tr = document.createElement("tr");
+			if (i % 2) {
+				tr.className = "even gradeA";
+			} else {
+				tr.className = "odd gradeA";
+			}
+			var td1 = document.createElement("td");
+			var td2 = document.createElement("td");
+			var td3 = document.createElement("td");
+			td1.appendChild(document.createTextNode(imsi));
+			tr.appendChild(td1);
+			td2.appendChild(document.createTextNode(failure.descrption));
+			tr.appendChild(td2);
+			td3.appendChild(document.createTextNode(occurrence));
+			tr.appendChild(td3);
+			tbody.appendChild(tr);
+		}
+		table.appendChild(tbody);
 
 	}
+
+	function startup() {
+		loadbar('../sidebar.jsp');
+	}
 </script>
+
 </head>
 
 <body onload="startup()">
 
-	<div id="wrapper" ng-app="App" ng-controller="readDates">
+	<div id="wrapper">
 
 		<!-- Navigation -->
 		<nav class="navbar navbar-default navbar-static-top" role="navigation"
@@ -48,72 +125,72 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">Search IMSI failures by date</h1>
+					<p>Please select a time period</p>
+					<div>
+						<div id="div1">
 
 
-
-					<div id="pickerarea">
-						<div id="datetimepickerbox" class="input-append date">
-							<input type="text" ng-model="firstDate"></input>
-						</div>
-
-						<div id="datetimepickerbox" class="input-append date">
-							<input type="text" ng-model="secondDate"></input>
-						</div>
-
-						<button ng-click='sayHello(firstDate,secondDate)'>search</button>
-												<p id="errormess"></p>
-
-					</div>
-					<!--  <h1>IMSIs</h1>-->
-					<h3>IMSIs</h3>
-					<div class="panel-body">
-						<div class="dataTable_wrapper scrollableContainer">
-
-							<div class="scrollingArea">
-
-								<table class="table table-striped table-bordered table-hover"
-									id="dataTables-example">
-									<thead>
-										<tr>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr class="odd gradeA" ng-repeat="x in baseDataDate">
-											<td><div class="imsi">{{x}}</div></td>
-
-										</tr>
-									</tbody>
-								</table>
-
+							<div id="datetimepicker" class="input-append date">
+								<input type="text"></input> <span class="add-on"> <i
+									data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+								</span>
 							</div>
-							<div id="errorDiv">
-								<table class="table table-striped table-bordered table-hover"
-									id="failureDurationTable">
-								</table>
+
+							<div id="datetimepicker2" class="input-append date">
+								<input type="text"></input> <span class="add-on"> <i
+									data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+								</span>
 							</div>
-							<!-- /.table-responsive -->
+							<script type="text/javascript">
+								$('#datetimepicker').datetimepicker({
+									format : 'yyyy-MM-dd hh:mm:ss',
+									language : 'en'
+								});
+								$('#datetimepicker').data('datetimepicker')
+										.setLocalDate(
+												new Date(2013, 1, 19, 19, 35));
+							</script>
+
+
+							<script type="text/javascript">
+								$('#datetimepicker2').datetimepicker({
+									format : 'yyyy-MM-dd hh:mm:ss',
+									language : 'en'
+								});
+								$('#datetimepicker2').data('datetimepicker')
+										.setLocalDate(
+												new Date(2013, 1, 19, 19, 40));
+							</script>
+
+
+
+							<br> <input id=button1 type='button' class="btn btn-default"
+								onclick="getImsiByDate()" value="Search" /> <br>
 						</div>
+						<!-- /#div1 -->
 					</div>
-					<!-- /.panel-body -->
+					<br>
 				</div>
 
-
-
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Imsi affected by call failures</div>
+						<div class="panel-body">
+							<div class="dataTable_wrapper">
+								<div id="errorDiv"></div>
+								<table class="table table-striped table-bordered table-hover"
+									id="ImsiFailureTable">
+								</table>
+							</div>
+							<!-- /#dataTable_wrapper -->
+						</div>
+						<!-- /#panel-body -->
+					</div>
+				</div>
 
 			</div>
-
 		</div>
-
-
-	</div>
-	<!-- /#wrapper -->
-
-
-
-
-	</script>
-
+		<!-- /#wrapper -->
 </body>
 
 </html>

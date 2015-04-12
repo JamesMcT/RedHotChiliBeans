@@ -18,7 +18,7 @@ public class AllTrueCompositeValidator implements IValidator{
 	private Collection<IValidator> validators;
 	
 	/**
-	 * 
+	 * Initializes the IValidators Collection as an empty ArrayList
 	 */
 	public AllTrueCompositeValidator() {
 		validators = new ArrayList<>();
@@ -28,6 +28,10 @@ public class AllTrueCompositeValidator implements IValidator{
 	 * Return false at the first IValidator that returns false.
 	 * If all IValidator are true, it builds the BaseData object 
 	 * using the Record object
+	 * @param Record object that contains raw data
+     * @param BaseData object valued with data from record if validations are satisfied
+     * @param DataImportServiceLocal contains HashMaps valued with the data of the auxiliary tables 
+     * @return true if the validation is satisfied
 	 */
 	@Override
 	public boolean isValid(Record record, BaseData baseData, DataImportServiceLocal service) {
@@ -41,7 +45,7 @@ public class AllTrueCompositeValidator implements IValidator{
 	}
 	
 	/**
-	 * 
+	 * Add an IValidator object to a list of IValidator objects
 	 * @param validator
 	 */
 	public void add(IValidator validator){

@@ -9,9 +9,12 @@ import com.team6.project.services.DataImportServiceLocal;
 
 /**
  * Validates the MCC and the MNC to guarantee the FK satisfied
- * 
+ * If the constraint is satisfied the BaseData OperatorCountry property is set with 
+ * the same value of the Record OperatorCountry property. Otherwise a
+ * description of the error is set into the description property of the Record object.
  * @author Cristiana
  */
+ 
 public class OperatorCountryValidator implements IValidator {
 
     @Override

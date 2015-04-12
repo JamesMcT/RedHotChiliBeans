@@ -9,7 +9,9 @@ import com.team6.project.services.DataImportServiceLocal;
 
 /**
  * Validates the EventId and the CauseCode to guarantee the FK satisfied
- * 
+ * If the constraint is satisfied the BaseData EventCause property is set with 
+ * the same value of the Record EventCause property. Otherwise a
+ * description of the error is set into the description property of the Record object.
  * @author Cristiana
  */
 public class EventCauseValidator implements IValidator {

@@ -2,7 +2,6 @@ package com.team6.project.dao.jpa;
 
 
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +22,6 @@ import com.team6.project.entities.EventCausePK;
 import com.team6.project.entities.FailureType;
 import com.team6.project.entities.OperatorCountryPK;
 import com.team6.project.entities.Record;
-import com.team6.project.entities.Response;
 import com.team6.project.entities.UserEquipment;
 
 
@@ -31,6 +29,7 @@ import com.team6.project.entities.UserEquipment;
 /**
  * @author James Mc Ternan
  * @Author Eoin Kernan
+ * @author Cristiana
  * @author Sabee D14125306
  *
  */
@@ -145,11 +144,10 @@ public class JPABaseDataDAO implements BaseDataDAO {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate) {
+	public Collection<Object[]> findImsiByDate(Date firstDate, Date secondDate) {
 		Query q = em.createNamedQuery("getImsiByDate");
 		q.setParameter("firstDate", firstDate).setParameter("secondDate", secondDate);
-        List<BaseData> result = q.getResultList();
-		
+        List<Object[]> result = q.getResultList();	
     	return result;
 	}
     
@@ -183,41 +181,36 @@ public class JPABaseDataDAO implements BaseDataDAO {
         
     }
     
+    @Override
+    public Collection<Object[]> getImsiByFailureCode(Integer fc) {
+        Query q = em.createNamedQuery("imsiByFailureCode");
+        q.setParameter("failureCode", fc);
+     //   List<BaseData> result = q.getResultList();
+
+        return q.getResultList();
+        
+    }
     
     @Override //S
 	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate) {		
-		Response response = new Response();
 		
-		Query q = em.createQuery("select count(*) from BaseData "
-				+ "where userEquipment = (from UserEquipment where tac = :tac) "
-				+ "and date >= :fromDate "
-				+ "and date <= :toDate")
-				.setParameter("tac", tac)
-				.setParameter("fromDate", fromDate)				
-				.setParameter("toDate", toDate);			
+    	Query q = em.createNamedQuery("countCallFailureByTac")
+    		.setParameter("tac", tac)
+    		.setParameter("fromDate", fromDate)				
+    		.setParameter("toDate", toDate);	
 		
 		return (long) q.getSingleResult();
 	}
     
     @Override //S
-	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate) {		
-		Response response = new Response();
+	public Collection<Object[]> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate) {		
 		
-		Query q = em.createQuery("select count(*) from BaseData "
-				+ "where userEquipment = (from UserEquipment where tac = :tac) "
-				+ "and date >= :fromDate "
-				+ "and date <= :toDate")
-				.setParameter("tac", tac)
-				.setParameter("fromDate", fromDate)				
-				.setParameter("toDate", toDate);
+    	Query q = em.createNamedQuery("getTOP10MarketOperatorCellByDate")    		
+    		.setParameter("fromDate", fromDate)				
+    		.setParameter("toDate", toDate);	
 		
-		long l = (long) q.getSingleResult();
-		String s = String.valueOf(l);
-		response.setStatus(Response.Status.OK);
-		response.setDescription(s);
-		
-		return response;		
-	}
+		return q.getResultList();
+	}    
     
     
 
@@ -235,11 +228,24 @@ public class JPABaseDataDAO implements BaseDataDAO {
     	return q.getResultList();
     }
 
+	public Collection<Object[]> getTopTenFailuresByDate(Date start, Date end){
+		
+		
+		Query q = em.createNamedQuery("topTenFailuresByDate");
+    	q.setParameter("startDate", start);
+    	q.setParameter("endDate", end);
+    	
+    	return q.getResultList();
+		
+		
+	}
+
 	@Override
 	public Collection<BigInteger> getAllImsi() {
     	Query q = em.createNamedQuery("getAllImsi");
     	return q.getResultList();
 	}
+
 
 	
 
@@ -252,5 +258,12 @@ public class JPABaseDataDAO implements BaseDataDAO {
 		return q.getResultList();
 	}
 
-    
+    @Override
+    public Collection<Object[]> getUniqueEventCauseByImsi(BigInteger imsi) {
+        Query q = em.createNamedQuery("getUniqueEventCauseByImsi");
+        q.setParameter("imsi", imsi);
+        return q.getResultList();
+    }
+
+   
 }

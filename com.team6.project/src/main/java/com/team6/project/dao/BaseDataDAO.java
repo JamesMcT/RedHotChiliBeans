@@ -6,7 +6,6 @@ import java.util.Date;
 
 import javax.ejb.Local;
 
-import com.team6.project.entities.Response;
 import com.team6.project.entities.BaseData;
 import com.team6.project.entities.EventCause;
 import com.team6.project.entities.EventCausePK;
@@ -20,6 +19,7 @@ import com.team6.project.entities.UserEquipment;
  * @author John O Keeffe
  * @author Eoin Kernan
  * @author Cristiana Conti
+ * @author Sabee
  */
 @Local
 public interface BaseDataDAO {
@@ -68,7 +68,7 @@ public interface BaseDataDAO {
 	 * @param secondDate
 	 * @return
 	 */
-	public Collection<BaseData> findImsiByDate(Date firstDate, Date secondDate);
+	public Collection<Object[]> findImsiByDate(Date firstDate, Date secondDate);
 	
 	/**
 	 * 
@@ -110,20 +110,53 @@ public interface BaseDataDAO {
 	
 	public Collection<Object[]> getDistinctEventByTac(Integer ue);
 	
+	
+	/**
+	 * @param tac
+	 * @param fromDate
+	 * @param toDate
+	 * 
+	 * @return long
+	 * Return number of failure caused by tac in a given time period
+	 */
+	
 	public long countCallFailureByTac(Integer tac, Date fromDate, Date toDate);
 	
-	public Response countCallFailureByTacPOST(Integer tac, Date fromDate, Date toDate);
 
 	public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end);
 	
+	
+	public Collection<Object[]> getTopTenFailuresByDate(Date start, Date end);
+
+    public Collection<Object[]> getImsiByFailureCode(Integer fc);
+
 	/**
 	 * Return all IMSI values.
 	 * @return
 	 */
 	public Collection<BigInteger> getAllImsi();
+
 	
 	
 	public Collection<BaseData> countCallFailurePerImsiByDate(BigInteger imsi, Date startDate, Date endDate);
+
+	/**
+     * @return All the unique EventCause objects and the 
+     * number of their occurrences associated to a specific imsi. 
+     */
+	public Collection<Object[]> getUniqueEventCauseByImsi(BigInteger imsi);
+
+	
+	/**
+	 * @param fromDate
+	 * @param toDate
+	 * 
+	 * @return Collection<BaseData>
+	 * Return the top 10 Market/Operator/Cell ID cause the failure in a given time period 
+	 */
+	
+	public Collection<Object[]> getTOP10MarketOperatorCellByDate(Date fromDate, Date toDate);
+
 
 	
 //	public void updateBaseData(BaseData baseData);

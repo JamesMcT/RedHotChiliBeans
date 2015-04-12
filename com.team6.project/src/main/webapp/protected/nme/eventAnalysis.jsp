@@ -12,13 +12,13 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Adding CSS -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
-<link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="../../css/dataTables.responsive.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/dataTables.responsive.css" rel="stylesheet">
 
 <!-- Adding functions -->
-<script src="../../js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
 
 <script>
 	function getAllTacs() {
@@ -53,36 +53,18 @@
 		xhr.addEventListener('load', function() {
 			if (xhr.status == 200) {
 				cleanTable();
-				response = JSON.parse(xhr.responseText);
-				createTableHead();
-				createTableBody();
+				var response = JSON.parse(xhr.responseText);
+				createTableHead("eventcauseTable", [ "Event Id", "Cause Code",
+						"Description", "Occurence" ]);
+				createTableBody(response);
+				createPieChart(response);
+				showDiv("pieChart");
 			}
 		}, false);
 		xhr.send();
 	}
 
-	function createTableHead() {
-		var table = document.getElementById("eventcauseTable");
-		var thead = document.createElement("thead");
-		thead.id = "tableHead";
-		var tr = document.createElement("tr");
-		var th1 = document.createElement("th");
-		th1.appendChild(document.createTextNode("Event Id"));
-		var th2 = document.createElement("th");
-		th2.appendChild(document.createTextNode("Cause Code"));
-		var th3 = document.createElement("th");
-		th3.appendChild(document.createTextNode("Description"));
-		var th4 = document.createElement("th");
-		th4.appendChild(document.createTextNode("Occurence"));
-		tr.appendChild(th1);
-		tr.appendChild(th2);
-		tr.appendChild(th3);
-		tr.appendChild(th4);
-		thead.appendChild(tr);
-		table.appendChild(thead);
-	}
-
-	function createTableBody() {
+	function createTableBody(response) {
 		var table = document.getElementById("eventcauseTable");
 		var tbody = document.createElement("tbody");
 		tbody.id = "tableBody";
@@ -113,22 +95,50 @@
 		table.appendChild(tbody);
 	}
 
-	function cleanTable() {
-		var tableBody = document.getElementById("tableBody");
-		var tableHead = document.getElementById("tableHead");
-		if (tableHead) {
-			console.log("removing head");
-			tableHead.parentNode.removeChild(tableHead);
-		}
-		if (tableBody) {
-			console.log("removing body");
-			tableBody.parentNode.removeChild(tableBody);
-		}
-	}
-
 	function startup() {
 		loadbar('../sidebar.jsp');
 		getAllTacs();
+	}
+	
+	//Flot Pie Chart
+	function createPieChart(response){
+		var data = []
+		var other = 0;
+		for (var i = 0; i < response.length; i++) {
+			var singleResponse = response[i];
+			var eventCause = singleResponse[0];
+			var occurence = singleResponse[1];
+			if (i<10){
+				data[i]={label: eventCause.eventId+" "+eventCause.causeCode,
+						data: occurence}
+			}
+			else{
+				other = other+occurence;
+			}
+		}
+		if(other > 0){
+			data[10]={label: "other",
+					data: other}
+		}
+		var plotObj = $.plot($("#flot-pie-chart"), data, {
+	        series: {
+	            pie: {
+	                show: true
+	            }
+	        },
+	        grid: {
+	            hoverable: true
+	        },
+	        tooltip: true,
+	        tooltipOpts: {
+	            content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+	            shifts: {
+	                x: 20,
+	                y: 0
+	            },
+	            defaultTheme: false
+	        }
+	    });
 	}
 </script>
 
@@ -150,13 +160,29 @@
 					<div>
 						<div id="div1">
 							<select name="tacs" id="tacs" class="form-control">
-							</select> <br> <input type='button' class="btn btn-default" onclick="getEventIdCauseCode()"
-								value="show data" /> <br>
+							</select> <br> <input type='button' class="btn btn-default"
+								onclick="getEventIdCauseCode()" value="show data" /> <br>
 						</div>
 						<!-- /#div1 -->
 					</div>
 					<br>
 				</div>
+				 <div class="col-lg-6">
+                    <div id="pieChart" class="panel panel-default" style="display:none;">
+                        <div class="panel-heading">
+                            Top ten with max number of occurrences
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="flot-chart">
+                                <div class="flot-chart-content" id="flot-pie-chart"></div>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-6 -->
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">Table: Event Id Cause Code and
@@ -172,14 +198,32 @@
 						<!-- /#panel-body -->
 					</div>
 				</div>
+				
 			</div>
+
+
 
 		</div>
 	</div>
-
-	</div>
-	</div>
 	<!-- /#wrapper -->
+	
+	<!-- jQuery -->
+    <script src="../../js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Flot Charts JavaScript -->
+    <script src="../../bower_components/flot/excanvas.min.js"></script>
+    <script src="../../bower_components/flot/jquery.flot.js"></script>
+    <script src="../../bower_components/flot/jquery.flot.pie.js"></script>
+    <script src="../../bower_components/flot/jquery.flot.resize.js"></script>
+    <script src="../../bower_components/flot/jquery.flot.time.js"></script>
+    <script src="../../bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+
 </body>
 
 </html>

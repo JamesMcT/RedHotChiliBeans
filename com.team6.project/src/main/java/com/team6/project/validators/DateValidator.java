@@ -7,10 +7,13 @@ import com.team6.project.entities.Record;
 import com.team6.project.services.DataImportServiceLocal;
 
 /**
- * Performs a validation over the date field
+ * Performs a validation over the date property of the Record object. If the date is a valid date 
+ * and it is not in the future, the BaseData date property is set with the same value. Otherwise a
+ * description of the error is set into the description property of the Record object.
  * @author Cristiana 
  */
 public class DateValidator implements IValidator {
+
 
     @Override
     public boolean isValid(Record record, BaseData baseData,

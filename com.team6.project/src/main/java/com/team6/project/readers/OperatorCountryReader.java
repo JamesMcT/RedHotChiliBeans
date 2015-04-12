@@ -72,7 +72,7 @@ public class OperatorCountryReader extends Reader {
     }
 
     /**
-     * 
+     * returns the name of the excel sheet
      * @return
      */
     public static String getName() {

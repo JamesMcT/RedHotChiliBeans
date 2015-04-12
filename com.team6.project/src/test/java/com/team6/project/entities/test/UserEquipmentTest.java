@@ -5,41 +5,38 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.team6.project.entities.UserEquipment;
 
 public class UserEquipmentTest {
 
-    private static UserEquipment ue1;
-    private static UserEquipment ue2;
+    private static UserEquipment ue;
 
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-        ue1 = new UserEquipment(null, "marketingName", "manufacturer",
-                                "accessCapability", "model", "vendorName",
-                                "type", "os", "inputMode");
-        ue2 = new UserEquipment(2, "marketingName", "manufacturer",
+    @Before
+    public void setUpBeforeClass() throws Exception {
+        ue = new UserEquipment(2, "marketingName", "manufacturer",
                                 "accessCapability", "model", "vendorName",
                                 "type", "os", "inputMode");
 
     }
-    
+
     @Test
     public void getKeyTest_True() {
-        assertEquals(ue2.getKey(), new Integer(2));
+        assertEquals(ue.getKey(), new Integer(2));
     }
-    
+
     @Test
     public void getKeyTest_False() {
-        assertNotEquals(ue2.getKey(), new Integer(1));
+        assertNotEquals(ue.getKey(), new Integer(1));
     }
 
     @Test
     public void toStringTest() {
-        assertEquals(ue2.toString(),
-                     "Tac : 2 Marketing Name : marketingName Manufacturer : manufacturer Access Capability : accessCapability Model : model Vendor Name : vendorName Type : type Operating System : os Input Mode : inputMode");
+        assertEquals(
+                ue.toString(),
+                "Tac : 2 Marketing Name : marketingName Manufacturer : manufacturer Access Capability : accessCapability Model : model Vendor Name : vendorName Type : type Operating System : os Input Mode : inputMode");
     }
 
     @Test
@@ -49,7 +46,8 @@ public class UserEquipmentTest {
                                                 "accessCapability", "model",
                                                 "vendorName", "type", "os",
                                                 "inputMode");
-        assertTrue(ue2.equals(other));
+        assertTrue(ue.equals(other));
+        assertTrue(ue.hashCode() == other.hashCode());
     }
 
     @Test
@@ -59,7 +57,8 @@ public class UserEquipmentTest {
                                                 "accessCapability", "model",
                                                 "vendorName", "type", "os",
                                                 "inputMode");
-        assertFalse(ue2.equals(other));
+        assertFalse(ue.equals(other));
+        assertFalse(ue.hashCode() == other.hashCode());
     }
 
     @Test
@@ -69,22 +68,24 @@ public class UserEquipmentTest {
                                                 "accessCapability", "model",
                                                 "vendorName", "type", "os",
                                                 "inputMode");
-        assertFalse(ue2.equals(other));
+        assertFalse(ue.equals(other));
+        assertFalse(ue.hashCode() == other.hashCode());
     }
 
     @Test
     public void hasRequiredFieldsTest_NoTac() {
-        assertFalse(ue1.hasRequiredFields());
+        ue.setTac(null);
+        assertFalse(ue.hasRequiredFields());
     }
 
     @Test
     public void hasRequiredFieldsTest() {
-        assertTrue(ue2.hasRequiredFields());
+        assertTrue(ue.hasRequiredFields());
     }
 
     @Test
     public void hasRequiredFieldsTest_NoOtherFields() {
-        assertTrue(ue2.hasRequiredFields());
+        assertTrue(ue.hasRequiredFields());
     }
 
 }

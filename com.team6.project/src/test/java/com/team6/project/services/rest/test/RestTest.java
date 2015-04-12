@@ -30,7 +30,6 @@ import com.jayway.restassured.config.LogConfig;
 import com.team6.project.entities.User;
 import com.team6.project.services.DataImportServiceLocal;
 import com.team6.project.services.PersistenceServiceLocal;
-import com.team6.project.services.QueryServiceLocal;
 
 public abstract class RestTest {
     
@@ -51,8 +50,6 @@ public abstract class RestTest {
     @Inject
     private PersistenceServiceLocal persistence;
     
-    @Inject
-    private QueryServiceLocal query;
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -91,11 +88,6 @@ public abstract class RestTest {
 
         files = Maven.resolver()
                 .resolve("commons-logging:commons-logging:1.1.3")
-                .withTransitivity().as(File.class);
-        a.addAsLibraries(files);
-        
-        files = Maven.resolver()
-                .resolve("org.glassfish:javax.json:1.0")
                 .withTransitivity().as(File.class);
         a.addAsLibraries(files);
 
