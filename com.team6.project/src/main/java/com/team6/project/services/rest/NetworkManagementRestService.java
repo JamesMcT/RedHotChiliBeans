@@ -32,6 +32,14 @@ public class NetworkManagementRestService {
     @Context
     private HttpServletResponse response;
 
+    /**
+     * 
+     * Giving back effected failure by given userequipment (tac)
+     *  
+     * @param userequipment
+     * @return
+     */ 
+    
     @GET
     @Path("/eventidcausecode/{userequipment}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -49,6 +57,16 @@ public class NetworkManagementRestService {
 
     }
 
+    
+    /**
+     * 
+     * Counting failures and duration effected IMSI in the given time period
+     * 
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    
     @GET
     @Path("/failurecountandduration")
     @Produces(MediaType.APPLICATION_JSON)
@@ -94,6 +112,16 @@ public class NetworkManagementRestService {
 
     }
 
+    /**
+     * 
+     * Finding the top 10 occurrence failure according to the location Market/Operator/Cell in the given time period
+     * 
+     * @param fromDate
+     * @param toDate
+     * @return
+     */
+    
+    
     @GET
     @Path("/top10MOC")
     @Produces(MediaType.APPLICATION_JSON)
@@ -135,6 +163,16 @@ public class NetworkManagementRestService {
         return c;
     }
 
+    
+    /**
+     * 
+     * Finding the top 10 occurrence failure caused by imsi in the given time period
+     * 
+     * @param lFromDate
+     * @param lToDate
+     * @return
+     */
+    
     @GET
     @Path("/toptenimsifailures")
     @Produces(MediaType.APPLICATION_JSON)

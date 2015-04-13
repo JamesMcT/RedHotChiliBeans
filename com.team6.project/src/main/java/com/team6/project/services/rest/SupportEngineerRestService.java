@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 /**
+ * Restful Service Class for managing the Support Engineer requests
  * 
  * @author Sabee D14125306
  *
@@ -36,6 +37,16 @@ public class SupportEngineerRestService {
     public SupportEngineerRestService() {
     }
 
+    /**
+     * 
+     * Count effected TAC in the given time period
+     * 
+     * @param tac
+     * @param fromDate
+     * @param toDate
+   	 * @return
+   	 */       
+    
     @GET
     @Path("/tac")
     @Produces(MediaType.APPLICATION_JSON)
@@ -72,6 +83,15 @@ public class SupportEngineerRestService {
         return count;
     }
 
+    /**
+    * 
+    * Find effected IMSI in the given time period
+    * 
+    * @param firstDate
+    * @param secondDate
+    * @return
+    */
+    
     @GET
     @Path("/datequery")
     @Produces(MediaType.APPLICATION_JSON)
@@ -108,6 +128,14 @@ public class SupportEngineerRestService {
         return c;
     }
 
+    /**
+     * 
+     * Find effected IMSI by given failureCode
+     *  
+     * @param failureCode
+     * @return
+     */ 
+    
     @GET
     @Path("/failurecode")
     @Produces(MediaType.APPLICATION_JSON)
@@ -125,6 +153,13 @@ public class SupportEngineerRestService {
         return failuretypequery;
     }
 
+    /**
+     * 
+     * Finding for all failureType
+     *  
+     * @return
+     */ 
+    
     @GET
     @Path("/failuretype")
     @Produces(MediaType.APPLICATION_JSON)
