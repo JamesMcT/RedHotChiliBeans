@@ -25,6 +25,8 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/table-pagination.css">
 
 <!-- jQuery -->
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
@@ -38,11 +40,17 @@
 	src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js">
 	
 </script>
-
-
-
 <script>
+	var tablepagination = {
+		"tablepage" : 0,
+		"maxpage" : 0,
+		"recordPerPage" : 50,
+		"data" : []
+	}
 	function getFailureData() {
+		cleanTablePagination();
+		hideDiv("previous");
+		hideDiv("next");
 		var dates = getDatesFromDatePicker();
 		var startDate = dates[0];
 		var endDate = dates[1];
@@ -56,30 +64,30 @@
 									+ "/protected/rest/networkmanagement/failurecountandduration?startDate="
 									+ startDate + "&endDate=" + endDate, true);
 
-			xhr.addEventListener('load', function() {
-				if (xhr.status == 200) {
-					var time1 = parseInt(new Date().getTime());
-					console.log("managing the response time.."+ time1);
-					cleanTable();
-					cleanError();
-					var time2 = parseInt(new Date().getTime());
-					console.log("cleaning time.."+ (time2-time1));
-					var response = JSON.parse(xhr.responseText);
-					var time3 =parseInt(new Date().getTime());
-					console.log("parsed response time.."+ (time3-time2));
-					createTableHead("failureDurationTable", [ "IMSI",
-							"Failure Count", "Total Duration" ]);
-					createTableBody(response);
-					var time4 =parseInt(new Date().getTime());
-					console.log("table time.."+ (time4-time3));
-				} else {
-					cleanTable();
-					cleanError();
-					var message = 'Error ' + xhr.status + ': '
-							+ xhr.responseText;
-					showError(message);
-				}
-			}, false);
+			xhr
+					.addEventListener(
+							'load',
+							function() {
+								if (xhr.status == 200) {
+									cleanTable();
+									cleanError();
+									tablepagination.data = JSON
+											.parse(xhr.responseText);
+									createTableHead("failureDurationTable", [
+											"IMSI", "Failure Count",
+											"Total Duration" ]);
+									tablepagination.maxpage = Math
+											.ceil(tablepagination.data.length
+													/ parseFloat(tablepagination.recordPerPage));
+									createTableBody();
+								} else {
+									cleanTable();
+									cleanError();
+									var message = 'Error ' + ': '
+											+ xhr.responseText;
+									showError(message);
+								}
+							}, false);
 			xhr.send();
 		} else {
 			cleanTable();
@@ -89,24 +97,23 @@
 		}
 	}
 
-	function validateDate(dateString, errorMessage) {
-		//yyyy-mm-dd hh-mm-ss
-		regexPattern = /^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$/;
-		if (dateString.match(regexPattern)) {
-			return true;
-		} else {
-			showError(errorMessage + ": " + dateString);
-			return false;
-		}
-	}
-
-	function createTableBody(response) {
+	function createTableBody() {
+		showLinkPrevNext();
 		var table = document.getElementById("failureDurationTable");
+		if (document.getElementById("tableBody")) {
+			document.getElementById("tableBody").parentNode
+					.removeChild(document.getElementById("tableBody"));
+		}
 		var tbody = document.createElement("tbody");
 		tbody.id = "tableBody";
-		for (var i = 0; i < response.length; i++) {
+		var max = (tablepagination.recordPerPage * tablepagination.tablepage)
+				+ tablepagination.recordPerPage;
+		if (tablepagination.data.length < max) {
+			max = tablepagination.data.length;
+		}
+		for (var i = (tablepagination.recordPerPage * tablepagination.tablepage); i < max; i++) {
 
-			var singleResponse = response[i];
+			var singleResponse = tablepagination.data[i];
 
 			var tr = document.createElement("tr");
 
@@ -130,6 +137,18 @@
 			tbody.appendChild(tr);
 		}
 		table.appendChild(tbody);
+	}
+
+	function previous() {
+		tablepagination.tablepage = tablepagination.tablepage - 1;
+		createTableBody();
+
+	}
+
+	function next() {
+		tablepagination.tablepage = tablepagination.tablepage + 1;
+		createTableBody();
+
 	}
 
 	function startup() {
@@ -197,6 +216,12 @@
 								<table class="table table-striped table-bordered table-hover"
 									id="failureDurationTable">
 								</table>
+								<div class="linkblock">
+									<span id="previous" style="display: none"><a
+										onclick="previous()" href="javascript:void(0);"> prev </a></span> <span
+										id="next" style="display: none" class="nextlink"><a
+										onclick="next()" href="javascript:void(0);"> next </a></span>
+								</div>
 							</div>
 						</div>
 						<!-- /#div1 -->

@@ -25,6 +25,8 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" type="text/css" media="screen"
+	href="${pageContext.request.contextPath}/css/table-pagination.css">
 
 <!-- jQuery -->
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
@@ -41,8 +43,16 @@
 </script>
 
 <script>
-	//rework this
+	var tablepagination = {
+		"tablepage" : 0,
+		"maxpage" : 0,
+		"recordPerPage" : 50,
+		"data" : []
+	}
 	function getImsiByDate() {
+		cleanTablePagination();
+		hideDiv("previous");
+		hideDiv("next");
 		var dates = getDatesFromDatePicker();
 		var fromDate = dates[0];
 		var toDate = dates[1];
@@ -52,22 +62,31 @@
 			var root = "${pageContext.servletContext.contextPath}";
 			xhr.open("GET", root + "/protected/rest/supportengineer/datequery"
 					+ "?firstDate=" + fromDate + "&secondDate=" + toDate, true);
-			xhr.addEventListener('load', function() {
-				if (xhr.status == 200) {
-					cleanTable();
-					cleanError();
-					response = JSON.parse(xhr.responseText);
-					createTableHead("ImsiFailureTable", [ "Imsi", "Failure Type",
-							"Occurrence" ]);
-					createTableBody("ImsiFailureTable", response);
-				} else {
-					cleanTable();
-					cleanError();
-					var message = 'Error ' + xhr.status + ': '
-							+ xhr.responseText;
-					showError(message);
-				}
-			}, false);
+			xhr
+					.addEventListener(
+							'load',
+							function() {
+								if (xhr.status == 200) {
+									cleanTable();
+									cleanError();
+									tablepagination.data = JSON
+											.parse(xhr.responseText);
+									tablepagination.maxpage = Math
+									.ceil(tablepagination.data.length
+											/ parseFloat(tablepagination.recordPerPage));
+									createTableHead("ImsiFailureTable", [
+											"Imsi", "Failure Type",
+											"Occurrence" ]);
+									
+									createTableBody("ImsiFailureTable");
+								} else {
+									cleanTable();
+									cleanError();
+									var message = 'Error ' + ': '
+											+ xhr.responseText;
+									showError(message);
+								}
+							}, false);
 			xhr.send();
 		} else {
 			cleanTable();
@@ -77,14 +96,24 @@
 		}
 	}
 
-	function createTableBody(tableId, response) {
+	function createTableBody(tableId) {
+		showLinkPrevNext();
 		var table = document.getElementById(tableId);
+		if (document.getElementById("tableBody")) {
+			document.getElementById("tableBody").parentNode
+					.removeChild(document.getElementById("tableBody"));
+		}
 		var tbody = document.createElement("tbody");
 		tbody.id = "tableBody";
-		for (var i = 0; i < response.length; i++) {
-			var imsi = response[i][0];
-			var failure = response[i][1];
-			var occurrence = response[i][2];
+		var max = (tablepagination.recordPerPage * tablepagination.tablepage)
+				+ tablepagination.recordPerPage;
+		if (tablepagination.data.length < max) {
+			max = tablepagination.data.length;
+		}
+		for (var i = (tablepagination.recordPerPage * tablepagination.tablepage); i < max; i++) {
+			var imsi = tablepagination.data[i][0];
+			var failure = tablepagination.data[i][1];
+			var occurrence = tablepagination.data[i][2];
 			var tr = document.createElement("tr");
 			if (i % 2) {
 				tr.className = "even gradeA";
@@ -103,6 +132,18 @@
 			tbody.appendChild(tr);
 		}
 		table.appendChild(tbody);
+
+	}
+
+	function previous() {
+		tablepagination.tablepage = tablepagination.tablepage - 1;
+		createTableBody("ImsiFailureTable");
+
+	}
+
+	function next() {
+		tablepagination.tablepage = tablepagination.tablepage + 1;
+		createTableBody("ImsiFailureTable");
 
 	}
 
@@ -181,6 +222,12 @@
 								<table class="table table-striped table-bordered table-hover"
 									id="ImsiFailureTable">
 								</table>
+								<div class="linkblock">
+									<span id="previous" style="display: none"><a
+										onclick="previous()" href="javascript:void(0);"> prev </a></span> <span
+										id="next" style="display: none" class="nextlink"><a
+										onclick="next()" href="javascript:void(0);"> next </a></span>
+								</div>
 							</div>
 							<!-- /#dataTable_wrapper -->
 						</div>

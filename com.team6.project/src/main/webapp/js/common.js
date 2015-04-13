@@ -1,10 +1,10 @@
 function loadbar(href) {
-		var sidebar = document.getElementById("navigation");
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("GET", href, false);
-		xmlhttp.send();
-		sidebar.innerHTML = xmlhttp.responseText;
-	}
+	var sidebar = document.getElementById("navigation");
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET", href, false);
+	xmlhttp.send();
+	sidebar.innerHTML = xmlhttp.responseText;
+}
 
 function showDiv(divId) {
 	document.getElementById(divId).style.display = 'block';
@@ -12,8 +12,30 @@ function showDiv(divId) {
 function showDivInLine(divId) {
 	document.getElementById(divId).style.display = 'inline-block';
 }
+function showInLine(divId) {
+	document.getElementById(divId).style.display = 'inline';
+}
 function hideDiv(divId) {
 	document.getElementById(divId).style.display = 'none';
+}
+function cleanTablePagination() {
+	tablepagination.tablepage = 0;
+	tablepagination.maxpage = 0;
+	tablepagination.data = [];
+}
+
+function showLinkPrevNext(){
+	if(tablepagination.tablepage == 0){
+		hideDiv("previous");
+	}else{
+		showInLine("previous");
+	}
+	if(tablepagination.tablepage == (tablepagination.maxpage-1)){
+		hideDiv("next");
+	}else{
+		showInLine("next");
+	}
+	
 }
 
 function createTableHead(tableId, titles) {
@@ -53,21 +75,21 @@ function cleanError() {
 	errorDiv.innerHTML = "";
 }
 
-function getDatesFromDatePicker(){
+function getDatesFromDatePicker() {
 	var startDate = null;
 	var endDate = null;
-	
+
 	var date = new Date();
 	var picker = $('#datetimepicker').data('datetimepicker');
 	date = picker.getDate();
-	if(date != null && date != ""){
+	if (date != null && date != "") {
 		startDate = date.valueOf()
-	}	
+	}
 
 	var picker2 = $('#datetimepicker2').data('datetimepicker');
 	date = picker2.getDate();
-	if(date != null && date != ""){
+	if (date != null && date != "") {
 		endDate = date.valueOf();
 	}
-	return [startDate, endDate];
+	return [ startDate, endDate ];
 }
