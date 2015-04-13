@@ -52,10 +52,6 @@ public class CustomerServiceRest {
 
 	}
 
-//	SimpleDateFormat sdf = new SimpleDateFormat(
-//			JPABaseDataDAO.MYSQL_DATE_FORMAT);
-//	Date d1 = new Date();
-//	Date d2 = new Date();
 
 	/**
 	 * 

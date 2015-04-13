@@ -8,35 +8,49 @@ import com.team6.project.entities.OperatorCountry;
 import com.team6.project.entities.OperatorCountryPK;
 
 /**
+ * Operator Country data access object.
+ * <p>
+ * Handles database interactions for OperatorCountry related functionality. This
+ * is primarily CRUD operations as this object behaves as a reference table.
  * 
  * @author John O Keeffe
  * @author Eoin Kernan
+ * @author James Mc Ternan
  *
  */
 @Local
 public interface OperatorCountryDAO {
 
 	/**
+	 * Get all operator Countries.
 	 * 
 	 * @return all operator countries
 	 */
 	public Collection<OperatorCountry> getAllOperatorCountries();
 
 	/**
+	 * Get operatorCountry by operatorCountryPK (Primary Key).
 	 * 
 	 * @param operatorCountryPK
-	 * @return
+	 * @return OperatorCountry
 	 */
 	public OperatorCountry getOperatorCountryByKey(
 			OperatorCountryPK operatorCountryPK);
 
-	public void addOperatorCountry(OperatorCountry operatorCountry);
-	
 	/**
+	 * Add single OperatorCountry.
 	 * 
 	 * @param operatorCountry
 	 */
-	public void addOperatorCountryCollection(Collection<OperatorCountry> operatorCountry);
+	public void addOperatorCountry(OperatorCountry operatorCountry);
+
+	/**
+	 * Add multiple operatorCountry objects.
+	 * 
+	 * @param operatorCountry
+	 */
+	public void addOperatorCountryCollection(
+			Collection<OperatorCountry> operatorCountry);
 
 	/**
 	 * Update existing OperatorCountry, record to be updated returned via PK.
@@ -52,7 +66,5 @@ public interface OperatorCountryDAO {
 	 * @param operatorCountry
 	 */
 	public void deleteOperatorCountry(OperatorCountry operatorCountry);
-
-	// public OperatorCountry getByOperatorCountry(Integer mcc, Integer mnc);
 
 }
