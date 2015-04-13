@@ -33,7 +33,7 @@ public class CustomerService {
     }
 
     @Test
-    public void testSupportEngineer() throws Exception {
+    public void testCustomerService() throws Exception {
         Boolean isPresent = false;
         long time1 = 0;
         long time2 = 0;
@@ -92,6 +92,40 @@ public class CustomerService {
         isPresent = driver.findElements(By.id("tableBody")).isEmpty();
         time2 = System.currentTimeMillis();
         assertFalse(isPresent);
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+        waitForElement(By.linkText("Call Failure Count"));
+        driver.findElement(By.linkText("Call Failure Count")).click();
+        driver.findElement(By.id("imsi")).clear();
+        driver.findElement(By.id("imsi")).sendKeys("191911000570809");
+        driver.findElement(By.cssSelector("#datetimepicker2 > input[type=\"text\"]")).clear();
+        driver.findElement(By.cssSelector("#datetimepicker2 > input[type=\"text\"]")).sendKeys("2013-02-28 17:20:00");
+        driver.findElement(By.id("button1")).click();
+        time1 = System.currentTimeMillis();
+        isPresent = driver.findElements(By.id("tableBody")).isEmpty();
+        time2 = System.currentTimeMillis();
+        assertFalse(isPresent);
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+        
+        
+        driver.findElement(By.id("imsi")).clear();
+        driver.findElement(By.id("imsi")).sendKeys("");
+        driver.findElement(By.id("button1")).click();
+        time1 = System.currentTimeMillis();
+        assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
+        time2 = System.currentTimeMillis();
+        timeTaken = time2 - time1;
+        assertTrue(timeTaken < TIME);
+        
+        driver.findElement(By.id("imsi")).clear();
+        driver.findElement(By.id("imsi")).sendKeys("191911000570809");
+        driver.findElement(By.cssSelector("#datetimepicker2 > input[type=\"text\"]")).clear();
+        driver.findElement(By.cssSelector("#datetimepicker2 > input[type=\"text\"]")).sendKeys("");
+        driver.findElement(By.id("button1")).click();
+        time1 = System.currentTimeMillis();
+        assertFalse(driver.findElements(By.id("errorDiv")).isEmpty());
+        time2 = System.currentTimeMillis();
         timeTaken = time2 - time1;
         assertTrue(timeTaken < TIME);
 
