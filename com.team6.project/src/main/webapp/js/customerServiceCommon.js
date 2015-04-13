@@ -55,6 +55,33 @@ function createTableCauseCodeEventIdBody(tableId, response) {
 	table.appendChild(tbody);
 }
 
+function createTableFailureCountBody(tableId, response) {
+	var table = document.getElementById(tableId);
+	var tbody = document.createElement("tbody");
+	tbody.id = "tableBody";
+	for (var i = 0; i < response.length; i++) {
+		var eventCause = response[i];
+		var tr = document.createElement("tr");
+		if (i % 2) {
+			tr.className = "even gradeA";
+		} else {
+			tr.className = "odd gradeA";
+		}
+		var td1 = document.createElement("td");
+		td1.appendChild(document.createTextNode(response[i].cellId));
+		var td2 = document.createElement("td");
+		td2.appendChild(document.createTextNode(new Date(response[i].date)));
+		var td3 = document.createElement("td");
+		td3.appendChild(document.createTextNode(response[i].duration));
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		tr.appendChild(td3);
+		tbody.appendChild(tr);
+	}
+	table.appendChild(tbody);
+}
+
+
 
 function validateImsi(imsi) {
 	cleanError();

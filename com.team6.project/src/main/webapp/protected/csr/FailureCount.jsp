@@ -25,93 +25,78 @@
 <script src="../../js/common.js"></script>
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="../../js/bootstrap-datetimepicker.pt-BR.js"></script>
+<script type="text/javascript"
+	src="../../js/bootstrap-datetimepicker.min.js"></script>
+
+<!-- Adding functions -->
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/customerServiceCommon.js"></script>
 
 <script>
 	function getRecordsByIMSI() {
-
+		cleanTable();
+		document.getElementById("countResult").innerHTML = "";
 		var imsi = document.getElementById("imsi").value;
-		var date = new Date();
+		var dates = getDatesFromDatePicker();
+		var startDate = dates[0];
+		var endDate = dates[1];
+		if (startDate && endDate) {
 
-		var picker = $('#datetimepicker').data('datetimepicker');
-		date = picker.getDate();
-		var startDate = date.valueOf()
+			if (validateImsi(imsi) == true) {
+				var xmlhttp;
+				window.crossDomain = true;
+				xmlhttp = new XMLHttpRequest();
+				console.log("Start Date is : " + startDate + " EndDate is : "
+						+ endDate + " Imsi is : " + imsi);
+				var root = "${pageContext.servletContext.contextPath}";
+				xmlhttp
+						.open(
+								"GET",
+								"http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/protected/rest/customerservice/countImsi?imsi="
+										+ imsi
+										+ "&startDate="
+										+ startDate
+										+ "&endDate=" + endDate, true);
+				xmlhttp.send();
 
-		var picker2 = $('#datetimepicker2').data('datetimepicker');
-		date = picker2.getDate();
-		var endDate = date.valueOf();
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						cleanTable();
+						cleanError();
+						var response = JSON.parse(xmlhttp.responseText);
 
-		if (validateImsi(imsi) == true) {
-			var xmlhttp;
-			window.crossDomain = true;
-			xmlhttp = new XMLHttpRequest();
-			console.log("Start Date is : " + startDate + " EndDate is : " + endDate + " Imsi is : " + imsi);
-			var root = "${pageContext.servletContext.contextPath}";
-			xmlhttp.open("GET", root
-					+ "/protected/rest/customerservice/countImsi?imsi=" + imsi
-					+ "&startDate=" + startDate + "&endDate=" + endDate, true);
-			xmlhttp.send();
+						var count = response.length;
 
-			xmlhttp.onreadystatechange = function() {
-				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					var response = JSON.parse(xmlhttp.responseText);
-					var count = response.length;
-					document.getElementById("countResult").innerHTML = count;
-
-					var myTable = "<table id = 'eventCauseTable' class = 'table table-striped table-bordered table-hover'> ";
-
-					myTable += "<thead><tr><th>Cell Id</th><th>Date</th><th>Failure Duration</th></tr></thead><tfoot><tr><th>Cell Id</th><th>Date</th><th>Failure Duration</th></tr></tfoot><tbody>";
-
-					for ( var i in response) {
-
-						var cellId = response[i].cellId;
-						var date = response[i].date;
-						var duration = response[i].duration;
-
-						var d = new Date(date);
-
-						myTable += "<tr> <td>" + cellId + "<td>" + d + "<td>"
-								+ duration + "<td> </tr>";
-
+						document.getElementById("countResult").innerHTML = count;
+						createTableHead("ImisCountResults", [ "Cell Id",
+								"Date", "Failure Duration" ]);
+						createTableFailureCountBody("ImisCountResults",
+								response);
+					} else {
+						cleanTable();
+						cleanError();
+						var message = 'Error ' + xmlhttp.status + ': '
+								+ xmlhttp.responseText;
+						showError(message);
 					}
-					myTable += "</tbody></table>"
-					document.getElementById("ImisCountResults").innerHTML = myTable;
 
 				}
-				if (xmlhttp.status == 404) {
-					alert("Error: No Page Found");
-				}
-
+			} else {
+				console.log("Imsi Validation has failed.")
 			}
 		} else {
-			console.log("Imsi Validation has failed.")
+			cleanTable();
+			cleanError();
+			var message = 'Error : Please select a value for both dates';
+			showError(message);
 		}
 	}
+
 	/*
 		Maybe these functions should be moved into Commons.js - Will leave here for now to 
 		prevent Merge issues.
 	 */
-
-	function validateImsi(imsi) {
-
-		if (isNotEmpty(imsi, "Please Enter an Imsi") == false) {
-			return false;
-		} else if (isNaN(imsi) == true) {
-			alert("IMSI Field should contain numbers only [0-9]");
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	function isNotEmpty(imsi, alertMessage) {
-		if (imsi == "") {
-			alert(alertMessage);
-			return false;
-		}
-		return true;
-	}
 
 	function startup() {
 		loadbar('../sidebar.jsp');
@@ -195,17 +180,9 @@
 						<!-- /#panel-body -->
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
+								<div id="errorDiv"></div>
 								<table class="table table-striped table-bordered table-hover"
 									id="ImisCountResults">
-									<thead>
-										<tr>
-											<th>Cell Id</th>
-											<th>Date</th>
-											<th>Failure Duration</th>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
 								</table>
 							</div>
 							<!-- /.table-responsive -->

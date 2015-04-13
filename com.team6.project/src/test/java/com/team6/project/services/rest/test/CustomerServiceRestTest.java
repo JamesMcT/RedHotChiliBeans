@@ -133,15 +133,12 @@ public class CustomerServiceRestTest extends RestTest {
 		Date d = new Date();
 		long endDate = d.getTime();
 
-		given().auth()
-				.form("cusSer", "cusSer", fac)
-				.filter(sessionFilter)
+		given().filter(sessionFilter)
 				.expect()
-				.statusCode(200)
+				.statusCode(404)
 				.when()
 				.get("protected/rest/customerservice/countImsi?imsi=191911000001049"
-						+ "&startDate=1275239700000&endDate="+endDate).then()
-				.contentType(ContentType.JSON);
+						+ "&startDate=1275239700000&endDate="+endDate);
 	}
 
 	/**

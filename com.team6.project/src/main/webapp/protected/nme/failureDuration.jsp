@@ -58,13 +58,20 @@
 
 			xhr.addEventListener('load', function() {
 				if (xhr.status == 200) {
+					var time1 = parseInt(new Date().getTime());
+					console.log("managing the response time.."+ time1);
 					cleanTable();
 					cleanError();
+					var time2 = parseInt(new Date().getTime());
+					console.log("cleaning time.."+ (time2-time1));
 					var response = JSON.parse(xhr.responseText);
-					console.log("Got here");
+					var time3 =parseInt(new Date().getTime());
+					console.log("parsed response time.."+ (time3-time2));
 					createTableHead("failureDurationTable", [ "IMSI",
 							"Failure Count", "Total Duration" ]);
 					createTableBody(response);
+					var time4 =parseInt(new Date().getTime());
+					console.log("table time.."+ (time4-time3));
 				} else {
 					cleanTable();
 					cleanError();
