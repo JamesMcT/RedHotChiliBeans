@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -32,6 +33,7 @@ import com.jayway.restassured.config.LogConfig;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.team6.project.services.QueryServiceLocal;
+import com.team6.project.services.rest.test.NetworkManagementRestServiceTest;
 
 @RunWith(Arquillian.class)
 public class PerformanceRestTestImsi {
@@ -86,6 +88,8 @@ public class PerformanceRestTestImsi {
     private QueryServiceLocal queryService;
     private FormAuthConfig fac;
     private SessionFilter sessionFilter;
+    private String startDate = "2012-01-01 00:00:00";// "2013-02-01 21:01:00";
+    private String endDate = "2015-01-01 00:00:00";// "2013-03-21 21:01:00";
     private Logger performanceLogger = org.apache.log4j.Logger
             .getLogger(PerformanceRestTest.class);
 
@@ -112,9 +116,7 @@ public class PerformanceRestTestImsi {
         while (j < allImsi.size()) {
             for (int i = 0; i < 10; i++) {
                 long beginTime = System.currentTimeMillis();
-                given().auth()
-                        .form("admin", "admin", fac)
-                        .filter(sessionFilter)
+                given().filter(sessionFilter)
                         .expect()
                         .statusCode(200)
                         .contentType(ContentType.JSON)
@@ -132,6 +134,35 @@ public class PerformanceRestTestImsi {
     }
 
   
+    @Test
+	public void testFailureCount() throws InterruptedException {
+    	long startDateL = NetworkManagementRestServiceTest.dateConvert(startDate);
+        long endDateL = NetworkManagementRestServiceTest.dateConvert(endDate);
+    	
+    	ArrayList<BigInteger> allImsi = (ArrayList<BigInteger>) queryService
+                .getAllImsi();
+    	
+        int j = 0;
+        while (j < allImsi.size()) {
+        	for (int i = 0; i < 10; i++) {
+    	
+		
+				given().filter(sessionFilter)
+						.expect()
+						.statusCode(200)
+						.when()
+						.get("protected/rest/customerservice/countImsi?imsi="
+								+ allImsi.get(i)
+								+ "&startDate="
+								+ startDateL
+								+ "1275239700000&endDate="
+								+ endDateL);
+        	}	
+        	j = j + 2000;
+            Thread.sleep(50);
+        }
+	}
+    
     public FormAuthConfig getformAuthConfig() {
         return new FormAuthConfig("protected/j_security_check", "j_username",
                                   "j_password");
