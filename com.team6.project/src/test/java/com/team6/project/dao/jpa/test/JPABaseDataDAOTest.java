@@ -129,11 +129,11 @@ public class JPABaseDataDAOTest extends JPADAOTest {
 		baseData.setUserEquipment(userEquipment);
 	}
 
-	/**
-	 * Test that callFailurePerImsiByDate returns the expected results. start
-	 * date has been set to 10 seconds before current time and endDate has been
-	 * set to set current time plus ten seconds.
-	 */
+//	/**
+//	 * Test that callFailurePerImsiByDate returns the expected results. start
+//	 * date has been set to 10 seconds before current time and endDate has been
+//	 * set to set current time plus ten seconds.
+//	 */
 	@Test
 	public void testcountCallFailurePerImsiByDate() {
 		Date fromDate = new Date();

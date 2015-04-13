@@ -1,5 +1,11 @@
+com.team6.project.dao
+com.team6.project.dao.jpa
+com.team6.project.dao.jpa.test
+com.team6.project.entities
+com.team6.project.entities.test
+com.team6.project.readers
+com.team6.project.readers.test
 com.team6.project.services
-<<<<<<< HEAD
 com.team6.project.services.rest
 com.team6.project.services.rest.performance.test
 com.team6.project.services.rest.test
@@ -7,5 +13,3 @@ com.team6.project.services.test
 com.team6.project.validators
 com.team6.project.validators.test
 com.team6.project.webinterface.test
-=======
->>>>>>> refs/remotes/origin/SabeeJavaDOCandCorrection

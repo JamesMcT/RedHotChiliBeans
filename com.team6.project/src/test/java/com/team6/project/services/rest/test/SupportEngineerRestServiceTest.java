@@ -12,17 +12,17 @@ import com.jayway.restassured.http.ContentType;
 import static com.jayway.restassured.RestAssured.given;
 import static org.junit.Assert.assertTrue;
 
-/**
- * 
- * @author Sabee D14125306
- *
- */
-
-/**
- * 
- * testing the Support Engineer Rest functions
- *
- */
+///**
+// * 
+// * @author Sabee D14125306
+// *
+// */
+//
+///**
+// * 
+// * testing the Support Engineer Rest functions
+// *
+// */
 
 @RunWith(Arquillian.class)
 public class SupportEngineerRestServiceTest extends RestTest {
@@ -43,12 +43,12 @@ public class SupportEngineerRestServiceTest extends RestTest {
 
 	};
 
-	/**
-	 * 
-	 * With the given tac, fromDate, toDate parameters logging in with Support
-	 * Engineer (supEng) will able to process the request and checking the
-	 * request conentType and the status code as expected
-	 */
+//	/**
+//	 * 
+//	 * With the given tac, fromDate, toDate parameters logging in with Support
+//	 * Engineer (supEng) will able to process the request and checking the
+//	 * request conentType and the status code as expected
+//	 */
 
 	@Test
 	public void testCountCallFailureUsingTac() {
@@ -99,13 +99,13 @@ public class SupportEngineerRestServiceTest extends RestTest {
 
 	}
 
-	/**
-	 * 
-	 * With the given tac, fromDate, toDate parameters logging in with a user
-	 * (Customer Service Rep. (cusSer)) who has NO PERMISSION not to be able to
-	 * reach this request and get a 403 authentication error code as the status
-	 * code
-	 */
+//	/**
+//	 * 
+//	 * With the given tac, fromDate, toDate parameters logging in with a user
+//	 * (Customer Service Rep. (cusSer)) who has NO PERMISSION not to be able to
+//	 * reach this request and get a 403 authentication error code as the status
+//	 * code
+//	 */
 
 	@Test
 	public void testCountCallFailureByTac_NoPermission() {
@@ -125,10 +125,10 @@ public class SupportEngineerRestServiceTest extends RestTest {
 
 	}
 
-	/**
-	 * This test will simply make sure the RESTfull endpoint can be reached and
-	 * that it is returning JSON even if there are no records in the database.
-	 */
+//	/**
+//	 * This test will simply make sure the RESTfull endpoint can be reached and
+//	 * that it is returning JSON even if there are no records in the database.
+//	 */
 	@Test
 	public void testGetAllImsiBetweeenSpecificDate() {
 

@@ -20,12 +20,12 @@ import com.jayway.restassured.http.ContentType;
 import com.team6.project.services.QueryServiceLocal;
 import com.team6.project.services.rest.performance.test.PerformanceRestTestImsi;
 
-/**
- * Test class for all REST services associated with Customer Service Rep class.
- * 
- * @author James
- *
- */
+///**
+// * Test class for all REST services associated with Customer Service Rep class.
+// * 
+// * @author James
+// *
+// */
 
 @RunWith(Arquillian.class)
 public class CustomerServiceRestTest extends RestTest {
@@ -52,11 +52,11 @@ public class CustomerServiceRestTest extends RestTest {
 
 	}
 
-	/**
-	 * Test if the restful EventCauseSearch.html page can be accessed by a
-	 * customer service representative. This is the page which currently host's
-	 * the GUI for the findEventCauseByIMSI named query.
-	 */
+//	/**
+//	 * Test if the restful EventCauseSearch.html page can be accessed by a
+//	 * customer service representative. This is the page which currently host's
+//	 * the GUI for the findEventCauseByIMSI named query.
+//	 */
 	@Test
 	public void testEventCausePage() {
 
@@ -66,9 +66,9 @@ public class CustomerServiceRestTest extends RestTest {
 
 	}
 
-	/**
-	 * Test if getEventCause Query returns valid status code and JSON response.
-	 */
+//	/**
+//	 * Test if getEventCause Query returns valid status code and JSON response.
+//	 */
 	@Test
 	public void testGetEventCause() {
 		given().filter(sessionFilter)
@@ -77,10 +77,10 @@ public class CustomerServiceRestTest extends RestTest {
 				.contentType(ContentType.JSON);
 
 	}
-
-	/**
-	 * Ensure no input will return the correct HTML status code.
-	 */
+//
+//	/**
+//	 * Ensure no input will return the correct HTML status code.
+//	 */
 
 	@Test
 	public void testNoInput() {
@@ -90,9 +90,9 @@ public class CustomerServiceRestTest extends RestTest {
 
 	}
 
-	/**
-	 * Test that invalid input data returns Http error code 400 = bad request.
-	 */
+//	/**
+//	 * Test that invalid input data returns Http error code 400 = bad request.
+//	 */
 	@Test
 	public void testInvalidInputType() {
 		given().filter(sessionFilter)
@@ -100,9 +100,9 @@ public class CustomerServiceRestTest extends RestTest {
 				.get("protected/rest/customerservice/A");
 	}
 
-	/**
-	 * Test valid IMSI for UniqueCauseCodePage
-	 */
+//	/**
+//	 * Test valid IMSI for UniqueCauseCodePage
+//	 */
 	@Test
 	public void testUniqueCauseCodePage() {
 		given().filter(sessionFilter)
@@ -112,10 +112,10 @@ public class CustomerServiceRestTest extends RestTest {
 
 	}
 
-	/**
-	 * Test that FailureCount.jsp page can be accessed successfully by Customer
-	 * Service Representative.
-	 */
+//	/**
+//	 * Test that FailureCount.jsp page can be accessed successfully by Customer
+//	 * Service Representative.
+//	 */
 	@Test
 	public void testFailureCountPage() {
 		given().filter(sessionFilter)
@@ -124,10 +124,10 @@ public class CustomerServiceRestTest extends RestTest {
 
 	}
 
-	/**
-	 * Test FailureCount Query returns valid status code and JSON response with
-	 * a valid input. The date range has been set to 2010-05-30 to systems current date.
-	 */
+//	/**
+//	 * Test FailureCount Query returns valid status code and JSON response with
+//	 * a valid input. The date range has been set to 2010-05-30 to systems current date.
+//	 */
 	@Test
 	public void testFailureCount() {
 
@@ -144,11 +144,11 @@ public class CustomerServiceRestTest extends RestTest {
 						+ "&startDate="+startDate+"&endDate="+endDate);
 	}
 
-	/**
-	 * Test FailureCount Query returns valid status code and JSON response with
-	 * a valid input. The date range has been set to 2010-05-30 in one minute period
-	 * in which we have no data in the database
-	 */	
+//	/**
+//	 * Test FailureCount Query returns valid status code and JSON response with
+//	 * a valid input. The date range has been set to 2010-05-30 in one minute period
+//	 * in which we have no data in the database
+//	 */	
 	@Test
 	public void testFailureCount_emptySet() {
 
@@ -164,10 +164,10 @@ public class CustomerServiceRestTest extends RestTest {
 	}
 	
 	
-	/**
-	 * Test that invalid data will return the correct HTTP status code (400 =
-	 * Bad Request)
-	 */
+//	/**
+//	 * Test that invalid data will return the correct HTTP status code (400 =
+//	 * Bad Request)
+//	 */
 	@Test
 	public void testfailureCountInvalidInput() {
 		given().auth()

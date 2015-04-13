@@ -31,11 +31,11 @@ public class UserEquipmentRestTest extends RestTest {
         .statusCode(200);
     }
 
-    /**
-     * This test will simply make sure the RESTfulo endpoint can be reached and
-     * that it is returning JSON even if there are no records in the database.
-     * 
-     */
+//    /**
+//     * This test will simply make sure the RESTfulo endpoint can be reached and
+//     * that it is returning JSON even if there are no records in the database.
+//     * 
+//     */
    @Test
     public void testGetAll() {
 
