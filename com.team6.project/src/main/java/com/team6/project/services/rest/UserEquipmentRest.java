@@ -30,6 +30,7 @@ public class UserEquipmentRest {
 	{}
 
 	/**
+	 * Finding all the user equipment from the database
 	 * 
 	 * @return
 	 */

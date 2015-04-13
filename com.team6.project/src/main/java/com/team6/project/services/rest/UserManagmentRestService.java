@@ -37,6 +37,7 @@ public class UserManagmentRestService {
     private HttpServletResponse response;
 
     /**
+     * Finding the user given by the userId
      * 
      * @param userId
      * @return
@@ -48,6 +49,12 @@ public class UserManagmentRestService {
         return query.getUserByKey(userId);
     }
 
+    
+    /**
+     * Finding all the users
+     * 
+     * @return
+     */
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
@@ -56,6 +63,7 @@ public class UserManagmentRestService {
     }
 
     /**
+     * Adding new user to the database
      * 
      * @param user
      * @return
@@ -73,6 +81,13 @@ public class UserManagmentRestService {
         return Response.status(Status.BAD_REQUEST).entity(result).build();
     }
 
+    
+    /**
+     * Update user in the database
+     * 
+     * @param user
+     * @return
+     */
     @POST
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)

@@ -43,6 +43,7 @@ public class CustomerServiceRest {
 	}
 
 	/**
+	 * Finding the events caused by a given imsi
 	 * 
 	 * @param imsi
 	 * @return
@@ -62,6 +63,8 @@ public class CustomerServiceRest {
 //	Date d2 = new Date();
 
 	/**
+	 * 
+	 * Counting the failures affected by a given imsi in a given time period
 	 * 
 	 * @param imsi
 	 * @param startDate
@@ -114,6 +117,14 @@ public class CustomerServiceRest {
 
 	}
 
+	
+	 /**
+     * 
+     * Finding the event caused by a given imsi
+     * 
+     * @param imsi
+     * @return
+     */
 	
     @GET
     @Path("/uniqueec/{imsi}")
