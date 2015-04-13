@@ -248,12 +248,16 @@ public class SupportEngineerRestServiceTest extends RestTest {
 
 		given().filter(sessionFilter).expect().statusCode(200)
 				.contentType(ContentType.JSON).when()
-				.get("/pprotected/rest/supportengineer/failuretype");
+				.get("/protected/rest/supportengineer/failuretype");
 
 	}
 
 	@Test
 	public void testGetAllFailureTypes_NotAllowed() {
+	    
+	    sessionFilter = new SessionFilter();
+
+        given().filter(sessionFilter).when().get("protected/index.jsp");
 
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
 				.expect().statusCode(200).when().get("protected/index.jsp");

@@ -7,7 +7,9 @@ com.team6.project.readers
 com.team6.project.readers.test
 com.team6.project.services
 com.team6.project.services.rest
+com.team6.project.services.rest.performance.test
 com.team6.project.services.rest.test
 com.team6.project.services.test
 com.team6.project.validators
 com.team6.project.validators.test
+com.team6.project.webinterface.test
