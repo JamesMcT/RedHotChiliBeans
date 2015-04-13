@@ -87,7 +87,7 @@ public class Administrator {
         waitForElement(By.linkText("Event Analysis"));
         driver.findElement(By.linkText("Event Analysis")).click();
         new Select(driver.findElement(By.id("tacs")))
-                .selectByVisibleText("100100");
+                .selectByVisibleText("100100 - Mitsubishi - G410");
         driver.findElement(By.xpath("//input[@value='show data']")).click();
         time1 = System.currentTimeMillis();
         isPresent = driver.findElements(By.id("tableBody")).isEmpty();
@@ -189,7 +189,7 @@ public class Administrator {
         waitForElement(By.linkText("Tac Time Count"));
         driver.findElement(By.linkText("Tac Time Count")).click();
         new Select(driver.findElement(By.id("tacs")))
-                .selectByVisibleText("100100");
+                .selectByVisibleText("100100 - Mitsubishi - G410");
         driver.findElement(By.id("button1")).click();
         time1 = System.currentTimeMillis();
         assertFalse(driver.findElements(By.id("searchResult")).isEmpty());

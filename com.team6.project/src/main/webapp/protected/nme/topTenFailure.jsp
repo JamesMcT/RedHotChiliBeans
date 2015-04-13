@@ -65,7 +65,7 @@
 					//bad request, dates could not be parsed. Or no results
 					cleanTable();
 					cleanError();
-					var message = 'Error ' + xhr.status + ': '
+					var message = 'Error ' +  ': '
 							+ xhr.responseText;
 					showError(message);
 				}

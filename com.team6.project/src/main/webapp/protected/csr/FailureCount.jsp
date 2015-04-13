@@ -12,21 +12,21 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Adding CSS -->
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
-<link href="../../css/bootstrap-combined.min.cristiana.css"
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap-combined.min.cristiana.css"
 	rel="stylesheet">
-<link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="../../css/dataTables.responsive.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/dataTables.responsive.css" rel="stylesheet">
 <!--  href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css" -->
 <link rel="stylesheet" type="text/css" media="screen"
-	href="../../css/bootstrap-datetimepicker.min.css">
+	href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css">
 
 <!-- Adding functions -->
-<script src="../../js/common.js"></script>
-<script type="text/javascript" src="../../js/jquery.min.js"></script>
-<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script type="text/javascript"
-	src="../../js/bootstrap-datetimepicker.min.js"></script>
+	src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
 
 <!-- Adding functions -->
 <script src="${pageContext.request.contextPath}/js/common.js"></script>
@@ -76,7 +76,7 @@
 					} else {
 						cleanTable();
 						cleanError();
-						var message = 'Error ' + xmlhttp.status + ': '
+						var message = 'Error ' + ': '
 								+ xmlhttp.responseText;
 						showError(message);
 					}

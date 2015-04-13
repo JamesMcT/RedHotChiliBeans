@@ -77,7 +77,7 @@
 					cleanTable();
 					cleanError();
 					hideDiv("panelChart");
-					var message = 'Error ' + xhr.status + ': '
+					var message = 'Error ' +  ': '
 							+ xhr.responseText;
 					showError(message);
 				}

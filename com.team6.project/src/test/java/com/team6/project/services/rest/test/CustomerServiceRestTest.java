@@ -60,7 +60,7 @@ public class CustomerServiceRestTest extends RestTest {
 	@Test
 	public void testEventCausePage() {
 		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
-				.when().get("protected/csr/EventCauseSearch.html").then()
+				.when().get("protected/csr/EventCauseSearch.jsp").then()
 				.body(containsString("<title>Red Hot Chilli Beans</title>"));
 
 	}

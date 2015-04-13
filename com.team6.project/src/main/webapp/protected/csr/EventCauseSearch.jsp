@@ -10,27 +10,27 @@
 <meta name="author" content="James">
 
 <!-- Bootstrap Core CSS -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="../../css/sb-admin-2.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link href="../../css/metisMenu.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/metisMenu.min.css" rel="stylesheet">
 
 <!-- DataTables CSS -->
-<link href="../../css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css" rel="stylesheet">
 
 <!-- DataTables Responsive CSS -->
-<link href="../../css/dataTables.responsive.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/dataTables.responsive.css" rel="stylesheet">
 
 
 <!-- Custom Fonts -->
-<link href="../../fonts/font-awesome.min.css" rel="stylesheet"
+<link href="${pageContext.request.contextPath}/fonts/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 
-<script src="../../js/common.js"></script>
-<script src="../../js/customerServiceCommon.js"></script>
+<script src="${pageContext.request.contextPath}/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/customerServiceCommon.js"></script>
 <script lang="JavaScript" type="text/javascript">
 	function findByImsi() {
 		cleanTable();

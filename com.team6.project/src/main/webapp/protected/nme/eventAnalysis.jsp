@@ -12,10 +12,16 @@
 <title>Red Hot Chilli Beans</title>
 
 <!-- Adding CSS -->
-<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/sb-admin-2.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/dataTables.responsive.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/sb-admin-2.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/dataTables.responsive.css"
+	rel="stylesheet">
 
 <!-- Adding functions -->
 <script src="${pageContext.request.contextPath}/js/common.js"></script>
@@ -33,7 +39,8 @@
 			for (var i = 0; i < tacs.length; i++) {
 				var tac = tacs[i].tac;
 				var opt = document.createElement("option");
-				opt.text = tac;
+				opt.text = tac + " - " + tacs[i].vendorName + " - "
+						+ tacs[i].model;
 				opt.value = tac;
 				dropdown.options.add(opt);
 			}
@@ -56,9 +63,13 @@
 				var response = JSON.parse(xhr.responseText);
 				createTableHead("eventcauseTable", [ "Event Id", "Cause Code",
 						"Description", "Occurence" ]);
-				createTableBody(response);
-				createPieChart(response);
-				showDiv("pieChart");
+				if (response.lenght == 0) {
+					showError("No data found for the selected user equipment");
+				} else {
+					createTableBody(response);
+					createPieChart(response);
+					showDiv("pieChart");
+				}
 			}
 		}, false);
 		xhr.send();
@@ -99,46 +110,49 @@
 		loadbar('../sidebar.jsp');
 		getAllTacs();
 	}
-	
+
 	//Flot Pie Chart
-	function createPieChart(response){
+	function createPieChart(response) {
 		var data = []
 		var other = 0;
 		for (var i = 0; i < response.length; i++) {
 			var singleResponse = response[i];
 			var eventCause = singleResponse[0];
 			var occurence = singleResponse[1];
-			if (i<10){
-				data[i]={label: eventCause.eventId+" "+eventCause.causeCode,
-						data: occurence}
-			}
-			else{
-				other = other+occurence;
+			if (i < 10) {
+				data[i] = {
+					label : eventCause.eventId + " " + eventCause.causeCode,
+					data : occurence
+				}
+			} else {
+				other = other + occurence;
 			}
 		}
-		if(other > 0){
-			data[10]={label: "other",
-					data: other}
+		if (other > 0) {
+			data[10] = {
+				label : "other",
+				data : other
+			}
 		}
 		var plotObj = $.plot($("#flot-pie-chart"), data, {
-	        series: {
-	            pie: {
-	                show: true
-	            }
-	        },
-	        grid: {
-	            hoverable: true
-	        },
-	        tooltip: true,
-	        tooltipOpts: {
-	            content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
-	            shifts: {
-	                x: 20,
-	                y: 0
-	            },
-	            defaultTheme: false
-	        }
-	    });
+			series : {
+				pie : {
+					show : true
+				}
+			},
+			grid : {
+				hoverable : true
+			},
+			tooltip : true,
+			tooltipOpts : {
+				content : "%p.0%, %s", // show percentages, rounding to 2 decimal places
+				shifts : {
+					x : 20,
+					y : 0
+				},
+				defaultTheme : false
+			}
+		});
 	}
 </script>
 
@@ -167,28 +181,29 @@
 					</div>
 					<br>
 				</div>
-				 <div class="col-lg-6">
-                    <div id="pieChart" class="panel panel-default" style="display:none;">
-                        <div class="panel-heading">
-                            Top ten with max number of occurrences
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="flot-chart">
-                                <div class="flot-chart-content" id="flot-pie-chart"></div>
-                            </div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
+				<div class="col-lg-6">
+					<div id="pieChart" class="panel panel-default"
+						style="display: none;">
+						<div class="panel-heading">Top ten with max number of
+							occurrences</div>
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+							<div class="flot-chart">
+								<div class="flot-chart-content" id="flot-pie-chart"></div>
+							</div>
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+				</div>
+				<!-- /.col-lg-6 -->
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Table: Event Id Cause Code and
-							Occurence for selected UserEquipment</div>
+						<div class="panel-heading">Event Id Cause Code and Occurence
+							for selected UserEquipment</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
+							<div id="errorDiv"></div>
 								<table class="table table-striped table-bordered table-hover"
 									id="eventcauseTable">
 								</table>
@@ -198,7 +213,7 @@
 						<!-- /#panel-body -->
 					</div>
 				</div>
-				
+
 			</div>
 
 
@@ -206,23 +221,24 @@
 		</div>
 	</div>
 	<!-- /#wrapper -->
-	
+
 	<!-- jQuery -->
-    <script src="../../js/jquery.min.js"></script>
+	<script src="../../js/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../../js/bootstrap.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../../js/bootstrap.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- Flot Charts JavaScript -->
-    <script src="../../bower_components/flot/excanvas.min.js"></script>
-    <script src="../../bower_components/flot/jquery.flot.js"></script>
-    <script src="../../bower_components/flot/jquery.flot.pie.js"></script>
-    <script src="../../bower_components/flot/jquery.flot.resize.js"></script>
-    <script src="../../bower_components/flot/jquery.flot.time.js"></script>
-    <script src="../../bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+	<!-- Flot Charts JavaScript -->
+	<script src="../../bower_components/flot/excanvas.min.js"></script>
+	<script src="../../bower_components/flot/jquery.flot.js"></script>
+	<script src="../../bower_components/flot/jquery.flot.pie.js"></script>
+	<script src="../../bower_components/flot/jquery.flot.resize.js"></script>
+	<script src="../../bower_components/flot/jquery.flot.time.js"></script>
+	<script
+		src="../../bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
 
 </body>
 

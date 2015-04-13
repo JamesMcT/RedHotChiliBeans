@@ -57,7 +57,7 @@ function getRecordsByTac() {
 					var response = JSON.parse(xhr.responseText);
 					document.getElementById("searchResult").innerHTML = response;
 				}else{
-					document.getElementById("searchResult").innerHTML = 'Error ' + xhr.status + ': ' + xhr.responseText;
+					document.getElementById("searchResult").innerHTML = 'Error '  + ': ' + xhr.responseText;
 				}
 			}, false);
 			xhr.send();
@@ -83,7 +83,8 @@ function getRecordsByTac() {
 			for (var i = 0; i < tacs.length; i++) {
 				var tac = tacs[i].tac;
 				var opt = document.createElement("option");
-				opt.text = tac;
+				opt.text = tac + " - " + tacs[i].vendorName + " - "
+				+ tacs[i].model;
 				opt.value = tac;
 				dropdown.options.add(opt);
 			}
