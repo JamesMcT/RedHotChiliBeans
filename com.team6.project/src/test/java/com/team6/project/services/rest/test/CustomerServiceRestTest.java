@@ -131,15 +131,17 @@ public class CustomerServiceRestTest extends RestTest {
 	@Test
 	public void testFailureCount() {
 
-		Date d = new Date();
-		long endDate = d.getTime();
+	    long startDate = NetworkManagementRestServiceTest
+                .dateConvert("2013-02-20 21:01:00");
+        long endDate = NetworkManagementRestServiceTest
+                .dateConvert("2013-02-22 21:01:00");
 
 		given().filter(sessionFilter)
 				.expect()
 				.statusCode(200)
 				.when()
-				.get("protected/rest/customerservice/countImsi?imsi=191911000001049"
-						+ "&startDate=&endDate="+endDate);
+				.get("protected/rest/customerservice/countImsi?imsi=191911000456426"
+						+ "&startDate="+startDate+"&endDate="+endDate);
 	}
 
 	/**
