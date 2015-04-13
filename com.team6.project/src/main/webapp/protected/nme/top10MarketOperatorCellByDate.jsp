@@ -55,6 +55,7 @@
 <script>
 	//rework this
 	function getTOP10MarketOperatorCellByDate() {
+		hideDiv("panelChart");
 		var dates = getDatesFromDatePicker();
 		var fromDate = dates[0];
 		var toDate = dates[1];
@@ -76,9 +77,7 @@
 				} else {
 					cleanTable();
 					cleanError();
-					hideDiv("panelChart");
-					var message = 'Error ' +  ': '
-							+ xhr.responseText;
+					var message = 'Error ' + ': ' + xhr.responseText;
 					showError(message);
 				}
 			}, false);
@@ -86,7 +85,7 @@
 		} else {
 			cleanTable();
 			cleanError();
-			hideDiv("panelChart");
+			
 			var message = 'Error : Please select a value for both dates';
 			showError(message);
 		}
@@ -247,6 +246,17 @@
 				</div>
 
 				<div class="col-lg-12">
+					<div id="panelChart" class="panel panel-default"
+						style="display: none;">
+						<div class="panel-heading">Top Ten Market/Operator/CellID</div>
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+							<div class="flot-chart">
+								<div class="flot-chart-content" id="flot-bar-chart"></div>
+							</div>
+						</div>
+						<!-- /.panel-body -->
+					</div>
 					<div class="panel panel-default">
 						<div class="panel-heading">Table: Top 10
 							Market/Operator/Cell failure</div>
@@ -262,22 +272,6 @@
 						<!-- /#panel-body -->
 					</div>
 				</div>
-				<!-- /.col-lg-6 -->
-				<div class="col-lg-6">
-					<div id="panelChart" class="panel panel-default"
-						style="display: none;">
-						<div class="panel-heading">Top Ten Bar Chart</div>
-						<!-- /.panel-heading -->
-						<div class="panel-body">
-							<div class="flot-chart">
-								<div class="flot-chart-content" id="flot-bar-chart"></div>
-							</div>
-						</div>
-						<!-- /.panel-body -->
-					</div>
-					<!-- /.panel -->
-				</div>
-				<!-- /.col-lg-6 -->
 
 			</div>
 

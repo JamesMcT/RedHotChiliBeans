@@ -30,6 +30,17 @@
 <!-- Adding functions -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
+<!-- Flot Charts JavaScript -->
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot/excanvas.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.js"></script>
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.resize.js"></script>
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.time.js"></script>
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
 
 <!-- Adding functions -->
 <script src="${pageContext.request.contextPath}/js/common.js"></script>
@@ -40,6 +51,7 @@
 </script>
 <script>
 	function getFailureData() {
+		hideDiv("panelChart");
 		var dates = getDatesFromDatePicker(); 
 		var startDate = dates[0];
 		var endDate = dates[1];
@@ -61,6 +73,8 @@
 					createTableHead("failureDurationTable", [ "IMSI",
 							"Failure Count" ]);
 					createTableBody(response);
+					createBarChart(response);
+					showDiv("panelChart");
 				} else {
 					//bad request, dates could not be parsed. Or no results
 					cleanTable();
@@ -78,6 +92,46 @@
 			showError(message);
 		}
 	}
+	
+	function createBarChart(response) {
+		var max = 10;
+		var barDataArray = [];
+		if (response.length < 10) {
+			max = response.length;
+		}
+		for (var i = 0; i < max; i++) {
+			var imsi = response[i][0];
+			var failureCount= response[i][1];
+			barDataArray[i] = {
+				label : 'Imsi: ' + imsi + ' Failure Count: '
+						+ failureCount,
+				data : [ [ (i + 1),  failureCount] ]
+			}
+		}
+		var barOptions = {
+			series : {
+				bars : {
+					show : true,
+					barWidth : 0.8
+				}
+			},
+			xaxis : {
+				show : false
+			},
+			grid : {
+				hoverable : true
+			},
+			legend : {
+				show : false
+			},
+			tooltip : true,
+			tooltipOpts : {
+				content : '%s'
+			}
+		};
+		$.plot($('#flot-bar-chart'), barDataArray, barOptions);
+	}
+
 
 	function createTableBody(response) {
 		var table = document.getElementById("failureDurationTable");
@@ -177,6 +231,17 @@
 					<br>
 				</div>
 				<div class="col-lg-12">
+				<div id="panelChart" class="panel panel-default"
+						style="display: none;">
+						<div class="panel-heading">Top Ten Imsi</div>
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+							<div class="flot-chart">
+								<div class="flot-chart-content" id="flot-bar-chart"></div>
+							</div>
+						</div>
+						<!-- /.panel-body -->
+					</div>
 					<div class="panel panel-default">
 						<div class="panel-heading">IMSI and failure count.</div>
 						<div class="panel-body">

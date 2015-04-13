@@ -51,6 +51,7 @@
 	}
 
 	function getEventIdCauseCode() {
+		hideDiv("panelChart");
 		var tac = document.getElementById("tacs").value;
 		var xhr = new XMLHttpRequest();
 		var root = "${pageContext.servletContext.contextPath}";
@@ -67,8 +68,8 @@
 					showError("No data found for the selected user equipment");
 				} else {
 					createTableBody(response);
-					createPieChart(response);
-					showDiv("pieChart");
+					createBarChart(response);
+					showDiv("panelChart");
 				}
 			}
 		}, false);
@@ -111,49 +112,43 @@
 		getAllTacs();
 	}
 
-	//Flot Pie Chart
-	function createPieChart(response) {
-		var data = []
-		var other = 0;
+	function createBarChart(response) {
+		var barDataArray = [];
 		for (var i = 0; i < response.length; i++) {
 			var singleResponse = response[i];
 			var eventCause = singleResponse[0];
 			var occurence = singleResponse[1];
-			if (i < 10) {
-				data[i] = {
-					label : eventCause.eventId + " " + eventCause.causeCode,
-					data : occurence
-				}
-			} else {
-				other = other + occurence;
+			barDataArray[i] = {
+				label : "Envent Id: " + eventCause.eventId + " Cause Code: "
+						+ eventCause.causeCode,
+				data : [ [ (i + 1), occurence ] ]
 			}
 		}
-		if (other > 0) {
-			data[10] = {
-				label : "other",
-				data : other
-			}
-		}
-		var plotObj = $.plot($("#flot-pie-chart"), data, {
+		var barOptions = {
 			series : {
-				pie : {
-					show : true
+				bars : {
+					show : true,
+					barWidth : 0.8
 				}
+			},
+			xaxis : {
+				show : false
 			},
 			grid : {
 				hoverable : true
 			},
+			legend : {
+				show : false
+			},
 			tooltip : true,
 			tooltipOpts : {
-				content : "%p.0%, %s", // show percentages, rounding to 2 decimal places
-				shifts : {
-					x : 20,
-					y : 0
-				},
-				defaultTheme : false
+				content : '%s'
 			}
-		});
+		};
+		$.plot($('#flot-bar-chart'), barDataArray, barOptions);
 	}
+
+	
 </script>
 
 </head>
@@ -180,30 +175,25 @@
 						<!-- /#div1 -->
 					</div>
 					<br>
-				</div>
-				<div class="col-lg-6">
-					<div id="pieChart" class="panel panel-default"
+
+					<div id="panelChart" class="panel panel-default"
 						style="display: none;">
-						<div class="panel-heading">Top ten with max number of
-							occurrences</div>
+						<div class="panel-heading">Occurrences of Event Id/Cause Code per User Equipment</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body">
 							<div class="flot-chart">
-								<div class="flot-chart-content" id="flot-pie-chart"></div>
+								<div class="flot-chart-content" id="flot-bar-chart"></div>
 							</div>
 						</div>
 						<!-- /.panel-body -->
 					</div>
-					<!-- /.panel -->
-				</div>
-				<!-- /.col-lg-6 -->
-				<div class="col-lg-12">
+
 					<div class="panel panel-default">
 						<div class="panel-heading">Event Id Cause Code and Occurence
 							for selected UserEquipment</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
-							<div id="errorDiv"></div>
+								<div id="errorDiv"></div>
 								<table class="table table-striped table-bordered table-hover"
 									id="eventcauseTable">
 								</table>

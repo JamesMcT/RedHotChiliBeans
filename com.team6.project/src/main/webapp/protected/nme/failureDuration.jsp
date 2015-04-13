@@ -33,6 +33,19 @@
 <!-- Adding functions -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
+<!-- Flot Charts JavaScript -->
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot/excanvas.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.js"></script>
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.resize.js"></script>
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot/jquery.flot.time.js"></script>
+<script
+	src="${pageContext.request.contextPath}/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+
+
 <!-- Adding functions -->
 <script src="${pageContext.request.contextPath}/js/common.js"></script>
 
@@ -51,6 +64,7 @@
 		cleanTablePagination();
 		hideDiv("previous");
 		hideDiv("next");
+		hideDiv("panelChart");
 		var dates = getDatesFromDatePicker();
 		var startDate = dates[0];
 		var endDate = dates[1];
@@ -80,6 +94,8 @@
 											.ceil(tablepagination.data.length
 													/ parseFloat(tablepagination.recordPerPage));
 									createTableBody();
+									createBarChart(tablepagination.data);
+									showDiv("panelChart");
 								} else {
 									cleanTable();
 									cleanError();
@@ -137,6 +153,46 @@
 			tbody.appendChild(tr);
 		}
 		table.appendChild(tbody);
+	}
+
+	function createBarChart(response) {
+		var barDataArray = [];
+		var max = 30;
+		if (response.length < 20) {
+			max = response.length;
+		}
+		for (var i = 0; i < max; i++) {
+			var singleResponse = response[i];
+			var imsi = singleResponse[0];
+			var occurence = singleResponse[1];
+			var duration = singleResponse[2];
+			barDataArray[i] = {
+				label : "Imsi: " + imsi + " Total Duration: " + duration,
+				data : [ [ (i + 1), occurence ] ]
+			}
+		}
+		var barOptions = {
+			series : {
+				bars : {
+					show : true,
+					barWidth : 0.8
+				}
+			},
+			xaxis : {
+				show : false
+			},
+			grid : {
+				hoverable : true
+			},
+			legend : {
+				show : false
+			},
+			tooltip : true,
+			tooltipOpts : {
+				content : '%s'
+			}
+		};
+		$.plot($('#flot-bar-chart'), barDataArray, barOptions);
 	}
 
 	function previous() {
@@ -205,10 +261,21 @@
 
 					<br> <input id=button1 type='button' class="btn btn-default"
 						onclick="getFailureData()" value="Search" /> <br> <br>
+					<div id="panelChart" class="panel panel-default"
+						style="display: none;">
+						<div class="panel-heading">Top 30 Imsi affected by Call
+							Failure</div>
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+							<div class="flot-chart">
+								<div class="flot-chart-content" id="flot-bar-chart"></div>
+							</div>
+						</div>
+						<!-- /.panel-body -->
+					</div>
 					<div class="panel panel-default">
 						<div class="panel-heading">Table: IMSI, failure count, total
 							duration.</div>
-
 						<div class="panel-body">
 							<div class="dataTable_wrapper" id="dataTableDiv">
 								<div id="errorDiv"></div>
