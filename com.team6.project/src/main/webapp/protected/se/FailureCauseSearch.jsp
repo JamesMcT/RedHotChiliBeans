@@ -37,7 +37,7 @@
 	var tablepagination = {
 		"tablepage" : 0,
 		"maxpage" : 0,
-		"recordPerPage" : 50,
+		"recordPerPage" : 30,
 		"data" : []
 	}
 	function getAllFailureTypes() {
@@ -203,7 +203,7 @@
 				</div>
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Effected IMSI and Date.</div>
+						<div class="panel-heading">Affected IMSI and Date.</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper" id="dataTableDiv">
 								<div id="errorDiv"></div>

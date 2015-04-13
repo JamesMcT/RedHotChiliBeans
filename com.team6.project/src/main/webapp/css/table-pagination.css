@@ -1,6 +1,19 @@
-.linkblock{
-margin-left:43%
+.linkblock {
+	margin-left: 400px;
+	line-height: 1;
 }
-.nextlink{
-margin-left:5%
+
+.linkblock span {
+	display: inline-block;
+	font-size: 200%;
+	border: 1px solid;
+	border-radius: 5px;
+	padding: 5px 5px 5px 5px;
+	text-align: center;
+	background: #DDD;
+	margin-bottom: 10px;
+}
+
+.nextlink {
+	margin-left: 5%;
 }

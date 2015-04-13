@@ -28,12 +28,12 @@ function showLinkPrevNext(){
 	if(tablepagination.tablepage == 0){
 		hideDiv("previous");
 	}else{
-		showInLine("previous");
+		showDivInLine("previous");
 	}
 	if(tablepagination.tablepage == (tablepagination.maxpage-1)){
 		hideDiv("next");
 	}else{
-		showInLine("next");
+		showDivInLine("next");
 	}
 	
 }

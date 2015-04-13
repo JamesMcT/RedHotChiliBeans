@@ -113,7 +113,7 @@ function getRecordsByTac() {
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">User Equipment Time Count</h1>
+					<h1 class="page-header">User Equipment Failures Count</h1>
 					<p>Please select a user equipment code and a time period</p>
 					<div>
 						<div id="div1">
@@ -167,7 +167,7 @@ function getRecordsByTac() {
 
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Number of the search result</div>
+						<div class="panel-heading">Number of failures affecting the selected user equipment</div>
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
 								<div id="searchResult"></div>

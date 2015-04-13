@@ -52,6 +52,7 @@
 
 	function getEventIdCauseCode() {
 		hideDiv("panelChart");
+	    cleanTable();
 		var tac = document.getElementById("tacs").value;
 		var xhr = new XMLHttpRequest();
 		var root = "${pageContext.servletContext.contextPath}";
@@ -62,17 +63,15 @@
 			if (xhr.status == 200) {
 				cleanTable();
 				var response = JSON.parse(xhr.responseText);
-				createTableHead("eventcauseTable", [ "Event Id", "Cause Code",
-						"Description", "Occurence" ]);
-				if (response.lenght == 0) {
+				if (response.length == 0) {
 					showError("No data found for the selected user equipment");
 				} else {
+					createTableHead("eventcauseTable", [ "Event Id", "Cause Code",
+					             						"Description", "Occurence" ]);
 					createTableBody(response);
 					createBarChart(response);
 					showDiv("panelChart");
-				}
-			}
-		}, false);
+			}}}, false);
 		xhr.send();
 	}
 

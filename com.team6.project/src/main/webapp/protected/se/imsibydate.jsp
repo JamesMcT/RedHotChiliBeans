@@ -46,7 +46,7 @@
 	var tablepagination = {
 		"tablepage" : 0,
 		"maxpage" : 0,
-		"recordPerPage" : 50,
+		"recordPerPage" : 30,
 		"data" : []
 	}
 	function getImsiByDate() {
