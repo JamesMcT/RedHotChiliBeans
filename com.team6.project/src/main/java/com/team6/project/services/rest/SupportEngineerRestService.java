@@ -35,10 +35,12 @@ import com.team6.project.entities.Response;
 import com.team6.project.services.QueryServiceLocal;
 
 /**
+ * Restful Service Class for managing the Support Engineer requests
  * 
  * @author Sabee D14125306
  *
  */
+
 
 @Path("/basedata")
 public class SupportEngineerRestService {
@@ -49,6 +51,15 @@ public class SupportEngineerRestService {
 	public SupportEngineerRestService() {
 	}
 
+	/**
+	 * 
+	 * Count effected TAC in the given time period
+	 * 
+	 * @param tac, fromDate, toDate
+	 * @return
+	 */
+	
+	
 	@GET
 	@Path("/tac")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -65,6 +76,8 @@ public class SupportEngineerRestService {
 		return queryService.countCallFailureByTac(tac, fromDate, toDate);
 	}
 
+	
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -90,6 +103,16 @@ public class SupportEngineerRestService {
 
 	}
 
+	
+	/**
+	 * 
+	 * Find effected IMSI in the given time period
+	 * 
+	 * @param firstDate, secondDate
+	 * @return
+	 */
+	
+	
 	@GET
 	@Path("/datequery")
 	@Produces(MediaType.APPLICATION_JSON)
