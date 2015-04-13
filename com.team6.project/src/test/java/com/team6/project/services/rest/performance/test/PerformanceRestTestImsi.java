@@ -163,7 +163,7 @@ public class PerformanceRestTestImsi {
 								+ allImsi.get(j+i)
 								+ "&startDate="
 								+ startDateL
-								+ "1275239700000&endDate="
+								+ "&endDate="
 								+ endDateL);
 				long endTime = System.currentTimeMillis();
                 double timeTaken = (endTime - beginTime) / 1000.0;

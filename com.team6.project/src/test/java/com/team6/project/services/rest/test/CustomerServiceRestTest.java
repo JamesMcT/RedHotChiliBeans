@@ -61,7 +61,7 @@ public class CustomerServiceRestTest extends RestTest {
 	public void testEventCausePage() {
 
 		given().filter(sessionFilter)
-				.when().get("protected/csr/EventCauseSearch.html").then()
+				.when().get("protected/csr/EventCauseSearch.jsp").then()
 				.body(containsString("<title>Red Hot Chilli Beans</title>"));
 
 	}
@@ -139,7 +139,7 @@ public class CustomerServiceRestTest extends RestTest {
 				.statusCode(200)
 				.when()
 				.get("protected/rest/customerservice/countImsi?imsi=191911000001049"
-						+ "&startDate=1275239700000&endDate="+endDate);
+						+ "&startDate=&endDate="+endDate);
 	}
 
 	/**

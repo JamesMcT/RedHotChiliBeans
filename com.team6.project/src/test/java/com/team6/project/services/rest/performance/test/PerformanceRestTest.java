@@ -38,7 +38,7 @@ public class PerformanceRestTest {
 
     public final static String ARCHIVE_NAME = "test";
     public final static String WEBAPP_SRC = "src/main/webapp/protected";
-    public final static double MAX_QUERY_TIME = 2.0;
+    public final static double MAX_QUERY_TIME = 10.0;
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -91,9 +91,9 @@ public class PerformanceRestTest {
     private String startDate = "2012-01-01 00:00:00";// "2013-02-01 21:01:00";
     private String endDate = "2015-01-01 00:00:00";// "2013-03-21 21:01:00";
     private String[] tacs = { "100100", "101500", "102700", "103300", "103600",
-            "104600", "105500", "106900", "108100", "21060800", "33000153",
-            "33000253", "33000753", "33001235", "33001735", "33001953",
-            "33002135", "33002235", "33002353", "33002535", "33002635" };
+            "104600", "105500", "106900", "108100", "33000153", "33000753",
+            "33001235", "33001735", "33001953", "33002135", "33002235",
+            "33002353", "33002535", "33002635" };
 
     @Before
     public void setUp() throws InterruptedException {
@@ -174,11 +174,12 @@ public class PerformanceRestTest {
 
     @Test
     public void testFailedCallDurationEndpoint() {
-        
-      long startDateL = NetworkManagementRestServiceTest.dateConvert(startDate);
-      long endDateL = NetworkManagementRestServiceTest.dateConvert(endDate);
 
-       long beginTime = System.currentTimeMillis();
+        long startDateL = NetworkManagementRestServiceTest
+                .dateConvert(startDate);
+        long endDateL = NetworkManagementRestServiceTest.dateConvert(endDate);
+
+        long beginTime = System.currentTimeMillis();
 
         given().queryParam("startDate", startDateL)
                 .queryParam("endDate", endDateL)
@@ -198,33 +199,31 @@ public class PerformanceRestTest {
                                 new DecimalFormat("0.000").format(timeTaken)));
     }
 
- /*   @Test
-    public void testCountCallFailureByTac() {
-        given().filter(sessionFilter).when()
-                .get("/protected/rest/basedata/tac").then().statusCode(200);
-        long beginTime = System.currentTimeMillis();
-
-        given().auth().form("admin", "admin", fac).queryParam("tac", 21060800)
-                .queryParam("fromDate", startDate)
-                .queryParam("toDate", endDate)
-                .filter(sessionFilter).expect().statusCode(200)
-                .contentType(ContentType.JSON).when()
-                .get("/protected/rest/basedata/tac");
-
-        long endTime = System.currentTimeMillis();
-        double timeTaken = (endTime - beginTime) / 1000.0;
-        performanceLogger
-                .warn(String
-                        .format("SupportEngineer-CountCallFailureByTac : loading in (%s seconds)",
-                                new DecimalFormat("0.000").format(timeTaken)));
-    }*/
+    /*
+     * @Test public void testCountCallFailureByTac() {
+     * given().filter(sessionFilter).when()
+     * .get("/protected/rest/basedata/tac").then().statusCode(200); long
+     * beginTime = System.currentTimeMillis();
+     * 
+     * given().auth().form("admin", "admin", fac).queryParam("tac", 21060800)
+     * .queryParam("fromDate", startDate) .queryParam("toDate", endDate)
+     * .filter(sessionFilter).expect().statusCode(200)
+     * .contentType(ContentType.JSON).when()
+     * .get("/protected/rest/basedata/tac");
+     * 
+     * long endTime = System.currentTimeMillis(); double timeTaken = (endTime -
+     * beginTime) / 1000.0; performanceLogger .warn(String
+     * .format("SupportEngineer-CountCallFailureByTac : loading in (%s seconds)"
+     * , new DecimalFormat("0.000").format(timeTaken))); }
+     */
 
     @Test
     public void testGetAll() {
-        
-        long startDateL = NetworkManagementRestServiceTest.dateConvert(startDate);
+
+        long startDateL = NetworkManagementRestServiceTest
+                .dateConvert(startDate);
         long endDateL = NetworkManagementRestServiceTest.dateConvert(endDate);
-        
+
         long beginTime = System.currentTimeMillis();
         given().queryParam("firstDate", startDateL)
                 .queryParam("secondDate", endDateL).filter(sessionFilter)
@@ -243,56 +242,60 @@ public class PerformanceRestTest {
         return new FormAuthConfig("protected/j_security_check", "j_username",
                                   "j_password");
     }
-    
+
     @Test
     public void testGetTOP10MarketOperatorCellByDate() {
 
-        long startDateL = NetworkManagementRestServiceTest.dateConvert(startDate);
+        long startDateL = NetworkManagementRestServiceTest
+                .dateConvert(startDate);
         long endDateL = NetworkManagementRestServiceTest.dateConvert(endDate);
 
         long beginTime = System.currentTimeMillis();
-        given().queryParam("fromDate", startDateL).queryParam("toDate", endDateL)
-                .filter(sessionFilter).expect().statusCode(200)
-                .contentType(ContentType.JSON).when()
+        given().queryParam("fromDate", startDateL)
+                .queryParam("toDate", endDateL).filter(sessionFilter).expect()
+                .statusCode(200).contentType(ContentType.JSON).when()
                 .get("/protected/rest/networkmanagement/top10MOC");
 
         long endTime = System.currentTimeMillis();
         double timeTaken = (endTime - beginTime) / 1000.0;
         assertTrue(timeTaken < MAX_QUERY_TIME);
-        
+
         performanceLogger
-        .warn(String
-                .format("SupportEngineer-getAllIMSIinRangeTime : loading in (%s seconds)",
-                        new DecimalFormat("0.000").format(timeTaken)));
+                .warn(String
+                        .format("SupportEngineer-getAllIMSIinRangeTime : loading in (%s seconds)",
+                                new DecimalFormat("0.000").format(timeTaken)));
     }
 
     @Test
     public void testCountCallFailureUsingTac() {
-        long startDateL = NetworkManagementRestServiceTest.dateConvert(startDate);
+        long startDateL = NetworkManagementRestServiceTest
+                .dateConvert(startDate);
         long endDateL = NetworkManagementRestServiceTest.dateConvert(endDate);
-               
+
         for (int i = 0; i < tacs.length; i++) {
-	        long beginTime = System.currentTimeMillis();
-	        given().queryParam("tac", tacs[i])
-	                .queryParam("fromDate", startDateL)
-	                .queryParam("toDate", endDateL).filter(sessionFilter)
-	                .expect().statusCode(200).contentType(ContentType.JSON).when()
-	                .get("/protected/rest/supportengineer/tac");
-	        
-	        long endTime = System.currentTimeMillis();
-	        double timeTaken = (endTime - beginTime) / 1000.0;
-	        assertTrue(timeTaken < MAX_QUERY_TIME);
-	
-	        performanceLogger
-	        .warn(String
-	                .format("SupportEngineer-getAllIMSIinRangeTime : loading in (%s seconds)",
-	                        new DecimalFormat("0.000").format(timeTaken)));
+            long beginTime = System.currentTimeMillis();
+            int tacNo = Integer.parseInt(tacs[i]);
+            given().queryParam("tac", tacNo).queryParam("fromDate", startDateL)
+                    .queryParam("toDate", endDateL).filter(sessionFilter)
+                    .expect().statusCode(200).contentType(ContentType.JSON)
+                    .when().get("/protected/rest/supportengineer/tac");
+
+            long endTime = System.currentTimeMillis();
+            double timeTaken = (endTime - beginTime) / 1000.0;
+            assertTrue(timeTaken < MAX_QUERY_TIME);
+
+            performanceLogger
+                    .warn(String
+                            .format("SupportEngineer-getAllIMSIinRangeTime : loading in (%s seconds)",
+                                    new DecimalFormat("0.000")
+                                            .format(timeTaken)));
         }
     }
-    
+
     @Test
     public void testGetTopTenFailuresByDate() {
-    	long startDateL = NetworkManagementRestServiceTest.dateConvert(startDate);
+        long startDateL = NetworkManagementRestServiceTest
+                .dateConvert(startDate);
         long endDateL = NetworkManagementRestServiceTest.dateConvert(endDate);
 
         long beginTime = System.currentTimeMillis();
@@ -300,21 +303,22 @@ public class PerformanceRestTest {
                 .filter(sessionFilter).expect().statusCode(200)
                 .contentType(ContentType.JSON).when()
                 .get("/protected/rest/networkmanagement/toptenimsifailures");
-        
+
         long endTime = System.currentTimeMillis();
         double timeTaken = (endTime - beginTime) / 1000.0;
         assertTrue(timeTaken < MAX_QUERY_TIME);
 
         performanceLogger
-        .warn(String
-                .format("SupportEngineer-getAllIMSIinRangeTime : loading in (%s seconds)",
-                        new DecimalFormat("0.000").format(timeTaken)));
+                .warn(String
+                        .format("SupportEngineer-getAllIMSIinRangeTime : loading in (%s seconds)",
+                                new DecimalFormat("0.000").format(timeTaken)));
 
     }
-    
+
     @Test
     public void testGetAllImsiBetweeenSpecificDate() {
-    	long startDateL = NetworkManagementRestServiceTest.dateConvert(startDate);
+        long startDateL = NetworkManagementRestServiceTest
+                .dateConvert(startDate);
         long endDateL = NetworkManagementRestServiceTest.dateConvert(endDate);
 
         long beginTime = System.currentTimeMillis();
@@ -323,15 +327,15 @@ public class PerformanceRestTest {
                 .queryParam("secondDate", endDateL).filter(sessionFilter)
                 .expect().statusCode(200).contentType(ContentType.JSON).when()
                 .get("/protected/rest/supportengineer/datequery");
-        
+
         long endTime = System.currentTimeMillis();
         double timeTaken = (endTime - beginTime) / 1000.0;
         assertTrue(timeTaken < MAX_QUERY_TIME);
 
         performanceLogger
-        .warn(String
-                .format("SupportEngineer-getAllIMSIinRangeTime : loading in (%s seconds)",
-                        new DecimalFormat("0.000").format(timeTaken)));
+                .warn(String
+                        .format("SupportEngineer-getAllIMSIinRangeTime : loading in (%s seconds)",
+                                new DecimalFormat("0.000").format(timeTaken)));
     }
-    
+
 }
