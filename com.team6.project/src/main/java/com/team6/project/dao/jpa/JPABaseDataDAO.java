@@ -112,36 +112,37 @@ public class JPABaseDataDAO implements BaseDataDAO {
 		return result;
 	}
 
-	@Override
-	public Collection<BaseData> findByFailureType(FailureType failureType) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Collection<BaseData> findByFailureType(FailureType failureType) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
-	@Override
-	public Collection<BaseData> findByUserEquipment(UserEquipment userEquipment) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Collection<BaseData> findByUserEquipment(UserEquipment userEquipment) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
-	@Override
-	public Collection<BaseData> findByOperatorByMCC(Integer mcc) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Collection<BaseData> findByOperatorByMCC(Integer mcc) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
-	@Override
-	public Collection<BaseData> findByEventCause(EventCausePK eventCausePK) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Collection<BaseData> findByEventCause(EventCausePK eventCausePK) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
-	@Override
-	public Collection<BaseData> findByOperatorCountryPK(
-			OperatorCountryPK operatorCountryPK) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Collection<BaseData> findByOperatorCountryPK(
+//			OperatorCountryPK operatorCountryPK) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Object[]> findImsiByDate(Date firstDate, Date secondDate) {
@@ -214,13 +215,10 @@ public class JPABaseDataDAO implements BaseDataDAO {
     
     
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Collection<Object[]> getFailureCountAndDurationPerImsiByDate(Date start, Date end){
-    	
-    	//SimpleDateFormat sdf = new SimpleDateFormat(MYSQL_DATE_FORMAT);
-    	//String d1 = sdf.format(start);
-    	//String d2 = sdf.format(end);
-    	
+    	    	
     	Query q = em.createNamedQuery("failureCountAndDurationPerImsiByDate");
     	q.setParameter("startDate", start);
     	q.setParameter("endDate", end);

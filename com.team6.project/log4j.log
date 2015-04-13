@@ -1,14 +1,7 @@
-MSC service thread 1-1 INFO  services.DataImportService - atStartUp() running...
-MSC service thread 1-1 INFO  services.DataImportService - Readers Intialized...
-MSC service thread 1-1 INFO  services.DataImportService - startDirectoryWatcher() watching...
-Thread-65 INFO main WARN  readers.Reader - In sheet Failure Class Table row number 7 primary key not valued properly
-main WARN  readers.Reader - In sheet MCC - MNC Table row number 4 primary key not valued properly
-main WARN  readers.Reader - In sheet MCC - MNC Table row number 5 primary key not valued properly
-main WARN  readers.Reader - In sheet MCC - MNC Table row number 6 primary key not valued properly
-main WARN  readers.Reader - In sheet MCC - MNC Table row number 7 primary key not valued properly
-main WARN  readers.Reader - In sheet UE Table row number 3 primary key not valued properly
-main WARN  readers.Reader - In sheet UE Table row number 4 primary key not valued properly
-main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [1499:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+MSC service thread 1-7 INFO  services.DataImportService - atStartUp() running...
+MSC service thread 1-7 INFO  services.DataImportService - Readers Intialized...
+MSC service thread 1-7 INFO  services.DataImportService - startDirectoryWatcher() watching...
+Thread-70 INFOmain WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [1499:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
 main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [1681:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
 main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [1817:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
 main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [1824:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
@@ -80,6 +73,11 @@ main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/c
 main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/bootstrap.min.css' [7029:8] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
 main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/sb-admin-2.css' [26:7] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
 main WARN  htmlunit.DefaultCssErrorHandler - CSS error: 'http://localhost:8080/com.team6.project-0.0.1-SNAPSHOT/css/sb-admin-2.css' [135:7] Error in media list. (Invalid token "(". Was expecting one of: <S>, <IDENT>.)
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 4 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 5 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 6 primary key not valued properly
+main WARN  readers.Reader - In sheet MCC - MNC Table row number 7 primary key not valued properly
+main WARN  readers.Reader - In sheet UE Table row number 3 primary key not valued properly
+main WARN  readers.Reader - In sheet UE Table row number 4 primary key not valued properly
+main WARN  readers.Reader - In sheet Failure Class Table row number 7 primary key not valued properly
 main INFO  jmx.ArquillianServiceDeployer - Undeploy arquillian service: arquillian-service: 1069 assets
-Remoting "management-client" read-1 ERROR remote.connection - JBREM000200: Remote connection failed: java.io.IOException: An existing connection was forcibly closed by the remote host
-Remoting "endpoint" read-1 ERROR remote.connection - JBREM000200: Remote connection failed: java.io.IOException: An existing connection was forcibly closed by the remote host
