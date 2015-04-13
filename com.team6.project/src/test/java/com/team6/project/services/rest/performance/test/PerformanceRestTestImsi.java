@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -114,7 +115,9 @@ public class PerformanceRestTestImsi {
                 .getAllImsi();
         int j = 0;
         while (j < allImsi.size()) {
-            for (int i = 0; i < 10; i++) {
+        	for (int i = 0; i < 10; i++) {
+        		if (i+j >= allImsi.size()) break;
+        		
                 long beginTime = System.currentTimeMillis();
                 given().filter(sessionFilter)
                         .expect()
@@ -122,11 +125,15 @@ public class PerformanceRestTestImsi {
                         .contentType(ContentType.JSON)
                         .when()
                         .get("/protected/rest/customerservice/uniqueec/"
-                                + allImsi.get(i));
+                                + allImsi.get(j+i));
                 long endTime = System.currentTimeMillis();
                 double timeTaken = (endTime - beginTime) / 1000.0;
-                assertTrue(timeTaken < MAX_QUERY_TIME);
-
+                assertTrue(timeTaken < MAX_QUERY_TIME);     
+                
+                performanceLogger
+                .warn(String
+                        .format("SupportEngineer-getAllIMSIinRangeTime : loading in (%s seconds)",
+                                new DecimalFormat("0.000").format(timeTaken)));
             }
             j = j + 2000;
             Thread.sleep(50);
@@ -145,18 +152,27 @@ public class PerformanceRestTestImsi {
         int j = 0;
         while (j < allImsi.size()) {
         	for (int i = 0; i < 10; i++) {
-    	
+        		if (i+j >= allImsi.size()) break;
 		
+        		long beginTime = System.currentTimeMillis();
 				given().filter(sessionFilter)
 						.expect()
 						.statusCode(200)
 						.when()
 						.get("protected/rest/customerservice/countImsi?imsi="
-								+ allImsi.get(i)
+								+ allImsi.get(j+i)
 								+ "&startDate="
 								+ startDateL
 								+ "1275239700000&endDate="
 								+ endDateL);
+				long endTime = System.currentTimeMillis();
+                double timeTaken = (endTime - beginTime) / 1000.0;
+                assertTrue(timeTaken < MAX_QUERY_TIME);  
+               
+                performanceLogger
+                .warn(String
+                        .format("SupportEngineer-getAllIMSIinRangeTime : loading in (%s seconds)",
+                                new DecimalFormat("0.000").format(timeTaken)));
         	}	
         	j = j + 2000;
             Thread.sleep(50);
