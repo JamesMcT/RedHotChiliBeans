@@ -59,8 +59,9 @@ public class CustomerServiceRestTest extends RestTest {
 	 */
 	@Test
 	public void testEventCausePage() {
-		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
-				.when().get("protected/csr/EventCauseSearch.jsp").then()
+
+		given().filter(sessionFilter)
+				.when().get("protected/csr/EventCauseSearch.html").then()
 				.body(containsString("<title>Red Hot Chilli Beans</title>"));
 
 	}
@@ -70,7 +71,7 @@ public class CustomerServiceRestTest extends RestTest {
 	 */
 	@Test
 	public void testGetEventCause() {
-		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+		given().filter(sessionFilter)
 				.expect().statusCode(200).when()
 				.get("protected/rest/customerservice/191911000423586").then()
 				.contentType(ContentType.JSON);
@@ -83,7 +84,7 @@ public class CustomerServiceRestTest extends RestTest {
 
 	@Test
 	public void testNoInput() {
-		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+		given().filter(sessionFilter)
 				.expect().statusCode(404).when()
 				.get("procted/rest/customerservice/");
 
@@ -94,7 +95,7 @@ public class CustomerServiceRestTest extends RestTest {
 	 */
 	@Test
 	public void testInvalidInputType() {
-		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+		given().filter(sessionFilter)
 				.expect().statusCode(400).when()
 				.get("protected/rest/customerservice/A");
 	}
@@ -104,7 +105,7 @@ public class CustomerServiceRestTest extends RestTest {
 	 */
 	@Test
 	public void testUniqueCauseCodePage() {
-		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+		given().filter(sessionFilter)
 				.expect().statusCode(200).when()
 				.get("protected/rest/customerservice/uniqueec/191911000423586")
 				.then().contentType(ContentType.JSON);
@@ -117,7 +118,7 @@ public class CustomerServiceRestTest extends RestTest {
 	 */
 	@Test
 	public void testFailureCountPage() {
-		given().auth().form("cusSer", "cusSer", fac).filter(sessionFilter)
+		given().filter(sessionFilter)
 				.when().get("protected/csr/FailureCount.jsp").then()
 				.body(containsString("<title>Red Hot Chilli Beans</title>"));
 
@@ -135,12 +136,32 @@ public class CustomerServiceRestTest extends RestTest {
 
 		given().filter(sessionFilter)
 				.expect()
-				.statusCode(404)
+				.statusCode(200)
 				.when()
 				.get("protected/rest/customerservice/countImsi?imsi=191911000001049"
 						+ "&startDate=1275239700000&endDate="+endDate);
 	}
 
+	/**
+	 * Test FailureCount Query returns valid status code and JSON response with
+	 * a valid input. The date range has been set to 2010-05-30 in one minute period
+	 * in which we have no data in the database
+	 */	
+	@Test
+	public void testFailureCount_emptySet() {
+
+		Date d = new Date();
+		long endDate = d.getTime();
+
+		given().filter(sessionFilter)
+				.expect()
+				.statusCode(404)
+				.when()
+				.get("protected/rest/customerservice/countImsi?imsi=191911000001049"
+						+ "&startDate=1275239700000&endDate==1275239760000");
+	}
+	
+	
 	/**
 	 * Test that invalid data will return the correct HTTP status code (400 =
 	 * Bad Request)
