@@ -57,7 +57,7 @@
 	var tablepagination = {
 		"tablepage" : 0,
 		"maxpage" : 0,
-		"recordPerPage" : 50,
+		"recordPerPage" : 30,
 		"data" : []
 	}
 	function getFailureData() {
@@ -93,9 +93,7 @@
 									tablepagination.maxpage = Math
 											.ceil(tablepagination.data.length
 													/ parseFloat(tablepagination.recordPerPage));
-									createTableBody();
-									createBarChart(tablepagination.data);
-									showDiv("panelChart");
+									createTableBodyAndChart();
 								} else {
 									cleanTable();
 									cleanError();
@@ -113,8 +111,9 @@
 		}
 	}
 
-	function createTableBody() {
+	function createTableBodyAndChart() {
 		showLinkPrevNext();
+		var data = [];
 		var table = document.getElementById("failureDurationTable");
 		if (document.getElementById("tableBody")) {
 			document.getElementById("tableBody").parentNode
@@ -130,7 +129,7 @@
 		for (var i = (tablepagination.recordPerPage * tablepagination.tablepage); i < max; i++) {
 
 			var singleResponse = tablepagination.data[i];
-
+			data.push(tablepagination.data[i]);
 			var tr = document.createElement("tr");
 
 			if (i % 2) {
@@ -153,6 +152,9 @@
 			tbody.appendChild(tr);
 		}
 		table.appendChild(tbody);
+
+		createBarChart(data);
+		showDiv("panelChart");
 	}
 
 	function createBarChart(response) {
@@ -197,13 +199,13 @@
 
 	function previous() {
 		tablepagination.tablepage = tablepagination.tablepage - 1;
-		createTableBody();
+		createTableBodyAndChart();
 
 	}
 
 	function next() {
 		tablepagination.tablepage = tablepagination.tablepage + 1;
-		createTableBody();
+		createTableBodyAndChart();
 
 	}
 
@@ -273,6 +275,12 @@
 						</div>
 						<!-- /.panel-body -->
 					</div>
+					<div class="linkblock">
+						<span id="previous" style="display: none"><a
+							onclick="previous()" href="javascript:void(0);"> prev </a></span> <span
+							id="next" style="display: none" class="nextlink"><a
+							onclick="next()" href="javascript:void(0);"> next </a></span>
+					</div>
 					<div class="panel panel-default">
 						<div class="panel-heading">Table: IMSI, failure count, total
 							duration.</div>
@@ -283,12 +291,6 @@
 								<table class="table table-striped table-bordered table-hover"
 									id="failureDurationTable">
 								</table>
-								<div class="linkblock">
-									<span id="previous" style="display: none"><a
-										onclick="previous()" href="javascript:void(0);"> prev </a></span> <span
-										id="next" style="display: none" class="nextlink"><a
-										onclick="next()" href="javascript:void(0);"> next </a></span>
-								</div>
 							</div>
 						</div>
 						<!-- /#div1 -->
