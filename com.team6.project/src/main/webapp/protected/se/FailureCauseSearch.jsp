@@ -41,9 +41,7 @@
 		"data" : []
 	}
 	function getAllFailureTypes() {
-		cleanTablePagination();
-		hideDiv("previous");
-		hideDiv("next");
+
 		var tacs = {};
 		var dropdown = document.getElementById("failureCode");
 		var xhr = new XMLHttpRequest();
@@ -66,6 +64,9 @@
 		}
 	}
 	function getFailureData() {
+		cleanTablePagination();
+		hideDiv("previous");
+		hideDiv("next");
 		var failureCode = document.getElementById("failureCode").value;
 		if (validateFailureCode(failureCode) == true) {
 			var xhr = new XMLHttpRequest();
