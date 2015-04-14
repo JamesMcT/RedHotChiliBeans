@@ -53,6 +53,7 @@
 	function getEventIdCauseCode() {
 		hideDiv("panelChart");
 	    cleanTable();
+	    cleanError();
 		var tac = document.getElementById("tacs").value;
 		var xhr = new XMLHttpRequest();
 		var root = "${pageContext.servletContext.contextPath}";
@@ -210,24 +211,6 @@
 		</div>
 	</div>
 	<!-- /#wrapper -->
-
-	<!-- jQuery -->
-	<script src="../../js/jquery.min.js"></script>
-
-	<!-- Bootstrap Core JavaScript -->
-	<script src="../../js/bootstrap.min.js"></script>
-
-	<!-- Metis Menu Plugin JavaScript -->
-	<script src="../../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-	<!-- Flot Charts JavaScript -->
-	<script src="../../bower_components/flot/excanvas.min.js"></script>
-	<script src="../../bower_components/flot/jquery.flot.js"></script>
-	<script src="../../bower_components/flot/jquery.flot.pie.js"></script>
-	<script src="../../bower_components/flot/jquery.flot.resize.js"></script>
-	<script src="../../bower_components/flot/jquery.flot.time.js"></script>
-	<script
-		src="../../bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
 
 </body>
 
