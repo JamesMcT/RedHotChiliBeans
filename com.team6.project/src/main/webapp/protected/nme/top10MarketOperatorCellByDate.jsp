@@ -198,7 +198,7 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">TOP 10 Market/Operator/Cell By Date</h1>
+					<h1 class="page-header">TOP 10 Call Failure Locations</h1>
 					<p>Please give a time period</p>
 					<div>
 						<div id="div1">
@@ -248,7 +248,7 @@
 				<div class="col-lg-12">
 					<div id="panelChart" class="panel panel-default"
 						style="display: none;">
-						<div class="panel-heading">Top Ten Market/Operator/CellID</div>
+						<div class="panel-heading">Top Ten Call Failure Locations</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body">
 							<div class="flot-chart">
