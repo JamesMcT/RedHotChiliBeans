@@ -265,7 +265,7 @@
 						onclick="getFailureData()" value="Search" /> <br> <br>
 					<div id="panelChart" class="panel panel-default"
 						style="display: none;">
-						<div class="panel-heading">Top 30 Imsi affected by Call
+						<div class="panel-heading">Imsi affected by Call
 							Failure</div>
 						<!-- /.panel-heading -->
 						<div class="panel-body">
